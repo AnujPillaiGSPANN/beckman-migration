@@ -29,6 +29,17 @@
   line-height: var(--body-line-height);
 }
 
+/* links in the lists keep the 16px rich-text link size (their line grows to 26.4px) */
+.feature-modules .feature-modules-col li a {
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+/* a description paragraph (source .bc-rich-text-desc) has no margins */
+.feature-modules .feature-modules-col :is(h2, h3, h4, h5, h6) + p {
+  margin: 0;
+}
+
 /* breakpoint-exception: source .bc-columns is display: block below 768px */
 @media (width >= 768px) {
   .feature-modules .feature-modules-row {
@@ -39,6 +50,11 @@
     flex: 0 0 auto;
     box-sizing: border-box;
     width: 33.3333%;
+  }
+
+  /* source .col-xs-3: four modules share the row */
+  .feature-modules.feature-modules-4-cols .feature-modules-col {
+    width: 25%;
   }
 }
 

@@ -137,10 +137,72 @@ main .table-comparison .table-comparison-labels .table-comparison-cta a.button:a
   color: #fff;
 }
 
+/* --- 2 models (Echo): source .comparison-table-large (3 x 1fr grid, no scroll padding) ---
+   10px padding (cancelled by negative margins) keeps the column shadows inside the scroller */
+.table-comparison.table-comparison-2-models {
+  margin: -10px;
+  padding: 10px;
+}
+
+.table-comparison-2-models .table-comparison-cell p,
+.table-comparison-2-models .table-comparison-name p {
+  margin: 0;
+}
+
+/* source .ct2/.ct14 img (width: 50%); the commented-out .ct3 row adds one more 15px row gap */
+.table-comparison-2-models .table-comparison-image {
+  margin-bottom: 15px;
+}
+
+.table-comparison-2-models .table-comparison-image img {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.table-comparison-2-models .table-comparison-value {
+  padding-bottom: 0;
+  font-size: inherit;
+}
+
+.table-comparison-2-models .table-comparison-model .table-comparison-value {
+  text-align: center;
+}
+
+/* source .ct16-.ct36 check marks */
+.table-comparison-2-models .table-comparison-check {
+  color: #ea1c2c;
+  font-size: 125%;
+}
+
+.table-comparison-2-models .table-comparison-cta {
+  padding-bottom: 0;
+}
+
+/* breakpoint-exception: source .ct12 is display: none up to exactly 572px */
+@media (width >= 573px) {
+  main .table-comparison-2-models .table-comparison-labels .table-comparison-cta a:any-link,
+  main .table-comparison-2-models .table-comparison-labels .table-comparison-cta a.button:any-link {
+    display: inline-block;
+  }
+}
+
+/* footnote below the 2-model table: source div (width: 80%) > p (font-size: 75%; margin-top: 30px) */
+main .section .table-comparison-wrapper:has(.table-comparison-2-models) + .default-content-wrapper > p:first-child {
+  width: 80%;
+  margin: 30px auto 12px;
+  font-size: 75%;
+  text-align: start;
+}
+
 /* breakpoint-exception: source container is 750px wide from exactly 768px */
 @media (width >= 768px) {
   .table-comparison {
     max-width: 720px;
+  }
+
+  .table-comparison.table-comparison-2-models {
+    max-width: none;
+    margin: -10px calc((100% - 720px) / 2 - 10px);
   }
 }
 
@@ -148,6 +210,10 @@ main .table-comparison .table-comparison-labels .table-comparison-cta a.button:a
 @media (width >= 992px) {
   .table-comparison {
     max-width: 940px;
+  }
+
+  .table-comparison.table-comparison-2-models {
+    margin: -10px calc((100% - 940px) / 2 - 10px);
   }
 
   main .table-comparison .table-comparison-labels .table-comparison-cta a:any-link,
@@ -159,5 +225,17 @@ main .table-comparison .table-comparison-labels .table-comparison-cta a.button:a
 @media (width >= 1200px) {
   .table-comparison {
     max-width: 1140px;
+  }
+
+  .table-comparison.table-comparison-2-models {
+    margin: -10px calc((100% - 1140px) / 2 - 10px);
+  }
+}
+
+/* breakpoint-exception: source .comparison-table-large is 80% wide from exactly 1000px */
+@media (width >= 1000px) {
+  .table-comparison-2-models .table-comparison-grid {
+    width: 80%;
+    margin: 0 auto;
   }
 }

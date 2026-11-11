@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-gradient",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "2x2 grid of grey text cards with a 4px red-to-purple gradient top border, heading, text and a right-aligned red outline button; hover lift",
+    "description": "cards-faq is grey text-only boxes but stacked full width, left grey border, no button; cards-icon is borderless icon tiles 4/row; cards-resource/cards-product carry images. This is 2/row text cards with a gradient top border and a right-aligned outline CTA, hover lift: under 80% similar to all."
+  },
+  "contentPattern": {
+    "summary": "4 grey cards in a 2x2 grid (1/row mobile), 4px red-to-purple gradient top border, title, paragraph, right-aligned red outline button; each links to a detail page",
+    "structure": "one row per card, one rich text cell `text`: heading (h3) + paragraph(s) + em-wrapped link (outline button)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-gradient"
+  ],
+  "sourceUrl": "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
+  "sourceUrls": [
+    "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/cell-counters-and-analyzers/vi-cell-blu"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-11"
+  },
+  "reuseGuidance": "Use for 2-up \"explore more\" link cards without images. For static Q&A boxes use cards-faq.",
+  "usageDescription": "2x2 grid of grey text cards with a 4px red-to-purple gradient top border, heading, text and a right-aligned red outline button; hover lift."
+}

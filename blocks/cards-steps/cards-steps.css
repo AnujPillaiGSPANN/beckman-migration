@@ -1,0 +1,159 @@
+/* Cards (steps) – source: div.sample-analysis-wf.container-row > div.step
+   (bordered card, 300px photo, .step-name h4 bar coloured by position) and, for the
+   "exchange" option, div.carousel-plate with div.arrows-container (→ / ←) between two steps */
+.cards-steps {
+  --cards-steps-color-1: #6f295b;
+  --cards-steps-color-2: #0d426a;
+  --cards-steps-color-3: #0098ce;
+}
+
+.cards-steps .cards-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-steps .cards-steps-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid lightgray;
+  border-radius: 6px;
+  padding: 16px;
+  background-color: #fff;
+  color: var(--text-color);
+}
+
+.cards-steps .cards-steps-card:hover {
+  background-color: #f0f0f0;
+}
+
+.cards-steps .cards-steps-card-image {
+  width: 100%;
+}
+
+.cards-steps .cards-steps-card-image picture,
+.cards-steps .cards-steps-card-image img {
+  display: block;
+  width: 100%;
+}
+
+/* source: inline height 300px, object-fit cover, focus slightly above centre */
+.cards-steps .cards-steps-card-image img {
+  height: 300px;
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+/* exchange: source .step img has no inline height, only height: 60% of the card; stacked
+   (indefinite card height) that falls back to the natural image ratio */
+.cards-steps.exchange .cards-steps-card-image img {
+  height: auto;
+}
+
+.cards-steps .cards-steps-card-body {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 16px;
+}
+
+.cards-steps .cards-steps-card-body p {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+/* label bar: source .sample-analysis-wf h4 (white on the position colour, 42px high) */
+.cards-steps .cards-steps-card-body .cards-steps-card-label {
+  box-sizing: border-box;
+  min-width: 90px;
+  height: 42px;
+  margin: 20px 0;
+  border-radius: 2px;
+  padding: 0 16px;
+  background-color: var(--cards-steps-color-1);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 42px;
+  text-align: center;
+}
+
+.cards-steps .cards-steps-card:nth-of-type(3n + 2) .cards-steps-card-label {
+  background-color: var(--cards-steps-color-2);
+}
+
+.cards-steps .cards-steps-card:nth-of-type(3n) .cards-steps-card-label {
+  background-color: var(--cards-steps-color-3);
+}
+
+/* exchange: purple then cyan */
+.cards-steps.exchange .cards-steps-card:nth-child(4n + 3) .cards-steps-card-label {
+  background-color: var(--cards-steps-color-3);
+}
+
+.cards-steps.exchange .cards-steps-card:nth-child(4n + 1) .cards-steps-card-label {
+  background-color: var(--cards-steps-color-1);
+}
+
+/* exchange arrows: source .arrows-container (24px wide) with two 38px glyphs. Stacked, the
+   glyphs are hidden but the empty container stays (one extra list gap between the cards) */
+.cards-steps .cards-steps-exchange {
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  width: 24px;
+}
+
+.cards-steps .cards-steps-exchange-arrow {
+  display: none;
+}
+
+/* breakpoint-exception: source .container-row stacks below 768px */
+@media (width >= 768px) {
+  .cards-steps .cards-steps-list {
+    flex-direction: row;
+  }
+
+  .cards-steps .cards-steps-card {
+    flex: 1 1 0%;
+    width: 40%;
+    max-width: 400px;
+  }
+
+  .cards-steps.exchange .cards-steps-card {
+    width: 50%;
+  }
+
+  /* source .step img { height: 60% } of the stretched card; the row height comes from the
+     tallest card with a square image (the plate photo), independent of load state */
+  .cards-steps.exchange .cards-steps-card-image {
+    height: 60%;
+  }
+
+  .cards-steps.exchange .cards-steps-card-image picture {
+    height: 100%;
+  }
+
+  .cards-steps.exchange .cards-steps-card-image img {
+    height: 100%;
+    aspect-ratio: 1;
+  }
+
+  /* source .carousel-plate .line-arrow-container: height 20%, 38px glyph, body line-height */
+  .cards-steps .cards-steps-exchange-arrow {
+    display: block;
+    height: 20%;
+    color: var(--text-color);
+    font-size: 38px;
+    line-height: 1.65;
+  }
+}

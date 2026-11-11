@@ -9,13 +9,16 @@ import mediaSplitParser from './parsers/media-split.js';
 import cardsScrollParser from './parsers/cards-scroll.js';
 import carouselProductParser from './parsers/carousel-product.js';
 import embedMarketoParser from './parsers/embed-marketo.js';
+import accordionFaqParser from './parsers/accordion-faq.js';
+import carouselTestimonialParser from './parsers/carousel-testimonial.js';
 import cleanupTransformer from './transformers/beckman-cleanup.js';
 import sectionsTransformer from './transformers/beckman-sections.js';
 
 const PAGE_TEMPLATE = {
   "name": "product-series",
   "urls": [
-    "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+    "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+    "https://www.beckman.com/liquid-handlers/echo-acoustic"
   ],
   "description": "Product series page: video hero, intro with video, benefits icon accordion, model comparison, custom automation media columns, brochure and application scroll strips, related products slider, Marketo contact form.",
   "blocks": [
@@ -66,6 +69,18 @@ const PAGE_TEMPLATE = {
       "name": "embed-marketo",
       "instances": [
         "div.formassembly-container.marketo-two-column"
+      ]
+    },
+    {
+      "name": "accordion-faq",
+      "instances": [
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(5)"
+      ]
+    },
+    {
+      "name": "carousel-testimonial",
+      "instances": [
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(7)"
       ]
     }
   ],
@@ -146,7 +161,134 @@ const PAGE_TEMPLATE = {
         "div.formassembly-container + div.bc-rich-text"
       ]
     }
-  ]
+  ],
+  "pages": {
+    "https://www.beckman.com/liquid-handlers/echo-acoustic": {
+      "blocks": {
+        "hero-video": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(2)"
+        ],
+        "intro-video": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(3)"
+        ],
+        "accordion-icon-grid": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(4) > div.block > div.bc-rich-text:nth-of-type(1) > div.containercustom"
+        ],
+        "table-comparison": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(4) > div.block > div.bc-rich-text:nth-of-type(2) > div.containercustom > div.comparison-table-large"
+        ],
+        "media-split": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(4) > div.block > div.bc-rich-text:nth-of-type(4) > div.containercustom > div.row"
+        ],
+        "cards-scroll": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(4) > div.block > div.bc-rich-text:nth-of-type(5) > div.containercustom > div.brochures",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(8) > div.block > div.bc-rich-text:nth-of-type(3) > div.containercustom > div.LatestNews"
+        ],
+        "accordion-faq": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(5)"
+        ],
+        "carousel-testimonial": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(7)"
+        ],
+        "carousel-product": [
+          "#related-parts-wrapper"
+        ],
+        "embed-marketo": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(8) > div.block > div.formassembly-container.marketo-two-column"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero with looping background video",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-video"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Intro copy beside lab image",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(3)"
+          ],
+          "style": null,
+          "blocks": [
+            "intro-video"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Benefits, model comparison, custom automation, brochures",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(4) > div.block > div.bc-rich-text:nth-of-type(1)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "accordion-icon-grid",
+            "table-comparison",
+            "media-split",
+            "cards-scroll"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "FAQ accordion",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(4) > div.block > div.bc-rich-text:nth-of-type(6)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "accordion-faq"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "Customer testimonials",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(6) > div.block > div.bc-rich-text:nth-of-type(2)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "carousel-testimonial"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Related products and applications",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(8) > div.block > div.bc-rich-text:nth-of-type(1)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "carousel-product",
+            "cards-scroll"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Contact Us form",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout:nth-of-type(8) > div.block > div.bc-rich-text:nth-of-type(4)"
+          ],
+          "style": "light-grey, centered",
+          "blocks": [
+            "embed-marketo"
+          ],
+          "defaultContent": []
+        }
+      ]
+    }
+  }
 };
 
 const parsers = {
@@ -158,6 +300,8 @@ const parsers = {
   'cards-scroll': cardsScrollParser,
   'carousel-product': carouselProductParser,
   'embed-marketo': embedMarketoParser,
+  'accordion-faq': accordionFaqParser,
+  'carousel-testimonial': carouselTestimonialParser,
 };
 // Late transformers change the DOM (section <hr> markers, shared fragments), so their beforeTransform
 // runs after block discovery.
@@ -178,6 +322,17 @@ function executeTransformers(hookName, element, payload, list = transformers) {
   });
 }
 
+// Per-page block + section selectors (template.pages[url]) for pages whose layout differs from the
+// template's shared selectors. Pages without an entry use the shared blocks[].instances / sections.
+function pageMapping(template, url) {
+  const key = (u) => {
+    try { const { origin, pathname } = new URL(u); return `${origin}${pathname.replace(/\/$/, '')}`; }
+    catch { return u; }
+  };
+  const entry = Object.entries(template.pages || {}).find(([u]) => key(u) === key(url));
+  return entry ? entry[1] : null;
+}
+
 function findBlocksOnPage(document, template, url) {
   const pageBlocks = [];
   const pageKey = (u) => {
@@ -193,6 +348,12 @@ function findBlocksOnPage(document, template, url) {
       pageBlocks.push({ name: blockDef.name, selector, element });
     });
   };
+  // a page mapped on its own (template.pages) uses only its own selectors
+  const own = pageMapping(template, url);
+  if (own) {
+    template.blocks.forEach((blockDef) => (own.blocks[blockDef.name] || []).forEach((selector) => claim(blockDef, selector)));
+    return pageBlocks;
+  }
   template.blocks.forEach((blockDef) => {
     const entry = Object.entries(blockDef.pageInstances || {}).find(([u]) => pageKey(u) === key);
     (entry ? entry[1] : []).forEach((selector) => claim(blockDef, selector));
@@ -210,7 +371,8 @@ function markPageTargets(payload) {
     element.setAttribute('data-excat-block', String(i));
     return { name, selector };
   });
-  const sections = (PAGE_TEMPLATE.sections || []).map((section, i) => {
+  const own = pageMapping(PAGE_TEMPLATE, params.originalURL);
+  const sections = ((own && own.sections) || PAGE_TEMPLATE.sections || []).map((section, i) => {
     const target = (section.selector || []).map((s) => { try { return document.querySelector(s); } catch { return null; } }).find(Boolean);
     if (!target) return section;
     target.setAttribute('data-excat-section', String(i));
@@ -222,7 +384,7 @@ function markPageTargets(payload) {
 export default {
   preprocess: (payload) => {
     executeTransformers('preprocess', payload.document.body, payload, earlyTransformers);
-    if (CATALOG) markPageTargets(payload);
+    if (CATALOG || pageMapping(PAGE_TEMPLATE, payload.params.originalURL)) markPageTargets(payload);
   },
   transform: (payload) => {
     const { document, url, params } = payload;

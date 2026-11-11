@@ -1,0 +1,257 @@
+/* Cards (doclist) – source: #product-documentation-wrapper .content-resource-wrapper
+   (#multiselect__container filter, .content-resource-list-wrapper, #resource-table-pagination) */
+.cards-doclist {
+  --cards-doclist-accent: #168cdb;
+  --cards-doclist-page-color: #007acb;
+  --cards-doclist-page-hover: #005b98;
+}
+
+/* filter: "Filter by:" + "Resource Type" multi-select dropdown */
+.cards-doclist .cards-doclist-filter {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 15px;
+}
+
+.cards-doclist .cards-doclist-filter-heading {
+  margin: 0 10px 0 0;
+  font-size: var(--body-font-size-s);
+  font-weight: 700;
+  line-height: 1.65;
+}
+
+.cards-doclist .cards-doclist-dropdown {
+  position: relative;
+}
+
+.cards-doclist .cards-doclist-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  margin: 0;
+  border: 2px solid transparent;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  color: var(--cards-doclist-accent);
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+}
+
+/* caret: source .resource-type-dropdown-icon (4px border triangle) */
+.cards-doclist .cards-doclist-dropdown-toggle::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  border-top: 4px solid;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  transform: translateY(1px);
+}
+
+.cards-doclist .cards-doclist-dropdown-toggle:focus-visible {
+  border-color: #001726;
+  outline: none;
+}
+
+.cards-doclist .cards-doclist-dropdown-panel {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  z-index: 99;
+  width: calc(100% + 1px);
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 8px 6px -6px rgb(0 0 0 / 20%);
+}
+
+.cards-doclist .cards-doclist-dropdown-panel[hidden] {
+  display: none;
+}
+
+.cards-doclist .cards-doclist-dropdown-options {
+  max-height: 200px;
+  overflow: auto;
+  padding: 10px;
+}
+
+.cards-doclist .cards-doclist-dropdown-options label {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.cards-doclist .cards-doclist-dropdown-options input {
+  margin: 4px 5px 0 0;
+}
+
+.cards-doclist .cards-doclist-dropdown-done {
+  display: block;
+  margin: 10px 10px 10px auto;
+  border: 2px solid transparent;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  color: var(--cards-doclist-accent);
+  font-size: var(--body-font-size-s);
+  font-weight: 400;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cards-doclist .cards-doclist-dropdown-done:focus-visible {
+  border-color: #001726;
+  outline: none;
+}
+
+/* list: one document per line, icon + title (+ one-line description) */
+.cards-doclist .cards-doclist-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-doclist .cards-doclist-item {
+  display: flex;
+  flex-basis: 100%;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 0;
+  margin: 0 0 15px;
+}
+
+.cards-doclist .cards-doclist-item[hidden] {
+  display: none;
+}
+
+/* source icon: Font Awesome at 1.7rem (17px) in #168cdb, centred on the 26.4px title line */
+
+/* source i.far/.fas: 17px glyph box, 3px below the item top */
+.cards-doclist .cards-doclist-icon {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  box-sizing: border-box;
+  height: calc(var(--body-font-size-m) * var(--body-line-height));
+  padding-top: 3px;
+  color: var(--cards-doclist-accent);
+}
+
+.cards-doclist .cards-doclist-icon svg {
+  display: block;
+  width: auto;
+  height: 17px;
+}
+
+.cards-doclist .cards-doclist-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin-left: 15px;
+}
+
+.cards-doclist .cards-doclist-body p,
+.cards-doclist .cards-doclist-body :is(h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  font-weight: 400;
+  line-height: var(--body-line-height);
+}
+
+.cards-doclist .cards-doclist-title a:any-link {
+  color: var(--cards-doclist-accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cards-doclist .cards-doclist-title a:focus-visible {
+  outline: 2px solid #001726;
+}
+
+/* source .content-resource-list-text: single line, ellipsis, 1.5rem */
+.cards-doclist .cards-doclist-body .cards-doclist-description {
+  overflow: hidden;
+  font-size: 15px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cards-doclist .cards-doclist-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  margin: 0;
+  font-size: var(--body-font-size-s);
+}
+
+.cards-doclist .cards-doclist-empty[hidden] {
+  display: none;
+}
+
+/* pagination: source #resource-table-pagination (blue square buttons, right aligned) */
+.cards-doclist .cards-doclist-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.cards-doclist .cards-doclist-pagination[hidden] {
+  display: none;
+}
+
+.cards-doclist .cards-doclist-pagination button {
+  display: inline-block;
+  margin: 5px 3px;
+  border: 1px solid var(--cards-doclist-page-color);
+  border-radius: 0;
+  padding: 6px 12px;
+  background-color: var(--cards-doclist-page-color);
+  color: #fff;
+  font-size: var(--body-font-size-s);
+  font-weight: 500;
+  line-height: 1.4286;
+}
+
+.cards-doclist .cards-doclist-pagination button:hover,
+.cards-doclist .cards-doclist-pagination button:focus-visible {
+  border-color: var(--cards-doclist-page-hover);
+  background-color: var(--cards-doclist-page-hover);
+  color: #cddee9;
+}
+
+.cards-doclist .cards-doclist-pagination button[aria-current='page'] {
+  border-color: #7e878c;
+  background-color: #fff;
+  color: #3b363b;
+  pointer-events: none;
+}
+
+.cards-doclist .cards-doclist-pagination button:disabled {
+  border-color: #e6e5e5;
+  background-color: #f5f6f7;
+  color: #ccc;
+  pointer-events: none;
+}
+
+.cards-doclist .cards-doclist-page-prev::before {
+  content: '\2039';
+  margin-right: 10px;
+}
+
+.cards-doclist .cards-doclist-page-next::after {
+  content: '\203A';
+  margin-left: 10px;
+}

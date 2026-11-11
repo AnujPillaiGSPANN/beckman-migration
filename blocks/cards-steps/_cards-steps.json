@@ -1,0 +1,89 @@
+{
+  "definitions": [
+    {
+      "title": "Cards Steps",
+      "id": "cards-steps",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Cards Steps",
+              "filter": "cards-steps",
+              "model": "cards-steps"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Step Card",
+      "id": "cards-steps-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Step Card",
+              "model": "cards-steps-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "cards-steps",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Exchange arrows",
+              "value": "exchange"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cards-steps-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "value": "",
+          "label": "Image Alt"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Label + description",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "cards-steps",
+      "components": [
+        "cards-steps-item"
+      ]
+    }
+  ]
+}

@@ -60,9 +60,18 @@
   outline-offset: 2px;
 }
 
+/* option "narrow": source .embeded-video--col-8 (66.67% wide, centred), e.g. Vi-CELL BLU */
+.embed-wistia.narrow {
+  width: 66.6667%;
+}
+
 /* breakpoint-exception: source bootstrap column gutter (padding: 0 10px) applies from 1024px */
 @media (width >= 1024px) {
   .embed-wistia {
     width: calc(83.33% - 20px);
+  }
+
+  .embed-wistia.narrow {
+    width: calc(66.6667% - 20px);
   }
 }

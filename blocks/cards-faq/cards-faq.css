@@ -40,3 +40,8 @@
   font-size: 16px;
   line-height: 1.65;
 }
+
+/* answer lists keep the bootstrap list margin (0 0 10px) inside the flex column */
+.cards-faq .cards-faq-card-body > :is(ul, ol) {
+  margin-bottom: 10px;
+}

@@ -9,17 +9,24 @@
     "id": "section",
     "components": [
       "accordion",
+      "accordion-faq",
       "accordion-icon-grid",
       "button",
       "cards",
+      "cards-doclist",
+      "cards-downloads",
       "cards-faq",
+      "cards-gradient",
       "cards-icon",
       "cards-product",
       "cards-resource",
       "cards-scroll",
+      "cards-steps",
+      "cards-workflow",
       "carousel",
       "carousel-gallery",
       "carousel-product",
+      "carousel-testimonial",
       "columns",
       "intro-box",
       "intro-video",
@@ -31,6 +38,7 @@
       "form",
       "fragment",
       "hero",
+      "hero-promo",
       "hero-video",
       "image",
       "quote",
@@ -42,6 +50,12 @@
       "text",
       "title",
       "video"
+    ]
+  },
+  {
+    "id": "accordion-faq",
+    "components": [
+      "accordion-faq-item"
     ]
   },
   {
@@ -57,9 +71,27 @@
     ]
   },
   {
+    "id": "cards-doclist",
+    "components": [
+      "cards-doclist-item"
+    ]
+  },
+  {
+    "id": "cards-downloads",
+    "components": [
+      "cards-downloads-item"
+    ]
+  },
+  {
     "id": "cards-faq",
     "components": [
       "cards-faq-card"
+    ]
+  },
+  {
+    "id": "cards-gradient",
+    "components": [
+      "cards-gradient-item"
     ]
   },
   {
@@ -87,6 +119,18 @@
     ]
   },
   {
+    "id": "cards-steps",
+    "components": [
+      "cards-steps-item"
+    ]
+  },
+  {
+    "id": "cards-workflow",
+    "components": [
+      "cards-workflow-item"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
@@ -102,6 +146,12 @@
     "id": "carousel-product",
     "components": [
       "carousel-product-card"
+    ]
+  },
+  {
+    "id": "carousel-testimonial",
+    "components": [
+      "carousel-testimonial-slide"
     ]
   },
   {
@@ -129,6 +179,12 @@
     "id": "feature-modules",
     "components": [
       "feature-modules-row"
+    ]
+  },
+  {
+    "id": "hero-promo",
+    "components": [
+      "hero-promo-feature"
     ]
   },
   {

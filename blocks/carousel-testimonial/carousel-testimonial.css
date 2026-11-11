@@ -1,0 +1,207 @@
+/* Carousel (testimonial) – source: .two-columns-holder with .col-md-5 Wistia video
+   (.embeded-video__wrapper, 56.2% ratio) and .col-md-7 .slideshow-container quote slider
+   (.mySlides display swap, a.prev / a.next chevrons, .dot-container dots) */
+
+/* section heading directly above the block (source h2 inline margins) */
+main .section .default-content-wrapper:has(+ .carousel-testimonial-wrapper) > h2:last-child {
+  margin: 75px 0 40px;
+}
+
+/* flow-root keeps the video margins inside, like the source .row clearfix */
+.carousel-testimonial {
+  display: flow-root;
+}
+
+/* video pane: source .embeded-video (empty h2 above: 20.75px, empty caption below: 16px) */
+.carousel-testimonial .carousel-testimonial-video {
+  position: relative;
+  margin: 20.75px 0 16px;
+  aspect-ratio: 1000 / 562;
+}
+
+.carousel-testimonial .carousel-testimonial-video iframe,
+.carousel-testimonial .carousel-testimonial-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.carousel-testimonial .carousel-testimonial-placeholder {
+  margin: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.carousel-testimonial .carousel-testimonial-placeholder picture,
+.carousel-testimonial .carousel-testimonial-placeholder img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* play button in the source player colour (Wistia big play button, 125:80) */
+.carousel-testimonial .carousel-testimonial-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 73px;
+  height: 47px;
+  background-color: #ea1c2c;
+  transform: translate(-50%, -50%);
+}
+
+.carousel-testimonial .carousel-testimonial-play::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid #fff;
+  transform: translate(-40%, -50%);
+}
+
+.carousel-testimonial .carousel-testimonial-placeholder:focus-visible {
+  outline: 3px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* quote slider */
+.carousel-testimonial .carousel-testimonial-slider {
+  background-color: #fff;
+}
+
+.carousel-testimonial .carousel-testimonial-stage {
+  position: relative;
+}
+
+.carousel-testimonial .carousel-testimonial-slides {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.carousel-testimonial .carousel-testimonial-slide {
+  padding: 5px 60px 10px;
+}
+
+.carousel-testimonial .carousel-testimonial-slide[hidden] {
+  display: none;
+}
+
+.carousel-testimonial .carousel-testimonial-quote p {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+.carousel-testimonial .carousel-testimonial-quote p + p {
+  margin-top: 16px;
+}
+
+.carousel-testimonial .carousel-testimonial-quote .carousel-testimonial-attribution {
+  margin: 16px 0;
+  text-align: center;
+}
+
+/* source glyph: em.fa.fa-quote-left (16px inline-block, followed by a space) */
+.carousel-testimonial .carousel-testimonial-mark {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  color: #ea1c2c;
+  vertical-align: -2px;
+}
+
+.carousel-testimonial .carousel-testimonial-arrow {
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin: -30px 0 0;
+  border: 0;
+  border-radius: 0 3px 3px 0;
+  padding: 16px;
+  background: transparent;
+  color: #888;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 33px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.carousel-testimonial .carousel-testimonial-prev {
+  left: 0;
+}
+
+.carousel-testimonial .carousel-testimonial-next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.carousel-testimonial .carousel-testimonial-arrow:hover,
+.carousel-testimonial .carousel-testimonial-arrow:focus-visible {
+  background-color: rgb(0 0 0 / 80%);
+  color: #fff;
+}
+
+.carousel-testimonial .carousel-testimonial-dots {
+  padding: 0 0 20px;
+  background: #fff;
+  line-height: var(--body-line-height);
+  text-align: center;
+}
+
+.carousel-testimonial .carousel-testimonial-dot {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin: 0 2px;
+  border: 0;
+  border-radius: 50%;
+  padding: 0;
+  background-color: #bbb;
+  font: inherit;
+  vertical-align: baseline;
+  cursor: pointer;
+  transition: background-color 0.6s;
+}
+
+.carousel-testimonial .carousel-testimonial-dot:hover,
+.carousel-testimonial .carousel-testimonial-dot-active {
+  background-color: #717171;
+}
+
+.carousel-testimonial .carousel-testimonial-dot:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* breakpoint-exception: source .col-md-5 / .col-md-7 sit side by side from 992px */
+@media (width >= 992px) {
+  /* .row (-10px) > .col-md-5 / .col-md-7 (10px padding) */
+  .carousel-testimonial {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    margin: 0 -10px;
+  }
+
+  .carousel-testimonial.carousel-testimonial-no-video {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* column padding + .embeded-video padding (10px each) */
+  .carousel-testimonial .carousel-testimonial-video {
+    margin: 20.75px 20px 16px;
+  }
+
+  .carousel-testimonial .carousel-testimonial-slider {
+    margin: 0 10px;
+  }
+}

@@ -187,6 +187,13 @@ main .cards-scroll-wrapper:has(.cards-scroll-card-download) + .default-content-w
   height: auto;
 }
 
+/* option "cover" (Echo): source figure.LatestNews__Image with background-image (cover, centred) */
+.cards-scroll.cover .cards-scroll-card-linked .cards-scroll-card-image img {
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
 .cards-scroll .cards-scroll-card-body {
   flex: 1;
   padding: 25px 20px 15px;

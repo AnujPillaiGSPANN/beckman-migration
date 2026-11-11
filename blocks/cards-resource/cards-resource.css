@@ -87,3 +87,119 @@
     column-gap: 20px;
   }
 }
+
+/* rows of two or three cards (e.g. Density Gradient Media) use the source's own column classes:
+   two cards .col-md-6.col-sm-6, three cards .col-md-4.col-sm-9 (one 75% card per row from 768px,
+   three per row from 992px), and a two-card row after another block .col-md-6.col-sm-4 */
+
+/* breakpoint-exception: source .col-sm-* columns float from 768px */
+@media (width >= 768px) {
+  .cards-resource:has(> .cards-resource-list > .cards-resource-card:nth-child(3):last-child) .cards-resource-list {
+    grid-template-columns: calc(75% - 7.5px);
+  }
+
+  .cards-resource-wrapper + .cards-resource-wrapper > .cards-resource:has(> .cards-resource-list > .cards-resource-card:nth-child(2):last-child) .cards-resource-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* breakpoint-exception: source .col-md-* columns from 992px */
+@media (width >= 992px) {
+  .cards-resource:has(> .cards-resource-list > .cards-resource-card:nth-child(3):last-child) .cards-resource-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .cards-resource:has(> .cards-resource-list > .cards-resource-card:nth-child(2):last-child) .cards-resource-list,
+  .cards-resource-wrapper + .cards-resource-wrapper > .cards-resource:has(> .cards-resource-list > .cards-resource-card:nth-child(2):last-child) .cards-resource-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* a single document card (source .download-res, e.g. MET ONE 6000): white card with a
+   #e6e6e6 border, cover on top (max 180px high), medium title, full-width outlined download
+   link; 24% of the row (96% up to 768px) */
+.cards-resource:has(> .cards-resource-list > .cards-resource-card:only-child) .cards-resource-list {
+  display: flex;
+  gap: 16px;
+  padding: 0 0 12px;
+}
+
+.cards-resource .cards-resource-list > .cards-resource-card:only-child {
+  display: flex;
+  flex: 0 0 96%;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid #e6e6e6;
+  padding: 16px 24px;
+  background-color: #fff;
+  text-align: start;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-image {
+  order: -1;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-image p::after {
+  content: none;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-image img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  max-height: 180px;
+  margin-bottom: 16px;
+  border: 0;
+  object-fit: contain;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-title :is(p, h2, h3, h4, h5, h6) {
+  margin: 0 0 12px;
+  font-size: var(--body-font-size-m);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-title strong {
+  font-weight: 500;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-actions {
+  margin-top: auto;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-actions p {
+  margin: 0;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-actions a:any-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  margin: 0;
+  border: 1px solid #e21f26;
+  border-radius: 2px;
+  padding: 8px;
+  background: none;
+  color: #e21f26;
+  font-size: var(--body-font-size-m);
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--body-line-height);
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+}
+
+.cards-resource .cards-resource-card:only-child .cards-resource-card-actions a:any-link:hover {
+  background-color: #e21f26;
+  color: #fff;
+}
+
+/* breakpoint-exception: source .download-res > div is 96% wide up to 768px */
+@media (width > 768px) {
+  .cards-resource .cards-resource-list > .cards-resource-card:only-child {
+    flex-basis: 24%;
+  }
+}

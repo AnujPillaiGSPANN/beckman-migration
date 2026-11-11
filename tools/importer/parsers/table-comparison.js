@@ -68,26 +68,42 @@ export default function parse(element, { document }) {
 
   const byIndex = {};
   let maxIndex = 0;
-  Array.from(grid.querySelectorAll('[class*="div"]')).forEach((div) => {
-    const m = (div.getAttribute('class') || '').match(/(?:^|\s)div(\d+)(?:\s|$)/);
+  // Biomek: .div1….divN (8 rows per column); Echo (div.comparison-table-large): .ct1….ctN
+  const prefix = grid.querySelector('[class*="div"]') && Array.from(grid.querySelectorAll('[class*="div"]'))
+    .some((d) => /(?:^|\s)div\d+(?:\s|$)/.test(d.getAttribute('class') || '')) ? 'div' : 'ct';
+  const re = new RegExp(`(?:^|\\s)${prefix}(\\d+)(?:\\s|$)`);
+  Array.from(grid.querySelectorAll(`[class*="${prefix}"]`)).forEach((div) => {
+    const m = (div.getAttribute('class') || '').match(re);
     if (!m) return;
     const n = parseInt(m[1], 10);
     if (!byIndex[n]) byIndex[n] = div;
     maxIndex = Math.max(maxIndex, n);
   });
 
-  const ROWS = 8;
+  // rows per column: 8 on Biomek; otherwise the index before the first model-name cell
+  // (a bold-only cell after the label column, e.g. Echo .ct13 "<strong>Echo 650 Plus Series</strong>")
+  let ROWS = 8;
+  if (prefix !== 'div') {
+    const nameIdx = Object.keys(byIndex).map(Number).sort((a, b) => a - b).find((n) => {
+      const d = byIndex[n];
+      const s = d.querySelector('strong, b');
+      return n > 1 && s && !d.querySelector('a, img') && clean(s.textContent) === clean(d.textContent);
+    });
+    if (nameIdx) ROWS = nameIdx - 1;
+  }
   const modelCount = Math.min(MAX_MODELS, Math.max(0, Math.ceil((maxIndex - ROWS) / ROWS)));
   const modelNames = [];
   for (let k = 0; k < modelCount; k += 1) {
-    modelNames.push(clean(byIndex[9 + ROWS * k] ? byIndex[9 + ROWS * k].textContent : ''));
+    modelNames.push(clean(byIndex[ROWS + 1 + ROWS * k] ? byIndex[ROWS + 1 + ROWS * k].textContent : ''));
   }
 
   const cells = [];
   for (let r = 0; r < ROWS; r += 1) {
     const row = [];
     const sources = [byIndex[1 + r]];
-    for (let k = 0; k < modelCount; k += 1) sources.push(byIndex[9 + ROWS * k + r]);
+    for (let k = 0; k < modelCount; k += 1) sources.push(byIndex[ROWS + 1 + ROWS * k + r]);
+    // rows commented out on the source (Echo: .ct3 / .ct7 and their model cells) are skipped
+    if (sources.every((s) => !s)) continue;
     sources.forEach((div, c) => {
       // correct mismatched model image alts
       if (div && c > 0 && modelNames[c - 1]) {

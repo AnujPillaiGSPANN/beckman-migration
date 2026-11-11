@@ -21,6 +21,19 @@
       "id": "embed-wistia",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Narrow (8 of 12 columns)",
+              "value": "narrow"
+            }
+          ]
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "embed_placeholder",

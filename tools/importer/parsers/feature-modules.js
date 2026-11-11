@@ -11,17 +11,23 @@
  *  - div.spotlight-content-wrapper div.bc-rich-text > table.responsive-table : 1 row x 3 td
  *      = label <p> + img.image-full-width (div.overlay zoom links dropped). The three images
  *      share one copy-pasted alt, so the alt is replaced with the view label.
- * Layout: 1 row, up to 3 cells; cell N is the field group columnN_*:
+ * Also product-detail MET ONE 6000 / Facility Monitoring System / Vi-CELL BLU:
+ *   4 x .bc-column (h4 + ul, or h4 + div.bc-rich-text-desc text -> <p>); style attributes and
+ *   empty <a></a> anchors (no href, no content) dropped.
+ * Layout: 1 row, up to 4 cells; cell N is the field group columnN_*:
  *   field:columnN_text  = heading/label + list (rich text)
  *   field:columnN_image = picture (alt -> columnN_imageAlt)
  */
-const MAX_COLUMNS = 3;
+const MAX_COLUMNS = 4;
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
 function tidy(root) {
   root.querySelectorAll('.overlay').forEach((n) => n.remove());
   root.querySelectorAll('a[href="#"]').forEach((a) => { if (!a.querySelector('img')) a.remove(); });
   root.querySelectorAll('style, script, input').forEach((n) => n.remove());
+  // empty anchors (e.g. Vi-CELL BLU "<a></a><a href>FAST mode</a>", "<a href=…></a>Error log files")
+  root.querySelectorAll('a').forEach((a) => { if (!clean(a.textContent) && !a.querySelector('img')) a.remove(); });
+  root.querySelectorAll('[style]').forEach((n) => n.removeAttribute('style'));
   // empty divs / spans / paragraphs
   Array.from(root.querySelectorAll('div, span, p')).reverse().forEach((n) => {
     if (!clean(n.textContent) && !n.querySelector('img, picture')) n.remove();

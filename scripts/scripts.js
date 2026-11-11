@@ -50,7 +50,13 @@ export function moveInstrumentation(from, to) {
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
-  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  try {
+    await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  } catch (e) {
+    // fonts.css @imports Cloud.typography, which refuses unregistered domains (AEM preview/author):
+    // the stylesheet then reports an error, and the gotham-fallback face is used instead
+    return;
+  }
   try {
     if (!window.location.hostname.includes('localhost')) sessionStorage.setItem('fonts-loaded', 'true');
   } catch (e) {

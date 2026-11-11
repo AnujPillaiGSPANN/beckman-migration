@@ -49,6 +49,24 @@
   vertical-align: baseline;
 }
 
+/* compact (Density Gradient Media "Applications"): 100px icons at their own ratio,
+   inline-styled title p (font-weight 500, line-height 1.3) and 13px / 1.1 description */
+.cards-icon.compact .cards-icon-card-image img {
+  width: 100px;
+  height: auto;
+}
+
+.cards-icon.compact .cards-icon-card-body .cards-icon-card-title,
+.cards-icon.compact .cards-icon-card-title :is(strong, b) {
+  font-weight: 500;
+}
+
+.cards-icon.compact .cards-icon-card-body p:not(.cards-icon-card-title) {
+  margin: 13px 0;
+  font-size: 13px;
+  line-height: 1.1;
+}
+
 /* breakpoint-exception: source .col-sm-3 applies from 768px */
 @media (width >= 768px) {
   .cards-icon .cards-icon-card {

@@ -58,3 +58,30 @@
 .table-specs :is(th, td) > p {
   margin: 0;
 }
+
+/* 3+ columns (table-specs-multi) – source Density Gradient Media .bc-rich-text >
+   table[align=center] (width 100%, auto layout): every cell centred with a #e3e3e3
+   divider except the last column; directly below the heading, two <br> lines after */
+.table-specs.table-specs-multi {
+  padding: 0;
+}
+
+.table-specs.table-specs-multi table {
+  width: 100%;
+}
+
+.table-specs.table-specs-multi :is(th, td) {
+  width: auto;
+  text-align: center;
+}
+
+.table-specs.table-specs-multi tr > :not(:last-child) {
+  border-right: 1px solid #e3e3e3;
+}
+
+/* inline images (source <img style="width: 100%; height: auto">) */
+.table-specs.table-specs-multi :is(th, td) img {
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+}

@@ -30,6 +30,12 @@ main .section .default-content-wrapper:has(+ .accordion-icon-grid-wrapper) > h2:
   padding: 0 20px;
 }
 
+/* stacked 3-up grid: each source .row is its own block (clearfix), so the 5px panel margin
+   and the next tile's 5px top margin do not collapse at a row start */
+.accordion-icon-grid.accordion-icon-grid-cols-3 .accordion-icon-grid-item:nth-child(3n + 1):not(:first-child) {
+  display: flow-root;
+}
+
 .accordion-icon-grid .accordion-icon-grid-toggle {
   display: flex;
   flex-direction: column;
@@ -93,13 +99,23 @@ main .section .default-content-wrapper:has(+ .accordion-icon-grid-wrapper) > h2:
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ea1c2c'%3E%3Cpath fill-rule='evenodd' d='M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894l6-3z'/%3E%3C/svg%3E");
 }
 
-/* source .accordion-content-3.transition-maxheight.duration-500.ease-out.overflow-hidden;
-   the leading &nbsp; line of the source list is the 1lh top padding */
+/* 6-tile grid (Echo .col-md-4 tiles): .p-3 is 0.75rem on every side */
+.accordion-icon-grid.accordion-icon-grid-cols-3 .accordion-icon-grid-toggle {
+  padding-top: 7.5px;
+}
+
+/* source .accordion-content-N.transition-maxheight.duration-500.ease-out.overflow-hidden */
 .accordion-icon-grid .accordion-icon-grid-panel {
-  padding-top: 1lh;
   overflow: hidden;
   text-align: start;
   transition: max-height 500ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* the source lists start with an &nbsp; line (1lh of content, so max-height clips it) */
+.accordion-icon-grid .accordion-icon-grid-panel:has(> :is(ul, ol):first-child)::before {
+  content: '';
+  display: block;
+  height: 1lh;
 }
 
 .accordion-icon-grid .accordion-icon-grid-panel ul {
@@ -113,7 +129,12 @@ main .section .default-content-wrapper:has(+ .accordion-icon-grid-wrapper) > h2:
 }
 
 .accordion-icon-grid .accordion-icon-grid-panel p {
-  margin: 0 0 10px;
+  margin: 1em 0;
+}
+
+/* reference footnotes (source p style="font-size: 75%" > sup) */
+.accordion-icon-grid .accordion-icon-grid-panel .accordion-icon-grid-footnote {
+  font-size: 75%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -128,33 +149,46 @@ main .section .default-content-wrapper:has(+ .accordion-icon-grid-wrapper) > h2:
     max-width: 720px;
   }
 
-  .accordion-icon-grid .accordion-icon-grid-item {
+  .accordion-icon-grid.accordion-icon-grid-cols-4 .accordion-icon-grid-item {
     float: left;
     width: 50%;
   }
 }
 
-/* breakpoint-exception: source container is 970px and .col-md-3 floats from exactly 992px */
+/* breakpoint-exception: source container is 970px and .col-md-3 / .col-md-4 float from exactly 992px */
 @media (width >= 992px) {
   .accordion-icon-grid {
     max-width: 940px;
   }
 
-  .accordion-icon-grid .accordion-icon-grid-item {
-    width: 25%;
-  }
-}
-
-@media (width >= 1200px) {
-  .accordion-icon-grid {
-    max-width: 1140px;
-  }
-
+  /* source .row gutters are 10px from here */
   .accordion-icon-grid .accordion-icon-grid-items {
     margin: 0 -10px;
   }
 
   .accordion-icon-grid .accordion-icon-grid-item {
     padding: 0 15px;
+  }
+
+  .accordion-icon-grid.accordion-icon-grid-cols-4 .accordion-icon-grid-item {
+    float: left;
+    width: 25%;
+  }
+
+  .accordion-icon-grid.accordion-icon-grid-cols-3 .accordion-icon-grid-item {
+    float: left;
+    width: calc(100% / 3);
+  }
+
+  /* each source .row starts a new line */
+  .accordion-icon-grid.accordion-icon-grid-cols-3 .accordion-icon-grid-item:nth-child(3n + 1),
+  .accordion-icon-grid.accordion-icon-grid-cols-4 .accordion-icon-grid-item:nth-child(4n + 1) {
+    clear: left;
+  }
+}
+
+@media (width >= 1200px) {
+  .accordion-icon-grid {
+    max-width: 1140px;
   }
 }

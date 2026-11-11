@@ -1,0 +1,71 @@
+/* Cards (gradient) – source: div.viblue-cards > div.viblue-card
+   (#f7f6f5 card, 4px red-to-purple gradient top border, a.redbtn aligned right, hover lift) */
+.cards-gradient .cards-gradient-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px;
+  margin: 35px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-gradient .cards-gradient-card {
+  border-top: 4px solid;
+  border-image: linear-gradient(90deg, #d52331 28%, #ac72da 100%) 1;
+  padding: 20px;
+  background: #f7f6f5;
+  transition: transform 0.25s, box-shadow 0.25s, background-color 0.25s;
+}
+
+.cards-gradient .cards-gradient-card:hover {
+  background: #fafafa;
+  box-shadow: 0 6px 14px rgb(0 0 0 / 8%);
+  transform: translateY(-2px);
+}
+
+/* source h3: 25px/300 (margin 1em) below 1024px, 24px/400 from 1024px */
+.cards-gradient .cards-gradient-card :is(h2, h3, h4, h5, h6) {
+  margin: 25px 0;
+  color: var(--text-color);
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.cards-gradient .cards-gradient-card p {
+  margin: 16px 0;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+/* source .viblue-card .redbtn: display flex, margin-left auto, width max-content */
+.cards-gradient .cards-gradient-card .cards-gradient-card-action {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}
+
+.cards-gradient .cards-gradient-card .cards-gradient-card-action a.button.secondary:any-link {
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  margin-left: auto;
+  text-align: right;
+}
+
+/* breakpoint-exception: source .viblue-cards switches to one column below 768px */
+@media (width >= 768px) {
+  .cards-gradient .cards-gradient-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* breakpoint-exception: source card heading changes to 24px/400 at 1024px */
+@media (width >= 1024px) {
+  .cards-gradient .cards-gradient-card :is(h2, h3, h4, h5, h6) {
+    margin: 24px 0;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 26.4px;
+  }
+}

@@ -25,8 +25,8 @@
             "template": {
               "name": "Spec Row",
               "model": "table-specs-row",
-              "column1text": "Specification",
-              "column2text": "Description"
+              "column1_text": "Specification",
+              "column2_text": "Description"
             }
           }
         }
@@ -37,8 +37,90 @@
     {
       "id": "table-specs-row",
       "fields": [
-        { "component": "richtext", "valueType": "string", "name": "column1text", "label": "Specification" },
-        { "component": "richtext", "valueType": "string", "name": "column2text", "label": "Description" }
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column1_text",
+          "value": "",
+          "label": "Specification"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column1_image",
+          "label": "Specification Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column1_imageAlt",
+          "value": "",
+          "label": "Specification Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column2_text",
+          "value": "",
+          "label": "Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column2_image",
+          "label": "Description Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column2_imageAlt",
+          "value": "",
+          "label": "Description Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column3_text",
+          "value": "",
+          "label": "Column 3"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column3_image",
+          "label": "Column 3 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column3_imageAlt",
+          "value": "",
+          "label": "Column 3 Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column4_text",
+          "value": "",
+          "label": "Column 4"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column4_image",
+          "label": "Column 4 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column4_imageAlt",
+          "value": "",
+          "label": "Column 4 Image Alt"
+        }
       ]
     }
   ],

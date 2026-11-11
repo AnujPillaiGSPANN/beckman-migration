@@ -13,7 +13,8 @@ main > .section > .intro-video-wrapper {
 }
 
 .intro-video .intro-video-text,
-.intro-video .intro-video-video {
+.intro-video .intro-video-video,
+.intro-video .intro-video-media {
   min-width: 0;
 }
 
@@ -26,6 +27,33 @@ main > .section > .intro-video-wrapper {
   margin: 15px 0 16px;
   padding: 25px 25px 10px;
   background-color: #f0f0f0;
+}
+
+/* CTA under the copy: source p (text-align: center) > a > button.btn.btn-red (9999px, 12px 20px) */
+.intro-video .intro-video-text .button-container {
+  display: block;
+  text-align: center;
+}
+
+main .intro-video .intro-video-text a.button:any-link {
+  border-radius: 9999px;
+  padding: 12px 20px;
+}
+
+/* photo column: source p (16px margins) > img (width: 1000px; max-width: 100%) */
+.intro-video .intro-video-media p {
+  margin: 16px 0;
+}
+
+.intro-video .intro-video-media picture {
+  display: block;
+}
+
+.intro-video .intro-video-media img {
+  display: block;
+  width: 1000px;
+  max-width: 100%;
+  height: auto;
 }
 
 /* source .embeded-video: empty h2 (0.83em of 25px) above, empty caption (16px) below */
@@ -64,33 +92,26 @@ main > .section > .intro-video-wrapper {
   .intro-video .intro-video-row {
     display: flex;
     align-items: flex-start;
-    margin: 0 -15px;
-  }
-
-  .intro-video .intro-video-text,
-  .intro-video .intro-video-video {
-    box-sizing: border-box;
-    flex: 0 0 50%;
-    width: 50%;
-    padding: 0 15px;
-  }
-}
-
-/* source narrows the row gutters to 10px and pads .embeded-video by 10px from 1200px */
-@media (width >= 1200px) {
-  .intro-video {
-    max-width: 1140px;
-  }
-
-  .intro-video .intro-video-row {
     margin: 0 -10px;
   }
 
-  .intro-video .intro-video-text {
+  .intro-video .intro-video-text,
+  .intro-video .intro-video-video,
+  .intro-video .intro-video-media {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    width: 50%;
     padding: 0 10px;
   }
 
+  /* source .embeded-video adds 10px inside the column */
   .intro-video .intro-video-video {
     padding: 0 20px;
+  }
+}
+
+@media (width >= 1200px) {
+  .intro-video {
+    max-width: 1140px;
   }
 }

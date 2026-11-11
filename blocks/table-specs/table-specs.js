@@ -1,8 +1,9 @@
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 /**
- * Table (specs): two-column specification sheet (attribute | values).
- * The first row is the header row (e.g. Specifications | Description).
+ * Table (specs): specification sheet (attribute | values), or a comparison table
+ * with any number of columns. The first row is the header row (e.g. Specifications |
+ * Description), the first cell of each body row is its row header.
  * @param {Element} block
  */
 export default function decorate(block) {
@@ -33,4 +34,9 @@ export default function decorate(block) {
 
   table.append(thead, tbody);
   block.replaceChildren(table);
+
+  // comparison tables (3+ columns, e.g. Density Gradient Media) share one centred,
+  // full-width layout; the two-column spec sheet keeps its own
+  const cols = Math.max(0, ...[...table.rows].map((tr) => tr.cells.length));
+  if (cols > 2) block.classList.add('table-specs-multi');
 }

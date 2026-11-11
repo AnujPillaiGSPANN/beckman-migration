@@ -1,0 +1,31 @@
+{
+  "variantName": "hero-promo",
+  "baseBlock": "hero",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Mid-page content-width dark promo banner: background photo behind a pink eyebrow, very large H2 and text, a 4-up bordered icon feature strip and a centred red CTA",
+    "description": "Only hero variant is hero-video (Biomek): full-width page-top hero with looping Wistia background video, centered H1 and pill CTAs. This is a mid-page, content-width, left-aligned dark promo with an image background, eyebrow, oversized H2 and a bordered 4-up icon feature strip: under 80% similar."
+  },
+  "contentPattern": {
+    "summary": "Content-width dark banner: background photo, pink eyebrow 'SOFTWARE UPGRADE', huge white H2 'Vi-CELL BLU 2.0', paragraph, 4-up bordered feature strip (icon + title + description), centered red button 'Explore the upgrade'; extra software screenshot shown on mobile only",
+    "structure": "block fields: (1) background image (`image`/`imageAlt`); (2) rich text `text`: eyebrow paragraph + H2 + paragraph + CTA link (strong-wrapped); then one row per feature (item hero-promo-feature): icon image (`image`/`imageAlt`) + rich text `text` (bold title paragraph + description)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "hero-promo"
+  ],
+  "sourceUrl": "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
+  "sourceUrls": [
+    "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/cell-counters-and-analyzers/vi-cell-blu"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-11"
+  },
+  "reuseGuidance": "Use for in-page product/software promos on a dark background. For a page-top video hero use hero-video.",
+  "usageDescription": "Mid-page content-width dark promo banner: background photo behind a pink eyebrow, very large H2 and text, a 4-up bordered icon feature strip and a centred red CTA."
+}

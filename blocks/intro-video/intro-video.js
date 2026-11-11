@@ -1,8 +1,8 @@
 import { findWistia, createWistiaIframe } from '../../scripts/wistia.js';
 
 /**
- * Columns (intro-video): intro copy beside a click-to-play Wistia video.
- * Row cells: [rich text, first paragraph boxed] [Wistia URL (+ optional caption)].
+ * Columns (intro-video): intro copy beside a click-to-play Wistia video or a photo.
+ * Row cells: [rich text, first paragraph boxed] [Wistia URL (+ optional caption) | image].
  * @param {Element} block
  */
 export default function decorate(block) {
@@ -13,6 +13,11 @@ export default function decorate(block) {
     row.classList.add('intro-video-row');
     [...row.children].forEach((col) => {
       const wistia = findWistia(col);
+      // image-only column (photo instead of a video): media, not boxed lead copy
+      if (!wistia && col.querySelector('picture, img') && !col.textContent.trim()) {
+        col.classList.add('intro-video-media');
+        return;
+      }
       if (!wistia) {
         col.classList.add('intro-video-text');
         const lead = col.querySelector(':scope > p');

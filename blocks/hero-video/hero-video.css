@@ -19,6 +19,11 @@ main > .section > .hero-video-wrapper {
   isolation: isolate;
 }
 
+/* Echo banner has no inline margin-bottom (Biomek's has 50px); its intro column is a photo */
+main > .section:has(+ .section .intro-video-media) .hero-video {
+  margin-bottom: 0;
+}
+
 .hero-video .hero-video-media {
   position: absolute;
   inset: 0;

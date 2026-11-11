@@ -535,7 +535,7 @@ main > .section:first-child > .default-content-wrapper:only-child > p:only-child
   }
 }
 
-/* section styles: split, anchor-nav (product detail) */
+/* section styles: split, anchor-nav, anchor-tabs (product detail) */
 
 /* split: source .product-intro-wrapper – intro default content (H1, text, CTA links)
    beside a media block (e.g. carousel-gallery); stacked below 768px, text first */
@@ -561,14 +561,14 @@ main > .section.split > div:not(.default-content-wrapper) {
   margin-bottom: 22px;
 }
 
-/* CTA paragraph: the first link is the red .btn-red, any following link the outlined .redbtn */
-main .section.split .default-content-wrapper > p:has(> a) {
+/* CTA paragraph (starts with a bold link): the first link is the red .btn-red, any following
+   link the outlined .redbtn. Inline links in running text stay links. */
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) {
   margin-bottom: 0;
   font-size: 14px;
   line-height: 22px;
 }
 
-main .section.split .default-content-wrapper > p > a:first-child:any-link,
 main .section.split .default-content-wrapper > p > strong:first-child > a:any-link {
   display: inline-block;
   box-sizing: border-box;
@@ -589,26 +589,193 @@ main .section.split .default-content-wrapper > p > strong:first-child > a:any-li
   transition: all 0.3s;
 }
 
-main .section.split .default-content-wrapper > p > a:first-child:any-link:hover,
 main .section.split .default-content-wrapper > p > strong:first-child > a:any-link:hover {
   background-color: #cf1322;
   color: #fff;
 }
 
-main .section.split .default-content-wrapper > p > a:not(:first-child):any-link {
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) > a:not(:first-child):any-link,
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) > em:not(:first-child) > a:any-link {
   border: 1px solid #ea1c2c;
   border-radius: 2px;
   padding: 15px 25px;
   background-color: transparent;
   color: #ea1c2c;
   font-size: 14px;
+  font-style: normal;
   font-weight: 500;
   text-decoration: none;
 }
 
-main .section.split .default-content-wrapper > p > a:not(:first-child):any-link:hover {
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) > a:not(:first-child):any-link:hover,
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) > em:not(:first-child) > a:any-link:hover {
   background-color: #ea1c2c;
   color: #fff;
+}
+
+/* the outlined link on its own line below the red button (source: three <br> after .btn-red) */
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) > em:not(:first-child):has(> a) {
+  display: block;
+  margin-top: 44px;
+}
+
+/* product-spotlight template parts (source .rt-holder): check-circle lists,
+   the "Explore … Models" jump button, the blue Request a Quote and the Resources + Tools grid */
+main .section.split .default-content-wrapper > ul {
+  margin: 0 0 10px 8px;
+  padding-left: 15px;
+  list-style: none;
+  text-indent: -1.5em;
+}
+
+/* Font Awesome 5 regular check-circle (\f058), 1.5rem, #05a379 */
+main .section.split .default-content-wrapper > ul > li::before {
+  content: '';
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  margin-right: 6px;
+  background-color: #05a379;
+  text-indent: 0;
+  vertical-align: middle;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath d='M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 48c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m140.204 130.267l-22.536-22.718c-4.667-4.705-12.265-4.736-16.97-.068L215.346 303.697l-59.792-60.277c-4.667-4.705-12.265-4.736-16.97-.069l-22.719 22.536c-4.705 4.667-4.736 12.265-.068 16.971l90.781 91.516c4.667 4.705 12.265 4.736 16.97.068l172.589-171.204c4.704-4.668 4.734-12.266.067-16.971z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* "Explore … Models" (source a.product-table-link-btn): a link to the models table (#…) */
+main .section.split .default-content-wrapper > p:has(> em:only-child > a[href*="#"]:only-child) {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+main .section.split .default-content-wrapper > p > em:only-child > a[href*="#"]:any-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 40px;
+  margin: 35px 35px 40px 0;
+  border: 1px solid #ddd;
+  border-radius: 0;
+  padding: 28px 20px;
+  background: none;
+  color: #000;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: start;
+  text-decoration: none;
+  white-space: normal;
+}
+
+main .section.split .default-content-wrapper > p > em:only-child > a[href*="#"]:any-link:hover {
+  background: none;
+  color: #000;
+}
+
+/* Font Awesome angle-double-down (\f103) with .5rem padding; from 768px the space before the
+   icon (source whitespace between span and i) is kept, in the mobile flex box it collapses */
+main .section.split .default-content-wrapper > p > em:only-child > a[href*="#"]:any-link::after {
+  content: '';
+  display: inline-block;
+  width: 8.125px;
+  height: 13px;
+  padding-left: 5px;
+  background-color: currentcolor;
+  vertical-align: -2px;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M143 256.3L7 120.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0L313 86.3c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.4 9.5-24.6 9.5-34 .1zm34 192l136-136c9.4-9.4 9.4-24.6 0-33.9l-22.6-22.6c-9.4-9.4-24.6-9.4-33.9 0L160 352.1l-96.4-96.4c-9.4-9.4-24.6-9.4-33.9 0L7 278.3c-9.4 9.4-9.4 24.6 0 33.9l136 136c9.4 9.5 24.6 9.5 34 .1z'/%3E%3C/svg%3E") right center / 8.125px auto no-repeat;
+}
+
+/* Explore + Request a Quote share one line box in the source (div > a + a, separated by a
+   space): both paragraphs flow inline, so the quote sits beside the button when the column is
+   wide enough and wraps below it otherwise */
+main .section.split .default-content-wrapper > p:has(> em:only-child > a[href*="#"]):has(+ p > strong:first-child > a[href*="request-quote"]),
+main .section.split .default-content-wrapper > p:has(> em:only-child > a[href*="#"]) + p:has(> strong:first-child > a[href*="request-quote"]) {
+  display: inline;
+}
+
+/* breakpoint-exception: source .product-intro-holder floats its columns from 768px */
+@media (width >= 768px) {
+  main .section.split .default-content-wrapper > p:has(+ p > strong:first-child > a[href*="request-quote"]) > em:only-child > a[href*="#"]:any-link {
+    margin-right: 39px;
+  }
+}
+
+/* a red CTA right after a list: the source puts a <br> line (22px) in front of the button */
+main .section.split .default-content-wrapper > ul + p:has(> strong:first-child > a:not([href*="request-quote"])) {
+  margin-top: 32px;
+}
+
+/* Request a Quote (source a.btn.btn-primary.request-quote-link): blue, 40px below until 1024px */
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a[href*="request-quote"]) {
+  margin-top: 0;
+}
+
+main .section.split .default-content-wrapper > p > strong:first-child > a[href*="request-quote"]:any-link {
+  margin-bottom: 40px;
+  background-color: var(--link-color);
+}
+
+main .section.split .default-content-wrapper > p > strong:first-child > a[href*="request-quote"]:any-link:hover {
+  background-color: #0065a7;
+}
+
+/* Resources + Tools: the label paragraph after the CTA and the closing link list
+   (source .resource-tool-table-wrapper: uppercase label, two-column bordered link grid) */
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p:has(+ ul:last-child) {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* after a red CTA (no Request a Quote) the source leaves 60px above the label (e.g. Density) */
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a:not([href*="request-quote"])) + p:has(+ ul:last-child) {
+  margin-top: 60px;
+}
+
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: 14px;
+  line-height: 22px;
+  text-indent: 0;
+}
+
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child > li {
+  box-sizing: border-box;
+  width: 50%;
+  border: 1px solid #f0f0f0;
+  border-bottom: 0;
+}
+
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child > li::before {
+  content: none;
+}
+
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child > li:nth-child(odd) {
+  border-right: 0;
+}
+
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child > li:nth-last-child(1):nth-child(odd) {
+  border-right: 1px solid #f0f0f0;
+}
+
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child > li:nth-last-child(-n + 2) {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child > li > a:any-link {
+  display: block;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration: underline;
 }
 
 /* breakpoint-exception: source .product-intro-holder floats its columns from 768px */
@@ -633,6 +800,30 @@ main .section.split .default-content-wrapper > p > a:not(:first-child):any-link:
     grid-area: 1 / 1;
     margin: 0;
     padding: 12px 11px 0 13px;
+  }
+
+  main .section.split .default-content-wrapper > p > em:only-child > a[href*="#"]:any-link {
+    display: inline-block;
+    padding: 20px 35px 40px;
+    font-size: 13px;
+  }
+
+  main .section.split .default-content-wrapper > p > em:only-child > a[href*="#"]:any-link::after {
+    margin-left: 0.3em;
+  }
+}
+
+/* breakpoint-exception: source .product-intro-holder ul padding changes at 1024px */
+@media (width >= 1024px) {
+  main .section.split .default-content-wrapper > ul {
+    padding-left: 20px;
+  }
+}
+
+/* breakpoint-exception: source .request-quote-link keeps its 40px bottom margin up to 1024px */
+@media (width > 1024px) {
+  main .section.split .default-content-wrapper > p > strong:first-child > a[href*="request-quote"]:any-link {
+    margin-bottom: 0;
   }
 }
 
@@ -758,15 +949,83 @@ main .section.anchor-nav .default-content-wrapper > p > a:any-link:hover {
   }
 }
 
-/* end section styles: split, anchor-nav */
+/* anchor-tabs: the product-spotlight template tab bar (source #intrenal-page-link-wrapper,
+   generated from the page's sections). Full-bleed white bar with a #ddd rule and shadow, sticky
+   at the top like the source's .sticky state. The links sit in the source's -webkit-inline-box:
+   centred from 1025px; up to 1024px the box is 100% wide, so a row that fits starts at the left
+   and wrapped rows are centred. The page content starts 60px below the bar top (source
+   .spotlight-content-wrapper padding-top: 60px - 47.1px bar + the heading's own margin). */
+main > .section.anchor-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  border-top: 2px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 8px 6px -6px rgb(0 0 0 / 20%);
+  text-align: center;
+}
+
+main > .section.anchor-tabs + .section {
+  padding-top: 12.9px;
+}
+
+main > .section.anchor-tabs > .default-content-wrapper {
+  /* stylelint-disable-next-line value-no-vendor-prefix -- the source bar's layout box */
+  display: -webkit-inline-box;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  vertical-align: top;
+}
+
+main .section.anchor-tabs .default-content-wrapper > p {
+  display: inline-flex;
+  margin: 0;
+}
+
+main .section.anchor-tabs .default-content-wrapper > p > a:any-link {
+  display: inline-flex;
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 10px 28px;
+  background: none;
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.65;
+  text-decoration: none;
+  white-space: normal;
+}
+
+main .section.anchor-tabs .default-content-wrapper > p > a:any-link:hover {
+  border-bottom-color: var(--link-color);
+  color: var(--link-color);
+}
+
+/* breakpoint-exception: source tab row is 100% wide up to 1024px */
+@media (width <= 1024px) {
+  main > .section.anchor-tabs > .default-content-wrapper {
+    width: 100%;
+  }
+}
+
+/* end section styles: split, anchor-nav, anchor-tabs */
 
 /* template: product pages (body.product-detail = Cydem VT, body.product-series = Biomek) */
 
 /* product-detail sections sit in the source .container.custome-container.product-spotlight-wrapper
    > .feature-holder: 15px gutter, 750 / 970px bootstrap containers with 12px side margins below
    1024px, then a 50px inset capped at 1600px. Same specificity as the default container rule so
-   block wrapper rules and section styles (split, anchor-nav, centered, faq) keep their own boxes. */
-:where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .centered, .cards-faq-container)) > div {
+   block wrapper rules and section styles (split, anchor-nav, anchor-tabs, faq) keep their own boxes;
+   centered sections share the product content width here (source: inside .feature-holder). */
+:where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .anchor-tabs, .cards-faq-container)) > div {
   max-width: none;
   margin: 0 auto;
   padding: 0 var(--content-gutter);
@@ -774,27 +1033,27 @@ main .section.anchor-nav .default-content-wrapper > p > a:any-link:hover {
 
 /* breakpoint-exception: source bootstrap .container (750px) + .feature-holder 12px margins from 768px */
 @media (width >= 768px) {
-  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .centered, .cards-faq-container)) > div {
+  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .anchor-tabs, .cards-faq-container)) > div {
     max-width: calc(750px - 2 * var(--content-gutter) - 24px);
   }
 }
 
 /* breakpoint-exception: source bootstrap .container is 970px from 992px */
 @media (width >= 992px) {
-  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .centered, .cards-faq-container)) > div {
+  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .anchor-tabs, .cards-faq-container)) > div {
     max-width: calc(970px - 2 * var(--content-gutter) - 24px);
   }
 }
 
 /* breakpoint-exception: source .feature-holder drops its side margins at 1024px */
 @media (width >= 1024px) {
-  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .centered, .cards-faq-container)) > div {
+  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .anchor-tabs, .cards-faq-container)) > div {
     max-width: calc(970px - 2 * var(--content-gutter));
   }
 }
 
 @media (width >= 1200px) {
-  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .centered, .cards-faq-container)) > div {
+  :where(body.product-detail) main > .section:where(:not(.split, .anchor-nav, .anchor-tabs, .cards-faq-container)) > div {
     max-width: calc(var(--content-max-width) - 2 * var(--content-inset));
     padding: 0 var(--content-inset);
   }
@@ -832,9 +1091,45 @@ body.product-detail main .default-content-wrapper:has(+ .cards-resource-wrapper)
   margin-top: 20px;
 }
 
+/* a single document card (source .download-res, e.g. MET ONE 6000) has no inline margin */
+body.product-detail main .default-content-wrapper:has(+ .cards-resource-wrapper > .cards-resource > .cards-resource-list > .cards-resource-card:only-child) > h3:last-child {
+  margin-top: 75px;
+}
+
+/* section style heading-tight: the source sub-heading wrapper carries an inline margin-top: 20px
+   (e.g. Density Gradient Media "Applications", "Types of …", "Resources and Protocols") */
+body.product-detail main .section.heading-tight .default-content-wrapper > h3:first-child {
+  margin-top: 20px;
+}
+
 /* standalone CTAs are centred (source p style="text-align: center") */
 body.product-detail main .default-content-wrapper > .button-container:has(> strong > a.button.primary) {
   text-align: center;
+}
+
+/* ...except in the product intro (source .rt-holder: left aligned from the CTA row) */
+body.product-detail main .section.split .default-content-wrapper > .button-container:has(> strong > a.button.primary) {
+  text-align: start;
+}
+
+/* default-content h4 inside the product content (source .spotlight-content-wrapper h4: 18px/400) */
+body.product-detail main .default-content-wrapper > h4 {
+  margin: 1.33em 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+/* a centred sub-section heading after a block: the source keeps a <br> line and the block's
+   bottom spacing above it (66px, e.g. Vi-CELL BLU "Work with Carousel or Plate") */
+body.product-detail main > .section.centered > .default-content-wrapper:first-child > h4:first-child {
+  margin-top: 66px;
+}
+
+/* a standalone CTA closing a video section: the source follows it with two <br> lines (52.8px)
+   before the next sub-heading (e.g. Vi-CELL BLU "Visit the Video Gallery") */
+body.product-detail main > .section > .embed-wistia-wrapper + .default-content-wrapper:last-child > .button-container:only-child {
+  margin-bottom: calc(16px + 52.8px + 75px);
 }
 
 /* lone images in rich text are centred (source p style="text-align: center") */
@@ -865,6 +1160,94 @@ body.product-detail main > .section:has(+ .section.cards-faq-container) {
   body.product-detail main > .section:has(+ .section.cards-faq-container) {
     margin-bottom: 57px;
   }
+}
+
+/* legacy m2p product block (e.g. Sealing Foil Basic, after the product spotlight): a heading
+   followed by the product link list, CTA, text and datasheet lines, in a bootstrap .container */
+body.product-detail main > .section:not(.split, .anchor-nav, .anchor-tabs, .centered, .cards-faq-container) > .default-content-wrapper:has(> h2:first-child + ul) {
+  max-width: none;
+  padding: 0 var(--content-gutter);
+}
+
+/* breakpoint-exception: source bootstrap .container is 750px wide from 768px */
+@media (width >= 768px) {
+  body.product-detail main > .section:not(.split, .anchor-nav, .anchor-tabs, .centered, .cards-faq-container) > .default-content-wrapper:has(> h2:first-child + ul) {
+    max-width: calc(750px - 2 * var(--content-gutter));
+  }
+}
+
+/* breakpoint-exception: source bootstrap .container is 970px wide from 992px */
+@media (width >= 992px) {
+  body.product-detail main > .section:not(.split, .anchor-nav, .anchor-tabs, .centered, .cards-faq-container) > .default-content-wrapper:has(> h2:first-child + ul) {
+    max-width: calc(970px - 2 * var(--content-gutter));
+  }
+}
+
+@media (width >= 1200px) {
+  body.product-detail main > .section:not(.split, .anchor-nav, .anchor-tabs, .centered, .cards-faq-container) > .default-content-wrapper:has(> h2:first-child + ul) {
+    max-width: calc(var(--container-width) - 2 * var(--content-gutter));
+  }
+}
+
+/* source .csc-default.is-header h1 */
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > h2:first-child {
+  margin: 24.12px 0;
+  color: var(--text-color);
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+/* source nav.product-detail-nav ul */
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > h2:first-child + ul {
+  margin: 0 0 10px;
+  padding-left: 17px;
+}
+
+/* source a.btn.is-call-to-action: left aligned, 62.3px line (30px arrow icon) */
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > .button-container:has(> strong > a.button.primary) {
+  margin: 0 0 calc(16px + 14.3px);
+  text-align: start;
+}
+
+/* datasheet lines (source .download-box): red PDF icon, file name, size, "PDF Download" + arrow */
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > p:has(> a[href*=".pdf"]):has(+ p + p > a[href*=".pdf"]) {
+  margin: 0;
+  padding-top: 58.6px;
+}
+
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > p:has(> a[href*=".pdf"]):has(+ p + p > a[href*=".pdf"])::before {
+  content: '';
+  display: block;
+  width: 44px;
+  height: 56px;
+  margin-bottom: 8.4px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 56'%3E%3Cpolygon points='44 56 0 56 0 0 33 0 44 11 44 56' fill='%23e84c3d'/%3E%3Cpath fill='%23fff' d='M9.77,43.75a2.69,2.69,0,0,1-1.56-.51,2.22,2.22,0,0,1-1-2.45c0.5-1.89,3.83-4.1,8-6.09a76.51,76.51,0,0,0,4.93-13.33,24.21,24.21,0,0,1-2.1-5.62c-0.84-4,.86-5.37,2-5.81a2.16,2.16,0,0,1,2.8.76c0.94,1.46.6,5.56-.55,10.39A39.48,39.48,0,0,0,28.76,30a30.37,30.37,0,0,1,3.73-.67,4.150,4.150,0,0,1,4,1.42,2.69,2.69,0,0,1,.18,2.750,3.15,3.15,0,0,1-2.820,1.63c-1.75.06-3.76-1.11-5.76-2.92a73.17,73.17,0,0,0-11.25,4,23.7,23.7,0,0,1-4.18,6.11A4.290,4.290,0,0,1,9.77,43.75Zm3.84-6c-2.48,1.34-4.2,2.61-4.44,3.5,0,0.080,0,.14.19,0.31a0.8,0.8,0,0,0,.91,0C11.27,41.15,12.43,39.75,13.61,37.8Zm8-13.91a73.54,73.54,0,0,1-3.41,9.54,77.07,77.07,0,0,1,8.31-2.88A40.32,40.32,0,0,1,21.58,23.88Zm9,7.71a5.56,5.56,0,0,0,3.23,1.49,1.19,1.19,0,0,0,1.09-.54,0.68,0.68,0,0,0,0-.71,2.35,2.35,0,0,0-2.16-.56C32,31.34,31.33,31.45,30.58,31.59ZM21.11,11.72a0.84,0.84,0,0,0-.31.08h0c-1.13.45-1,2.18-.74,3.550a17.44,17.44,0,0,0,.89,2.850,29.31,29.31,0,0,0,.5-3.46c0.18-2.52-.31-3-0.33-3h0Z'/%3E%3Cpolyline points='33 0 33 11 44 11' fill='%23c0382a'/%3E%3C/svg%3E") no-repeat;
+}
+
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > p:has(> a[href*=".pdf"]):has(+ p + p > a[href*=".pdf"]) + p {
+  margin: 0;
+  color: var(--link-color);
+}
+
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > p:has(> a[href*=".pdf"]) > a.button:any-link {
+  text-decoration: none;
+}
+
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > p:has(> a[href*=".pdf"]):has(+ p + p > a[href*=".pdf"]) + p + p {
+  margin-top: 0;
+  line-height: 38.4px;
+}
+
+body.product-detail main .default-content-wrapper:has(> h2:first-child + ul) > p:has(> a[href*=".pdf"]):has(+ p + p > a[href*=".pdf"]) + p + p > a:any-link::after {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  background-color: #000;
+  vertical-align: middle;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24.24 30'%3E%3Cpath transform='rotate(90 15 12.12)' d='m17.88 0-1.42 1.43 9.68 9.68H0v2.02h26.14l-9.68 9.68 1.42 1.43 12.12-12.12z'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 
 /* end template: product pages */

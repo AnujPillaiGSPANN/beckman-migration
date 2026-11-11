@@ -40,14 +40,28 @@
           "valueType": "string",
           "name": "column1",
           "value": "",
-          "label": "Intro Text"
+          "label": "Intro text"
         },
         {
           "component": "richtext",
           "valueType": "string",
-          "name": "column2",
+          "name": "column2_text",
           "value": "",
-          "label": "Video (Wistia Link + Optional Caption)"
+          "label": "Video link / media"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column2_image",
+          "label": "Video link / media Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column2_imageAlt",
+          "value": "",
+          "label": "Video link / media Image Alt"
         }
       ]
     }

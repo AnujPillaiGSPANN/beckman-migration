@@ -11,6 +11,9 @@
  * The rendered Wistia player chrome is not copied; the id is read from the
  * wistia_async_<id> class (or an iframe/medias URL). A non-empty video heading is kept
  * as default content before the block; empty h2 / caption are dropped.
+ * Also product-series Echo Acoustic: the right column is a photo (no Wistia media) ->
+ *   <!-- field:column2image --> img (needs a column2image reference field in the model);
+ *   the left column's <a><button> CTA becomes <p><strong><a>label</a></strong></p>.
  */
 /** Cell content prefixed with an xwalk field hint (empty string when there is no content). */
 function fieldCell(document, field, nodes) {
@@ -47,6 +50,20 @@ export default function parse(element, { document }) {
     const rt = left.querySelector('.bc-rich-text') || left;
     Array.from(rt.children).forEach((child) => {
       if (['STYLE', 'SCRIPT'].includes(child.tagName)) return;
+      // Echo: CTA paragraph "<p style=…><a href><button class='btn btn-red'>label</button></a></p>"
+      // -> primary button paragraph <p><strong><a href>label</a></strong></p>
+      const btnLink = child.querySelector('a[href] > button') && child.querySelector('a[href] > button').parentElement;
+      if (btnLink && clean(child.textContent) === clean(btnLink.textContent)) {
+        const p = document.createElement('p');
+        const strong = document.createElement('strong');
+        const a = document.createElement('a');
+        a.setAttribute('href', btnLink.getAttribute('href').trim());
+        a.textContent = clean(btnLink.textContent);
+        strong.appendChild(a);
+        p.appendChild(strong);
+        col1.push(p);
+        return;
+      }
       if (clean(child.textContent) || child.querySelector('img, picture')) col1.push(child);
     });
   }
@@ -54,6 +71,17 @@ export default function parse(element, { document }) {
   // Column 2: video link + optional caption
   const col2 = [];
   const before = [];
+  let photo = null;
+  if (right && !wistiaId(right)) {
+    // Echo: the right column is a photo, not a video. Images never go into the richtext
+    // column2: the photo is emitted as its own reference field (column2image, alt kept).
+    const img = right.querySelector('img');
+    if (img) {
+      photo = document.createElement('img');
+      photo.setAttribute('src', img.getAttribute('src'));
+      photo.setAttribute('alt', clean(img.getAttribute('alt')) || clean(left && left.textContent).slice(0, 120));
+    }
+  }
   if (right) {
     const heading = right.querySelector('h1, h2, h3, h4, h5, h6');
     if (heading && clean(heading.textContent)) before.push(heading);
@@ -75,7 +103,14 @@ export default function parse(element, { document }) {
     }
   }
 
-  const cells = [[fieldCell(document, 'column1', col1), fieldCell(document, 'column2', col2)]];
+  // column 2 is a field group (column2_text + column2_image) so it stays ONE cell in AEM
+  let col2Cell = fieldCell(document, 'column2_text', col2);
+  if (photo) {
+    col2Cell = col2Cell || document.createDocumentFragment();
+    col2Cell.appendChild(document.createComment(' field:column2_image '));
+    col2Cell.appendChild(photo);
+  }
+  const cells = [[fieldCell(document, 'column1', col1), col2Cell]];
   const block = WebImporter.Blocks.createBlock(document, { name: 'intro-video', cells });
   before.forEach((h) => element.before(h));
   element.replaceWith(block);

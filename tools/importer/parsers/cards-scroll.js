@@ -10,6 +10,7 @@
  *      -> [<!-- field:image --> cover] [<!-- field:text --> download link]
  *  - div.LatestNews.h-scroll-container : 10 x a.LatestNews__Item (whole tile is the link)
  *      -> [<!-- field:image --> figure img] [<!-- field:text --> eyebrow label + bold linked title]
+ *      Tiles whose image is a CSS background (Echo) emit "cards-scroll (cover)".
  * Relative hrefs/srcs (e.g. "-/media/....ashx", "www.beckman.com/...") are resolved
  * against https://www.beckman.com/. Root-relative site links are kept as-is.
  */
@@ -53,6 +54,7 @@ function textFragment(document, nodes) {
 
 export default function parse(element, { document }) {
   const cells = [];
+  let backgroundTiles = 0;
 
   const brochures = Array.from(element.querySelectorAll('.brochure'));
   const tiles = Array.from(element.querySelectorAll('.LatestNews__Item, .h-scroll-item'))
@@ -102,11 +104,27 @@ export default function parse(element, { document }) {
         p.appendChild(strong);
         nodes.push(p);
       }
-      const img = tile.querySelector('figure img') || tile.querySelector('img');
+      let img = tile.querySelector('figure img') || tile.querySelector('img');
+      if (!img) {
+        // Echo: the tile image is a CSS background on figure.LatestNews__Image
+        // (style="background-image: url(&quot;…&quot;)"); the cleanup already fixed
+        // extension-less / .ashx media URLs in the style attribute
+        const bgEl = [tile.querySelector('figure'), ...tile.querySelectorAll('[style*="url("]')]
+          .find((el) => el && /url\(/.test(el.getAttribute('style') || ''));
+        const m = bgEl && /url\(\s*(?:&quot;|["'])?([^"')&]+?)(?:&quot;|["'])?\s*\)/i.exec(bgEl.getAttribute('style'));
+        if (m) {
+          img = document.createElement('img');
+          img.setAttribute('src', m[1].trim());
+          backgroundTiles += 1;
+        }
+      }
       cells.push([imageFragment(document, img, title), textFragment(document, nodes)]);
     });
   }
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'cards-scroll', cells });
+  // tiles drawn from CSS background images (Echo "Explore Applications") fill the image area
+  // on the source -> option "cover"; tiles with plain <img>s (Biomek) keep the default
+  const name = backgroundTiles ? 'cards-scroll (cover)' : 'cards-scroll';
+  const block = WebImporter.Blocks.createBlock(document, { name, cells });
   element.replaceWith(block);
 }

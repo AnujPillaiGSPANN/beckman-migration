@@ -1,0 +1,181 @@
+/* Hero (promo) – source: div.banner-val (#05070c, white text) > .banner-title (background photo,
+   padding 5vh 2vw, pink eyebrow, 6rem H2) + .feature-grid (4-up bordered tiles) + a.primary-btn */
+.hero-promo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 5vh 0;
+  background-color: #05070c;
+  color: #fff;
+  text-align: left;
+}
+
+.hero-promo .hero-promo-top {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 5vh 2vw;
+}
+
+/* background photo: source .banner-title background-size cover, position right center */
+.hero-promo .hero-promo-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-promo .hero-promo-background picture,
+.hero-promo .hero-promo-background img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+.hero-promo .hero-promo-content {
+  position: relative;
+}
+
+.hero-promo .hero-promo-content p {
+  margin: 0 0 24px;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+.hero-promo .hero-promo-content .hero-promo-eyebrow {
+  margin: 0;
+  color: pink;
+  font-size: 15px;
+}
+
+.hero-promo .hero-promo-content :is(h1, h2, h3) {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 150%;
+  text-align: left;
+}
+
+/* feature strip: source .feature-grid / .feature-item */
+.hero-promo .hero-promo-features {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  border: 1px solid rgb(255 255 255 / 15%);
+  padding: 0;
+  list-style: none;
+}
+
+.hero-promo .hero-promo-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  min-height: 140px;
+  border-right: 1px solid rgb(255 255 255 / 15%);
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+  padding: 12.5px;
+  transition: background-color 0.3s;
+}
+
+.hero-promo .hero-promo-feature-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-promo .hero-promo-feature-icon {
+  flex-shrink: 0;
+}
+
+.hero-promo .hero-promo-feature-icon picture,
+.hero-promo .hero-promo-feature-icon img {
+  display: block;
+  width: 50px;
+  height: 60px;
+  object-fit: contain;
+}
+
+.hero-promo .hero-promo-feature-title {
+  margin: 15px 0;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.hero-promo .hero-promo-feature-text p {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* CTA: source a.primary-btn (inline: margin 24px auto, padding 8px 30px) */
+.hero-promo .hero-promo-ctas {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.hero-promo .hero-promo-ctas p {
+  margin: 24px auto;
+}
+
+.hero-promo .hero-promo-ctas a.button:any-link {
+  display: inline-block;
+  width: fit-content;
+  border: 0;
+  border-radius: 3px;
+  padding: 8px 30px;
+  background-color: #ea1c2c;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.65;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: none;
+}
+
+/* source a.primary-btn has no hover state */
+.hero-promo .hero-promo-ctas a.button:any-link:hover,
+.hero-promo .hero-promo-ctas a.button:any-link:focus-visible {
+  background-color: #ea1c2c;
+  color: #fff;
+}
+
+/* source .mobile-img: below the CTA on small screens only (natural size, capped by the banner) */
+.hero-promo .hero-promo-mobile-image {
+  align-self: stretch;
+}
+
+.hero-promo .hero-promo-mobile-image picture,
+.hero-promo .hero-promo-mobile-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* breakpoint-exception: source .feature-grid is four tiles across from 768px */
+@media (width >= 768px) {
+  .hero-promo .hero-promo-features {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .hero-promo .hero-promo-feature {
+    min-height: 180px;
+    padding: 20px;
+  }
+
+  .hero-promo .hero-promo-mobile-image {
+    display: none;
+  }
+}

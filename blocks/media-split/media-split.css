@@ -9,9 +9,11 @@ main > .section > .media-split-wrapper:not(:has(.media-split-caption)) {
 }
 
 /* section heading directly above the block (source .containercustom h2 above the .row) */
-main .section .default-content-wrapper:has(+ .media-split-wrapper) > h2:last-child {
+main .section .default-content-wrapper:has(+ .media-split-wrapper) > :is(h2:last-child, h2:has(+ p:last-child)) {
   margin: 75px 0 20px;
 }
+
+/* stylelint-disable no-descending-specificity -- rules are grouped by source layout, not specificity */
 
 /* flow-root keeps the column margins inside, like the source .row clearfix */
 .media-split {
@@ -33,19 +35,23 @@ main .section .default-content-wrapper:has(+ .media-split-wrapper) > h2:last-chi
   padding-left: 17px;
 }
 
-/* list after the intro copy: source ul.cusautolist (Font Awesome 5 regular check-circle, #ea1c2c) */
-.media-split .media-split-text p + ul {
+/* list after the intro copy, or a list-only cell beside an image (Echo):
+   source ul.cusautolist (Font Awesome 5 regular check-circle, #ea1c2c) */
+.media-split .media-split-text p + ul,
+.media-split .media-split-row:not(:has(.media-split-caption)) .media-split-text > ul:first-child {
   margin: 0;
   list-style: none;
 }
 
-.media-split .media-split-text p + ul > li {
+.media-split .media-split-text p + ul > li,
+.media-split .media-split-row:not(:has(.media-split-caption)) .media-split-text > ul:first-child > li {
   position: relative;
   margin-bottom: 10px;
   padding-left: 24px;
 }
 
-.media-split .media-split-text p + ul > li::before {
+.media-split .media-split-text p + ul > li::before,
+.media-split .media-split-row:not(:has(.media-split-caption)) .media-split-text > ul:first-child > li::before {
   content: '';
   position: absolute;
   top: calc(0.5lh - 0.5em);
@@ -80,6 +86,18 @@ main .media-split .media-split-text a.button:any-link {
 
 main .media-split .media-split-text a.button:any-link:hover {
   background-color: #cf1322;
+}
+
+/* CTA paragraph below the block (Echo): source div (text-align: center) > a > button.btn-red pill */
+main .section .media-split-wrapper:not(:has(.media-split-caption)) + .default-content-wrapper > .button-container:first-child {
+  display: block;
+  margin: 0;
+  text-align: center;
+}
+
+main .section .media-split-wrapper:not(:has(.media-split-caption)) + .default-content-wrapper > .button-container:first-child a.button:any-link {
+  border-radius: 9999px;
+  padding: 12px 20px;
 }
 
 /* image column: source p (16px margins, centered) > img (width: 1000px; max-width: 100%) */
@@ -161,28 +179,25 @@ main .media-split .media-split-text a.button:any-link:hover {
   .media-split .media-split-row:not(:has(.media-split-caption)) {
     display: flex;
     align-items: flex-start;
-    margin: 0 -15px;
+    margin: 0 -10px;
   }
 
+  /* source .row gutters are 10px from here */
   .media-split .media-split-row:not(:has(.media-split-caption)) > div {
     box-sizing: border-box;
     flex: 0 0 50%;
     width: 50%;
-    padding: 0 15px;
+    padding: 0 10px;
   }
 }
 
-/* source narrows the row gutters to 10px from 1200px */
 @media (width >= 1200px) {
   .media-split:not(:has(.media-split-caption)) {
     max-width: 1140px;
   }
+}
 
-  .media-split .media-split-row:not(:has(.media-split-caption)) {
-    margin: 0 -10px;
-  }
-
-  .media-split .media-split-row:not(:has(.media-split-caption)) > div {
-    padding: 0 10px;
-  }
+/* intro paragraph between the heading and the block (Echo): source p, left-aligned */
+main .section .default-content-wrapper:has(+ .media-split-wrapper) > h2 + p:last-child {
+  text-align: start;
 }

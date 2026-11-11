@@ -37,9 +37,21 @@ function setOpen(item, open) {
 }
 
 /**
- * Accordion (icon-grid): a row of icon tiles that reveal their bullet lists.
- * Like the source (all tiles share toggleAccordions3 / .accordion-content-3),
- * clicking any tile opens or closes every tile of the block together.
+ * Tiles per row, sized by the tile count like the source grids:
+ * 4 tiles -> .col-md-3.col-sm-6 (Biomek), 6 tiles -> .col-md-4 (Echo).
+ * @param {number} count
+ * @returns {number}
+ */
+function tilesPerRow(count) {
+  if (count % 4 === 0) return 4;
+  if (count % 3 === 0) return 3;
+  return Math.min(count, 4) || 1;
+}
+
+/**
+ * Accordion (icon-grid): rows of icon tiles that reveal their bullet lists.
+ * Like the source (each .row shares one .accordion-content-N class), clicking a
+ * tile opens or closes every tile of its row together.
  * Row cells: [icon image + title] [content (bulleted list)].
  * @param {Element} block
  */
@@ -89,6 +101,12 @@ export default function decorate(block) {
     }
     // drop empty nested lists left over from the source
     panel.querySelectorAll('ul, ol').forEach((ul) => { if (!ul.textContent.trim()) ul.remove(); });
+    // reference footnotes start with their <sup> number (source p style="font-size: 75%")
+    panel.querySelectorAll('p').forEach((p) => {
+      const first = [...p.childNodes]
+        .find((n) => n.nodeType !== Node.TEXT_NODE || n.textContent.trim());
+      if (first?.nodeName === 'SUP') p.classList.add('accordion-icon-grid-footnote');
+    });
     button.setAttribute('aria-controls', panel.id);
 
     panel.addEventListener('transitionend', (e) => {
@@ -101,11 +119,17 @@ export default function decorate(block) {
     list.append(item);
   });
 
+  const items = [...list.children];
+  const perRow = tilesPerRow(items.length);
+  block.classList.add(`accordion-icon-grid-cols-${perRow}`);
+  items.forEach((item, i) => { item.dataset.row = String(Math.floor(i / perRow)); });
+
   list.addEventListener('click', (e) => {
     const button = e.target.closest('.accordion-icon-grid-toggle');
     if (!button) return;
     const open = button.getAttribute('aria-expanded') !== 'true';
-    list.querySelectorAll(':scope > .accordion-icon-grid-item').forEach((item) => setOpen(item, open));
+    const { row } = button.closest('.accordion-icon-grid-item').dataset;
+    items.filter((item) => item.dataset.row === row).forEach((item) => setOpen(item, open));
   });
 
   block.replaceChildren(list);

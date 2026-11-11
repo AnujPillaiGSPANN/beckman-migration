@@ -22,6 +22,8 @@ export default function decorate(block) {
   grid.className = 'table-comparison-grid';
   grid.style.setProperty('--table-comparison-rows', rows.length);
   grid.style.setProperty('--table-comparison-models', keep.length - 1);
+  // the source uses a different table per model count (2 models: .comparison-table-large)
+  block.classList.add(`table-comparison-${keep.length - 1}-models`);
 
   const columns = keep.map((c) => {
     const col = document.createElement('div');
@@ -46,6 +48,10 @@ export default function decorate(block) {
       if (src) {
         moveInstrumentation(src, cell);
         cell.append(...src.childNodes);
+      }
+      // check-mark values (source .ct16-style cells: red, 125%)
+      if (kind === 'value' && i > 0 && /^[\u2713\u2714]\ufe0e?$/.test(cell.textContent.trim())) {
+        cell.classList.add('table-comparison-check');
       }
       if (r === 0 && i > 0 && cell.textContent.trim()) {
         cell.setAttribute('role', 'heading');

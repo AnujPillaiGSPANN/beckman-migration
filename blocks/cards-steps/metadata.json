@@ -1,0 +1,36 @@
+{
+  "variantName": "cards-steps",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws → / ← arrows between two cards",
+    "description": "cards-product has linked titles and lists; cards-icon is borderless icon tiles; cards-resource is title-over-cover with Read button. This is unlinked photo-top cards with a per-position coloured label bar (purple, navy, cyan) under the image: under 80% similar."
+  },
+  "contentPattern": {
+    "summary": "3 centered bordered step cards: cover photo, full-width coloured label bar (purple / navy / cyan, uppercase), short description / 2 step cards ('With Carousel' purple bar, 'With Plate' cyan bar) with a stacked → / ← arrow pair between them",
+    "structure": "one row per card: (1) image (`image`/`imageAlt`); (2) rich text `text`: bold label paragraph (e.g. FIRST STEP) + description paragraph"
+  },
+  "options": [
+    {
+      "class": "exchange",
+      "label": "Exchange arrows"
+    }
+  ],
+  "memberVariantIds": [
+    "cards-steps"
+  ],
+  "sourceUrl": "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
+  "sourceUrls": [
+    "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/cell-counters-and-analyzers/vi-cell-blu"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-11-11"
+  },
+  "reuseGuidance": "Use for short illustrated process steps. Add the Exchange option for a two-card swap (bars purple then cyan). For linked numbered product steps use cards-workflow.",
+  "usageDescription": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws → / ← arrows between two cards."
+}

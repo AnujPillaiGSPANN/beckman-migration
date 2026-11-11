@@ -9,7 +9,8 @@
  * Row 1 (embed group): [<!-- field:embed_placeholder --> poster img, if any]
  *                      <!-- field:embed_uri --> https://fast.wistia.net/embed/iframe/<id>
  * The media id is read from the wistia_async_<id> class (or an iframe/medias URL);
- * the rendered Wistia chrome / blob video is not copied. A non-empty heading is kept
+ * the rendered Wistia chrome / blob video is not copied. A source div.embeded-video--col-8
+ * (Vi-CELL BLU) emits "embed-wistia (narrow)". A non-empty heading is kept
  * before the block and a non-empty caption after it (default content); empty ones dropped.
  */
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -62,7 +63,9 @@ export default function parse(element, { document }) {
   }
 
   const cells = [[(poster || id) ? cell : '']];
-  const block = WebImporter.Blocks.createBlock(document, { name: 'embed-wistia', cells });
+  // 8-of-12-column video (Vi-CELL BLU) -> option "narrow"; default is 10 of 12 (Cydem VT)
+  const narrow = element.classList.contains('embeded-video--col-8');
+  const block = WebImporter.Blocks.createBlock(document, { name: narrow ? 'embed-wistia (narrow)' : 'embed-wistia', cells });
   before.forEach((n) => element.before(n));
   after.reverse().forEach((n) => element.after(n));
   element.replaceWith(block);

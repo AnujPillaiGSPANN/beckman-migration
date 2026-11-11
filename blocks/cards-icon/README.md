@@ -15,3 +15,7 @@ No variations.
 ## Universal Editor fields
 
 - Content fields derived from the block's decorate contract.
+
+## Options
+
+- `compact` (Density Gradient Media "Applications"): 100px icons at their own aspect ratio, title weight 500, 13px / 1.1 descriptions. The importer must emit `cards-icon (compact)` for these tiles.

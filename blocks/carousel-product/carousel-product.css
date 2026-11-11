@@ -22,6 +22,13 @@ main > .section:not(.centered):has(> .carousel-product-wrapper) > div {
   }
 }
 
+/* breakpoint-exception: source .feature-holder drops its 12px side margins at 1024px */
+@media (width >= 1024px) {
+  main > .section:not(.centered):has(> .carousel-product-wrapper) > div {
+    max-width: calc(970px - 2 * var(--content-gutter));
+  }
+}
+
 @media (width >= 1200px) {
   main > .section:not(.centered):has(> .carousel-product-wrapper) > div {
     max-width: none;
@@ -105,14 +112,14 @@ main .carousel-product-wrapper + .default-content-wrapper > .button-container:on
   outline-offset: -2px;
 }
 
-/* .related-part: 1 / 2 / 3 / 5 per view */
+/* .related-part: 1 / 2 / 3 / 5 per view; slick sizes slides to ceil(list width / n) */
 .carousel-product .carousel-product-slide {
   position: relative;
   box-sizing: border-box;
   display: flex;
   flex: 0 0 auto;
   flex-direction: column;
-  width: calc(100% - 16px);
+  width: calc(round(up, 100%, 1px) - 16px);
   margin: 0 8px;
   padding: 20px;
   border: 1px solid #f0f0f0;
@@ -286,7 +293,7 @@ main .carousel-product-wrapper + .default-content-wrapper > .button-container:on
 
 @media (width >= 600px) {
   .carousel-product .carousel-product-slide {
-    width: calc(100% / 2 - 16px);
+    width: calc(round(up, 100% / 2, 1px) - 16px);
   }
 }
 
@@ -311,12 +318,12 @@ main .carousel-product-wrapper + .default-content-wrapper > .button-container:on
 
 @media (width >= 900px) {
   .carousel-product .carousel-product-slide {
-    width: calc(100% / 3 - 16px);
+    width: calc(round(up, 100% / 3, 1px) - 16px);
   }
 }
 
 @media (width >= 1200px) {
   .carousel-product .carousel-product-slide {
-    width: calc(100% / 5 - 16px);
+    width: calc(round(up, 100% / 5, 1px) - 16px);
   }
 }

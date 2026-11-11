@@ -83,6 +83,36 @@
       "id": "blocks",
       "components": [
         {
+          "title": "Accordion Faq",
+          "id": "accordion-faq",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Accordion Faq",
+                  "filter": "accordion-faq"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Question",
+          "id": "accordion-faq-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Question",
+                  "model": "accordion-faq-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Accordion Icon Grid",
           "id": "accordion-icon-grid",
           "plugins": {
@@ -145,6 +175,66 @@
           }
         },
         {
+          "title": "Cards Doclist",
+          "id": "cards-doclist",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Doclist",
+                  "filter": "cards-doclist"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Document",
+          "id": "cards-doclist-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Document",
+                  "model": "cards-doclist-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cards Downloads",
+          "id": "cards-downloads",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Downloads",
+                  "filter": "cards-downloads"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Download",
+          "id": "cards-downloads-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Download",
+                  "model": "cards-downloads-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cards Faq",
           "id": "cards-faq",
           "plugins": {
@@ -175,6 +265,36 @@
           }
         },
         {
+          "title": "Cards Gradient",
+          "id": "cards-gradient",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Gradient",
+                  "filter": "cards-gradient"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Gradient Card",
+          "id": "cards-gradient-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Gradient Card",
+                  "model": "cards-gradient-item"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cards Icon",
           "id": "cards-icon",
           "plugins": {
@@ -183,7 +303,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Cards Icon",
-                  "filter": "cards-icon"
+                  "filter": "cards-icon",
+                  "model": "cards-icon"
                 }
               }
             }
@@ -273,7 +394,8 @@
                 "resourceType": "core/franklin/components/block/v1/block",
                 "template": {
                   "name": "Cards Scroll",
-                  "filter": "cards-scroll"
+                  "filter": "cards-scroll",
+                  "model": "cards-scroll"
                 }
               }
             }
@@ -289,6 +411,68 @@
                 "template": {
                   "name": "Card",
                   "model": "cards-scroll-card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cards Steps",
+          "id": "cards-steps",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Steps",
+                  "filter": "cards-steps",
+                  "model": "cards-steps"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Step Card",
+          "id": "cards-steps-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Step Card",
+                  "model": "cards-steps-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cards Workflow",
+          "id": "cards-workflow",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Workflow",
+                  "filter": "cards-workflow",
+                  "model": "cards-workflow"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Workflow Step",
+          "id": "cards-workflow-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Workflow Step",
+                  "model": "cards-workflow-item"
                 }
               }
             }
@@ -379,6 +563,37 @@
                 "template": {
                   "name": "Product Slide",
                   "model": "carousel-product-card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Testimonial",
+          "id": "carousel-testimonial",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Carousel Testimonial",
+                  "filter": "carousel-testimonial",
+                  "model": "carousel-testimonial"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Quote",
+          "id": "carousel-testimonial-slide",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Quote",
+                  "model": "carousel-testimonial-slide"
                 }
               }
             }
@@ -531,6 +746,37 @@
                 "template": {
                   "name": "Fragment",
                   "model": "fragment"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Hero Promo",
+          "id": "hero-promo",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Hero Promo",
+                  "filter": "hero-promo",
+                  "model": "hero-promo"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Feature",
+          "id": "hero-promo-feature",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Feature",
+                  "model": "hero-promo-feature"
                 }
               }
             }
@@ -757,8 +1003,8 @@
                 "template": {
                   "name": "Spec Row",
                   "model": "table-specs-row",
-                  "column1text": "Specification",
-                  "column2text": "Description"
+                  "column1_text": "Specification",
+                  "column2_text": "Description"
                 }
               }
             }

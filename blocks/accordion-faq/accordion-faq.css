@@ -1,0 +1,112 @@
+/* Accordion (faq) – source: .two-columns-holder (col-md-6 x2) > .yagi-accordion > .px-2 items
+   (header button #f0f0f0 / hover #d9d9d9, 44px plus/minus SVG, max-height 500ms ease-out) */
+
+/* section heading directly above the block (source h2 inline margins) */
+main .section .default-content-wrapper:has(+ .accordion-faq-wrapper) > h2:last-child {
+  margin: 75px 0 40px;
+}
+
+/* .px-2: 5px inside the column */
+
+/* stacked columns are plain blocks, so margins collapse between them like the source;
+   flow-root keeps the outer bar margins inside, like the source .row clearfix */
+.accordion-faq {
+  display: flow-root;
+  padding: 0 5px;
+}
+
+/* button .my-2 (5px top and bottom) */
+.accordion-faq .accordion-faq-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 5px 0;
+  border: 0;
+  border-radius: 2.5px;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: inherit;
+  font-family: inherit;
+  font-size: var(--body-font-size-m);
+  font-weight: 400;
+  line-height: var(--body-line-height);
+  text-align: left;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.accordion-faq .accordion-faq-header:hover {
+  background-color: #d9d9d9;
+}
+
+.accordion-faq .accordion-faq-header:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* source svg.h-6.w-6 (44px, shrinks with the 95% wide title) */
+.accordion-faq .accordion-faq-icon {
+  width: 44px;
+  height: 44px;
+}
+
+/* plus turns into a minus when open */
+.accordion-faq .accordion-faq-open .accordion-faq-icon-vertical {
+  display: none;
+}
+
+/* source p.text-left (margin-left 10px, width 95%) */
+.accordion-faq .accordion-faq-label {
+  width: 95%;
+  margin: 16px 0 16px 10px;
+}
+
+/* source .accordion-content.max-h-0.overflow-hidden.mb-2 (padding 0 20px): stays in flow while
+   closed, so its 5px bottom margin separates the bars like the source */
+.accordion-faq .accordion-faq-panel {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  margin-bottom: 5px;
+  padding: 0 20px;
+  transition: height 500ms cubic-bezier(0, 0, 0.2, 1), visibility 0s linear 500ms;
+}
+
+.accordion-faq .accordion-faq-open .accordion-faq-panel {
+  visibility: visible;
+  transition: height 500ms cubic-bezier(0, 0, 0.2, 1), visibility 0s;
+}
+
+.accordion-faq .accordion-faq-content p {
+  margin: 1em 0;
+}
+
+/* reference footnotes (source p style="font-size: 75%" > sup) */
+.accordion-faq .accordion-faq-content .accordion-faq-footnote {
+  font-size: 75%;
+}
+
+/* "Didn't find an answer…" line below the block (source p style="font-size: 2rem; font-weight: 500") */
+main .section .accordion-faq-wrapper + .default-content-wrapper > p:first-child {
+  margin: 20px 0;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-faq .accordion-faq-panel {
+    transition: none;
+  }
+}
+
+/* breakpoint-exception: source .col-md-6 columns sit side by side from 992px */
+@media (width >= 992px) {
+  /* .row gutters (10px) + .px-2 (5px) on both columns */
+  .accordion-faq {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+    align-items: start;
+  }
+}

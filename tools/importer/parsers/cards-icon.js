@@ -10,6 +10,8 @@
  *   cell 1 = <!-- field:image --> icon img from the first <p> (empty alt -> tile title)
  *   cell 2 = <!-- field:text -->  <p><strong>title</strong></p> + description <p>
  *            (inline markup such as <sub>2</sub> and <br> kept)
+ * Tiles whose titles are all plain paragraphs (Density Gradient Reagents "Applications")
+ * emit "cards-icon (compact)".
  */
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
@@ -18,10 +20,18 @@ export default function parse(element, { document }) {
   if (!tiles.length) tiles = Array.from(element.querySelectorAll('.col-sm-3'));
 
   const cells = [];
+  let plainTitles = 0;
   tiles.forEach((tile) => {
     const img = tile.querySelector('img');
-    const titleEl = Array.from(tile.querySelectorAll('strong, b, h1, h2, h3, h4, h5, h6'))
+    let titleEl = Array.from(tile.querySelectorAll('strong, b, h1, h2, h3, h4, h5, h6'))
       .find((el) => clean(el.textContent));
+    // Density Gradient Reagents: the title is a plain (inline-styled) first text paragraph;
+    // it becomes the bold title and its inline styles / edge whitespace are dropped
+    const plainTitle = !titleEl;
+    if (plainTitle) {
+      plainTitles += 1;
+      titleEl = Array.from(tile.children).find((c) => clean(c.textContent) && !c.querySelector('img')) || null;
+    }
     const title = titleEl ? clean(titleEl.textContent) : '';
 
     let imageCell = '';
@@ -53,6 +63,14 @@ export default function parse(element, { document }) {
       }
     });
 
+    if (plainTitle) {
+      parts.forEach((p) => {
+        [p, ...p.querySelectorAll('[style]')].forEach((n) => n.removeAttribute('style'));
+        if (p.firstChild && p.firstChild.nodeType === 3) p.firstChild.textContent = p.firstChild.textContent.replace(/^\s+/, '');
+        if (p.lastChild && p.lastChild.nodeType === 3) p.lastChild.textContent = p.lastChild.textContent.replace(/\s+$/, '');
+      });
+    }
+
     let textCell = '';
     if (parts.length) {
       textCell = document.createDocumentFragment();
@@ -62,6 +80,9 @@ export default function parse(element, { document }) {
     cells.push([imageCell, textCell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'cards-icon', cells });
+  // Density Gradient Reagents layout (plain title paragraphs, 100px icons, 13px descriptions)
+  // -> option "compact"; Cydem VT's bold-title tiles keep the default
+  const compact = tiles.length > 0 && plainTitles === tiles.length;
+  const block = WebImporter.Blocks.createBlock(document, { name: compact ? 'cards-icon (compact)' : 'cards-icon', cells });
   element.replaceWith(block);
 }

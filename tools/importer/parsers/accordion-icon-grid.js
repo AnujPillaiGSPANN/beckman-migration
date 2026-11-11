@@ -61,6 +61,8 @@ export default function parse(element, { document }) {
     if (panel) {
       pruneEmptyLists(panel);
       const nodes = Array.from(panel.children).filter((c) => clean(c.textContent) || c.querySelector('img'));
+      // inline styles in the panel copy are not authored (Echo footnotes: <p style="font-size: 75%">)
+      nodes.forEach((n) => [n, ...n.querySelectorAll('[style]')].forEach((s) => s.removeAttribute('style')));
       if (nodes.length) {
         content.appendChild(document.createComment(' field:content_text '));
         nodes.forEach((n) => content.appendChild(n));
@@ -71,6 +73,13 @@ export default function parse(element, { document }) {
     cells.push([hasLabel ? label : '', hasContent ? content : '']);
   });
 
+  // Echo: the element is the div.containercustom that also holds the section heading
+  // ("Echo Acoustic Liquid Handler Benefits"): keep it as default content before the block
+  const before = Array.from(element.querySelectorAll(':scope > h1, :scope > h2, :scope > h3'))
+    .filter((h) => clean(h.textContent));
+  before.forEach((h) => h.removeAttribute('style'));
+
   const block = WebImporter.Blocks.createBlock(document, { name: 'accordion-icon-grid', cells });
+  before.forEach((h) => element.before(h));
   element.replaceWith(block);
 }

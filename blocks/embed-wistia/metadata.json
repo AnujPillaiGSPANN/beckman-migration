@@ -10,18 +10,25 @@
     "summary": "Wistia product video q4o82wtj0e (4:30), ~83% content width (col-10), centered",
     "structure": "one cell: optional poster image + Wistia URL (fast.wistia.net/embed/iframe/<id>) or media id"
   },
-  "options": [],
+  "options": [
+    {
+      "class": "narrow",
+      "label": "Narrow (8 of 12 columns)"
+    }
+  ],
   "memberVariantIds": [
     "embed-wistia"
   ],
   "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
   "sourceUrls": [
-    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+    "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
   ],
   "sectionMetadata": null,
   "usage": {
     "pagesUsing": [
-      "/cell-culture-workstation/cydem-vt"
+      "/cell-culture-workstation/cydem-vt",
+      "/cell-counters-and-analyzers/vi-cell-blu"
     ],
     "reuseCount": 0,
     "lastUsed": "2026-11-10"

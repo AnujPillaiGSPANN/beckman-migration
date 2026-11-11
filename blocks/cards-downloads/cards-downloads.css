@@ -1,0 +1,75 @@
+/* Cards (downloads) – source: div.resources-container > div.resource-item
+   (.resource-title link left, .resource-info type label + .resource-download "| PDF" right) */
+.cards-downloads .cards-downloads-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.cards-downloads .cards-downloads-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #e5e3e1;
+  padding: 16px;
+  background-color: #fff;
+}
+
+.cards-downloads .cards-downloads-item p {
+  margin: 0;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+.cards-downloads .cards-downloads-title {
+  max-width: 100%;
+  color: #2b2b2a;
+}
+
+.cards-downloads .cards-downloads-title a:any-link,
+.cards-downloads .cards-downloads-link:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards-downloads .cards-downloads-info {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: flex-start;
+  gap: 8px;
+  color: #666564;
+}
+
+/* source fa-download: 16px solid red glyph after "| PDF " */
+.cards-downloads .cards-downloads-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  color: #d52331;
+  vertical-align: -2px;
+}
+
+/* breakpoint-exception: source grid stays two columns at every width; below 768px the
+   rows stack (title over type + PDF) so they stay readable */
+@media (width >= 768px) {
+  .cards-downloads .cards-downloads-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards-downloads .cards-downloads-item {
+    flex-direction: row;
+  }
+
+  .cards-downloads .cards-downloads-title {
+    max-width: 60%;
+  }
+
+  .cards-downloads .cards-downloads-info {
+    justify-content: flex-end;
+  }
+}

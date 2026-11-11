@@ -10,13 +10,25 @@ import cardsResourceParser from './parsers/cards-resource.js';
 import carouselProductParser from './parsers/carousel-product.js';
 import tableSpecsParser from './parsers/table-specs.js';
 import cardsFaqParser from './parsers/cards-faq.js';
+import cardsDoclistParser from './parsers/cards-doclist.js';
+import cardsGradientParser from './parsers/cards-gradient.js';
+import heroPromoParser from './parsers/hero-promo.js';
+import cardsWorkflowParser from './parsers/cards-workflow.js';
+import cardsStepsParser from './parsers/cards-steps.js';
+import cardsDownloadsParser from './parsers/cards-downloads.js';
 import cleanupTransformer from './transformers/beckman-cleanup.js';
 import sectionsTransformer from './transformers/beckman-sections.js';
 
 const PAGE_TEMPLATE = {
   "name": "product-detail",
   "urls": [
-    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+    "https://www.beckman.com/air-particle-counters/met-one-3400-plus",
+    "https://www.beckman.com/air-particle-counters/met-one-6000",
+    "https://www.beckman.com/air-particle-counters/facility-monitoring-system",
+    "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
+    "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents",
+    "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic"
   ],
   "description": "Product detail (spotlight) page: image gallery + intro, jump-link bar, features modules, Wistia video, icon cards, media columns, resource cards, reagent slider, spec table, views, technical documents, FAQ.",
   "blocks": [
@@ -74,6 +86,44 @@ const PAGE_TEMPLATE = {
       "instances": [
         "div.bcls-aeo-faqs.container",
         ".bcls-aeo-faqs"
+      ]
+    },
+    {
+      "name": "cards-doclist",
+      "instances": [
+        "#product-documentation-wrapper div.content-resource-list-wrapper"
+      ]
+    },
+    {
+      "name": "cards-gradient",
+      "instances": [
+        "div.viblue-cards"
+      ]
+    },
+    {
+      "name": "hero-promo",
+      "instances": [
+        "div.banner-val"
+      ]
+    },
+    {
+      "name": "cards-workflow",
+      "instances": [
+        "div.container-wf",
+        "div.bc-rich-text > div.container-wf"
+      ]
+    },
+    {
+      "name": "cards-steps",
+      "instances": [
+        "div.sample-analysis-wf",
+        "div.carousel-plate"
+      ]
+    },
+    {
+      "name": "cards-downloads",
+      "instances": [
+        "div.resources-container"
       ]
     }
   ],
@@ -185,7 +235,682 @@ const PAGE_TEMPLATE = {
         "div.bcls-aeo-faqs > h2"
       ]
     }
-  ]
+  ],
+  "pages": {
+    "https://www.beckman.com/air-particle-counters/met-one-3400-plus": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "cards-doclist": [
+          "#product-documentation-wrapper div.content-resource-list-wrapper"
+        ],
+        "carousel-product": [
+          "#related-parts-wrapper"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Promotional banner",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container:nth-of-type(1) > #internalPromotionalBanners"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#internalPromotionalBanners > a"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "Product intro: gallery beside title, copy, features, benefits, resource links, CTAs, Resources + Tools",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "In-page jump navigation bar",
+          "selector": [
+            "#intrenal-page-link-wrapper"
+          ],
+          "style": "anchor-tabs",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Content and Resources",
+          "selector": [
+            "#product-documentation-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-doclist"
+          ],
+          "defaultContent": [
+            "#product-documentation-wrapper div.product-page-sub-heading-wrapper > h3"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Related Parts slider",
+          "selector": [
+            "#related-parts-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-product"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    "https://www.beckman.com/air-particle-counters/met-one-6000": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "feature-modules": [
+          "#features-wrapper > div.bc-columns.row"
+        ],
+        "cards-resource": [
+          "div.download-res > div"
+        ],
+        "cards-doclist": [
+          "#product-documentation-wrapper div.content-resource-list-wrapper"
+        ],
+        "cards-faq": [
+          "div.bcls-aeo-faqs"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro: product image beside title, copy, check list, CTAs, Resources + Tools links",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "In-page jump navigation bar",
+          "selector": [
+            "#intrenal-page-link-wrapper"
+          ],
+          "style": "anchor-tabs",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Features",
+          "selector": [
+            "#features-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "feature-modules"
+          ],
+          "defaultContent": [
+            "#features-wrapper > div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Explore the Full Potential (application note download)",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.download-res)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-resource"
+          ],
+          "defaultContent": [
+            "div.bc-rich-text > div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Content and Resources",
+          "selector": [
+            "#product-documentation-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-doclist"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "FAQ",
+          "selector": [
+            "div.spotlight-content-wrapper div.bcls-aeo-faqs.container"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-faq"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    "https://www.beckman.com/air-particle-counters/facility-monitoring-system": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "feature-modules": [
+          "#features-wrapper > div.bc-columns.row"
+        ],
+        "cards-doclist": [
+          "#product-documentation-wrapper div.content-resource-list-wrapper"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro: image gallery beside title, description, check list, CTAs and Resources + Tools links",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder > h1",
+            "div.product-intro-wrapper div.rt-holder > div:has(> a.product-table-link-btn)",
+            "div.product-intro-wrapper div.resource-tool-table-wrapper"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "In-page jump navigation bar",
+          "selector": [
+            "#intrenal-page-link-wrapper"
+          ],
+          "style": "anchor-tabs",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Features",
+          "selector": [
+            "#features-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "feature-modules"
+          ],
+          "defaultContent": [
+            "#features-wrapper > div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Content and Resources",
+          "selector": [
+            "#product-documentation-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-doclist"
+          ],
+          "defaultContent": [
+            "#product-documentation-wrapper div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#techdocs-wrapper > div.product-page-sub-heading-wrapper"
+          ]
+        }
+      ]
+    },
+    "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "embed-wistia": [
+          "div.spotlight-content-wrapper > div.embeded-video"
+        ],
+        "feature-modules": [
+          "#features-wrapper > div.bc-columns.row"
+        ],
+        "cards-gradient": [
+          "div.viblue-cards"
+        ],
+        "hero-promo": [
+          "div.banner-val"
+        ],
+        "carousel-product": [
+          "#related-parts-wrapper"
+        ],
+        "cards-workflow": [
+          "div.container-wf"
+        ],
+        "cards-steps": [
+          "div.sample-analysis-wf",
+          "div.carousel-plate"
+        ],
+        "cards-downloads": [
+          "div.resources-container"
+        ],
+        "cards-faq": [
+          "div.bcls-aeo-faqs"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro: gallery beside title, copy, check list and CTAs",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "In-page jump navigation bar",
+          "selector": [
+            "#intrenal-page-link-wrapper"
+          ],
+          "style": "anchor-tabs",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Product Overview video",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "embed-wistia"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Features",
+          "selector": [
+            "#features-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "feature-modules"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "Insights and Resources cards",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(6)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-gradient"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Vi-CELL BLU 2.0 promo banner",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(7)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Related Parts slider",
+          "selector": [
+            "#related-parts-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-product"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "Integrations tiles",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.container-wf)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-workflow"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-9",
+          "name": "How it works: workflow steps",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.sample-analysis-wf) > div.product-page-sub-heading-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-steps"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-10",
+          "name": "Carousel or plate",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.sample-analysis-wf) > h4"
+          ],
+          "style": "centered",
+          "blocks": [
+            "cards-steps"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-11",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-12",
+          "name": "Content and Resources document list",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.resources-container)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-downloads"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-13",
+          "name": "FAQ",
+          "selector": [
+            "#main > div.bcls-aeo-faqs.container"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-faq"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "cards-icon": [
+          "div.bc-rich-text:has(> a[name='applications']) > div.row"
+        ],
+        "table-specs": [
+          "div.spotlight-content-wrapper > div.bc-rich-text > table:has(th)"
+        ],
+        "cards-resource": [
+          "div.spotlight-content-wrapper > div.bc-rich-text:has(> a[name=\"Resources\"]) div.row:has(img.resources)",
+          "div.spotlight-content-wrapper > div.bc-rich-text:has(> a[name=\"Resources\"]) + div.bc-rich-text div.row:has(img.resources)",
+          "div.spotlight-content-wrapper > div.bc-rich-text:has(> a[name=\"Resources\"]) + div.bc-rich-text + div.bc-rich-text div.row:has(img.resources)"
+        ],
+        "cards-workflow": [
+          "div.bc-rich-text > div.container-wf"
+        ],
+        "carousel-product": [
+          "#related-parts-wrapper"
+        ],
+        "cards-faq": [
+          "div.bcls-aeo-faqs"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Promotional banner",
+          "selector": [
+            "#internalPromotionalBanners"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#internalPromotionalBanners > a > img"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "Product intro: gallery beside title, description, CTA and Resources + Tools",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder > h1",
+            "div.rt-holder > div.resource-tool-table-wrapper"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "In-page jump navigation bar",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.parent)"
+          ],
+          "style": "anchor-nav",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Applications",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> a[name='applications'])"
+          ],
+          "style": "heading-tight",
+          "blocks": [
+            "cards-icon"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "Types of Density Gradients",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> a[name='types'])"
+          ],
+          "style": "heading-tight",
+          "blocks": [
+            "table-specs"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Resources and Protocols",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> a[name='Resources'])"
+          ],
+          "style": "heading-tight",
+          "blocks": [
+            "cards-resource"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Explore More Solutions for Density Gradient Centrifugation",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> a[name='workflow'])"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-workflow"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "Related Products slider",
+          "selector": [
+            "#related-parts-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-product"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-9",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-10",
+          "name": "FAQ",
+          "selector": [
+            "#main > div.main-holder > div.bcls-aeo-faqs.container"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-faq"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro: image gallery beside title, description and CTA",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "In-page jump navigation bar",
+          "selector": [
+            "#intrenal-page-link-wrapper"
+          ],
+          "style": "anchor-tabs",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Legacy m2p-labs product detail: product family links, description, datasheet download",
+          "selector": [
+            "#main > div.main-holder > div.bc-rich-text"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "div.bc-rich-text div.csc-default.is-header h1",
+            "nav.product-detail-nav > ul",
+            "a.btn.is-call-to-action.product-detail-action",
+            "p.product-detail-teaser",
+            "div.product-detail-content > div.download-box-icon"
+          ]
+        }
+      ]
+    }
+  }
 };
 
 const parsers = {
@@ -198,6 +923,12 @@ const parsers = {
   'carousel-product': carouselProductParser,
   'table-specs': tableSpecsParser,
   'cards-faq': cardsFaqParser,
+  'cards-doclist': cardsDoclistParser,
+  'cards-gradient': cardsGradientParser,
+  'hero-promo': heroPromoParser,
+  'cards-workflow': cardsWorkflowParser,
+  'cards-steps': cardsStepsParser,
+  'cards-downloads': cardsDownloadsParser,
 };
 // Late transformers change the DOM (section <hr> markers, shared fragments), so their beforeTransform
 // runs after block discovery.
@@ -218,6 +949,17 @@ function executeTransformers(hookName, element, payload, list = transformers) {
   });
 }
 
+// Per-page block + section selectors (template.pages[url]) for pages whose layout differs from the
+// template's shared selectors. Pages without an entry use the shared blocks[].instances / sections.
+function pageMapping(template, url) {
+  const key = (u) => {
+    try { const { origin, pathname } = new URL(u); return `${origin}${pathname.replace(/\/$/, '')}`; }
+    catch { return u; }
+  };
+  const entry = Object.entries(template.pages || {}).find(([u]) => key(u) === key(url));
+  return entry ? entry[1] : null;
+}
+
 function findBlocksOnPage(document, template, url) {
   const pageBlocks = [];
   const pageKey = (u) => {
@@ -233,6 +975,12 @@ function findBlocksOnPage(document, template, url) {
       pageBlocks.push({ name: blockDef.name, selector, element });
     });
   };
+  // a page mapped on its own (template.pages) uses only its own selectors
+  const own = pageMapping(template, url);
+  if (own) {
+    template.blocks.forEach((blockDef) => (own.blocks[blockDef.name] || []).forEach((selector) => claim(blockDef, selector)));
+    return pageBlocks;
+  }
   template.blocks.forEach((blockDef) => {
     const entry = Object.entries(blockDef.pageInstances || {}).find(([u]) => pageKey(u) === key);
     (entry ? entry[1] : []).forEach((selector) => claim(blockDef, selector));
@@ -250,7 +998,8 @@ function markPageTargets(payload) {
     element.setAttribute('data-excat-block', String(i));
     return { name, selector };
   });
-  const sections = (PAGE_TEMPLATE.sections || []).map((section, i) => {
+  const own = pageMapping(PAGE_TEMPLATE, params.originalURL);
+  const sections = ((own && own.sections) || PAGE_TEMPLATE.sections || []).map((section, i) => {
     const target = (section.selector || []).map((s) => { try { return document.querySelector(s); } catch { return null; } }).find(Boolean);
     if (!target) return section;
     target.setAttribute('data-excat-section', String(i));
@@ -262,7 +1011,7 @@ function markPageTargets(payload) {
 export default {
   preprocess: (payload) => {
     executeTransformers('preprocess', payload.document.body, payload, earlyTransformers);
-    if (CATALOG) markPageTargets(payload);
+    if (CATALOG || pageMapping(PAGE_TEMPLATE, payload.params.originalURL)) markPageTargets(payload);
   },
   transform: (payload) => {
     const { document, url, params } = payload;

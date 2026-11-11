@@ -12,18 +12,30 @@
  *            (a.redbtn outline button -> emphasised link)
  * Empty <a> to .ashx assets and &nbsp; text are dropped. The "Resources" heading that
  * sits inside the container (outside the cards) is moved before the block.
+ * Also product-detail pages:
+ *  - MET ONE 6000: div.download-res > div = one card (img above the h4 title + "Download
+ *    Application Note" link) -> one row; the h4 stays in the card as the bold title
+ *  - Density Gradient Reagents: 3 instances, each a div.row of col-md-6 / col-md-4 cards
+ *    (2 / 3 / 2); <br> in the strong title collapsed, image links (one points at an
+ *    unrelated asset) dropped, the redbtn label ("Download", "Read", "Download ↓") kept;
+ *    multi-line alts / alts with escaped <br /> cleaned.
  */
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
 export default function parse(element, { document }) {
+  let cards = Array.from(element.querySelectorAll(':scope > .row > [class*="col-"]'));
+  // density: the element is the div.row itself (col-md-6 / col-md-4 cards)
+  if (!cards.length) cards = Array.from(element.querySelectorAll(':scope > [class*="col-"]'));
+  if (!cards.length) cards = Array.from(element.querySelectorAll('.col-md-3'));
+  // MET ONE 6000: the element is a single card (div.download-res > div: img + h4 + link)
+  if (!cards.length && element.querySelector('img')) cards = [element];
+
   // default content inside the container but outside the cards
   const before = [];
   Array.from(element.querySelectorAll('h1, h2, h3, h4, h5, h6')).forEach((h) => {
+    if (cards.some((c) => c.contains(h))) return;
     if (!h.closest('[class*="col-"]') && clean(h.textContent)) before.push(h);
   });
-
-  let cards = Array.from(element.querySelectorAll(':scope > .row > [class*="col-"]'));
-  if (!cards.length) cards = Array.from(element.querySelectorAll('.col-md-3'));
 
   const cells = [];
   cards.forEach((card) => {
@@ -34,7 +46,10 @@ export default function parse(element, { document }) {
     const img = card.querySelector('img');
     let imageCell = '';
     if (img) {
-      if (!clean(img.getAttribute('alt')) && title) img.setAttribute('alt', title);
+      const alt = img.getAttribute('alt') || '';
+      if (!clean(alt) && title) img.setAttribute('alt', title);
+      // multi-line alts / alts with escaped markup (density: "Using <br />\nthe OptiMATE ...")
+      else if (/[<\n\r]/.test(alt)) img.setAttribute('alt', clean(alt.replace(/<br\s*\/?>/gi, ' ')));
       imageCell = document.createDocumentFragment();
       imageCell.appendChild(document.createComment(' field:image '));
       imageCell.appendChild(img);

@@ -37,6 +37,8 @@ export default function parse(element, { document }) {
       const comments = [];
       while (walker.nextNode()) comments.push(walker.currentNode);
       comments.forEach((c) => c.remove());
+      // inline styles (e.g. Vi-CELL BLU <p style="text-align: left;">) are not authored
+      [p, ...p.querySelectorAll('[style]')].forEach((n) => n.removeAttribute('style'));
     });
 
     if (parts.length) {

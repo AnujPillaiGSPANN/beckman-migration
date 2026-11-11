@@ -97,6 +97,27 @@
           "name": "column3_imageAlt",
           "value": "",
           "label": "Column 3 Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column4_text",
+          "value": "",
+          "label": "Column 4 Heading/Label + List"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column4_image",
+          "label": "Column 4 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column4_imageAlt",
+          "value": "",
+          "label": "Column 4 Image Alt"
         }
       ]
     }
