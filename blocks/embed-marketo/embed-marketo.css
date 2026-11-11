@@ -17,7 +17,7 @@
   max-width: 720px;
   margin: 0 auto;
   color: #333;
-  font-family: 'Gotham A', 'Gotham B', arial, sans-serif !important;
+  font-family: 'Gotham A', 'Gotham B', gotham-fallback, arial, sans-serif !important;
   font-size: 13px;
 }
 

@@ -224,6 +224,11 @@ export default {
     }
     WebImporter.rules.transformBackgroundImages(main, document);
     WebImporter.rules.adjustImageUrls(main, url, params.originalURL);
+    // local image copies (content/images/pim/…, see beckman-cleanup) stay site-root paths
+    main.querySelectorAll('img[src]').forEach((img) => {
+      const local = img.getAttribute('src').match(/^https?:\/\/[^/]+(\/images\/pim\/[^?#]+)/);
+      if (local) img.setAttribute('src', local[1]);
+    });
 
     params.fragments.forEach(({ element }) => {
       executeTransformers('afterTransform', element, payload, earlyTransformers);

@@ -201,10 +201,14 @@ function useZoomImageUrls(root) {
     const full = zoom && zoom.getAttribute('data-featherlight');
     if (img && hasExt(full) && !hasExt(img.getAttribute('src'))) img.setAttribute('src', full);
   });
-  // product (PIM) images: www.beckman.com/pimassets/… only redirects (301) to plytix-files.com,
-  // and asset upload does not follow redirects, so reference the file where it lives
-  safeAll(root, 'img[src*="beckman.com/pimassets/"]').forEach((img) => {
-    img.setAttribute('src', img.getAttribute('src').replace(/^https?:\/\/(www\.)?beckman\.com\/pimassets\//, 'https://plytix-files.com/'));
+  // product (PIM) images: www.beckman.com/pimassets/… redirects to plytix-files.com, and AEM
+  // asset upload fails on both. Reference a local copy, /images/pim/<image id>-<file name>
+  // (download new ones from https://plytix-files.com/<path after /pimassets/> into
+  // content/images/pim/ under that name).
+  safeAll(root, 'img[src*="beckman.com/pimassets/"], img[src*="plytix-files.com/"]').forEach((img) => {
+    const parts = img.getAttribute('src').split('?')[0].split('/');
+    const [id, file] = parts.slice(-2);
+    if (id && file) img.setAttribute('src', `/images/pim/${id}-${file}`);
   });
 }
 
@@ -231,6 +235,22 @@ function splitLinkedImages(root, doc) {
     link.textContent = href;
     linkP.append(link);
     host.replaceWith(imgP, linkP);
+  });
+}
+
+/**
+ * Document links: on upload to AEM, a link to a media.beckman.com file without a query
+ * string is turned into a DAM asset reference, which Edge Delivery does not serve (404).
+ * Beckman's other document links carry ?…&country=XX and stay external, so give the
+ * bare ones the same country parameter.
+ */
+function keepDocumentLinksExternal(root, payload) {
+  const source = (payload && payload.params && payload.params.originalURL) || '';
+  const country = /mybeckman\.in/.test(source) ? 'IN' : 'US';
+  safeAll(root, 'a[href^="https://media.beckman.com/"]').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (href.includes('?') || !/\.(pdf|docx?|xlsx?|pptx?|zip)$/i.test(href)) return;
+    a.setAttribute('href', `${href}?country=${country}`);
   });
 }
 
@@ -323,6 +343,7 @@ export default function transform(hookName, element, payload) {
     });
 
     splitLinkedImages(element, doc);
+    keepDocumentLinksExternal(element, payload);
 
     // Strip tracking / analytics attributes
     element.querySelectorAll('*').forEach((el) => {
