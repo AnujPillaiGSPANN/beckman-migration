@@ -374,18 +374,22 @@ function splitLinkedImages(root, doc) {
 }
 
 /**
- * Document links: on upload to AEM, a link to a media.beckman.com file without a query
- * string is turned into a DAM asset reference, which Edge Delivery does not serve (404).
- * Beckman's other document links carry ?…&country=XX and stay external, so give the
- * bare ones the same country parameter.
+ * Document links: on upload to AEM, an absolute link to a document file without a query
+ * string (any host, e.g. media.beckman.com or m2p-labs.com) is turned into a DAM asset
+ * reference, which Edge Delivery does not serve (404). Beckman's other document links carry
+ * ?…&country=XX and stay external, so give the bare ones the same country parameter.
+ * Also: AEM escapes "&" in image alt text twice (screen readers read "&amp;"), so alts use "and".
  */
 function keepDocumentLinksExternal(root, payload) {
   const source = (payload && payload.params && payload.params.originalURL) || '';
   const country = /mybeckman\.in/.test(source) ? 'IN' : 'US';
-  safeAll(root, 'a[href^="https://media.beckman.com/"]').forEach((a) => {
+  safeAll(root, 'a[href^="https://"], a[href^="http://"]').forEach((a) => {
     const href = a.getAttribute('href');
-    if (href.includes('?') || !/\.(pdf|docx?|xlsx?|pptx?|zip)$/i.test(href)) return;
+    if (href.includes('?') || href.includes('#') || !/\.(pdf|docx?|xlsx?|pptx?|zip)$/i.test(href)) return;
     a.setAttribute('href', `${href}?country=${country}`);
+  });
+  safeAll(root, 'img[alt*="&"]').forEach((img) => {
+    img.setAttribute('alt', img.getAttribute('alt').replace(/\s*&\s*/g, ' and '));
   });
 }
 

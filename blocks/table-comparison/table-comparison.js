@@ -1,4 +1,4 @@
-import { moveInstrumentation } from '../../scripts/scripts.js';
+import { moveInstrumentation, trimEmptyColumns } from '../../scripts/scripts.js';
 
 const isEmpty = (cell) => !cell || (!cell.textContent.trim() && !cell.querySelector('picture, img'));
 
@@ -11,6 +11,7 @@ const isEmpty = (cell) => !cell || (!cell.textContent.trim() && !cell.querySelec
  * @param {Element} block
  */
 export default function decorate(block) {
+  trimEmptyColumns(block); // AEM renders unused column groups as empty cells
   const rows = [...block.children];
   const colCount = Math.max(0, ...rows.map((r) => r.children.length));
 

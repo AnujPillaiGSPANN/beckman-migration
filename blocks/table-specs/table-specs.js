@@ -1,4 +1,4 @@
-import { moveInstrumentation } from '../../scripts/scripts.js';
+import { moveInstrumentation, trimEmptyColumns } from '../../scripts/scripts.js';
 
 /**
  * Table (specs): specification sheet (attribute | values), or a comparison table
@@ -7,6 +7,7 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
  * @param {Element} block
  */
 export default function decorate(block) {
+  trimEmptyColumns(block); // AEM renders unused column groups as empty cells
   const table = document.createElement('table');
   const thead = document.createElement('thead');
   const tbody = document.createElement('tbody');

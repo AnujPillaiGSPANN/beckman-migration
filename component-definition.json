@@ -1002,9 +1002,7 @@
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
                   "name": "Spec Row",
-                  "model": "table-specs-row",
-                  "column1_text": "Specification",
-                  "column2_text": "Description"
+                  "model": "table-specs-row"
                 }
               }
             }

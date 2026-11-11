@@ -160,6 +160,24 @@ export function wrapInlineCells(main) {
 }
 
 /**
+ * AEM renders every column group of a block model as a cell, empty or not, so a 2-column
+ * table authored in a model that allows 4 columns arrives with 2 empty trailing cells per row
+ * (document content has none). Drop trailing columns that are empty in every row so blocks
+ * that size themselves by column count see the authored columns only.
+ * @param {Element} block the block element (rows > cells)
+ */
+export function trimEmptyColumns(block) {
+  const rows = [...block.children];
+  const width = Math.max(0, ...rows.map((r) => r.children.length));
+  const isEmpty = (cell) => !cell
+    || (!cell.textContent.trim() && !cell.querySelector('img, picture, iframe, a, video'));
+  for (let c = width - 1; c > 0; c -= 1) {
+    if (!rows.every((r) => isEmpty(r.children[c]))) break;
+    rows.forEach((r) => r.children[c]?.remove());
+  }
+}
+
+/**
  * Linked images in default content. AEM text components cannot hold images, so a linked
  * image is authored as an image followed by a paragraph holding only its link, written
  * as the bare URL. Join the two back into <p><a href><picture></a></p>.

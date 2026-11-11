@@ -4,7 +4,10 @@
  * Row cells: [heading/label + list or image] x 3.
  * @param {Element} block
  */
+import { trimEmptyColumns } from '../../scripts/scripts.js';
+
 export default function decorate(block) {
+  trimEmptyColumns(block); // AEM renders unused column groups as empty cells
   const cols = [...(block.firstElementChild?.children || [])];
   block.classList.add(`feature-modules-${cols.length}-cols`);
   // every column is a label + image (e.g. Front / Side / Front Open views)
