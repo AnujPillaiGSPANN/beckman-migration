@@ -1,0 +1,89 @@
+/* Cards (resource) – source: .bc-rich-text > .row > .col-md-3.col-sm-6 application notes
+   (bold title, linked cover with a 1px border, p.pbtn > a.redbtn "Read") */
+
+/* below 768px the source columns are plain blocks inside clearfixed .row groups of four:
+   card margins collapse between cards (30px) but not out of a row (16px above the first
+   title, 30px after the last button) */
+.cards-resource .cards-resource-list {
+  display: flow-root;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-resource .cards-resource-card {
+  text-align: center;
+}
+
+/* a new source .row every four cards: the previous row keeps its 30px, the next its 16px */
+.cards-resource .cards-resource-card:nth-child(4n + 1):not(:first-child) {
+  margin-top: calc(30px + 16px);
+}
+
+.cards-resource .cards-resource-card-title p,
+.cards-resource .cards-resource-card-title :is(h2, h3, h4, h5, h6) {
+  margin: 16px 0;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  font-weight: 400;
+  line-height: var(--body-line-height);
+}
+
+.cards-resource .cards-resource-card-title strong {
+  font-weight: 700;
+}
+
+.cards-resource .cards-resource-card-image p {
+  margin: 0;
+}
+
+/* the source cover is an inline image followed by an &nbsp; on a centred line */
+.cards-resource .cards-resource-card-image p::after {
+  content: '\00a0';
+}
+
+/* source img.resources: max-width 200px (border-box) with a #d9d9d9 border */
+.cards-resource .cards-resource-card-image img {
+  box-sizing: border-box;
+  max-width: min(200px, 100%);
+  height: auto;
+  border: 1px solid var(--box-border-color);
+  vertical-align: top;
+}
+
+/* source p.pbtn (margin 20px 0 30px); the link itself is the global secondary button */
+.cards-resource .cards-resource-card-actions p {
+  margin: 20px 0 30px;
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+/* breakpoint-exception: source .col-sm-6 floats two per row from 768px (30px gutter) */
+@media (width >= 768px) {
+  .cards-resource .cards-resource-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 30px;
+  }
+
+  /* floated columns: each card keeps its own margins */
+  .cards-resource .cards-resource-card,
+  .cards-resource .cards-resource-card:nth-child(4n + 1):not(:first-child) {
+    display: flow-root;
+    margin-top: 0;
+  }
+}
+
+/* breakpoint-exception: source .col-md-3 puts four per row from 992px */
+@media (width >= 992px) {
+  .cards-resource .cards-resource-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* breakpoint-exception: source .custome-container columns use 10px padding from 1024px */
+@media (width >= 1024px) {
+  .cards-resource .cards-resource-list {
+    column-gap: 20px;
+  }
+}

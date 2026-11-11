@@ -1,0 +1,276 @@
+/* Cards (scroll) – two source strips inside .containercustom:
+   - download covers: .brochures.brochure-scroll > .brochure.tooltip (hover "Download" pill)
+   - linked tiles: .LatestNews.h-scroll-container > a.LatestNews__Item */
+
+/* section headings directly above the strip (source h2 inline margins) */
+main .section .default-content-wrapper:has(+ .cards-scroll-wrapper .cards-scroll-card-download) > h2:last-child {
+  margin: 75px 0 20px;
+}
+
+main .section .default-content-wrapper:has(+ .cards-scroll-wrapper .cards-scroll-card-linked) > h2:last-child {
+  margin: 50px 0 40px;
+}
+
+.cards-scroll .cards-scroll-list {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+}
+
+.cards-scroll .cards-scroll-card {
+  position: relative;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+
+.cards-scroll .cards-scroll-card-image p,
+.cards-scroll .cards-scroll-card-body p {
+  margin: 0;
+}
+
+.cards-scroll .cards-scroll-card-image picture,
+.cards-scroll .cards-scroll-card-image img {
+  display: block;
+}
+
+/* --- download covers (.brochure.tooltip) --- */
+.cards-scroll .cards-scroll-list:has(> .cards-scroll-card-download) {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.cards-scroll .cards-scroll-card-download {
+  min-width: 220px;
+  margin: 10px auto 15px;
+  padding: 10px;
+}
+
+.cards-scroll .cards-scroll-card-download img {
+  box-sizing: border-box;
+  width: 200px;
+  height: auto;
+  border: 1px solid #b3b3b3;
+}
+
+.cards-scroll .cards-scroll-card-download:hover img {
+  filter: grayscale(100%);
+}
+
+/* .tooltiptext: red pill centred on the cover, shown on hover */
+.cards-scroll a.cards-scroll-card-overlay:any-link {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  visibility: hidden;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  background-color: #ea1c2c;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.65;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+.cards-scroll .cards-scroll-card-overlay:focus-visible {
+  visibility: visible;
+}
+
+.cards-scroll .cards-scroll-card-download:hover .cards-scroll-card-overlay {
+  visibility: visible;
+}
+
+/* "Additional Resources" link below the covers (source p > a > button.btn.btn-primary.btn-red) */
+main .cards-scroll-wrapper:has(.cards-scroll-card-download) + .default-content-wrapper > .button-container:only-child {
+  display: block;
+  margin: 16px 0;
+}
+
+main .cards-scroll-wrapper:has(.cards-scroll-card-download) + .default-content-wrapper > .button-container:only-child a.button:any-link {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  background-color: #ea1c2c;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.65;
+  text-decoration: none;
+  transition: color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+main .cards-scroll-wrapper:has(.cards-scroll-card-download) + .default-content-wrapper > .button-container:only-child a.button:hover {
+  background-color: #cf1322;
+}
+
+/* --- linked tiles (.LatestNews__Item) --- */
+.cards-scroll .cards-scroll-list:has(> .cards-scroll-card-linked) {
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 10px 0;
+  background-color: var(--background-color);
+}
+
+/* .h-scroll-container::after keeps the last tile's right margin scrollable */
+.cards-scroll .cards-scroll-list:has(> .cards-scroll-card-linked)::after {
+  content: '';
+  flex: 0 0 1px;
+}
+
+.cards-scroll .cards-scroll-card-linked {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  margin: 0 0 20px 5%;
+  border-radius: 3px;
+  background-color: var(--background-color);
+  transition: transform 0.3s ease;
+}
+
+.cards-scroll .cards-scroll-card-linked:last-child {
+  margin-right: 3%;
+}
+
+/* card outline shadow (.LatestNews__Item::after; the page pins it with !important, so it stays on hover) */
+.cards-scroll .cards-scroll-card-linked::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
+  transition: box-shadow 0.3s ease;
+  pointer-events: none;
+}
+
+.cards-scroll .cards-scroll-card-linked:hover {
+  transform: translateY(-1px);
+}
+
+.cards-scroll .cards-scroll-card-linked .cards-scroll-card-image {
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 100%;
+  height: 30vh;
+  min-height: 160px;
+  max-height: 220px;
+  border-bottom: 1px solid #f2f5f7;
+  border-radius: 3px 3px 0 0;
+}
+
+/* .LatestNews__Image: grey figure behind the image, zooms on hover */
+.cards-scroll .cards-scroll-card-linked .cards-scroll-card-image p,
+.cards-scroll .cards-scroll-card-linked .cards-scroll-card-image picture {
+  height: 100%;
+}
+
+.cards-scroll .cards-scroll-card-linked .cards-scroll-card-image picture {
+  background-color: #7e878c;
+  transition: transform 0.7s ease-out;
+}
+
+.cards-scroll .cards-scroll-card-linked:hover .cards-scroll-card-image picture {
+  transform: scale(1.03);
+}
+
+.cards-scroll .cards-scroll-card-linked .cards-scroll-card-image img {
+  width: 100%;
+  height: auto;
+}
+
+.cards-scroll .cards-scroll-card-body {
+  flex: 1;
+  padding: 25px 20px 15px;
+  border-radius: 3px;
+  box-shadow: 0 2px 7px 0 rgb(0 0 0 / 10%);
+  color: var(--text-color);
+}
+
+.cards-scroll .cards-scroll-card-body .cards-scroll-card-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+  color: #ea1c2c;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+}
+
+.cards-scroll .cards-scroll-card-title {
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  font-weight: 700;
+}
+
+.cards-scroll a.cards-scroll-card-link:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+/* whole tile is the link (source a.LatestNews__Item) */
+.cards-scroll .cards-scroll-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cards-scroll .cards-scroll-card-linked:focus-within {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+.cards-scroll .cards-scroll-card-link:focus-visible {
+  outline: none;
+}
+
+@media (width >= 640px) {
+  .cards-scroll .cards-scroll-card-linked {
+    width: 60%;
+    margin: 15px 15px 20px;
+  }
+}
+
+/* breakpoint-exception: source .LatestNews__Item inline style switches at 730px */
+@media (width >= 730px) {
+  .cards-scroll .cards-scroll-card-linked {
+    width: 50%;
+    margin: 10px 10px 20px;
+  }
+}
+
+/* breakpoint-exception: source .LatestNews / .h-scroll-item switch at 1024px */
+@media (width >= 1024px) {
+  .cards-scroll .cards-scroll-list:has(> .cards-scroll-card-linked)::after {
+    display: none;
+  }
+
+  .cards-scroll .cards-scroll-card-linked {
+    width: 32%;
+  }
+
+  .cards-scroll .cards-scroll-card-linked:last-child {
+    margin-right: 0;
+  }
+
+  .cards-scroll .cards-scroll-card-linked .cards-scroll-card-image {
+    height: 185px;
+  }
+}
+
+/* breakpoint-exception: source .LatestNews__Item inline style switches at 1220px */
+@media (width >= 1220px) {
+  .cards-scroll .cards-scroll-card-linked {
+    width: 23%;
+    margin: 8px 8px 20px;
+  }
+}

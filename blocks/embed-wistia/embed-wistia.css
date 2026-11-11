@@ -1,0 +1,68 @@
+/* Embed (wistia) – source: .embeded-video.embeded-video--col-10 (83.33% wide, centred)
+   > .embeded-video__wrapper (padding-bottom: 56.2%) > Wistia player */
+.embed-wistia {
+  position: relative;
+  width: 83.33%;
+  margin: 0 auto;
+  aspect-ratio: 1000 / 562;
+}
+
+.embed-wistia .embed-wistia-player,
+.embed-wistia .embed-wistia-player iframe,
+.embed-wistia .embed-wistia-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.embed-wistia .embed-wistia-placeholder {
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.embed-wistia .embed-wistia-placeholder picture,
+.embed-wistia .embed-wistia-placeholder img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* play button in the source player colour */
+.embed-wistia .embed-wistia-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 125px;
+  height: 80px;
+  background-color: #ea1c2c;
+  transform: translate(-50%, -50%);
+}
+
+.embed-wistia .embed-wistia-play::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-top: 16px solid transparent;
+  border-bottom: 16px solid transparent;
+  border-left: 26px solid #fff;
+  transform: translate(-40%, -50%);
+}
+
+.embed-wistia .embed-wistia-placeholder:focus-visible {
+  outline: 3px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* breakpoint-exception: source bootstrap column gutter (padding: 0 10px) applies from 1024px */
+@media (width >= 1024px) {
+  .embed-wistia {
+    width: calc(83.33% - 20px);
+  }
+}

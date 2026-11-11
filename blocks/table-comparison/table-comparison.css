@@ -1,0 +1,163 @@
+/* Table (comparison) – source: .model-comparison.brochure-scroll (4 x 1fr grid, shadowed model columns) */
+
+/* source bootstrap container: 15px gutters (the block sets the 720/940/1140px inner width) */
+main > .section > .table-comparison-wrapper {
+  max-width: none;
+  padding: 0 var(--content-gutter);
+}
+
+/* section heading directly above the block (source h2#Models) */
+main .section .default-content-wrapper:has(+ .table-comparison-wrapper) > h2:last-child {
+  margin: 75px 0 40px;
+}
+
+/* source scroll container: .brochure-scroll + .model-comparison padding */
+.table-comparison {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 15px 15px 25px;
+  overflow-x: auto;
+}
+
+.table-comparison .table-comparison-grid {
+  display: grid;
+  grid-auto-columns: 1fr;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(var(--table-comparison-rows, 1), auto);
+  gap: 15px 30px;
+}
+
+.table-comparison .table-comparison-labels,
+.table-comparison .table-comparison-model {
+  display: grid;
+  grid-row: 1 / span var(--table-comparison-rows, 1);
+  grid-template-rows: subgrid;
+}
+
+/* source .column-shadow-bg-*: 10px beyond the column, behind its cells */
+.table-comparison .table-comparison-model {
+  margin: -10px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: rgb(255 255 255 / 80%);
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.table-comparison .table-comparison-cell p {
+  margin: 0;
+}
+
+/* model names (source .div9: p > strong, 16px margins) */
+.table-comparison .table-comparison-name {
+  text-align: center;
+}
+
+.table-comparison .table-comparison-name p {
+  margin: 16px 0;
+}
+
+/* product shots (source .div10 img: width 80%, margin-bottom 20px) */
+.table-comparison .table-comparison-image {
+  text-align: center;
+}
+
+.table-comparison .table-comparison-image picture {
+  display: block;
+}
+
+.table-comparison .table-comparison-image img {
+  display: block;
+  width: 80%;
+  margin: 0 auto 20px;
+}
+
+/* attribute rows (source .div3-.div7 / .div11-...) */
+.table-comparison .table-comparison-value {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(153 153 153 / 30%);
+  font-size: 90%;
+}
+
+.table-comparison .table-comparison-value ul {
+  margin: 0 0 10px;
+  padding-left: 17px;
+}
+
+/* CTA row (source .div8 / .div16: padding-bottom 10px, centered) */
+.table-comparison .table-comparison-cta {
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.table-comparison .table-comparison-cta .button-container {
+  display: inline;
+}
+
+/* source .btn.btn-red (Explore Biomek …) */
+main .table-comparison .table-comparison-cta a:any-link,
+main .table-comparison .table-comparison-cta a.button:any-link {
+  display: inline-block;
+  max-width: none;
+  margin: 0;
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 9999px;
+  background-color: #ea1c2c;
+  box-shadow: none;
+  color: #fff;
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
+  line-height: 1.65;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+main .table-comparison .table-comparison-cta a:any-link:hover,
+main .table-comparison .table-comparison-cta a.button:any-link:hover {
+  background-color: #cf1322;
+}
+
+/* source .redbtn (Talk to an Expert): outlined pill, hidden below 992px */
+main .table-comparison .table-comparison-labels .table-comparison-cta a:any-link,
+main .table-comparison .table-comparison-labels .table-comparison-cta a.button:any-link {
+  display: none;
+  margin: 0 0 15px;
+  border: 1px solid #ea1c2c;
+  background-color: transparent;
+  color: #ea1c2c;
+  font-size: 14px;
+  transition: none;
+}
+
+main .table-comparison .table-comparison-labels .table-comparison-cta a:any-link:hover,
+main .table-comparison .table-comparison-labels .table-comparison-cta a.button:any-link:hover {
+  background-color: #ea1c2c;
+  color: #fff;
+}
+
+/* breakpoint-exception: source container is 750px wide from exactly 768px */
+@media (width >= 768px) {
+  .table-comparison {
+    max-width: 720px;
+  }
+}
+
+/* breakpoint-exception: source container is 970px and shows the label CTA from exactly 992px */
+@media (width >= 992px) {
+  .table-comparison {
+    max-width: 940px;
+  }
+
+  main .table-comparison .table-comparison-labels .table-comparison-cta a:any-link,
+  main .table-comparison .table-comparison-labels .table-comparison-cta a.button:any-link {
+    display: inline-block;
+  }
+}
+
+@media (width >= 1200px) {
+  .table-comparison {
+    max-width: 1140px;
+  }
+}

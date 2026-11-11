@@ -1,0 +1,50 @@
+{
+  "definitions": [
+    {
+      "title": "Columns Intro Box",
+      "id": "columns-intro-box",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/columns/v1/columns",
+            "template": {
+              "columns": "2",
+              "rows": "1",
+              "name": "Columns Intro Box",
+              "filter": "columns-intro-box"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "columns-intro-box",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "number",
+          "name": "columns",
+          "value": "",
+          "label": "Columns"
+        },
+        {
+          "component": "text",
+          "valueType": "number",
+          "name": "rows",
+          "value": "",
+          "label": "Rows"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "columns-intro-box",
+      "components": [
+        "column"
+      ]
+    }
+  ]
+}

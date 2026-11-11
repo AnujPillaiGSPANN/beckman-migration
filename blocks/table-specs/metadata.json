@@ -1,0 +1,31 @@
+{
+  "variantName": "table-specs",
+  "baseBlock": "table",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Plain two-column specification table: centered, red header underline, grey row rules, vertical column divider",
+    "description": "Biomek table-comparison is a multi-model comparison grid with product images, buttons and shadowed model columns. This is a plain 2-column spec sheet (centered ~70% width, red header underline, grey row rules, vertical column divider): under 80% similar."
+  },
+  "contentPattern": {
+    "summary": "2-column specification table: header Specifications | Description, 4 rows of label | bulleted values",
+    "structure": "rows of [specification | description]; the first row is the header (Specifications | Description); values may be bulleted lists"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "table-specs"
+  ],
+  "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+  "sourceUrls": [
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/cell-culture-workstation/cydem-vt"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for technical parameters. For multi-model comparisons use table-comparison.",
+  "usageDescription": "Plain two-column specification table: centered, red header underline, grey row rules, vertical column divider."
+}

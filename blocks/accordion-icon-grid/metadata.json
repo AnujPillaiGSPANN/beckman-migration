@@ -1,0 +1,33 @@
+{
+  "variantName": "accordion-icon-grid",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Row of grey icon tiles (4/2/1 per row); each tile toggles its own bullet list in place, red chevron indicator",
+    "description": "No accordion variants exist. 4 grey icon tiles laid out in a 4-column row (2 on tablet, 1 on mobile); each tile is an independently toggling accordion item whose list expands in place under the tile; red chevron indicator."
+  },
+  "contentPattern": {
+    "summary": "4 grey tiles in a 4-col row: red line icon + bold title + red chevron; each tile is a button that expands its own bulleted list in place (accordion-item, max-height transition)",
+    "structure": "one row per tile: (1) icon image + title text; (2) content (bulleted list)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "accordion-icon-grid"
+  ],
+  "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+  "sourceUrls": [
+    "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+  ],
+  "sectionMetadata": {
+    "style": "centered"
+  },
+  "usage": {
+    "pagesUsing": [
+      "/liquid-handlers/biomek-i-series-automated-workstations"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for benefit tiles that reveal detail lists. For static tiles use cards-icon; for a stacked FAQ use accordion.",
+  "usageDescription": "Row of grey icon tiles (4/2/1 per row); each tile toggles its own bullet list in place, red chevron indicator."
+}

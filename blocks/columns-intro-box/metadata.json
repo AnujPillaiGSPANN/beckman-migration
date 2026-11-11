@@ -1,0 +1,48 @@
+{
+  "variantName": "columns-intro-box",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "page intro copy beside a boxed callout (heading + bulleted list)",
+    "description": "No existing columns variants in blocks/. Distinguished by an asymmetric ~60/40 split where the second column is rendered as a light grey callout box with a red left accent border."
+  },
+  "contentPattern": {
+    "summary": "Intro paragraphs (left) beside the boxed 'Common Applications' heading + list (right)",
+    "structure": "one row with two cells: (1) intro paragraphs with inline links, (2) a heading (h3) followed by a bulleted list, rendered as a grey callout box with a red left accent; ~60/40 split on desktop, stacked on mobile"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "columns-intro-box"
+  ],
+  "sourceUrl": "https://www.beckman.com/air-particle-counters",
+  "structure": {
+    "baseBlock": "columns",
+    "source": "get_block_details /block-collection/columns",
+    "rows": [
+      {
+        "row": "header",
+        "cells": [
+          "Columns (intro-box)"
+        ]
+      },
+      {
+        "row": 1,
+        "cells": [
+          "Intro paragraphs (rich text, links)",
+          "Heading (h3) + bulleted list"
+        ]
+      }
+    ],
+    "notes": "Two columns, one content row. Additional rows would need the same 2 cells."
+  },
+  "usage": {
+    "pagesUsing": [
+      "/air-particle-counters",
+      "/particle-size-analyzers"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use when a two-cell row pairs body copy with a short heading + list callout. For equal-weight columns without a callout box use plain columns.",
+  "usageDescription": "Page intro: descriptive paragraphs on the left with a boxed list of key applications/highlights on the right."
+}

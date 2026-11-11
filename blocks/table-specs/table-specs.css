@@ -1,0 +1,60 @@
+/* Table (specs) – source: .bc-rich-text > table[align=center] (Specifications | Description),
+   inline styles: width 926.741px, cells padding 5px, #e3e3e3 dividers, 3px red rule under the header */
+
+/* the source table sits between two empty &nbsp; paragraphs (26.4px line + 16px margin each side);
+   (padding, so the gap does not collapse into the heading margin); it keeps its fixed width on
+   small screens, so the block scrolls instead of the page */
+.table-specs {
+  padding: calc(26.4px + 16px) 0;
+  overflow-x: auto;
+}
+
+.table-specs table {
+  width: 926.741px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
+}
+
+.table-specs th,
+.table-specs td {
+  width: 50%;
+  padding: 5px;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table-specs thead tr {
+  border-bottom: 3px solid var(--cta-color);
+}
+
+.table-specs thead th {
+  font-weight: 700;
+  text-align: center;
+}
+
+.table-specs tbody tr {
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.table-specs tbody tr:last-child {
+  border-bottom: 0;
+}
+
+/* vertical divider after the first column */
+.table-specs tr > :first-child {
+  border-right: 1px solid #e3e3e3;
+}
+
+.table-specs :is(th, td) ul {
+  margin: 0 0 10px;
+  padding-left: 17px;
+}
+
+.table-specs :is(th, td) > p {
+  margin: 0;
+}

@@ -1,0 +1,47 @@
+{
+  "variantName": "cards-faq",
+  "baseBlock": "cards",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "static, always-open question/answer boxes stacked full width",
+    "description": "Differs from cards-product (under 80% similar): text only, one card per row at full width, grey filled boxes, no images or links on the card. Uses the cards 'no images' one-cell content model."
+  },
+  "contentPattern": {
+    "summary": "6 static question/answer boxes stacked vertically",
+    "structure": "one cell: a question heading (bold) followed by one or more answer paragraphs (inline links allowed); no image"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-faq"
+  ],
+  "sourceUrl": "https://www.beckman.com/air-particle-counters",
+  "structure": {
+    "baseBlock": "cards",
+    "source": "get_block_details /block-collection/cards (Cards (no images))",
+    "rows": [
+      {
+        "row": "header",
+        "cells": [
+          "Cards (faq)"
+        ]
+      },
+      {
+        "row": "card (repeat x6)",
+        "cells": [
+          "Question heading + answer paragraph(s)"
+        ]
+      }
+    ]
+  },
+  "usage": {
+    "pagesUsing": [
+      "/air-particle-counters",
+      "/particle-size-analyzers",
+      "/cell-culture-workstation/cydem-vt"
+    ],
+    "reuseCount": 2,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for static FAQ lists where every answer is always visible. For collapsible Q&A use accordion.",
+  "usageDescription": "Stacked full-width grey boxes, each holding one question heading and its answer."
+}

@@ -1,0 +1,156 @@
+/* Hero (video) – source: .bc-test-layout > .section (Wistia background loop, 100vw x 65vw / 35vw) */
+
+/* full-bleed: the source banner spans the viewport (width: 100vw) */
+main > .section > .hero-video-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.hero-video {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 65vw;
+  margin-bottom: 50px;
+  overflow: hidden;
+  color: #fff;
+  isolation: isolate;
+}
+
+.hero-video .hero-video-media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero-video .hero-video-media picture,
+.hero-video .hero-video-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* source .responsive-iframe: pinned top-left, 100% wide, 145% tall (Wistia fitStrategy=cover) */
+.hero-video .hero-video-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-video .hero-video-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 145%;
+  border: 0;
+}
+
+/* source .color-overlay */
+.hero-video .hero-video-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  opacity: 0.5;
+}
+
+.hero-video .hero-video-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  text-align: center;
+}
+
+.hero-video .hero-video-content :is(h1, h2) {
+  margin: 0;
+  color: #fff;
+  font-size: 29px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.hero-video .hero-video-content p {
+  margin: 0;
+}
+
+/* source .eCardContainer */
+.hero-video .hero-video-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* source .e-cards.btn.btn-red pill (the whole pill is clickable here) */
+.hero-video .hero-video-ctas .hero-video-cta {
+  position: relative;
+  display: block;
+  margin: 10px;
+  padding: 12px 20px;
+  border-radius: 9999px;
+  background-color: #ea1c2c;
+  color: #fff;
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
+  line-height: 1.65;
+  text-align: center;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+
+.hero-video .hero-video-ctas .hero-video-cta:hover,
+.hero-video .hero-video-ctas .hero-video-cta:has(a:focus-visible) {
+  background-color: #cf1322;
+}
+
+main .hero-video .hero-video-ctas a:any-link,
+main .hero-video .hero-video-ctas a.button:any-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: inherit;
+  text-decoration: none;
+  white-space: inherit;
+}
+
+main .hero-video .hero-video-ctas a:any-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+main .hero-video .hero-video-ctas a:any-link:focus-visible {
+  outline: none;
+}
+
+.hero-video .hero-video-ctas .hero-video-cta:has(a:focus-visible) {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* breakpoint-exception: source banner switches from 65vw to 35vw above exactly 1000px */
+@media (width > 1000px) {
+  .hero-video {
+    min-height: 35vw;
+  }
+
+  .hero-video .hero-video-content :is(h1, h2) {
+    font-size: 40px;
+  }
+}

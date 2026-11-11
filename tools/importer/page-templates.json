@@ -1,0 +1,420 @@
+{
+  "templates": [
+    {
+      "name": "air-particle-counters",
+      "urls": [
+        "https://www.beckman.com/air-particle-counters",
+        "https://www.mybeckman.in/particle-size-analyzers",
+        "https://www.mybeckman.in/flow-cytometry"
+      ],
+      "representativeUrl": "https://www.beckman.com/air-particle-counters",
+      "description": "Product category landing page: H1 + intro (optionally with applications callout box), grid of linked product series cards on a grey band, then FAQ or link lists.",
+      "blocks": [
+        {
+          "name": "columns-intro-box",
+          "instances": [
+            "div.product-heading-wrap > div.intro-container",
+            ".intro-container"
+          ]
+        },
+        {
+          "name": "cards-product",
+          "instances": [
+            "div.product-series-callouts",
+            ".product-series-callouts"
+          ]
+        },
+        {
+          "name": "cards-faq",
+          "instances": [
+            "div.bcls-aeo-faqs.container",
+            ".bcls-aeo-faqs"
+          ]
+        }
+      ],
+      "urlPattern": "/*",
+      "sections": [
+        {
+          "id": "section-0",
+          "name": "Promotional banner",
+          "selector": [
+            "#internalPromotionalBanners"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#internalPromotionalBanners > a"
+          ]
+        },
+        {
+          "id": "section-1",
+          "name": "Intro with Common Applications box",
+          "selector": [
+            "div.product-series-selector-wrapper > div.product-content-wrap",
+            ".product-content-wrap"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-intro-box"
+          ],
+          "defaultContent": [
+            "div.product-heading-wrap > h1"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "Product series callout grid",
+          "selector": [
+            "div.product-series-selector-wrapper > div:has(> .product-series-callouts)",
+            ".product-series-callouts"
+          ],
+          "style": "light-grey",
+          "blocks": [
+            "cards-product"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "FAQ on Air Particle Counters",
+          "selector": [
+            "div.bcls-aeo-faqs.container",
+            ".bcls-aeo-faqs"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-faq"
+          ],
+          "defaultContent": [
+            "div.bcls-aeo-faqs > h2"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Link lists (Applications / Resources / Technologies)",
+          "selector": [
+            "#main > div.main-holder > div.bc-rich-text"
+          ],
+          "style": "centered",
+          "blocks": [],
+          "defaultContent": [
+            "div.bc-rich-text"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "product-series",
+      "urls": [
+        "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+      ],
+      "description": "Product series page: video hero, intro with video, benefits icon accordion, model comparison, custom automation media columns, brochure and application scroll strips, related products slider, Marketo contact form.",
+      "blocks": [
+        {
+          "name": "hero-video",
+          "instances": [
+            "div.bc-rich-text:has(.eCardContainer)"
+          ]
+        },
+        {
+          "name": "columns-intro-video",
+          "instances": [
+            "div.two-columns-holder"
+          ]
+        },
+        {
+          "name": "accordion-icon-grid",
+          "instances": [
+            "#Benefits + div"
+          ]
+        },
+        {
+          "name": "table-comparison",
+          "instances": [
+            "#Models + div"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            "div.containercustom:has(ul.cusautolist) > div.row"
+          ]
+        },
+        {
+          "name": "cards-scroll",
+          "instances": [
+            "div.brochures.brochure-scroll",
+            "div.LatestNews.h-scroll-container"
+          ]
+        },
+        {
+          "name": "carousel-product",
+          "instances": [
+            "#related-parts-wrapper"
+          ]
+        },
+        {
+          "name": "embed-marketo",
+          "instances": [
+            "div.formassembly-container.marketo-two-column"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero",
+          "selector": [
+            "div.bc-test-layout:has(.eCardContainer)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-video"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Intro with video",
+          "selector": [
+            "div.two-columns-holder"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-intro-video"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Benefits / Models / Custom automation / Brochures",
+          "selector": [
+            "div.bc-test-layout:has(#Benefits)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "accordion-icon-grid",
+            "table-comparison",
+            "columns-media",
+            "cards-scroll"
+          ],
+          "defaultContent": [
+            "#Benefits",
+            "#Models",
+            "div.containercustom:has(ul.cusautolist) > h2",
+            "div.containercustom:has(.brochures) > h2",
+            "div.containercustom:has(.brochures) > p"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Used together with / Explore applications",
+          "selector": [
+            "div.bc-test-layout:has(#related-parts-wrapper)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "carousel-product",
+            "cards-scroll"
+          ],
+          "defaultContent": [
+            "div.bc-rich-text:has(+ #related-parts-wrapper) h2",
+            "div.containercustom:has(.LatestNews) > h2"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Contact us",
+          "selector": [
+            "div.bc-rich-text:has(+ div.formassembly-container)"
+          ],
+          "style": "light-grey, centered",
+          "blocks": [
+            "embed-marketo"
+          ],
+          "defaultContent": [
+            "div.bc-rich-text:has(+ div.formassembly-container)",
+            "div.formassembly-container + div.bc-rich-text"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "product-detail",
+      "urls": [
+        "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+      ],
+      "description": "Product detail (spotlight) page: image gallery + intro, jump-link bar, features modules, Wistia video, icon cards, media columns, resource cards, reagent slider, spec table, views, technical documents, FAQ.",
+      "blocks": [
+        {
+          "name": "carousel-gallery",
+          "instances": [
+            "div.product-gallery-carousel"
+          ]
+        },
+        {
+          "name": "columns-modules",
+          "instances": [
+            "#features-wrapper div.bc-columns.row",
+            "div.spotlight-content-wrapper div.bc-rich-text > table.responsive-table"
+          ]
+        },
+        {
+          "name": "embed-wistia",
+          "instances": [
+            "div.spotlight-content-wrapper > div.embeded-video"
+          ]
+        },
+        {
+          "name": "cards-icon",
+          "instances": [
+            "div.spotlight-content-wrapper > div.bc-rich-text > div.row:has(> div.col-sm-3)"
+          ]
+        },
+        {
+          "name": "columns-media",
+          "instances": [
+            "div.spotlight-content-wrapper div.Section > div.responsive-table"
+          ]
+        },
+        {
+          "name": "cards-resource",
+          "instances": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.row > div.col-md-3)"
+          ]
+        },
+        {
+          "name": "carousel-product",
+          "instances": [
+            "#related-parts-wrapper"
+          ]
+        },
+        {
+          "name": "table-specs",
+          "instances": [
+            "div.spotlight-content-wrapper > div.bc-rich-text > table:not(.responsive-table):has(tr:nth-child(2))"
+          ]
+        },
+        {
+          "name": "cards-faq",
+          "instances": [
+            "div.bcls-aeo-faqs.container",
+            ".bcls-aeo-faqs"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro (gallery + text)",
+          "selector": [
+            "div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "Jump links",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(div.parent) div.parent"
+          ],
+          "style": "anchor-nav",
+          "blocks": [],
+          "defaultContent": [
+            "div.parent"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Features, video, benefits, 3-day operation",
+          "selector": [
+            "#features-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "columns-modules",
+            "embed-wistia",
+            "cards-icon",
+            "columns-media"
+          ],
+          "defaultContent": [
+            "#features-wrapper > div.product-page-sub-heading-wrapper",
+            "#features-wrapper > p"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Resources",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.row > div.col-md-3)"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-resource"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "Reagents and consumables",
+          "selector": [
+            "div.spotlight-content-wrapper > #related-parts-wrapper",
+            "#related-parts-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-product"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Technical instrument parameters",
+          "selector": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:has(> div.product-page-sub-heading-wrapper):has(+ div.bc-rich-text > table)"
+          ],
+          "style": null,
+          "blocks": [
+            "table-specs",
+            "columns-modules"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Technical documents",
+          "selector": [
+            "div.spotlight-content-wrapper > div:has(#product-table-wrapper)"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "FAQ",
+          "selector": [
+            "div.bcls-aeo-faqs.container",
+            ".bcls-aeo-faqs"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-faq"
+          ],
+          "defaultContent": [
+            "div.bcls-aeo-faqs > h2"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "projectType": "xwalk"
+  }
+}

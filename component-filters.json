@@ -9,22 +9,45 @@
     "id": "section",
     "components": [
       "accordion",
+      "accordion-icon-grid",
       "button",
       "cards",
+      "cards-faq",
+      "cards-icon",
+      "cards-product",
+      "cards-resource",
+      "cards-scroll",
       "carousel",
+      "carousel-gallery",
+      "carousel-product",
       "columns",
+      "columns-intro-box",
+      "columns-intro-video",
+      "columns-media",
+      "columns-modules",
       "embed",
-      "fragment",
+      "embed-marketo",
+      "embed-wistia",
       "form",
+      "fragment",
       "hero",
+      "hero-video",
       "image",
       "quote",
       "search",
-      "tabs",
       "table",
+      "table-comparison",
+      "table-specs",
+      "tabs",
       "text",
       "title",
       "video"
+    ]
+  },
+  {
+    "id": "accordion-icon-grid",
+    "components": [
+      "accordion-icon-grid-item"
     ]
   },
   {
@@ -34,15 +57,81 @@
     ]
   },
   {
+    "id": "cards-faq",
+    "components": [
+      "cards-faq-card"
+    ]
+  },
+  {
+    "id": "cards-icon",
+    "components": [
+      "cards-icon-card"
+    ]
+  },
+  {
+    "id": "cards-product",
+    "components": [
+      "cards-product-card"
+    ]
+  },
+  {
+    "id": "cards-resource",
+    "components": [
+      "cards-resource-card"
+    ]
+  },
+  {
+    "id": "cards-scroll",
+    "components": [
+      "cards-scroll-card"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
     ]
   },
   {
+    "id": "carousel-gallery",
+    "components": [
+      "carousel-gallery-slide"
+    ]
+  },
+  {
+    "id": "carousel-product",
+    "components": [
+      "carousel-product-card"
+    ]
+  },
+  {
     "id": "carousel",
     "components": [
       "carousel-item"
+    ]
+  },
+  {
+    "id": "columns-intro-box",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "columns-intro-video",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "columns-media",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "columns-modules",
+    "components": [
+      "column"
     ]
   },
   {
@@ -58,6 +147,18 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "table-comparison",
+    "components": [
+      "table-comparison-row"
+    ]
+  },
+  {
+    "id": "table-specs",
+    "components": [
+      "table-specs-row"
     ]
   },
   {

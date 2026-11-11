@@ -1,0 +1,66 @@
+/*
+ * Beckman Coulter Life Sciences brand tokens.
+ * Values measured from https://www.beckman.com/air-particle-counters (computed styles).
+ */
+
+:root {
+  /* colors */
+  --background-color: #fff;
+  --text-color: #4d4d4d;
+  --link-color: #007acb;
+  --link-hover-color: #007acb;
+  --light-color: #f5f7fa;
+  --dark-color: #003040;
+  --accent-color: #e4002b;
+  --card-text-color: #4a4a4a;
+  --border-color: #dadada;
+  --box-border-color: #d9d9d9;
+  --box-background-color: #f7f7f7;
+  --faq-background-color: #faf9f8;
+  --faq-border-color: #a6a4a2;
+  --overlay-background-color: lightgrey;
+
+  /* CTA buttons (source .btn-red / .redbtn) and product-page sub-headings */
+  --cta-color: #ea1c2c;
+  --cta-hover-color: #cf1322;
+  --product-heading-color: #001728;
+  --product-heading-border-color: #ddd;
+  --product-heading-accent-color: #59baff;
+
+  /* fonts */
+  --body-font-family: 'Gotham A', 'Gotham B', gotham, arial, sans-serif;
+  --heading-font-family: 'Gotham A', 'Gotham B', gotham, arial, sans-serif;
+
+  /* body sizes */
+  --body-font-size-m: 16px;
+  --body-font-size-s: 14px;
+  --body-font-size-xs: 13.5px;
+  --body-line-height: 1.65;
+
+  /* heading sizes (source uses the same scale on mobile and desktop) */
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 25px;
+  --heading-font-size-l: 25px;
+  --heading-font-size-m: 18px;
+  --heading-font-size-s: 14px;
+  --heading-font-size-xs: 12px;
+
+  /* layout */
+  --content-max-width: 1600px;
+  --content-gutter: 15px;
+  --content-inset: 50px;
+  --container-width: 1170px;
+  --section-padding: 50px;
+
+  /* nav heights (source: 67px top row + 46px menu row; 70px + 52px from 1120px) */
+  --nav-height: 113px;
+  --breadcrumbs-height: 34px;
+  --header-height: var(--nav-height);
+}
+
+/* breakpoint-exception: source header switches layout at 1120px */
+@media (width >= 1120px) {
+  :root {
+    --nav-height: 123px;
+  }
+}

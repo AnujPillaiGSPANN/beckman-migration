@@ -1,0 +1,42 @@
+/* Cards (faq) – source: .bcls-aeo-faqs / .bcls-aeo-faq (values from computed styles) */
+.cards-faq {
+  padding-top: 24px;
+}
+
+.cards-faq > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cards-faq .cards-faq-card {
+  box-sizing: border-box;
+  padding: 24px;
+  background-color: var(--faq-background-color);
+  border-left: 3px solid var(--faq-border-color);
+}
+
+.cards-faq .cards-faq-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cards-faq .cards-faq-card-body > * {
+  margin: 0;
+}
+
+.cards-faq .cards-faq-card-body :is(h2, h3, h4, h5, h6) {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--text-color);
+}
+
+.cards-faq .cards-faq-card-body p {
+  font-size: 16px;
+  line-height: 1.65;
+}

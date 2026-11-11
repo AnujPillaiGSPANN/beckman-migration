@@ -1,0 +1,35 @@
+{
+  "variantName": "carousel-product",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Multi-card slider of white bordered product cards with prev/next arrows (5/3/2/1 visible); arrows hide when all cards fit",
+    "description": "Content is ~100% the cards-product model (linked contained image + linked title + description/optional list), but it is a slider with prev/next arrows showing 5 of 6 left-aligned cards, so it is a carousel, not the 3-col wrapping grid. Parser logic for the cells can be shared with cards-product. | Identical source component and card anatomy (related-part__img-link, related-part__title, related-part__desc). Only 4 slides here, all visible, so arrows do not show; the block must hide/disable arrows when slides <= visible count."
+  },
+  "contentPattern": {
+    "summary": "Slick carousel with prev/next arrows (5 visible of 6): white bordered product cards: linked image, bold linked h3 title, linked description (one card adds a paragraph + 8-item bullet list) | Slick slider of 4 white bordered product cards: linked image, bold linked title, linked description (+ disclaimer line)",
+    "structure": "one row per card, same cells as cards-product: (1) image (optionally linked); (2) linked title heading + description / list"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "carousel-product"
+  ],
+  "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+  "sourceUrls": [
+    "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+  ],
+  "sectionMetadata": {
+    "style": "centered"
+  },
+  "usage": {
+    "pagesUsing": [
+      "/liquid-handlers/biomek-i-series-automated-workstations",
+      "/cell-culture-workstation/cydem-vt"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for related / used-together product sliders. For a static grid use cards-product; for one-image galleries use carousel-gallery.",
+  "usageDescription": "Multi-card slider of white bordered product cards with prev/next arrows (5/3/2/1 visible); arrows hide when all cards fit."
+}

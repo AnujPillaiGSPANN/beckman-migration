@@ -1,0 +1,33 @@
+{
+  "variantName": "embed-marketo",
+  "baseBlock": "embed",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Marketo-hosted form (forms2) rendered from the Beckman Marketo instance, red Submit button, single column on mobile",
+    "description": "Marketo-hosted contact form (two-column field layout, Submit button) rendered from Beckman Marketo instance; replaces the generic form block."
+  },
+  "contentPattern": {
+    "summary": "Marketo form 3101: First/Last Name, Email, Phone, Company, Country (select), Postal Code, City, Comments, email/phone consent radios, privacy text, reCAPTCHA, Submit",
+    "structure": "rows: (1) Marketo base URL (https://pages.beckman.com); (2) Munchkin ID (682-XWP-826); (3) form ID (e.g. 3101)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "embed-marketo"
+  ],
+  "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+  "sourceUrls": [
+    "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+  ],
+  "sectionMetadata": {
+    "style": "light-grey, centered"
+  },
+  "usage": {
+    "pagesUsing": [
+      "/liquid-handlers/biomek-i-series-automated-workstations"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for any Marketo contact / lead form. Base URL and Munchkin ID default to the Beckman instance.",
+  "usageDescription": "Marketo-hosted form (forms2) rendered from the Beckman Marketo instance, red Submit button, single column on mobile."
+}

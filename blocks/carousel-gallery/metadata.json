@@ -1,0 +1,33 @@
+{
+  "variantName": "carousel-gallery",
+  "baseBlock": "carousel",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Product image gallery: one large image at a time, prev/next chevrons, clickable thumbnail strip generated from the slides",
+    "description": "carousel-product (Biomek) is a multi-up slider of linked product cards with titles/descriptions; this is a single-image product gallery with thumbnail navigation: under 80% similar."
+  },
+  "contentPattern": {
+    "summary": "Product image gallery: 9 images, one visible at a time, prev/next chevrons and a thumbnail strip",
+    "structure": "one row per image: (1) image; (2) optional caption"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "carousel-gallery"
+  ],
+  "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+  "sourceUrls": [
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+  ],
+  "sectionMetadata": {
+    "style": "split"
+  },
+  "usage": {
+    "pagesUsing": [
+      "/cell-culture-workstation/cydem-vt"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for product image galleries beside the product intro. For multi-card sliders use carousel-product.",
+  "usageDescription": "Product image gallery: one large image at a time, prev/next chevrons, clickable thumbnail strip generated from the slides."
+}

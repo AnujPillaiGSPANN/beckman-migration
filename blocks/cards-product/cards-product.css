@@ -1,0 +1,191 @@
+/* Cards (product) – source: .product-series-callouts (values from computed styles) */
+
+/* source keeps the last row's item margin (24px) inside the grey band */
+.cards-product {
+  padding-bottom: 24px;
+}
+
+.cards-product > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* mobile (< 768px): title-only bordered tiles, like the source */
+.cards-product .cards-product-card {
+  position: relative;
+  box-sizing: border-box;
+  padding: 0 16px 2.4px;
+  border: 1px solid var(--border-color);
+  color: var(--card-text-color);
+}
+
+.cards-product .cards-product-card-image {
+  display: none;
+}
+
+.cards-product .cards-product-card-image p {
+  margin: 0;
+}
+
+.cards-product .cards-product-card-image picture {
+  display: block;
+}
+
+.cards-product .cards-product-card-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.cards-product .cards-product-card-body :is(h2, h3, h4, h5, h6) {
+  margin: 28px 0;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.1;
+  text-align: left;
+  color: var(--dark-color);
+  transition: color 0.2s ease-out;
+}
+
+.cards-product .cards-product-card-body > :not(h2, h3, h4, h5, h6) {
+  display: none;
+}
+
+.cards-product .cards-product-card-body p,
+.cards-product .cards-product-card-body li {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--card-text-color);
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.cards-product .cards-product-card-body p {
+  margin: 14px 0;
+}
+
+.cards-product .cards-product-card-body ul {
+  margin: 0 0 10px;
+  padding-left: 15px;
+  list-style-type: disc;
+}
+
+/* whole card clickable via the title link (source wraps the card in one <a>) */
+.cards-product .cards-product-card-link:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cards-product .cards-product-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.cards-product .cards-product-card-link:focus-visible {
+  outline: none;
+}
+
+.cards-product .cards-product-card-linked:focus-within {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* tablet (768px – 1023px): 2 columns, image + full description */
+@media (width >= 768px) {
+  .cards-product {
+    padding-bottom: 32px;
+  }
+
+  .cards-product > ul {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 30px;
+  }
+
+  .cards-product .cards-product-card {
+    padding: 16px;
+    background-color: var(--background-color);
+  }
+
+  .cards-product .cards-product-card-image {
+    display: block;
+    width: 250px;
+    min-height: 250px;
+    margin: 0 auto;
+  }
+
+  .cards-product .cards-product-card-body {
+    padding: 0 20px;
+  }
+
+  /* fixed-size image: source renders it inline at the top of the description
+     (left-aligned, below the empty title's 28px margin) */
+  .cards-product .cards-product-card-sized .cards-product-card-image {
+    width: auto;
+    min-height: 0;
+    margin: 0 20px;
+    padding-top: 28px;
+  }
+
+  .cards-product .cards-product-card-body > :not(h2, h3, h4, h5, h6) {
+    display: block;
+  }
+
+  .cards-product .cards-product-card-body :is(h2, h3, h4, h5, h6) {
+    line-height: 1.25;
+    text-align: center;
+  }
+}
+
+/* desktop (>= 1024px): 3 columns, hover shadow */
+@media (width >= 1024px) {
+  .cards-product {
+    padding-bottom: 24px;
+  }
+
+  .cards-product > ul {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px 20px;
+  }
+
+  .cards-product .cards-product-card {
+    padding: 12px 0;
+    isolation: isolate;
+  }
+
+  .cards-product .cards-product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    box-shadow: 0 2px 15px 0 rgb(0 0 0 / 10%);
+    transition: opacity 0.2s ease-out;
+    pointer-events: none;
+  }
+
+  .cards-product .cards-product-card:hover::before {
+    opacity: 1;
+  }
+
+  .cards-product .cards-product-card-image {
+    width: 88%;
+    padding-top: 25px;
+  }
+
+  .cards-product .cards-product-card-body {
+    padding: 0 30.4px;
+  }
+
+  .cards-product .cards-product-card-sized .cards-product-card-image {
+    width: auto;
+    margin: 0 30.4px;
+    padding-top: 53px;
+  }
+}

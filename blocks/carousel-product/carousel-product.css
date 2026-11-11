@@ -1,0 +1,322 @@
+/* Carousel (product) – source: #related-parts-wrapper .related-parts slick slider of .related-part cards
+   (slidesToShow 5, arrows only when the slides overflow) */
+
+/* Cydem VT: section outside a centered container sits in the source
+   .container.custome-container > .feature-holder (15px / 750-12 / 970-12 / 50px inset) */
+main > .section:not(.centered):has(> .carousel-product-wrapper) > div {
+  max-width: none;
+  padding: 0 var(--content-gutter);
+}
+
+/* breakpoint-exception: source .container is 750px wide from 768px */
+@media (width >= 768px) {
+  main > .section:not(.centered):has(> .carousel-product-wrapper) > div {
+    max-width: calc(750px - 2 * var(--content-gutter) - 24px);
+  }
+}
+
+/* breakpoint-exception: source .container is 970px wide from 992px */
+@media (width >= 992px) {
+  main > .section:not(.centered):has(> .carousel-product-wrapper) > div {
+    max-width: calc(970px - 2 * var(--content-gutter) - 24px);
+  }
+}
+
+@media (width >= 1200px) {
+  main > .section:not(.centered):has(> .carousel-product-wrapper) > div {
+    max-width: none;
+    padding: 0 var(--content-inset);
+  }
+}
+
+/* section heading directly above the slider (Biomek h2 inline margins) */
+main .section .default-content-wrapper:has(+ .carousel-product-wrapper) > h2:last-child {
+  margin: 50px 0 40px;
+}
+
+/* Cydem: .product-page-sub-heading-wrapper > h3 (inline-block in the source, so the
+   wrapper's line box adds 2.5px under the heading before its 10px padding) */
+main .section .default-content-wrapper:has(+ .carousel-product-wrapper) > h3:last-child {
+  margin: 75px 0 25px;
+  padding-bottom: 12.5px;
+  border-bottom: 1px solid #ddd;
+  color: #001728;
+  font-size: 29px;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+/* Cydem: "See all" link below the slider (source p centred > a.btn.btn-primary.btn-red.btn-large) */
+main .carousel-product-wrapper + .default-content-wrapper > .button-container:only-child {
+  display: block;
+  margin: 16px 0;
+  text-align: center;
+}
+
+main .carousel-product-wrapper + .default-content-wrapper > .button-container:only-child a.button:any-link {
+  display: inline-block;
+  padding: 13px 20px;
+  border-radius: 2px;
+  background-color: #ea1c2c;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.65;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+main .carousel-product-wrapper + .default-content-wrapper > .button-container:only-child a.button:hover {
+  background-color: #cf1322;
+}
+
+/* .related-parts */
+.carousel-product {
+  display: flex;
+  align-items: center;
+}
+
+/* .slick-list */
+.carousel-product .carousel-product-viewport {
+  flex: 1 1 auto;
+  order: 1;
+  min-width: 0;
+  margin: 0 -8px;
+}
+
+/* .slick-track (native scroll instead of slick transforms) */
+.carousel-product .carousel-product-track {
+  display: flex;
+  margin: 0;
+  padding: 0 0 10px;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 8px;
+  scrollbar-width: none;
+}
+
+.carousel-product .carousel-product-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-product .carousel-product-track:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: -2px;
+}
+
+/* .related-part: 1 / 2 / 3 / 5 per view */
+.carousel-product .carousel-product-slide {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  width: calc(100% - 16px);
+  margin: 0 8px;
+  padding: 20px;
+  border: 1px solid #f0f0f0;
+  scroll-snap-align: start;
+  transition: box-shadow 0.2s ease-out;
+}
+
+.carousel-product .carousel-product-slide:hover {
+  box-shadow: 0 2px 5px rgb(0 0 0 / 15%);
+}
+
+/* .related-part__img > .related-part__img-link */
+.carousel-product .carousel-product-slide-image {
+  margin-bottom: 10px;
+}
+
+.carousel-product .carousel-product-slide-image p,
+.carousel-product .carousel-product-slide-image picture {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.carousel-product .carousel-product-slide-image img {
+  display: block;
+  min-width: 1px;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+/* .related-part__title + .related-part__desc */
+.carousel-product .carousel-product-slide-body {
+  display: flow-root;
+  margin-bottom: 10px;
+  color: #001728;
+  font-weight: 300;
+}
+
+/* margin-bottom = the source <br> line between title and description (25px / 1.1) */
+.carousel-product .carousel-product-slide-body :is(h2, h3, h4, h5, h6) {
+  margin: 25px 0 27.5px;
+  color: #001728;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.carousel-product .carousel-product-slide-body p,
+.carousel-product .carousel-product-slide-body li {
+  font-size: 12px;
+  line-height: 14px;
+}
+
+.carousel-product .carousel-product-slide-body p {
+  margin: 14px 0 0;
+}
+
+.carousel-product .carousel-product-slide-body :is(h2, h3, h4, h5, h6) + p {
+  margin-top: 0;
+}
+
+/* rich descriptions (several blocks) are <p>-wrapped inside the source's
+   overflow-hidden .related-part__desc: the first paragraph keeps its 1em top
+   margin below the <br> line (27.5px + 14px, no collapsing) */
+.carousel-product .carousel-product-slide-body :is(h2, h3, h4, h5, h6) + p:not(:last-child) {
+  margin-top: 41.5px;
+}
+
+.carousel-product .carousel-product-slide-body p + p:last-child {
+  margin-bottom: 14px;
+}
+
+.carousel-product .carousel-product-slide-body :is(h2, h3, h4, h5, h6) a {
+  display: block;
+}
+
+.carousel-product .carousel-product-slide-body ul {
+  margin: 14px 0 10px;
+  padding-left: 15px;
+  list-style: disc;
+}
+
+.carousel-product .carousel-product-slide-body a:any-link {
+  color: #001728;
+  text-decoration: none;
+}
+
+.carousel-product .carousel-product-slide-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.carousel-product .carousel-product-slide-linked:focus-within {
+  outline: 2px solid var(--link-color);
+  outline-offset: -2px;
+}
+
+.carousel-product .carousel-product-slide-link:focus-visible {
+  outline: none;
+}
+
+/* .related-part__prev / __next: "‹" "›" glyphs */
+.carousel-product .carousel-product-arrow {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0 3px 5px 4px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  font-weight: 400;
+  line-height: var(--body-line-height);
+  cursor: pointer;
+}
+
+.carousel-product .carousel-product-arrow[hidden] {
+  display: none;
+}
+
+/* source <span>Previous</span>: hidden label, still part of the line box */
+.carousel-product .carousel-product-arrow span {
+  display: inline-block;
+  overflow: hidden;
+  text-indent: -9999px;
+}
+
+.carousel-product .carousel-product-arrow::after {
+  color: #7d868c;
+  font-family: var(--body-font-family);
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.carousel-product .carousel-product-arrow:hover::after {
+  color: #4a4a4a;
+}
+
+.carousel-product .carousel-product-prev {
+  order: 0;
+  margin-right: 15px;
+}
+
+.carousel-product .carousel-product-prev::after {
+  content: '\2039';
+}
+
+.carousel-product .carousel-product-next {
+  order: 2;
+  margin-left: 15px;
+}
+
+.carousel-product .carousel-product-next::after {
+  content: '\203A';
+}
+
+.carousel-product .carousel-product-arrow:disabled {
+  background: transparent;
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
+@media (width >= 600px) {
+  .carousel-product .carousel-product-slide {
+    width: calc(100% / 2 - 16px);
+  }
+}
+
+/* breakpoint-exception: source .related-part image height and type sizes switch at 768px */
+@media (width >= 768px) {
+  .carousel-product .carousel-product-slide-image p,
+  .carousel-product .carousel-product-slide-image picture {
+    height: 180px;
+  }
+
+  .carousel-product .carousel-product-slide-body :is(h2, h3, h4, h5, h6) {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .carousel-product .carousel-product-slide-body p,
+  .carousel-product .carousel-product-slide-body li {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+@media (width >= 900px) {
+  .carousel-product .carousel-product-slide {
+    width: calc(100% / 3 - 16px);
+  }
+}
+
+@media (width >= 1200px) {
+  .carousel-product .carousel-product-slide {
+    width: calc(100% / 5 - 16px);
+  }
+}

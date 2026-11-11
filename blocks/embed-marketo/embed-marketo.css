@@ -1,0 +1,171 @@
+/* Embed (marketo) – source: .formassembly-container.marketo-two-column > .marketo-form-wrapper > form.mktoForm
+   (Marketo forms2 + forms2.css, restyled by the site stylesheet; rem values there are 10px) */
+
+/* Marketo forms2 markup uses camelCase classes; its inline widths need !important */
+/* stylelint-disable selector-class-pattern */
+.embed-marketo {
+  min-height: 400px;
+}
+
+.embed-marketo.embed-marketo-loaded {
+  min-height: 0;
+}
+
+.embed-marketo .mktoForm {
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 720px;
+  margin: 0 auto;
+  color: #333;
+  font-family: 'Gotham A', 'Gotham B', arial, sans-serif !important;
+  font-size: 13px;
+}
+
+.embed-marketo .mktoCaptchaDisclaimer {
+  display: none;
+}
+
+.embed-marketo .mktoForm .mktoGutter,
+.embed-marketo .mktoForm .mktoOffset {
+  width: 0 !important;
+}
+
+.embed-marketo .mktoForm .mktoFormCol {
+  float: none;
+  width: 100%;
+  margin-bottom: 15px !important;
+}
+
+.embed-marketo .mktoForm .mktoFieldWrap {
+  float: none;
+}
+
+.embed-marketo .mktoForm .mktoLabel,
+.embed-marketo .mktoForm .mktoRequiredField label.mktoLabel {
+  display: inline-block;
+  width: auto !important;
+  max-width: 100%;
+  margin-bottom: 5px;
+  padding: 2.2px 0 3.3px;
+  border-radius: 2.75px;
+  color: #3b363b;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  vertical-align: baseline;
+}
+
+.embed-marketo .mktoForm .mktoAsterix {
+  float: left;
+  margin-right: 2px;
+  padding: 0;
+  color: #ea1c2c;
+  font-weight: 700;
+}
+
+.embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']),
+.embed-marketo .mktoForm textarea.mktoField,
+.embed-marketo .mktoForm select.mktoField {
+  box-sizing: border-box;
+  display: block;
+  width: 100% !important;
+  height: 32px;
+  padding: 5px 10px !important;
+  border: 1px solid #9fa4aa;
+  border-radius: 0;
+  outline: 0;
+  color: inherit;
+  font-size: 12px;
+}
+
+.embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']) {
+  background-color: #fff;
+}
+
+.embed-marketo .mktoForm textarea.mktoField {
+  min-height: 70px;
+  resize: none;
+}
+
+.embed-marketo .mktoForm select.mktoField {
+  font-size: 16px !important;
+}
+
+.embed-marketo .mktoForm .mktoRadioList,
+.embed-marketo .mktoForm .mktoCheckboxList {
+  width: auto !important;
+  margin-left: 5px;
+}
+
+.embed-marketo .mktoForm .mktoFormRow .mktoHtmlText {
+  width: 100% !important;
+  color: var(--text-color);
+  font-size: 14px;
+  line-height: 1.5 !important;
+}
+
+/* submit: red pill centred below the fields (page-level .block .mktoForm overrides) */
+.embed-marketo .mktoForm .mktoButtonRow {
+  display: flex !important;
+  float: none !important;
+  justify-content: center !important;
+}
+
+.embed-marketo .mktoForm span.mktoButtonWrap.mktoInset {
+  margin: 20px auto !important;
+}
+
+.embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton {
+  display: inline-block;
+  padding: 12px 20px !important;
+  border: none !important;
+  border-radius: 9999px;
+  outline: 0;
+  background: #ea1c2c !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-family: inherit;
+  font-size: 13.5px !important;
+  font-weight: 500;
+  line-height: 1.65;
+  transition: all 0.3s;
+}
+
+.embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton:hover {
+  background: #cf1322 !important;
+}
+
+.embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton:focus {
+  outline: 2px solid #000 !important;
+  outline-offset: -2px;
+}
+
+/* breakpoint-exception: source .marketo-two-column switches to label | field pairs at 1120px */
+@media (width >= 1120px) {
+  .embed-marketo .mktoForm {
+    padding-top: 20px;
+  }
+
+  .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']) {
+    width: 150px !important;
+    height: inherit;
+  }
+
+  .embed-marketo .mktoForm textarea.mktoField,
+  .embed-marketo .mktoForm select.mktoField {
+    width: 150px !important;
+    height: 27px;
+    padding: 2px 5px !important;
+  }
+
+  .embed-marketo .mktoForm .mktoLabel,
+  .embed-marketo .mktoForm .mktoRequiredField label.mktoLabel {
+    width: 150px !important;
+  }
+
+  .embed-marketo .mktoForm .mktoFormCol {
+    float: left;
+    width: auto;
+    margin-right: 35px;
+  }
+}

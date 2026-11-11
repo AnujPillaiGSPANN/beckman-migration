@@ -1,0 +1,31 @@
+{
+  "variantName": "hero-video",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Full-width hero with a muted, looping Wistia background video (no controls) under a dark overlay, a centered H1 and pill CTAs",
+    "description": "No hero variants exist. Background is a looping muted Wistia video (not an image) under a dark overlay, with centered H1 + 2 pill CTAs."
+  },
+  "contentPattern": {
+    "summary": "H1 'Biomek i-Series Automated Liquid Handlers' + 2 CTAs ('Explore Biomek i-Series Models' to #Compare_table, 'Talk to an Expert' to #form) over a background-loop Wistia video",
+    "structure": "rows: (1) Wistia video URL, optional poster image; (2) H1 + CTA links (bold links render as buttons)"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "hero-video"
+  ],
+  "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+  "sourceUrls": [
+    "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/liquid-handlers/biomek-i-series-automated-workstations"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for top-of-page banners whose background is a looping video. For an image background use hero.",
+  "usageDescription": "Full-width hero with a muted, looping Wistia background video (no controls) under a dark overlay, a centered H1 and pill CTAs."
+}

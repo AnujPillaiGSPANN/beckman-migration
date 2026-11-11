@@ -1,0 +1,31 @@
+{
+  "variantName": "cards-resource",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Wrapping 4/2/1 grid of document cards: bold title above a bordered cover thumbnail, red outline \"Read\" button",
+    "description": "Closest is Biomek cards-scroll (document covers linking to assets) but that is a single-row horizontal scroll strip with hover 'Download' overlays and no titles above the image; cards-product is bordered product cards with image first. This is a wrapping 4/row grid, title on top, cover image, visible outline 'Read' button: under 80% similar."
+  },
+  "contentPattern": {
+    "summary": "9 application-note cards in a wrapping 4-column grid: bold title, document cover thumbnail, red outline 'Read' button; each links to its application-note detail page",
+    "structure": "one row per card: (1) cover image (optionally linked); (2) bold title paragraph + \"Read\" link"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "cards-resource"
+  ],
+  "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+  "sourceUrls": [
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/cell-culture-workstation/cydem-vt"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for application notes / resource listings. For a horizontal strip use cards-scroll.",
+  "usageDescription": "Wrapping 4/2/1 grid of document cards: bold title above a bordered cover thumbnail, red outline \"Read\" button."
+}

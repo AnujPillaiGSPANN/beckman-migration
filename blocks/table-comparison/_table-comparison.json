@@ -1,0 +1,53 @@
+{
+  "definitions": [
+    {
+      "title": "Table Comparison",
+      "id": "table-comparison",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Table Comparison",
+              "filter": "table-comparison"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Comparison Row",
+      "id": "table-comparison-row",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Comparison Row",
+              "model": "table-comparison-row"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "table-comparison-row",
+      "fields": [
+        { "component": "richtext", "valueType": "string", "name": "column1text", "label": "Label" },
+        { "component": "richtext", "valueType": "string", "name": "column2text", "label": "Model 1" },
+        { "component": "richtext", "valueType": "string", "name": "column3text", "label": "Model 2" },
+        { "component": "richtext", "valueType": "string", "name": "column4text", "label": "Model 3" }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "table-comparison",
+      "components": [
+        "table-comparison-row"
+      ]
+    }
+  ]
+}

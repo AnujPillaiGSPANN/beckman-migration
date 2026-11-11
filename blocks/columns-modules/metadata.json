@@ -1,0 +1,31 @@
+{
+  "variantName": "columns-modules",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Three equal columns, each a short heading/label followed by a bulleted list or an image; stacks on mobile",
+    "description": "Existing columns variants are 2-column asymmetric layouts (columns-intro-box copy | grey callout; columns-media copy | image; columns-intro-video copy | video). This is 3 equal text-only columns (heading + list), under 80% similar. | Same 3 equal columns, short heading-like label + content below, no box/callout. An image instead of a list is a content difference the block handles."
+  },
+  "contentPattern": {
+    "summary": "3 fixed columns, each an h4 module title + bulleted list (Bioreactor / Cell Count and Viability / Titer) | 3 labelled views side by side: 'Front View', 'Side View', 'Front View Open', each with a zoomable image",
+    "structure": "one row, three cells: heading + bulleted list, or label + image"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "columns-modules"
+  ],
+  "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+  "sourceUrls": [
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/cell-culture-workstation/cydem-vt"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-10"
+  },
+  "reuseGuidance": "Use for module / feature lists and labelled technical views. For 2-column layouts use columns-media.",
+  "usageDescription": "Three equal columns, each a short heading/label followed by a bulleted list or an image; stacks on mobile."
+}

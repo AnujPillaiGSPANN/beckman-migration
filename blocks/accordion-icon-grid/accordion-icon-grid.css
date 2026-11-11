@@ -1,0 +1,160 @@
+/* Accordion (icon-grid) – source: .containercustom > .row > .col-md-3.col-sm-6 > .yagi-accordion tiles */
+
+/* source bootstrap container: 15px gutters (the block sets the 720/940/1140px inner width) */
+main > .section > .accordion-icon-grid-wrapper {
+  max-width: none;
+  padding: 0 var(--content-gutter);
+}
+
+/* section heading directly above the block (source h2#Benefits) */
+main .section .default-content-wrapper:has(+ .accordion-icon-grid-wrapper) > h2:last-child {
+  margin: 50px 0 40px;
+}
+
+.accordion-icon-grid {
+  margin: 0 auto;
+}
+
+/* source .row of bootstrap floats (15px gutters, 10px from 1200px) */
+.accordion-icon-grid .accordion-icon-grid-items {
+  display: flow-root;
+  margin: 0 -15px;
+  padding: 0;
+  list-style: none;
+}
+
+/* .col-* padding + .px-2 (5px); .mb-2 panel margin (collapses with the next tile while stacked) */
+.accordion-icon-grid .accordion-icon-grid-item {
+  box-sizing: border-box;
+  margin-bottom: 5px;
+  padding: 0 20px;
+}
+
+.accordion-icon-grid .accordion-icon-grid-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 5px 0 0;
+  padding: 15px 7.5px 7.5px;
+  border: 0;
+  border-radius: 2.5px;
+  background-color: #f0f0f0;
+  color: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: center;
+  text-transform: none;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.accordion-icon-grid .accordion-icon-grid-toggle:hover {
+  background-color: #d9d9d9;
+}
+
+.accordion-icon-grid .accordion-icon-grid-toggle:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+.accordion-icon-grid .accordion-icon-grid-icon,
+.accordion-icon-grid .accordion-icon-grid-icon picture {
+  display: block;
+}
+
+/* source p.icon img (style="height:70px") */
+.accordion-icon-grid .accordion-icon-grid-icon img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: 70px;
+}
+
+/* source p.font-bold */
+.accordion-icon-grid .accordion-icon-grid-title {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* source chevron-compact-down/up SVG (.h-16.w-6 = 44x24, #ea1c2c), swapped when open */
+.accordion-icon-grid .accordion-icon-grid-chevron {
+  display: block;
+  width: 44px;
+  height: 24px;
+  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ea1c2c'%3E%3Cpath fill-rule='evenodd' d='M1.553 6.776a.5.5 0 0 1 .67-.223L8 9.44l5.776-2.888a.5.5 0 1 1 .448.894l-6 3a.5.5 0 0 1-.448 0l-6-3a.5.5 0 0 1-.223-.67z'/%3E%3C/svg%3E");
+}
+
+.accordion-icon-grid .accordion-icon-grid-open .accordion-icon-grid-chevron {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ea1c2c'%3E%3Cpath fill-rule='evenodd' d='M7.776 5.553a.5.5 0 0 1 .448 0l6 3a.5.5 0 1 1-.448.894L8 6.56 2.224 9.447a.5.5 0 1 1-.448-.894l6-3z'/%3E%3C/svg%3E");
+}
+
+/* source .accordion-content-3.transition-maxheight.duration-500.ease-out.overflow-hidden;
+   the leading &nbsp; line of the source list is the 1lh top padding */
+.accordion-icon-grid .accordion-icon-grid-panel {
+  padding-top: 1lh;
+  overflow: hidden;
+  text-align: start;
+  transition: max-height 500ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.accordion-icon-grid .accordion-icon-grid-panel ul {
+  margin: 0 0 10px;
+  padding-left: 17px;
+  list-style-type: disc;
+}
+
+.accordion-icon-grid .accordion-icon-grid-panel li {
+  margin: 0;
+}
+
+.accordion-icon-grid .accordion-icon-grid-panel p {
+  margin: 0 0 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-icon-grid .accordion-icon-grid-panel {
+    transition: none;
+  }
+}
+
+/* breakpoint-exception: source container is 750px and .col-sm-6 floats from exactly 768px */
+@media (width >= 768px) {
+  .accordion-icon-grid {
+    max-width: 720px;
+  }
+
+  .accordion-icon-grid .accordion-icon-grid-item {
+    float: left;
+    width: 50%;
+  }
+}
+
+/* breakpoint-exception: source container is 970px and .col-md-3 floats from exactly 992px */
+@media (width >= 992px) {
+  .accordion-icon-grid {
+    max-width: 940px;
+  }
+
+  .accordion-icon-grid .accordion-icon-grid-item {
+    width: 25%;
+  }
+}
+
+@media (width >= 1200px) {
+  .accordion-icon-grid {
+    max-width: 1140px;
+  }
+
+  .accordion-icon-grid .accordion-icon-grid-items {
+    margin: 0 -10px;
+  }
+
+  .accordion-icon-grid .accordion-icon-grid-item {
+    padding: 0 15px;
+  }
+}

@@ -1,0 +1,96 @@
+/* Columns (intro-video) – source: .two-columns-holder (bootstrap container) > .row > .col-md-6 x2 */
+
+/* source container: 15px gutters, fixed 750/970/1170px widths (block sets the inner width) */
+main > .section > .columns-intro-video-wrapper {
+  max-width: none;
+  padding: 0 var(--content-gutter);
+}
+
+/* flow-root keeps the first/last paragraph margins inside, like the source .row clearfix */
+.columns-intro-video {
+  display: flow-root;
+  margin: 0 auto;
+}
+
+.columns-intro-video .columns-intro-video-text,
+.columns-intro-video .columns-intro-video-video {
+  min-width: 0;
+}
+
+.columns-intro-video .columns-intro-video-text p {
+  margin: 16px 0;
+}
+
+/* first paragraph rendered as a grey box */
+.columns-intro-video .columns-intro-video-text .columns-intro-video-lead {
+  margin: 15px 0 16px;
+  padding: 25px 25px 10px;
+  background-color: #f0f0f0;
+}
+
+/* source .embeded-video: empty h2 (0.83em of 25px) above, empty caption (16px) below */
+.columns-intro-video .columns-intro-video-player {
+  position: relative;
+  width: 100%;
+  margin: 20.75px 0 16px;
+  padding-bottom: 56.2%;
+}
+
+.columns-intro-video .columns-intro-video-player iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.columns-intro-video .columns-intro-video-video p {
+  margin: 16px 0;
+}
+
+/* breakpoint-exception: source container is 750px wide from exactly 768px */
+@media (width >= 768px) {
+  .columns-intro-video {
+    max-width: 720px;
+  }
+}
+
+/* breakpoint-exception: source container is 970px wide and .col-md-6 floats from exactly 992px */
+@media (width >= 992px) {
+  .columns-intro-video {
+    max-width: 940px;
+  }
+
+  .columns-intro-video .columns-intro-video-row {
+    display: flex;
+    align-items: flex-start;
+    margin: 0 -15px;
+  }
+
+  .columns-intro-video .columns-intro-video-text,
+  .columns-intro-video .columns-intro-video-video {
+    box-sizing: border-box;
+    flex: 0 0 50%;
+    width: 50%;
+    padding: 0 15px;
+  }
+}
+
+/* source narrows the row gutters to 10px and pads .embeded-video by 10px from 1200px */
+@media (width >= 1200px) {
+  .columns-intro-video {
+    max-width: 1140px;
+  }
+
+  .columns-intro-video .columns-intro-video-row {
+    margin: 0 -10px;
+  }
+
+  .columns-intro-video .columns-intro-video-text {
+    padding: 0 10px;
+  }
+
+  .columns-intro-video .columns-intro-video-video {
+    padding: 0 20px;
+  }
+}
