@@ -11,6 +11,8 @@
  * All copy, links and images come from the fragment; this file only builds behaviour.
  */
 
+import { joinLinkedImages } from '../../scripts/scripts.js';
+
 // source switches from the drawer menu to the horizontal bar at 1120px
 const isDesktop = window.matchMedia('(min-width: 1120px)');
 
@@ -38,6 +40,8 @@ async function fetchNav() {
     source.srcset = source.getAttribute('srcset').split(',')
       .map((part) => part.trim().replace(/^\S+/, (u) => absolute(u))).join(', ');
   });
+  // AEM stores a linked logo as an image + a paragraph with its bare link
+  joinLinkedImages(tpl);
   return tpl;
 }
 

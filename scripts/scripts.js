@@ -132,12 +132,58 @@ export function decorateButtons(element) {
   });
 }
 
+const INLINE_TAGS = new Set(['A', 'ABBR', 'B', 'BR', 'CODE', 'EM', 'I', 'IMG', 'PICTURE', 'S', 'SMALL', 'SPAN', 'STRONG', 'SUB', 'SUP', 'U']);
+
+/**
+ * AEM (xwalk) stores a block cell that holds a single paragraph without its <p>
+ * (<div><picture>…</div>, <div><a>…</a></div>), while document-based content keeps it.
+ * Wrap inline-only cells in a <p> so blocks, buttons and styles see one structure.
+ * @param {Element} main The main element
+ */
+export function wrapInlineCells(main) {
+  main.querySelectorAll(':scope > div > div[class]:not(.section-metadata, .metadata) > div > div').forEach((cell) => {
+    const nodes = [...cell.childNodes].filter((n) => n.nodeType !== Node.COMMENT_NODE
+      && !(n.nodeType === Node.TEXT_NODE && !n.textContent.trim()));
+    if (!nodes.length) return;
+    const isInline = (n) => n.nodeType === Node.TEXT_NODE || INLINE_TAGS.has(n.tagName);
+    if (!nodes.every(isInline)) return;
+    const p = document.createElement('p');
+    p.append(...cell.childNodes);
+    cell.append(p);
+  });
+}
+
+/**
+ * Linked images in default content. AEM text components cannot hold images, so a linked
+ * image is authored as an image followed by a paragraph holding only its link, written
+ * as the bare URL. Join the two back into <p><a href><picture></a></p>.
+ * @param {Element} root container whose children are sections (main or a fragment)
+ */
+export function joinLinkedImages(root) {
+  root.querySelectorAll(':scope > div > p').forEach((p) => {
+    const only = p.children.length === 1 ? p.firstElementChild : null;
+    const media = only?.matches('picture, img') ? only : null;
+    if (!media || p.textContent.trim()) return;
+    const next = p.nextElementSibling;
+    const a = next?.tagName === 'P' && next.children.length === 1 ? next.querySelector(':scope > a') : null;
+    if (!a || a.querySelector('picture, img')) return;
+    const text = next.textContent.trim();
+    if (text !== a.textContent.trim() || (text !== a.getAttribute('href') && text !== a.href)) return;
+    moveInstrumentation(p, media);
+    a.textContent = '';
+    a.append(media);
+    p.remove();
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
+  joinLinkedImages(main);
+  wrapInlineCells(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
   decorateIcons(main);

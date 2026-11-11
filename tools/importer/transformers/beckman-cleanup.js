@@ -188,6 +188,52 @@ function markButtons(root, template, doc) {
   });
 }
 
+/**
+ * Click-to-zoom images: the inline <img> URL has no file extension and media.beckman.com
+ * refuses it outside the source site; the zoom overlay links the same image as a .jpg.
+ * Use that URL before the overlays are removed.
+ */
+function useZoomImageUrls(root) {
+  const hasExt = (u) => /\.(jpe?g|png|gif|webp|svg)$/i.test((u || '').split('?')[0]);
+  safeAll(root, '.container-overlay-full-width').forEach((box) => {
+    const img = box.querySelector('img');
+    const zoom = box.querySelector('[data-featherlight]');
+    const full = zoom && zoom.getAttribute('data-featherlight');
+    if (img && hasExt(full) && !hasExt(img.getAttribute('src'))) img.setAttribute('src', full);
+  });
+  // product (PIM) images: www.beckman.com/pimassets/… only redirects (301) to plytix-files.com,
+  // and asset upload does not follow redirects, so reference the file where it lives
+  safeAll(root, 'img[src*="beckman.com/pimassets/"]').forEach((img) => {
+    img.setAttribute('src', img.getAttribute('src').replace(/^https?:\/\/(www\.)?beckman\.com\/pimassets\//, 'https://plytix-files.com/'));
+  });
+}
+
+/**
+ * Linked images in default content: AEM text components cannot hold images, so a linked
+ * image becomes an image paragraph followed by a paragraph with the bare link URL
+ * (scripts.js joinLinkedImages turns the pair back into a linked image).
+ * Images inside blocks (tables) and lists keep their link.
+ */
+function splitLinkedImages(root, doc) {
+  safeAll(root, 'a[href]').forEach((a) => {
+    if (a.closest('table, li') || a.textContent.trim()) return;
+    const imgs = a.querySelectorAll('img');
+    if (imgs.length !== 1) return;
+    const parent = a.parentElement;
+    const host = parent && parent.tagName === 'P' && !parent.textContent.trim()
+      && parent.querySelectorAll('img').length === 1 ? parent : a;
+    const href = a.getAttribute('href');
+    const imgP = doc.createElement('p');
+    imgP.append(imgs[0].closest('picture') || imgs[0]);
+    const linkP = doc.createElement('p');
+    const link = doc.createElement('a');
+    link.setAttribute('href', href);
+    link.textContent = href;
+    linkP.append(link);
+    host.replaceWith(imgP, linkP);
+  });
+}
+
 export default function transform(hookName, element, payload) {
   const doc = element.ownerDocument || document;
   const template = payload && payload.template;
@@ -200,6 +246,7 @@ export default function transform(hookName, element, payload) {
 
   if (hookName === H.before) {
     markButtons(element, template, doc);
+    useZoomImageUrls(element);
 
     // Chrome that could interfere with block matching
     removeAll(element, [
@@ -274,6 +321,8 @@ export default function transform(hookName, element, payload) {
     safeAll(element, '#product-table-wrapper').forEach((el) => {
       if (isEmpty(el)) el.remove();
     });
+
+    splitLinkedImages(element, doc);
 
     // Strip tracking / analytics attributes
     element.querySelectorAll('*').forEach((el) => {

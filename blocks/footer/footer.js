@@ -10,6 +10,8 @@
  * All copy, links and images come from the fragment; this file only builds layout + behaviour.
  */
 
+import { joinLinkedImages } from '../../scripts/scripts.js';
+
 async function fetchFooter() {
   // locale area of the page ('/in' for the India pages)
   const match = window.location.pathname.match(/^\/(?:content\/)?(in)(?:\/|$)/);
@@ -29,6 +31,11 @@ async function fetchFooter() {
     source.srcset = source.getAttribute('srcset').split(',')
       .map((part) => part.trim().replace(/^\S+/, (u) => absolute(u))).join(', ');
   });
+  // AEM stores a linked logo as an image + a paragraph with its bare link
+  joinLinkedImages(tpl);
+  // AEM marks images lazy; logos that size from their image (wrapping mobile row) stay
+  // 0px wide and never load. The footer itself loads late, so load its images directly.
+  tpl.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
   return tpl;
 }
 
@@ -142,11 +149,12 @@ export default async function decorate(block) {
       if (img?.alt) a.setAttribute('aria-label', img.alt);
     });
     // unlinked logos get the same sizing wrapper as linked ones
-    list?.querySelectorAll(':scope > li > img').forEach((img) => {
+    // (a bare <img> locally, a <picture> from AEM)
+    list?.querySelectorAll(':scope > li > img, :scope > li > picture').forEach((media) => {
       const span = el('span', 'footer-logo-static');
-      span.setAttribute('aria-label', img.alt);
-      img.replaceWith(span);
-      span.append(img);
+      span.setAttribute('aria-label', media.querySelector('img')?.alt || media.alt || '');
+      media.replaceWith(span);
+      span.append(media);
     });
     parts.push(el('div', 'footer-brands', ...logos.childNodes));
   }
