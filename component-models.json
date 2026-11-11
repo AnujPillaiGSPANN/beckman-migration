@@ -20,6 +20,13 @@
         "name": "keywords",
         "multi": true,
         "label": "Keywords"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "template",
+        "label": "Template",
+        "description": "Page template (sets the body class), e.g. air-particle-counters, product-series, product-detail"
       }
     ]
   },
@@ -407,82 +414,6 @@
     ]
   },
   {
-    "id": "columns-intro-box",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "columns",
-        "value": "",
-        "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "",
-        "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "columns-intro-video",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "columns",
-        "value": "",
-        "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "",
-        "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "columns-media",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "columns",
-        "value": "",
-        "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "",
-        "label": "Rows"
-      }
-    ]
-  },
-  {
-    "id": "columns-modules",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "columns",
-        "value": "",
-        "label": "Columns"
-      },
-      {
-        "component": "text",
-        "valueType": "number",
-        "name": "rows",
-        "value": "",
-        "label": "Rows"
-      }
-    ]
-  },
-  {
     "id": "columns",
     "fields": [
       {
@@ -578,6 +509,74 @@
     ]
   },
   {
+    "id": "feature-modules-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1_text",
+        "value": "",
+        "label": "Column 1 Heading/Label + List"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column1_image",
+        "label": "Column 1 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column1_imageAlt",
+        "value": "",
+        "label": "Column 1 Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2_text",
+        "value": "",
+        "label": "Column 2 Heading/Label + List"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column2_image",
+        "label": "Column 2 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column2_imageAlt",
+        "value": "",
+        "label": "Column 2 Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3_text",
+        "value": "",
+        "label": "Column 3 Heading/Label + List"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column3_image",
+        "label": "Column 3 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column3_imageAlt",
+        "value": "",
+        "label": "Column 3 Image Alt"
+      }
+    ]
+  },
+  {
     "id": "form",
     "fields": [
       {
@@ -663,6 +662,77 @@
     ]
   },
   {
+    "id": "intro-box-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1",
+        "value": "",
+        "label": "Intro Text"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2",
+        "value": "",
+        "label": "Box (Heading + List)"
+      }
+    ]
+  },
+  {
+    "id": "intro-video-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1",
+        "value": "",
+        "label": "Intro Text"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2",
+        "value": "",
+        "label": "Video (Wistia Link + Optional Caption)"
+      }
+    ]
+  },
+  {
+    "id": "media-split-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1",
+        "value": "",
+        "label": "Text (Intro, List, Button)"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column2_image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column2_imageAlt",
+        "value": "",
+        "label": "Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2_text",
+        "value": "",
+        "label": "Caption"
+      }
+    ]
+  },
+  {
     "id": "modal",
     "fields": [
       {
@@ -731,26 +801,86 @@
       {
         "component": "richtext",
         "valueType": "string",
-        "name": "column1text",
-        "label": "Label"
+        "name": "column1_text",
+        "value": "",
+        "label": "Label Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column1_image",
+        "label": "Label Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column1_imageAlt",
+        "value": "",
+        "label": "Label Image Alt"
       },
       {
         "component": "richtext",
         "valueType": "string",
-        "name": "column2text",
-        "label": "Model 1"
+        "name": "column2_text",
+        "value": "",
+        "label": "Model 1 Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column2_image",
+        "label": "Model 1 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column2_imageAlt",
+        "value": "",
+        "label": "Model 1 Image Alt"
       },
       {
         "component": "richtext",
         "valueType": "string",
-        "name": "column3text",
-        "label": "Model 2"
+        "name": "column3_text",
+        "value": "",
+        "label": "Model 2 Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column3_image",
+        "label": "Model 2 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column3_imageAlt",
+        "value": "",
+        "label": "Model 2 Image Alt"
       },
       {
         "component": "richtext",
         "valueType": "string",
-        "name": "column4text",
-        "label": "Model 3"
+        "name": "column4_text",
+        "value": "",
+        "label": "Model 3 Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column4_image",
+        "label": "Model 3 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column4_imageAlt",
+        "value": "",
+        "label": "Model 3 Image Alt"
       }
     ]
   },

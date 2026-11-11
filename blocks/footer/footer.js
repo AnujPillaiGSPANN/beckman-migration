@@ -22,9 +22,12 @@ async function fetchFooter() {
   const tpl = document.createElement('div');
   tpl.innerHTML = html;
   const base = resp.url.slice(0, resp.url.lastIndexOf('/') + 1);
-  tpl.querySelectorAll('img[src]').forEach((img) => {
-    const src = img.getAttribute('src');
-    if (!/^(https?:|\/|data:)/.test(src)) img.src = new URL(src, base).href;
+  // relative media (local images/…, or ./media_… from AEM) resolve against the fragment
+  const absolute = (url) => (/^(https?:|\/|data:|about:)/.test(url) ? url : new URL(url, base).href);
+  tpl.querySelectorAll('img[src]').forEach((img) => { img.src = absolute(img.getAttribute('src')); });
+  tpl.querySelectorAll('source[srcset]').forEach((source) => {
+    source.srcset = source.getAttribute('srcset').split(',')
+      .map((part) => part.trim().replace(/^\S+/, (u) => absolute(u))).join(', ');
   });
   return tpl;
 }
@@ -47,7 +50,7 @@ async function inlineSvg(img, className) {
       const link = img.closest('a');
       if (link && !link.getAttribute('aria-label')) link.setAttribute('aria-label', img.alt);
     }
-    img.replaceWith(svg);
+    (img.closest('picture') || img).replaceWith(svg);
   } catch (e) {
     // keep the <img> if the SVG cannot be fetched
   }
@@ -61,10 +64,13 @@ function el(tag, className, ...children) {
 }
 
 function buildBackToTop(section) {
-  const p = section.querySelector('p');
   const button = el('button', 'footer-top');
   button.type = 'button';
-  if (p) button.append(...p.childNodes);
+  // icon first, then label (AEM may split them into separate paragraphs, in either order)
+  const media = [...section.querySelectorAll('picture, img')].filter((m) => !m.closest('picture') || m.tagName === 'PICTURE');
+  const label = section.textContent.trim();
+  button.append(...media);
+  if (label) button.append(document.createTextNode(label));
   button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   return button;
 }
@@ -73,7 +79,9 @@ function buildLegal(section) {
   const legal = el('div', 'footer-legal');
   const inner = el('div', 'footer-legal-inner');
   const paragraphs = [...section.querySelectorAll(':scope > p')];
-  const logoP = paragraphs.find((p) => p.querySelector('img'));
+  // the logo paragraph is a lone link (its image may be missing if the asset failed)
+  const logoP = paragraphs.find((p) => p.querySelector('img')
+    || (p.children.length === 1 && p.firstElementChild.tagName === 'A' && !p.textContent.trim()));
   const textPs = paragraphs.filter((p) => p !== logoP);
   const row1 = el('div', 'footer-legal-row');
   if (textPs[0]) row1.append(textPs[0]);

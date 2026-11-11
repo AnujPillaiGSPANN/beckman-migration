@@ -2,16 +2,25 @@
 /* global WebImporter */
 
 /**
- * Parser for columns-intro-video. Base: columns (xwalk Columns: no field hints).
+ * Parser for intro-video. Base: columns (xwalk block/v1/block + item model intro-video-row).
  * Source: https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations
  * Selector: div.two-columns-holder
  * Layout: 1 row, 2 cells.
- *   col1 = intro paragraphs from .two-columns-holder__left .bc-rich-text (first one is boxed)
- *   col2 = Wistia video link https://fast.wistia.net/embed/iframe/<id> (+ caption if any)
+ *   col1 (field:column1) = intro paragraphs from .two-columns-holder__left .bc-rich-text (first one is boxed)
+ *   col2 (field:column2) = Wistia video link https://fast.wistia.net/embed/iframe/<id> (+ caption if any)
  * The rendered Wistia player chrome is not copied; the id is read from the
  * wistia_async_<id> class (or an iframe/medias URL). A non-empty video heading is kept
  * as default content before the block; empty h2 / caption are dropped.
  */
+/** Cell content prefixed with an xwalk field hint (empty string when there is no content). */
+function fieldCell(document, field, nodes) {
+  if (!nodes.length) return '';
+  const frag = document.createDocumentFragment();
+  frag.appendChild(document.createComment(` field:${field} `));
+  nodes.forEach((n) => frag.appendChild(n));
+  return frag;
+}
+
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
 function wistiaId(root) {
@@ -66,8 +75,8 @@ export default function parse(element, { document }) {
     }
   }
 
-  const cells = [[col1.length ? col1 : '', col2.length ? col2 : '']];
-  const block = WebImporter.Blocks.createBlock(document, { name: 'columns-intro-video', cells });
+  const cells = [[fieldCell(document, 'column1', col1), fieldCell(document, 'column2', col2)]];
+  const block = WebImporter.Blocks.createBlock(document, { name: 'intro-video', cells });
   before.forEach((h) => element.before(h));
   element.replaceWith(block);
 }

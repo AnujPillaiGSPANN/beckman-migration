@@ -21,10 +21,10 @@
       "carousel-gallery",
       "carousel-product",
       "columns",
-      "columns-intro-box",
-      "columns-intro-video",
-      "columns-media",
-      "columns-modules",
+      "intro-box",
+      "intro-video",
+      "media-split",
+      "feature-modules",
       "embed",
       "embed-marketo",
       "embed-wistia",
@@ -111,30 +111,6 @@
     ]
   },
   {
-    "id": "columns-intro-box",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "columns-intro-video",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "columns-media",
-    "components": [
-      "column"
-    ]
-  },
-  {
-    "id": "columns-modules",
-    "components": [
-      "column"
-    ]
-  },
-  {
     "id": "columns",
     "components": [
       "column"
@@ -147,6 +123,30 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "feature-modules",
+    "components": [
+      "feature-modules-row"
+    ]
+  },
+  {
+    "id": "intro-box",
+    "components": [
+      "intro-box-row"
+    ]
+  },
+  {
+    "id": "intro-video",
+    "components": [
+      "intro-video-row"
+    ]
+  },
+  {
+    "id": "media-split",
+    "components": [
+      "media-split-row"
     ]
   },
   {

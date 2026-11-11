@@ -4,7 +4,7 @@
   "canonicalModel": "standalone",
   "visualCharacteristics": {
     "purpose": "Standalone Wistia player, 16:9, ~83% of the content width, centered; lazy-loaded, or click-to-play with a poster",
-    "description": "No standalone video variant exists; Biomek's Wistia video sits inside columns-intro-video and hero-video (layout blocks). Vanilla embed only handles YouTube/Vimeo/Twitter, so a Wistia-aware embed variant is needed. Reuse this for any standalone Wistia video on the product-page family."
+    "description": "No standalone video variant exists; Biomek's Wistia video sits inside intro-video and hero-video (layout blocks). Vanilla embed only handles YouTube/Vimeo/Twitter, so a Wistia-aware embed variant is needed. Reuse this for any standalone Wistia video on the product-page family."
   },
   "contentPattern": {
     "summary": "Wistia product video q4o82wtj0e (4:30), ~83% content width (col-10), centered",
@@ -26,6 +26,6 @@
     "reuseCount": 0,
     "lastUsed": "2026-11-10"
   },
-  "reuseGuidance": "Use for any standalone Wistia video. Wistia inside a layout uses columns-intro-video or hero-video.",
+  "reuseGuidance": "Use for any standalone Wistia video. Wistia inside a layout uses intro-video or hero-video.",
   "usageDescription": "Standalone Wistia player, 16:9, ~83% of the content width, centered; lazy-loaded, or click-to-play with a poster."
 }

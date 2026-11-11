@@ -1,10 +1,10 @@
 {
-  "variantName": "columns-media",
+  "variantName": "media-split",
   "baseBlock": "columns",
   "canonicalModel": "standalone",
   "visualCharacteristics": {
     "purpose": "Copy (intro, red check-circle list, CTA) beside a large image with an optional caption, ~50/50",
-    "description": "vs columns-intro-box (~40%): no callout box; text + icon-check list + CTA beside a large product image, 50/50. vs columns-intro-video (~60%): no boxed lead paragraph, image instead of video, check-icon list. Kept separate so the intro's lead box styling does not leak. | Same pattern as Biomek's columns-media (copy + list | large image, ~50/50). Missing intro paragraph and button and an added caption under the image are content differences the block handles."
+    "description": "vs intro-box (~40%): no callout box; text + icon-check list + CTA beside a large product image, 50/50. vs intro-video (~60%): no boxed lead paragraph, image instead of video, check-icon list. Kept separate so the intro's lead box styling does not leak. | Same pattern as Biomek's media-split (copy + list | large image, ~50/50). Missing intro paragraph and button and an added caption under the image are content differences the block handles."
   },
   "contentPattern": {
     "summary": "Two 50/50 columns: left intro paragraph + 4-item list with red check-circle icons and bold lead-ins + 'Learn more' red button (#form); right large product image (Biomek i7 integrated system) | Two columns: left 6-item bulleted list; right chart image (click-to-zoom) with a caption paragraph",
@@ -12,7 +12,7 @@
   },
   "options": [],
   "memberVariantIds": [
-    "columns-media"
+    "media-split"
   ],
   "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
   "sourceUrls": [
@@ -30,6 +30,6 @@
     "reuseCount": 1,
     "lastUsed": "2026-11-10"
   },
-  "reuseGuidance": "Use for copy next to a large product image or chart. For video use columns-intro-video.",
+  "reuseGuidance": "Use for copy next to a large product image or chart. For video use intro-video.",
   "usageDescription": "Copy (intro, red check-circle list, CTA) beside a large image with an optional caption, ~50/50."
 }

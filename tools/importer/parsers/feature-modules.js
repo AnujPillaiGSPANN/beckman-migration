@@ -2,7 +2,7 @@
 /* global WebImporter */
 
 /**
- * Parser for columns-modules. Base: columns (xwalk Columns: no field hints).
+ * Parser for feature-modules. Base: columns (xwalk block/v1/block + item model feature-modules-row).
  * Source: https://www.beckman.com/cell-culture-workstation/cydem-vt
  * Selectors (two instances):
  *  - #features-wrapper div.bc-columns.row : 3 x .bc-column > .bc-rich-text = h4 + ul
@@ -11,8 +11,11 @@
  *  - div.spotlight-content-wrapper div.bc-rich-text > table.responsive-table : 1 row x 3 td
  *      = label <p> + img.image-full-width (div.overlay zoom links dropped). The three images
  *      share one copy-pasted alt, so the alt is replaced with the view label.
- * Layout: 1 row, N cells (3 in the source).
+ * Layout: 1 row, up to 3 cells; cell N is the field group columnN_*:
+ *   field:columnN_text  = heading/label + list (rich text)
+ *   field:columnN_image = picture (alt -> columnN_imageAlt)
  */
+const MAX_COLUMNS = 3;
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
 function tidy(root) {
@@ -96,7 +99,7 @@ export default function parse(element, { document }) {
     altCount[alt] = (altCount[alt] || 0) + 1;
   });
 
-  const row = columns.map((col) => {
+  const row = columns.slice(0, MAX_COLUMNS).map((col, idx) => {
     tidy(col);
     const label = Array.from(col.querySelectorAll('p, h1, h2, h3, h4, h5, h6'))
       .find((el) => clean(el.textContent));
@@ -105,10 +108,37 @@ export default function parse(element, { document }) {
       if (label && (!alt || (imgs.length > 1 && altCount[alt] > 1))) img.setAttribute('alt', clean(label.textContent));
     });
     const nodes = flatten(document, col.querySelector(':scope > .bc-rich-text') || col);
-    return nodes.length ? nodes : '';
+    const n = idx + 1;
+    const text = [];
+    let img = null;
+    nodes.forEach((node) => {
+      const found = node.tagName === 'IMG' ? node : node.querySelector('img');
+      if (found && !img) {
+        img = found;
+        if (node !== found && clean(node.textContent)) {
+          (found.closest('picture') || found).remove();
+          text.push(node);
+        }
+        return;
+      }
+      if (!found) text.push(node);
+    });
+    if (!text.length && !img) return '';
+    const frag = document.createDocumentFragment();
+    if (text.length) {
+      frag.appendChild(document.createComment(` field:column${n}_text `));
+      text.forEach((t) => frag.appendChild(t));
+    }
+    if (img) {
+      const picture = img.closest('picture') || document.createElement('picture');
+      if (!picture.contains(img)) picture.appendChild(img);
+      frag.appendChild(document.createComment(` field:column${n}_image `));
+      frag.appendChild(picture);
+    }
+    return frag;
   });
 
   const cells = [row.length ? row : ['']];
-  const block = WebImporter.Blocks.createBlock(document, { name: 'columns-modules', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'feature-modules', cells });
   element.replaceWith(block);
 }

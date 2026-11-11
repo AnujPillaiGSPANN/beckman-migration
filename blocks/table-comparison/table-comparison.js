@@ -55,6 +55,19 @@ export default function decorate(block) {
     });
   });
 
+  // images are authored without a link (image field): link them to their column's CTA
+  columns.slice(1).forEach((col) => {
+    const href = col.querySelector('.table-comparison-cta a[href]')?.getAttribute('href');
+    if (!href) return;
+    col.querySelectorAll('.table-comparison-image picture').forEach((pic) => {
+      if (pic.closest('a')) return;
+      const link = document.createElement('a');
+      link.href = href;
+      pic.replaceWith(link);
+      link.append(pic);
+    });
+  });
+
   grid.append(...columns);
   block.replaceChildren(grid);
 }

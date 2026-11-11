@@ -2,7 +2,7 @@
 /* global WebImporter */
 
 /**
- * Parser for columns-media. Base: columns (xwalk Columns: no field hints).
+ * Parser for media-split. Base: columns (xwalk block/v1/block + item model media-split-row).
  * Sources:
  *  - product-series (Biomek): div.containercustom:has(ul.cusautolist) > div.row
  *      .col-md-6 #1 = intro paragraph + ul.cusautolist (strong lead-ins) + a > button "Learn more"
@@ -10,7 +10,10 @@
  *  - product-detail (Cydem VT): div.spotlight-content-wrapper div.Section > div.responsive-table
  *      .table-row > .table-cell = 6 separate <ul> (span.plain, <br>) -> merged into one list
  *      siblings = .container-overlay-full-width img (+ div.overlay zoom link, dropped) + caption <p>
- * Layout: 1 row, 2 cells: [rich text] [image + optional caption].
+ * Layout: 1 row, 2 cells:
+ *   cell 1 (field:column1)      = rich text (intro, list, CTA)
+ *   cell 2 (group column2_*)    = field:column2_image (picture, alt -> column2_imageAlt)
+ *                                 + field:column2_text (optional caption)
  */
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 const BLOCK = ['P', 'UL', 'OL', 'DIV', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'TABLE', 'BLOCKQUOTE', 'FIGURE'];
@@ -168,7 +171,42 @@ export default function parse(element, { document }) {
     col2.push(...flatten(document, p));
   });
 
-  const cells = [[merged.length ? merged : '', col2.length ? col2 : '']];
-  const block = WebImporter.Blocks.createBlock(document, { name: 'columns-media', cells });
+  const textCell = document.createDocumentFragment();
+  if (merged.length) {
+    textCell.appendChild(document.createComment(' field:column1 '));
+    merged.forEach((n) => textCell.appendChild(n));
+  }
+
+  // media group: first image -> column2_image, remaining text -> column2_text (caption)
+  const mediaCell = document.createDocumentFragment();
+  let img = null;
+  const caption = [];
+  col2.forEach((n) => {
+    const found = n.tagName === 'IMG' ? n : n.querySelector('img');
+    if (found && !img) {
+      img = found;
+      const rest = clean(n.textContent);
+      if (rest && n !== found) {
+        found.closest('picture')?.remove();
+        found.remove();
+        caption.push(n);
+      }
+      return;
+    }
+    if (clean(n.textContent)) caption.push(n);
+  });
+  if (img) {
+    const picture = img.closest('picture') || document.createElement('picture');
+    if (!picture.contains(img)) picture.appendChild(img);
+    mediaCell.appendChild(document.createComment(' field:column2_image '));
+    mediaCell.appendChild(picture);
+  }
+  if (caption.length) {
+    mediaCell.appendChild(document.createComment(' field:column2_text '));
+    caption.forEach((n) => mediaCell.appendChild(n));
+  }
+
+  const cells = [[merged.length ? textCell : '', (img || caption.length) ? mediaCell : '']];
+  const block = WebImporter.Blocks.createBlock(document, { name: 'media-split', cells });
   element.replaceWith(block);
 }

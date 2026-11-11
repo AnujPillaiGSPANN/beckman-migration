@@ -3,49 +3,49 @@
    - list | image + caption (Cydem VT): .responsive-table > .table-row > .table-cell (auto table layout) */
 
 /* source bootstrap container: 15px gutters (the block sets the 720/940/1140px inner width) */
-main > .section > .columns-media-wrapper:not(:has(.columns-media-caption)) {
+main > .section > .media-split-wrapper:not(:has(.media-split-caption)) {
   max-width: none;
   padding: 0 var(--content-gutter);
 }
 
 /* section heading directly above the block (source .containercustom h2 above the .row) */
-main .section .default-content-wrapper:has(+ .columns-media-wrapper) > h2:last-child {
+main .section .default-content-wrapper:has(+ .media-split-wrapper) > h2:last-child {
   margin: 75px 0 20px;
 }
 
 /* flow-root keeps the column margins inside, like the source .row clearfix */
-.columns-media {
+.media-split {
   display: flow-root;
   margin: 0 auto;
 }
 
-.columns-media .columns-media-text,
-.columns-media .columns-media-image {
+.media-split .media-split-text,
+.media-split .media-split-image {
   min-width: 0;
 }
 
-.columns-media .columns-media-text p {
+.media-split .media-split-text p {
   margin: 16px 0;
 }
 
-.columns-media .columns-media-text ul {
+.media-split .media-split-text ul {
   margin: 0 0 10px;
   padding-left: 17px;
 }
 
 /* list after the intro copy: source ul.cusautolist (Font Awesome 5 regular check-circle, #ea1c2c) */
-.columns-media .columns-media-text p + ul {
+.media-split .media-split-text p + ul {
   margin: 0;
   list-style: none;
 }
 
-.columns-media .columns-media-text p + ul > li {
+.media-split .media-split-text p + ul > li {
   position: relative;
   margin-bottom: 10px;
   padding-left: 24px;
 }
 
-.columns-media .columns-media-text p + ul > li::before {
+.media-split .media-split-text p + ul > li::before {
   content: '';
   position: absolute;
   top: calc(0.5lh - 0.5em);
@@ -56,13 +56,13 @@ main .section .default-content-wrapper:has(+ .columns-media-wrapper) > h2:last-c
 }
 
 /* CTA: source centered div > .btn.btn-red pill */
-.columns-media .columns-media-text .button-container {
+.media-split .media-split-text .button-container {
   display: block;
   margin: 0;
   text-align: center;
 }
 
-main .columns-media .columns-media-text a.button:any-link {
+main .media-split .media-split-text a.button:any-link {
   display: inline-block;
   margin: 0;
   padding: 12px 20px;
@@ -78,23 +78,23 @@ main .columns-media .columns-media-text a.button:any-link {
   transition: 0.3s;
 }
 
-main .columns-media .columns-media-text a.button:any-link:hover {
+main .media-split .media-split-text a.button:any-link:hover {
   background-color: #cf1322;
 }
 
 /* image column: source p (16px margins, centered) > img (width: 1000px; max-width: 100%) */
-.columns-media .columns-media-image > p,
-.columns-media .columns-media-image > picture {
+.media-split .media-split-image > p,
+.media-split .media-split-image > picture {
   display: block;
   margin: 16px 0;
   text-align: center;
 }
 
-.columns-media .columns-media-image picture {
+.media-split .media-split-image picture {
   display: block;
 }
 
-.columns-media .columns-media-image img {
+.media-split .media-split-image img {
   display: block;
   width: 1000px;
   max-width: 100%;
@@ -103,28 +103,28 @@ main .columns-media .columns-media-text a.button:any-link:hover {
 }
 
 /* --- list | image + caption (Cydem VT .responsive-table) --- */
-.columns-media .columns-media-row:has(.columns-media-caption) .columns-media-text {
+.media-split .media-split-row:has(.media-split-caption) .media-split-text {
   padding: 5px;
 }
 
-.columns-media .columns-media-row:has(.columns-media-caption) .columns-media-text li {
+.media-split .media-split-row:has(.media-split-caption) .media-split-text li {
   margin: 13px 0 0;
 }
 
 /* source .container-overlay-full-width (70%) > img (width: 80%) */
-.columns-media .columns-media-row:has(.columns-media-caption) .columns-media-image > p:has(picture) {
+.media-split .media-split-row:has(.media-split-caption) .media-split-image > p:has(picture) {
   width: 70%;
   margin: 0 auto;
 }
 
 /* inline + vertical-align: top, so the cell baseline (and its offset beside the list) matches */
-.columns-media .columns-media-row:has(.columns-media-caption) .columns-media-image img {
+.media-split .media-split-row:has(.media-split-caption) .media-split-image img {
   display: inline;
   width: 80%;
   vertical-align: top;
 }
 
-.columns-media .columns-media-image .columns-media-caption {
+.media-split .media-split-image .media-split-caption {
   margin: 10px 0 12px 30px;
   font-size: 12px;
   line-height: 1.65;
@@ -133,12 +133,12 @@ main .columns-media .columns-media-text a.button:any-link:hover {
 
 /* breakpoint-exception: source .responsive-table switches to table cells above exactly 600px */
 @media (width > 600px) {
-  .columns-media .columns-media-row:has(.columns-media-caption) {
+  .media-split .media-split-row:has(.media-split-caption) {
     display: table;
     width: 100%;
   }
 
-  .columns-media .columns-media-row:has(.columns-media-caption) > div {
+  .media-split .media-split-row:has(.media-split-caption) > div {
     display: table-cell;
   }
 }
@@ -147,24 +147,24 @@ main .columns-media .columns-media-text a.button:any-link:hover {
 
 /* breakpoint-exception: source container is 750px wide from exactly 768px */
 @media (width >= 768px) {
-  .columns-media:not(:has(.columns-media-caption)) {
+  .media-split:not(:has(.media-split-caption)) {
     max-width: 720px;
   }
 }
 
 /* breakpoint-exception: source container is 970px and .col-md-6 floats from exactly 992px */
 @media (width >= 992px) {
-  .columns-media:not(:has(.columns-media-caption)) {
+  .media-split:not(:has(.media-split-caption)) {
     max-width: 940px;
   }
 
-  .columns-media .columns-media-row:not(:has(.columns-media-caption)) {
+  .media-split .media-split-row:not(:has(.media-split-caption)) {
     display: flex;
     align-items: flex-start;
     margin: 0 -15px;
   }
 
-  .columns-media .columns-media-row:not(:has(.columns-media-caption)) > div {
+  .media-split .media-split-row:not(:has(.media-split-caption)) > div {
     box-sizing: border-box;
     flex: 0 0 50%;
     width: 50%;
@@ -174,15 +174,15 @@ main .columns-media .columns-media-text a.button:any-link:hover {
 
 /* source narrows the row gutters to 10px from 1200px */
 @media (width >= 1200px) {
-  .columns-media:not(:has(.columns-media-caption)) {
+  .media-split:not(:has(.media-split-caption)) {
     max-width: 1140px;
   }
 
-  .columns-media .columns-media-row:not(:has(.columns-media-caption)) {
+  .media-split .media-split-row:not(:has(.media-split-caption)) {
     margin: 0 -10px;
   }
 
-  .columns-media .columns-media-row:not(:has(.columns-media-caption)) > div {
+  .media-split .media-split-row:not(:has(.media-split-caption)) > div {
     padding: 0 10px;
   }
 }

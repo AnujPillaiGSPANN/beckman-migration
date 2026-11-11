@@ -1,4 +1,4 @@
-# columns-media
+# media-split
 
 Custom **columns** block. Purpose: Copy (intro, red check-circle list, CTA) beside a large image with an optional caption, ~50/50.
 
@@ -18,4 +18,7 @@ No variations.
 
 ## Universal Editor fields
 
-- Content fields derived from the block's decorate contract.
+Container block (`core/franklin/components/block/v1/block`, filter `media-split`) holding `media-split-row` items. Each row renders two cells:
+
+- `column1` (rich text): intro, list, optional button.
+- `column2_*` group (one cell): `column2_image` (image), `column2_imageAlt` (alt text), `column2_text` (rich text caption, optional).

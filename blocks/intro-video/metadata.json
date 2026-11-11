@@ -1,10 +1,10 @@
 {
-  "variantName": "columns-intro-video",
+  "variantName": "intro-video",
   "baseBlock": "columns",
   "canonicalModel": "standalone",
   "visualCharacteristics": {
     "purpose": "Intro copy (first paragraph in a grey box) beside a click-to-play Wistia video, 50/50",
-    "description": "vs columns-intro-box (~50%): same intro-copy purpose and 2-cell row, but the boxed element is the first paragraph of column 1 (grey box, no red accent, no heading/list) and column 2 is a click-to-play video instead of a heading+list callout; 50/50 instead of 60/40."
+    "description": "vs intro-box (~50%): same intro-copy purpose and 2-cell row, but the boxed element is the first paragraph of column 1 (grey box, no red accent, no heading/list) and column 2 is a click-to-play video instead of a heading+list callout; 50/50 instead of 60/40."
   },
   "contentPattern": {
     "summary": "Left: boxed lead paragraph + body paragraph (inline link 'liquid handlers'); right: embedded Wistia video 'Biomek i-Series Automated Liquid Handlers'",
@@ -12,7 +12,7 @@
   },
   "options": [],
   "memberVariantIds": [
-    "columns-intro-video"
+    "intro-video"
   ],
   "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
   "sourceUrls": [
@@ -26,6 +26,6 @@
     "reuseCount": 0,
     "lastUsed": "2026-11-10"
   },
-  "reuseGuidance": "Use for intro copy next to a product video. For a callout box use columns-intro-box; for an image use columns-media.",
+  "reuseGuidance": "Use for intro copy next to a product video. For a callout box use intro-box; for an image use media-split.",
   "usageDescription": "Intro copy (first paragraph in a grey box) beside a click-to-play Wistia video, 50/50."
 }

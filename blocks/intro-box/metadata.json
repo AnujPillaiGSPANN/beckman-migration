@@ -1,5 +1,5 @@
 {
-  "variantName": "columns-intro-box",
+  "variantName": "intro-box",
   "baseBlock": "columns",
   "canonicalModel": "standalone",
   "visualCharacteristics": {
@@ -12,7 +12,7 @@
   },
   "options": [],
   "memberVariantIds": [
-    "columns-intro-box"
+    "intro-box"
   ],
   "sourceUrl": "https://www.beckman.com/air-particle-counters",
   "structure": {

@@ -1,5 +1,5 @@
 /**
- * Wistia helpers shared by hero-video, columns-intro-video and embed-wistia.
+ * Wistia helpers shared by hero-video, intro-video and embed-wistia.
  */
 
 const WISTIA_HOST = /(^|\.)wistia\.(com|net)$|(^|\.)wi\.st$/i;

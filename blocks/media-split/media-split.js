@@ -6,21 +6,21 @@
  */
 export default function decorate(block) {
   const cols = [...(block.firstElementChild?.children || [])];
-  block.classList.add(`columns-media-${cols.length}-cols`);
+  block.classList.add(`media-split-${cols.length}-cols`);
 
   [...block.children].forEach((row) => {
-    row.classList.add('columns-media-row');
+    row.classList.add('media-split-row');
     [...row.children].forEach((col) => {
       const pic = col.querySelector('picture');
       const hasCopyStructure = col.querySelector('ul, ol, h1, h2, h3, h4, h5, h6');
       if (pic && !hasCopyStructure) {
-        col.classList.add('columns-media-image');
+        col.classList.add('media-split-image');
         // paragraphs other than the picture paragraph are captions
         col.querySelectorAll(':scope > p').forEach((p) => {
-          if (!p.querySelector('picture') && p.textContent.trim()) p.classList.add('columns-media-caption');
+          if (!p.querySelector('picture') && p.textContent.trim()) p.classList.add('media-split-caption');
         });
       } else {
-        col.classList.add('columns-media-text');
+        col.classList.add('media-split-text');
       }
     });
   });

@@ -11,7 +11,7 @@
       "description": "Product category landing page: H1 + intro (optionally with applications callout box), grid of linked product series cards on a grey band, then FAQ or link lists.",
       "blocks": [
         {
-          "name": "columns-intro-box",
+          "name": "intro-box",
           "instances": [
             "div.product-heading-wrap > div.intro-container",
             ".intro-container"
@@ -55,7 +55,7 @@
           ],
           "style": null,
           "blocks": [
-            "columns-intro-box"
+            "intro-box"
           ],
           "defaultContent": [
             "div.product-heading-wrap > h1"
@@ -117,7 +117,7 @@
           ]
         },
         {
-          "name": "columns-intro-video",
+          "name": "intro-video",
           "instances": [
             "div.two-columns-holder"
           ]
@@ -135,7 +135,7 @@
           ]
         },
         {
-          "name": "columns-media",
+          "name": "media-split",
           "instances": [
             "div.containercustom:has(ul.cusautolist) > div.row"
           ]
@@ -181,7 +181,7 @@
           ],
           "style": null,
           "blocks": [
-            "columns-intro-video"
+            "intro-video"
           ],
           "defaultContent": []
         },
@@ -195,7 +195,7 @@
           "blocks": [
             "accordion-icon-grid",
             "table-comparison",
-            "columns-media",
+            "media-split",
             "cards-scroll"
           ],
           "defaultContent": [
@@ -253,7 +253,7 @@
           ]
         },
         {
-          "name": "columns-modules",
+          "name": "feature-modules",
           "instances": [
             "#features-wrapper div.bc-columns.row",
             "div.spotlight-content-wrapper div.bc-rich-text > table.responsive-table"
@@ -272,7 +272,7 @@
           ]
         },
         {
-          "name": "columns-media",
+          "name": "media-split",
           "instances": [
             "div.spotlight-content-wrapper div.Section > div.responsive-table"
           ]
@@ -338,10 +338,10 @@
           ],
           "style": null,
           "blocks": [
-            "columns-modules",
+            "feature-modules",
             "embed-wistia",
             "cards-icon",
-            "columns-media"
+            "media-split"
           ],
           "defaultContent": [
             "#features-wrapper > div.product-page-sub-heading-wrapper",
@@ -382,7 +382,7 @@
           "style": null,
           "blocks": [
             "table-specs",
-            "columns-modules"
+            "feature-modules"
           ],
           "defaultContent": []
         },

@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
 
-import columnsIntroBoxParser from './parsers/columns-intro-box.js';
+import introBoxParser from './parsers/intro-box.js';
 import cardsProductParser from './parsers/cards-product.js';
 import cardsFaqParser from './parsers/cards-faq.js';
 import cleanupTransformer from './transformers/beckman-cleanup.js';
@@ -18,7 +18,7 @@ const PAGE_TEMPLATE = {
   "description": "Product category landing page: H1 + intro (optionally with applications callout box), grid of linked product series cards on a grey band, then FAQ or link lists.",
   "blocks": [
     {
-      "name": "columns-intro-box",
+      "name": "intro-box",
       "instances": [
         "div.product-heading-wrap > div.intro-container",
         ".intro-container"
@@ -62,7 +62,7 @@ const PAGE_TEMPLATE = {
       ],
       "style": null,
       "blocks": [
-        "columns-intro-box"
+        "intro-box"
       ],
       "defaultContent": [
         "div.product-heading-wrap > h1"
@@ -112,7 +112,7 @@ const PAGE_TEMPLATE = {
 };
 
 const parsers = {
-  'columns-intro-box': columnsIntroBoxParser,
+  'intro-box': introBoxParser,
   'cards-product': cardsProductParser,
   'cards-faq': cardsFaqParser,
 };
@@ -218,7 +218,7 @@ export default {
     const metaTable = [...main.querySelectorAll('table')].find((t) => (t.querySelector('th, td')?.textContent || '').trim().toLowerCase() === 'metadata');
     if (metaTable) {
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td>Template</td><td></td>';
+      tr.innerHTML = '<td>template</td><td></td>';
       tr.lastElementChild.textContent = PAGE_TEMPLATE.name;
       (metaTable.tBodies[0] || metaTable).append(tr);
     }

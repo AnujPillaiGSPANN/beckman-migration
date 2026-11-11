@@ -14,4 +14,7 @@ No variations.
 
 ## Universal Editor fields
 
-- Content fields derived from the block's decorate contract.
+Container block (`core/franklin/components/block/v1/block`, filter `table-comparison`) holding `table-comparison-row` items ("Comparison Row"). Each row renders four cells, one per field group `columnN_*` (N = 1 label column, 2..4 models):
+
+- `columnN_text` (rich text): name, value or CTA link.
+- `columnN_image` (image) + `columnN_imageAlt` (alt text): product image (image row). Do not link the image; the block links it to the CTA ("Explore ...") in the same column.

@@ -1,16 +1,16 @@
 /* Columns (modules) – source: #features-wrapper .bc-columns.row > .bc-column.col-xs-4
    (heading + list modules); image variant: table.responsive-table (label + zoomable image) */
-.columns-modules .columns-modules-row {
+.feature-modules .feature-modules-row {
   display: flow-root; /* bootstrap .row clearfix keeps the column margins inside */
   margin: 0 -15px;
 }
 
-.columns-modules .columns-modules-col {
+.feature-modules .feature-modules-col {
   min-width: 0;
   padding: 0 15px;
 }
 
-.columns-modules .columns-modules-col :is(h2, h3, h4, h5, h6) {
+.feature-modules .feature-modules-col :is(h2, h3, h4, h5, h6) {
   margin: 1.33em 0;
   font-size: 16px;
   font-weight: 600;
@@ -18,12 +18,12 @@
   color: #001728;
 }
 
-.columns-modules .columns-modules-col ul {
+.feature-modules .feature-modules-col ul {
   margin: 0 0 10px;
   padding-left: 17px;
 }
 
-.columns-modules .columns-modules-col li {
+.feature-modules .feature-modules-col li {
   font-size: var(--body-font-size-s);
   font-weight: 300;
   line-height: var(--body-line-height);
@@ -31,11 +31,11 @@
 
 /* breakpoint-exception: source .bc-columns is display: block below 768px */
 @media (width >= 768px) {
-  .columns-modules .columns-modules-row {
+  .feature-modules .feature-modules-row {
     display: flex;
   }
 
-  .columns-modules .columns-modules-col {
+  .feature-modules .feature-modules-col {
     flex: 0 0 auto;
     box-sizing: border-box;
     width: 33.3333%;
@@ -44,46 +44,46 @@
 
 /* breakpoint-exception: source bootstrap .row gutter becomes 20px at 1024px */
 @media (width >= 1024px) {
-  .columns-modules .columns-modules-row {
+  .feature-modules .feature-modules-row {
     margin: 0 -10px;
   }
 
-  .columns-modules .columns-modules-col {
+  .feature-modules .feature-modules-col {
     padding: 0 10px;
   }
 }
 
 /* image variant (source .responsive-table: fixed 3-column table, cells stacked up to 600px) */
-.columns-modules.columns-modules-images .columns-modules-row {
+.feature-modules.feature-modules-images .feature-modules-row {
   display: block;
   margin: 0;
 }
 
-.columns-modules.columns-modules-images .columns-modules-col {
+.feature-modules.feature-modules-images .feature-modules-col {
   box-sizing: border-box;
   width: 100%;
   padding: 10px;
   text-align: center;
 }
 
-.columns-modules.columns-modules-images .columns-modules-col p {
+.feature-modules.feature-modules-images .feature-modules-col p {
   margin: 1em 0;
 }
 
 /* the source separates label and image with a <br> line (1.65em) */
-.columns-modules.columns-modules-images .columns-modules-col p:has(picture) {
+.feature-modules.feature-modules-images .feature-modules-col p:has(picture) {
   margin: 0;
   padding-top: 1.65em;
 }
 
 /* source .container-overlay-full-width: 70% wide, centred; .image-full-width fills it */
-.columns-modules.columns-modules-images picture {
+.feature-modules.feature-modules-images picture {
   display: block;
   width: 70%;
   margin: 0 auto;
 }
 
-.columns-modules.columns-modules-images img {
+.feature-modules.feature-modules-images img {
   display: block;
   width: 100%;
   height: auto;
@@ -91,12 +91,12 @@
 }
 
 @media (width > 600px) {
-  .columns-modules.columns-modules-images .columns-modules-row {
+  .feature-modules.feature-modules-images .feature-modules-row {
     display: flex;
     align-items: flex-start;
   }
 
-  .columns-modules.columns-modules-images .columns-modules-col {
+  .feature-modules.feature-modules-images .feature-modules-col {
     flex: 1 1 0;
     width: auto;
   }

@@ -1,32 +1,32 @@
 /* Columns (intro-box) – source: .intro-container / .intro-text / .application-box */
-.columns-intro-box {
+.intro-box {
   padding-bottom: 26px;
 }
 
-.columns-intro-box .columns-intro-box-row {
+.intro-box .intro-box-row {
   display: flex;
   flex-direction: column;
   align-items: stretch;
   gap: 30px;
 }
 
-.columns-intro-box img {
+.intro-box img {
   display: block;
   width: 100%;
 }
 
 /* intro copy: source .intro-text (flex: 1) – paragraphs keep 16px margins */
-.columns-intro-box .columns-intro-box-main {
+.intro-box .intro-box-main {
   flex: 1 1 0;
   min-width: 0;
 }
 
-.columns-intro-box .columns-intro-box-main p {
+.intro-box .intro-box-main p {
   margin: 16px 0;
 }
 
 /* callout box: source .application-box */
-.columns-intro-box .columns-intro-box-box {
+.intro-box .intro-box-box {
   box-sizing: border-box;
   margin-top: 20px;
   padding: 24px;
@@ -35,15 +35,15 @@
   border-left: 4px solid var(--accent-color);
 }
 
-.columns-intro-box .columns-intro-box-box > :first-child {
+.intro-box .intro-box-box > :first-child {
   margin-top: 0;
 }
 
-.columns-intro-box .columns-intro-box-box > :last-child {
+.intro-box .intro-box-box > :last-child {
   margin-bottom: 0;
 }
 
-.columns-intro-box .columns-intro-box-box :is(h2, h3, h4) {
+.intro-box .intro-box-box :is(h2, h3, h4) {
   margin: 0 0 18px;
   font-size: var(--heading-font-size-l);
   font-weight: 300;
@@ -51,18 +51,18 @@
   color: var(--text-color);
 }
 
-.columns-intro-box .columns-intro-box-box ul {
+.intro-box .intro-box-box ul {
   margin: 0;
   padding-left: 20px;
 }
 
 @media (width >= 768px) {
-  .columns-intro-box .columns-intro-box-row {
+  .intro-box .intro-box-row {
     flex-direction: row;
     align-items: flex-start;
   }
 
-  .columns-intro-box .columns-intro-box-box {
+  .intro-box .intro-box-box {
     flex: 0 0 36%;
     width: 36%;
     margin-top: 0;

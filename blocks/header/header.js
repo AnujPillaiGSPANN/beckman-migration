@@ -31,9 +31,12 @@ async function fetchNav() {
   tpl.innerHTML = html;
   // fragment image paths are relative to the fragment location
   const base = resp.url.slice(0, resp.url.lastIndexOf('/') + 1);
-  tpl.querySelectorAll('img[src]').forEach((img) => {
-    const src = img.getAttribute('src');
-    if (!/^(https?:|\/|data:)/.test(src)) img.src = new URL(src, base).href;
+  // relative media (local images/…, or ./media_… from AEM) resolve against the fragment
+  const absolute = (url) => (/^(https?:|\/|data:|about:)/.test(url) ? url : new URL(url, base).href);
+  tpl.querySelectorAll('img[src]').forEach((img) => { img.src = absolute(img.getAttribute('src')); });
+  tpl.querySelectorAll('source[srcset]').forEach((source) => {
+    source.srcset = source.getAttribute('srcset').split(',')
+      .map((part) => part.trim().replace(/^\S+/, (u) => absolute(u))).join(', ');
   });
   return tpl;
 }
@@ -421,6 +424,8 @@ export default async function decorate(block) {
   block.textContent = '';
   if (!fragment) return;
   const [brandSec, searchSec, toolsSec, menuSec, utilSec] = [...fragment.children];
+  // AEM rich text wraps list-item text in <p> (<li><p>Label</p><ul>…): unwrap it in the lists
+  [toolsSec, menuSec].forEach((sec) => sec?.querySelectorAll('li > p').forEach((p) => p.replaceWith(...p.childNodes)));
 
   const nav = document.createElement('nav');
   nav.id = 'nav';

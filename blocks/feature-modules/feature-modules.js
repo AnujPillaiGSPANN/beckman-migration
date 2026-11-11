@@ -6,21 +6,21 @@
  */
 export default function decorate(block) {
   const cols = [...(block.firstElementChild?.children || [])];
-  block.classList.add(`columns-modules-${cols.length}-cols`);
+  block.classList.add(`feature-modules-${cols.length}-cols`);
   // every column is a label + image (e.g. Front / Side / Front Open views)
   if (cols.length && cols.every((col) => col.querySelector('picture'))) {
-    block.classList.add('columns-modules-images');
+    block.classList.add('feature-modules-images');
   }
 
   [...block.children].forEach((row) => {
-    row.classList.add('columns-modules-row');
+    row.classList.add('feature-modules-row');
     [...row.children].forEach((col) => {
-      col.classList.add('columns-modules-col');
-      if (col.querySelector('picture')) col.classList.add('columns-modules-media');
+      col.classList.add('feature-modules-col');
+      if (col.querySelector('picture')) col.classList.add('feature-modules-media');
       // a leading short paragraph above an image is the view label
       const first = col.firstElementChild;
       if (first?.tagName === 'P' && !first.querySelector('picture') && col.querySelector('picture')) {
-        first.classList.add('columns-modules-label');
+        first.classList.add('feature-modules-label');
       }
     });
   });

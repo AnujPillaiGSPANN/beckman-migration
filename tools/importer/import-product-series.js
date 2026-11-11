@@ -2,10 +2,10 @@
 /* global WebImporter */
 
 import heroVideoParser from './parsers/hero-video.js';
-import columnsIntroVideoParser from './parsers/columns-intro-video.js';
+import introVideoParser from './parsers/intro-video.js';
 import accordionIconGridParser from './parsers/accordion-icon-grid.js';
 import tableComparisonParser from './parsers/table-comparison.js';
-import columnsMediaParser from './parsers/columns-media.js';
+import mediaSplitParser from './parsers/media-split.js';
 import cardsScrollParser from './parsers/cards-scroll.js';
 import carouselProductParser from './parsers/carousel-product.js';
 import embedMarketoParser from './parsers/embed-marketo.js';
@@ -26,7 +26,7 @@ const PAGE_TEMPLATE = {
       ]
     },
     {
-      "name": "columns-intro-video",
+      "name": "intro-video",
       "instances": [
         "div.two-columns-holder"
       ]
@@ -44,7 +44,7 @@ const PAGE_TEMPLATE = {
       ]
     },
     {
-      "name": "columns-media",
+      "name": "media-split",
       "instances": [
         "div.containercustom:has(ul.cusautolist) > div.row"
       ]
@@ -90,7 +90,7 @@ const PAGE_TEMPLATE = {
       ],
       "style": null,
       "blocks": [
-        "columns-intro-video"
+        "intro-video"
       ],
       "defaultContent": []
     },
@@ -104,7 +104,7 @@ const PAGE_TEMPLATE = {
       "blocks": [
         "accordion-icon-grid",
         "table-comparison",
-        "columns-media",
+        "media-split",
         "cards-scroll"
       ],
       "defaultContent": [
@@ -151,10 +151,10 @@ const PAGE_TEMPLATE = {
 
 const parsers = {
   'hero-video': heroVideoParser,
-  'columns-intro-video': columnsIntroVideoParser,
+  'intro-video': introVideoParser,
   'accordion-icon-grid': accordionIconGridParser,
   'table-comparison': tableComparisonParser,
-  'columns-media': columnsMediaParser,
+  'media-split': mediaSplitParser,
   'cards-scroll': cardsScrollParser,
   'carousel-product': carouselProductParser,
   'embed-marketo': embedMarketoParser,
@@ -245,13 +245,23 @@ export default {
 
     executeTransformers('afterTransform', main, payload);
 
+    // India pages (mybeckman.in) live under /in/: keep their site-relative links in that area
+    const LOCALES = { 'www.mybeckman.in': '/in' };
+    const locale = LOCALES[new URL(params.originalURL).hostname] || '';
+    if (locale) {
+      main.querySelectorAll('a[href^="/"]').forEach((a) => {
+        const h = a.getAttribute('href');
+        if (!h.startsWith('//') && !h.startsWith(`${locale}/`)) a.setAttribute('href', `${locale}${h}`);
+      });
+    }
+
     main.appendChild(document.createElement('hr'));
     WebImporter.rules.createMetadata(main, document);
     // page template -> body class (aem.js decorateTemplateAndTheme)
     const metaTable = [...main.querySelectorAll('table')].find((t) => (t.querySelector('th, td')?.textContent || '').trim().toLowerCase() === 'metadata');
     if (metaTable) {
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td>Template</td><td></td>';
+      tr.innerHTML = '<td>template</td><td></td>';
       tr.lastElementChild.textContent = PAGE_TEMPLATE.name;
       (metaTable.tBodies[0] || metaTable).append(tr);
     }
@@ -267,7 +277,7 @@ export default {
     const rawPath = new URL(params.originalURL).pathname
       .replace(/\/$/, '')
       .replace(/\.html?$/, '');
-    const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+    const path = WebImporter.FileUtils.sanitizePath(`${locale}${rawPath === '' ? '/index' : rawPath}`);
 
     return [{
       element: main,

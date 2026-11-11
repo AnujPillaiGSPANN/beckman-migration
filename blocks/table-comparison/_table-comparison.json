@@ -35,10 +35,90 @@
     {
       "id": "table-comparison-row",
       "fields": [
-        { "component": "richtext", "valueType": "string", "name": "column1text", "label": "Label" },
-        { "component": "richtext", "valueType": "string", "name": "column2text", "label": "Model 1" },
-        { "component": "richtext", "valueType": "string", "name": "column3text", "label": "Model 2" },
-        { "component": "richtext", "valueType": "string", "name": "column4text", "label": "Model 3" }
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column1_text",
+          "value": "",
+          "label": "Label Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column1_image",
+          "label": "Label Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column1_imageAlt",
+          "value": "",
+          "label": "Label Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column2_text",
+          "value": "",
+          "label": "Model 1 Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column2_image",
+          "label": "Model 1 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column2_imageAlt",
+          "value": "",
+          "label": "Model 1 Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column3_text",
+          "value": "",
+          "label": "Model 2 Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column3_image",
+          "label": "Model 2 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column3_imageAlt",
+          "value": "",
+          "label": "Model 2 Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column4_text",
+          "value": "",
+          "label": "Model 3 Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column4_image",
+          "label": "Model 3 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column4_imageAlt",
+          "value": "",
+          "label": "Model 3 Image Alt"
+        }
       ]
     }
   ],

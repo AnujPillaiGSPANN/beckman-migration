@@ -3,7 +3,8 @@
 
 /**
  * Parser for table-comparison. Base: table (xwalk container; child model
- * table-comparison-row: column1text..column4text).
+ * table-comparison-row; each cell is the field group columnN_* for N = 1..4:
+ * columnN_text (richtext), columnN_image (reference, alt -> columnN_imageAlt)).
  * Source: https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations
  * Selector: #Models + div   (div.model-comparison)
  *
@@ -12,6 +13,8 @@
  *   model k (k = 0..2) = div(9+8k)..div(16+8k): name, linked image, 5 values, CTA
  * The parser transposes this into rows [label | model 1 | model 2 | model 3]
  * (max 4 columns): row 1 names, row 2 images, attribute rows, CTA row.
+ * Images go to the columnN_image field without their link (a richtext field would store a
+ * linked image as escaped HTML); the block JS re-links them with the column's CTA href.
  * <a><button> CTAs are unwrapped into plain links. Image alts that name the wrong model
  * (source bug: i3 image alt reads "Biomek i5") are corrected from the model name.
  */
@@ -96,13 +99,34 @@ export default function parse(element, { document }) {
         });
       }
       const nodes = cellContent(document, div);
-      if (!nodes.length) {
+      // split into text and the (first) image; the image link is dropped
+      let img = null;
+      const text = [];
+      nodes.forEach((n) => {
+        const found = n.tagName === 'IMG' ? n : n.querySelector('img');
+        if (found && !img) {
+          img = found;
+          (found.closest('picture') || found).remove();
+          if (n !== found && clean(n.textContent)) text.push(n);
+          return;
+        }
+        if (clean(n.textContent)) text.push(n);
+      });
+      if (!text.length && !img) {
         row.push('');
         return;
       }
       const frag = document.createDocumentFragment();
-      frag.appendChild(document.createComment(` field:column${c + 1}text `));
-      nodes.forEach((n) => frag.appendChild(n));
+      if (text.length) {
+        frag.appendChild(document.createComment(` field:column${c + 1}_text `));
+        text.forEach((n) => frag.appendChild(n));
+      }
+      if (img) {
+        const picture = img.closest('picture') || document.createElement('picture');
+        if (!picture.contains(img)) picture.appendChild(img);
+        frag.appendChild(document.createComment(` field:column${c + 1}_image `));
+        frag.appendChild(picture);
+      }
       row.push(frag);
     });
     // pad to a fixed width so every row has the same number of cells

@@ -2,10 +2,10 @@
 /* global WebImporter */
 
 import carouselGalleryParser from './parsers/carousel-gallery.js';
-import columnsModulesParser from './parsers/columns-modules.js';
+import featureModulesParser from './parsers/feature-modules.js';
 import embedWistiaParser from './parsers/embed-wistia.js';
 import cardsIconParser from './parsers/cards-icon.js';
-import columnsMediaParser from './parsers/columns-media.js';
+import mediaSplitParser from './parsers/media-split.js';
 import cardsResourceParser from './parsers/cards-resource.js';
 import carouselProductParser from './parsers/carousel-product.js';
 import tableSpecsParser from './parsers/table-specs.js';
@@ -27,7 +27,7 @@ const PAGE_TEMPLATE = {
       ]
     },
     {
-      "name": "columns-modules",
+      "name": "feature-modules",
       "instances": [
         "#features-wrapper div.bc-columns.row",
         "div.spotlight-content-wrapper div.bc-rich-text > table.responsive-table"
@@ -46,7 +46,7 @@ const PAGE_TEMPLATE = {
       ]
     },
     {
-      "name": "columns-media",
+      "name": "media-split",
       "instances": [
         "div.spotlight-content-wrapper div.Section > div.responsive-table"
       ]
@@ -112,10 +112,10 @@ const PAGE_TEMPLATE = {
       ],
       "style": null,
       "blocks": [
-        "columns-modules",
+        "feature-modules",
         "embed-wistia",
         "cards-icon",
-        "columns-media"
+        "media-split"
       ],
       "defaultContent": [
         "#features-wrapper > div.product-page-sub-heading-wrapper",
@@ -156,7 +156,7 @@ const PAGE_TEMPLATE = {
       "style": null,
       "blocks": [
         "table-specs",
-        "columns-modules"
+        "feature-modules"
       ],
       "defaultContent": []
     },
@@ -190,10 +190,10 @@ const PAGE_TEMPLATE = {
 
 const parsers = {
   'carousel-gallery': carouselGalleryParser,
-  'columns-modules': columnsModulesParser,
+  'feature-modules': featureModulesParser,
   'embed-wistia': embedWistiaParser,
   'cards-icon': cardsIconParser,
-  'columns-media': columnsMediaParser,
+  'media-split': mediaSplitParser,
   'cards-resource': cardsResourceParser,
   'carousel-product': carouselProductParser,
   'table-specs': tableSpecsParser,
@@ -285,13 +285,23 @@ export default {
 
     executeTransformers('afterTransform', main, payload);
 
+    // India pages (mybeckman.in) live under /in/: keep their site-relative links in that area
+    const LOCALES = { 'www.mybeckman.in': '/in' };
+    const locale = LOCALES[new URL(params.originalURL).hostname] || '';
+    if (locale) {
+      main.querySelectorAll('a[href^="/"]').forEach((a) => {
+        const h = a.getAttribute('href');
+        if (!h.startsWith('//') && !h.startsWith(`${locale}/`)) a.setAttribute('href', `${locale}${h}`);
+      });
+    }
+
     main.appendChild(document.createElement('hr'));
     WebImporter.rules.createMetadata(main, document);
     // page template -> body class (aem.js decorateTemplateAndTheme)
     const metaTable = [...main.querySelectorAll('table')].find((t) => (t.querySelector('th, td')?.textContent || '').trim().toLowerCase() === 'metadata');
     if (metaTable) {
       const tr = document.createElement('tr');
-      tr.innerHTML = '<td>Template</td><td></td>';
+      tr.innerHTML = '<td>template</td><td></td>';
       tr.lastElementChild.textContent = PAGE_TEMPLATE.name;
       (metaTable.tBodies[0] || metaTable).append(tr);
     }
@@ -307,7 +317,7 @@ export default {
     const rawPath = new URL(params.originalURL).pathname
       .replace(/\/$/, '')
       .replace(/\.html?$/, '');
-    const path = WebImporter.FileUtils.sanitizePath(rawPath === '' ? '/index' : rawPath);
+    const path = WebImporter.FileUtils.sanitizePath(`${locale}${rawPath === '' ? '/index' : rawPath}`);
 
     return [{
       element: main,

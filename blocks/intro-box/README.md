@@ -1,4 +1,4 @@
-# columns-intro-box
+# intro-box
 
 Custom **columns** block. Purpose: page intro copy beside a boxed callout (heading + bulleted list).
 
@@ -14,4 +14,7 @@ No variations.
 
 ## Universal Editor fields
 
-- Content fields derived from the block's decorate contract.
+Container block (`core/franklin/components/block/v1/block`, filter `intro-box`) holding `intro-box-row` items. Each row renders two cells:
+
+- `column1` (rich text): intro paragraphs.
+- `column2` (rich text): box heading + list.
