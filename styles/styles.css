@@ -1321,25 +1321,26 @@ body.product-detail main > .section:has(+ .section.cards-faq-container) {
 
 /* ...and before the footer when the page has no FAQ. The margin collapses with the last
    element's own margin (as in the source), but not with the footer's 50px top margin: main is
-   a block formatting context on product pages (source: an empty .container sits in between) */
+   a block formatting context on product pages (source: an empty .container sits in between).
+   "Last section" = the last one with content: AEM-delivered pages end with an empty section. */
 body.product-detail main {
   display: flow-root;
 }
 
-body.product-detail main > .section:last-child:not(.cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
+body.product-detail main > .section:has(> *):not(:has(~ .section > *), .cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
   margin-bottom: 28px;
 }
 
 /* breakpoint-exception: source .feature-holder margin steps at 768px */
 @media (width >= 768px) {
-  body.product-detail main > .section:last-child:not(.cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
+  body.product-detail main > .section:has(> *):not(:has(~ .section > *), .cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
     margin-bottom: 41px;
   }
 }
 
 /* breakpoint-exception: source .feature-holder margin steps at 1024px */
 @media (width >= 1024px) {
-  body.product-detail main > .section:last-child:not(.cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
+  body.product-detail main > .section:has(> *):not(:has(~ .section > *), .cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
     margin-bottom: 57px;
   }
 }
