@@ -2,8 +2,8 @@
 /* global WebImporter */
 
 /**
- * Parser for table-comparison. Base: table (xwalk container; child model
- * table-comparison-row; each cell is the field group columnN_* for N = 1..4:
+ * Parser for table-comparison -> block "Table (comparison)" (family table, variant option
+ * "comparison"). xwalk container; child model table-comparison-row; each cell is the field group columnN_* for N = 1..4:
  * columnN_text (richtext), columnN_image (reference, alt -> columnN_imageAlt)).
  * Source: https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations
  * Selector: #Models + div   (div.model-comparison)
@@ -17,7 +17,15 @@
  * linked image as escaped HTML); the block JS re-links them with the column's CTA href.
  * <a><button> CTAs are unwrapped into plain links. Image alts that name the wrong model
  * (source bug: i3 image alt reads "Biomek i5") are corrected from the model name.
+ *
+ * The table family has several item components (table-row, table-col-N, table-comparison-row,
+ * table-specs-row): every row starts with a cell holding its item id, table-comparison-row.
+ * The converter (helix-md2jcr) only drops that id cell when the row has more cells than the
+ * item model has fields (4 groups x text + image = 8), so rows are padded with empty cells to
+ * 8 cells after the id; the block removes the id cell and trims the empty trailing columns.
  */
+const ITEM_ID = 'table-comparison-row';
+const ITEM_FIELDS = 8;
 const MAX_MODELS = 3;
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
@@ -145,11 +153,12 @@ export default function parse(element, { document }) {
       }
       row.push(frag);
     });
-    // pad to a fixed width so every row has the same number of cells
-    while (row.length < modelCount + 1) row.push('');
-    cells.push(row);
+    // pad to a fixed width so every row has the same number of cells (and the converter drops
+    // the item id cell: more cells than item model fields)
+    while (row.length < Math.max(modelCount + 1, ITEM_FIELDS)) row.push('');
+    cells.push([ITEM_ID, ...row]);
   }
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'table-comparison', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Table (comparison)', cells });
   element.replaceWith(block);
 }

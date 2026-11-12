@@ -2,8 +2,13 @@
 /* global WebImporter */
 
 /**
- * Parser for hero-promo. Base: hero (xwalk container with block fields; block model
- * hero-promo: image, imageAlt, text; child model hero-promo-feature: image, imageAlt, text).
+ * Parser for hero-promo -> block "Hero (promo)" (family hero, variant option "promo").
+ * xwalk container with block fields; block model hero (shared by the hero variants: image,
+ * imageAlt, media_image, media_imageAlt, media_video, text; the promo variant uses the media_*
+ * group's media_image / media_imageAlt for its mobile image);
+ * child model hero-promo-feature: image, imageAlt, text (the only item component of the family,
+ * so item rows carry no item id cell). Every block field group gets a row (empty when unused),
+ * in model order, so the converter maps the rows by position and the item rows follow.
  * Source: https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu
  * Selector: div.banner-val
  * Rows:
@@ -13,10 +18,11 @@
  *      gives the extension-less media URL its real extension (.png). Read from the inline
  *      style of the element / its descendants, else from a <style> rule naming
  *      .banner-title / .banner-val. Alt = the heading text (source has none).
- *   2. <!-- field:text --> <p>eyebrow</p> <h2>heading</h2> <p>text</p>
+ *   2. media_* group: (optional) <!-- field:media_image --> img.mobile-img (mobile-only
+ *      artwork shown below the CTA under 768px; alt -> media_imageAlt, from the source, else
+ *      the heading text); empty row if none (media_video is the motion variant's field)
+ *   3. <!-- field:text --> <p>eyebrow</p> <h2>heading</h2> <p>text</p>
  *      <p><strong><a>CTA</a></strong></p>  (inline styles dropped)
- *   3. (optional) <!-- field:mobileImage --> img.mobile-img (mobile-only artwork shown below
- *      the CTA under 768px; alt from the source, else the heading text)
  *   then one item row per div.feature-item:
  *      [<!-- field:image --> icon img (empty alt -> feature title)]
  *      [<!-- field:text --> <p><strong>title</strong></p> (source h3) + <p>description</p>]
@@ -76,7 +82,18 @@ export default function parse(element, { document }) {
     cells.push(['']);
   }
 
-  // Row 2: eyebrow, heading, text, CTA
+  // Row 2 (media_* group): mobile-only artwork, image-only row (media_image/media_imageAlt)
+  const mobile = element.querySelector('img.mobile-img');
+  if (mobile && mobile.getAttribute('src')) {
+    const img = document.createElement('img');
+    img.setAttribute('src', mobile.getAttribute('src'));
+    img.setAttribute('alt', clean(mobile.getAttribute('alt')) || headingText);
+    cells.push([fieldCell(document, 'media_image', [img])]);
+  } else {
+    cells.push(['']);
+  }
+
+  // Row 3: eyebrow, heading, text, CTA
   const text = [];
   Array.from(titleBox.children).forEach((child) => {
     const value = clean(child.textContent);
@@ -105,15 +122,6 @@ export default function parse(element, { document }) {
     text.push(p);
   }
   cells.push([fieldCell(document, 'text', text)]);
-
-  // Row 3 (optional): mobile-only artwork, image-only row (block fields mobileImage/mobileImageAlt)
-  const mobile = element.querySelector('img.mobile-img');
-  if (mobile && mobile.getAttribute('src')) {
-    const img = document.createElement('img');
-    img.setAttribute('src', mobile.getAttribute('src'));
-    img.setAttribute('alt', clean(mobile.getAttribute('alt')) || headingText);
-    cells.push([fieldCell(document, 'mobileImage', [img])]);
-  }
 
   // Feature rows: [icon] [title + description]
   features.forEach((item) => {
@@ -147,6 +155,6 @@ export default function parse(element, { document }) {
     cells.push([imageCell, fieldCell(document, 'text', parts)]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'hero-promo', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Hero (promo)', cells });
   element.replaceWith(block);
 }

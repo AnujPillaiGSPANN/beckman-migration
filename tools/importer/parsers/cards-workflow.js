@@ -7,10 +7,10 @@
  * Sources (same div.container-wf markup):
  *  - https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents
  *      numbered workflow: a.wf-step = div.step-no badge + <b>step name</b> + img + <p>product</p>
- *      -> block "cards-workflow" (the block numbers the badges from the row index)
+ *      -> block "Cards (workflow)" (the block numbers the badges from the row index)
  *  - https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu ("Integrations")
  *      a.wf-step = <b>integration name</b> + img, no number badges
- *      -> block "Cards Workflow (unnumbered)"
+ *      -> block "Cards (workflow, unnumbered)"
  * Selector: div.container-wf (density: div.bc-rich-text > div.container-wf)
  * One row per a.wf-step (div.line-arrow-container chevrons skipped; the block draws them):
  *   cell 1 = <!-- field:image --> img (empty alt -> product name, else step name)
@@ -74,7 +74,11 @@ export default function parse(element, { document }) {
     cells.push([imageCell, textCell]);
   });
 
-  const name = numbered ? 'cards-workflow' : 'Cards Workflow (unnumbered)';
-  const block = WebImporter.Blocks.createBlock(document, { name, cells });
+  const name = numbered ? 'Cards (workflow)' : 'Cards (workflow, unnumbered)';
+  const block = WebImporter.Blocks.createBlock(document, {
+    name,
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-workflow-item', ...row]),
+  });
   element.replaceWith(block);
 }

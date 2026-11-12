@@ -2,11 +2,11 @@
 /* global WebImporter */
 
 /**
- * Parser for carousel-gallery. Base: carousel (xwalk container; child model
- * carousel-gallery-slide: image, imageAlt, text).
+ * Parser for carousel-gallery -> block "Carousel (gallery)" (blocks/carousel, variant gallery;
+ * xwalk container; child model carousel-gallery-slide: image, imageAlt, text).
  * Source: https://www.beckman.com/cell-culture-workstation/cydem-vt
  * Selector: div.product-gallery-carousel
- * One row per div.slideset > div.slide:
+ * One row per div.slideset > div.slide, led by the item-id cell "carousel-gallery-slide":
  *   cell 1 = <!-- field:image --> slide img (href="#" wrapper link dropped, alt kept)
  *   cell 2 = optional caption (<!-- field:text -->), empty in the source
  * The div.pagination thumbnails duplicate the slides and the prev/next arrows are
@@ -40,9 +40,9 @@ export default function parse(element, { document }) {
       p.textContent = caption;
       textCell.appendChild(p);
     }
-    cells.push([imageCell, textCell]);
+    cells.push(['carousel-gallery-slide', imageCell, textCell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'carousel-gallery', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Carousel (gallery)', cells });
   element.replaceWith(block);
 }

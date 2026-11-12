@@ -1,0 +1,71 @@
+/* Table (default). The variant blocks also carry the class "table" and this file stays loaded
+   once a page has a default table: :where(:not(.comparison, .specs)) keeps these rules off the
+   variants without changing their specificity. */
+
+.table.block:where(:not(.comparison, .specs)) {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table.block:where(:not(.comparison, .specs)) table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: var(--body-font-size-xs);
+}
+
+@media (width >= 600px) {
+  .table.block:where(:not(.comparison, .specs)) table {
+    font-size: var(--body-font-size-s);
+  }
+}
+
+@media (width >= 900px) {
+  .table.block:where(:not(.comparison, .specs)) table {
+    font-size: var(--body-font-size-m);
+  }
+}
+
+.table.block:where(:not(.comparison, .specs)) table thead tr {
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+}
+
+.table.block:where(:not(.comparison, .specs)) table tbody tr {
+  border-bottom: 1px solid;
+}
+
+.table.block:where(:not(.comparison, .specs)) table th {
+  font-weight: 700;
+}
+
+.table.block:where(:not(.comparison, .specs)) table th,
+.table.block:where(:not(.comparison, .specs)) table td {
+  padding: 0.5em;
+  text-align: left;
+}
+
+.table:where(:not(.comparison, .specs)) table th p,
+.table:where(:not(.comparison, .specs)) table td p {
+  margin: 0;
+}
+
+.table:where(:not(.comparison, .specs)) table td p + p {
+  margin-top: 0.25em;
+}
+
+/* no header variant */
+.table.block.no-header:where(:not(.comparison, .specs)) table tbody tr {
+  border-top: 1px solid;
+}
+
+/* striped variant */
+.table.block.striped:where(:not(.comparison, .specs)) tbody tr:nth-child(odd) {
+  background-color: var(--overlay-background-color);
+}
+
+/* bordered variant */
+.table.block.bordered:where(:not(.comparison, .specs)) table th,
+.table.block.bordered:where(:not(.comparison, .specs)) table td {
+  border: 1px solid;
+}

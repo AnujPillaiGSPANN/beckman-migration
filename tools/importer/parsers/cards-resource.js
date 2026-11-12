@@ -93,7 +93,11 @@ export default function parse(element, { document }) {
     cells.push([imageCell, textCell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'cards-resource', cells });
+  const block = WebImporter.Blocks.createBlock(document, {
+    name: 'Cards (resource)',
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-resource-card', ...row]),
+  });
   before.forEach((h) => element.before(h));
   element.replaceWith(block);
 }

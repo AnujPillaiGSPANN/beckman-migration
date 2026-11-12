@@ -85,6 +85,36 @@
           }
         }
       }
+    },
+    {
+      "title": "Comparison Row",
+      "id": "table-comparison-row",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Comparison Row",
+              "model": "table-comparison-row"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Spec Row",
+      "id": "table-specs-row",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Spec Row",
+              "model": "table-specs-row"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -92,33 +122,48 @@
       "id": "table",
       "fields": [
         {
-          "component": "multiselect",
+          "component": "select",
           "name": "classes",
+          "value": "",
+          "label": "Variant",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default",
+              "value": ""
+            },
+            {
+              "name": "Comparison (model columns with images and CTAs)",
+              "value": "comparison"
+            },
+            {
+              "name": "Specs (specification sheet)",
+              "value": "specs"
+            }
+          ]
+        },
+        {
+          "component": "multiselect",
+          "name": "classes_options",
           "value": "",
           "label": "Options",
           "valueType": "string",
           "options": [
             {
-              "name": "Border",
-              "children": [
-                {
-                  "name": "Striped",
-                  "value": "striped"
-                },
-                {
-                  "name": "Bordered",
-                  "value": "bordered"
-                }
-              ]
+              "name": "Striped (Default: shaded odd rows; Specs: grey borders, alternating rows)",
+              "value": "striped"
             },
             {
-              "name": "Header",
-              "children": [
-                {
-                  "name": "No Header",
-                  "value": "no-header"
-                }
-              ]
+              "name": "Bordered (Default: cell borders; Specs: navy header row, black borders)",
+              "value": "bordered"
+            },
+            {
+              "name": "No header (Default)",
+              "value": "no-header"
+            },
+            {
+              "name": "Label | value pairs (Specs: no header row, two pairs per line)",
+              "value": "pairs"
             }
           ]
         },
@@ -232,24 +277,215 @@
           "label": "Column4"
         }
       ]
+    },
+    {
+      "id": "table-comparison-row",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column1_text",
+          "value": "",
+          "label": "Label Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column1_image",
+          "label": "Label Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column1_imageAlt",
+          "value": "",
+          "label": "Label Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column2_text",
+          "value": "",
+          "label": "Model 1 Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column2_image",
+          "label": "Model 1 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column2_imageAlt",
+          "value": "",
+          "label": "Model 1 Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column3_text",
+          "value": "",
+          "label": "Model 2 Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column3_image",
+          "label": "Model 2 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column3_imageAlt",
+          "value": "",
+          "label": "Model 2 Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column4_text",
+          "value": "",
+          "label": "Model 3 Text"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column4_image",
+          "label": "Model 3 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column4_imageAlt",
+          "value": "",
+          "label": "Model 3 Image Alt"
+        }
+      ]
+    },
+    {
+      "id": "table-specs-row",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column1_text",
+          "value": "",
+          "label": "Specification"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column1_image",
+          "label": "Specification Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column1_imageAlt",
+          "value": "",
+          "label": "Specification Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column2_text",
+          "value": "",
+          "label": "Description"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column2_image",
+          "label": "Description Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column2_imageAlt",
+          "value": "",
+          "label": "Description Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column3_text",
+          "value": "",
+          "label": "Column 3"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column3_image",
+          "label": "Column 3 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column3_imageAlt",
+          "value": "",
+          "label": "Column 3 Image Alt"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "column4_text",
+          "value": "",
+          "label": "Column 4"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "column4_image",
+          "label": "Column 4 Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "column4_imageAlt",
+          "value": "",
+          "label": "Column 4 Image Alt"
+        }
+      ]
     }
   ],
   "filters": [
     {
       "id": "table",
-      "components": ["table-row"]
+      "components": [
+        "table-row",
+        "table-col-2",
+        "table-col-3",
+        "table-col-4",
+        "table-comparison-row",
+        "table-specs-row"
+      ]
     },
     {
       "id": "table-2-columns",
-      "components": ["table-col-2"]
+      "components": [
+        "table-col-2"
+      ]
     },
     {
       "id": "table-3-columns",
-      "components": ["table-col-3"]
+      "components": [
+        "table-col-3"
+      ]
     },
     {
       "id": "table-4-columns",
-      "components": ["table-col-4"]
+      "components": [
+        "table-col-4"
+      ]
     }
   ]
 }

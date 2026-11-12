@@ -2,17 +2,17 @@
 /* global WebImporter */
 
 /**
- * Parser for carousel-testimonial. Base: carousel (xwalk container with block fields; block
- * model carousel-testimonial: video_image, video_imageAlt, video_uri; child model
- * carousel-testimonial-slide: text).
+ * Parser for carousel-testimonial -> block "Carousel (testimonial)" (blocks/carousel, variant
+ * testimonial; xwalk container with block fields; block model carousel: video_image,
+ * video_imageAlt, video_uri; child model carousel-testimonial-slide: text).
  * Source: https://www.beckman.com/liquid-handlers/echo-acoustic
  * Selector: div.two-columns-holder (left: Wistia embed, right: div.slideshow-container)
  * Rows:
- *   1. video group: [<!-- field:video_image --> poster img, only when the source has an
+ *   1. video group (block-level fields, no item-id cell): [<!-- field:video_image --> poster img, only when the source has an
  *      authored (non-Wistia-chrome) image] <!-- field:video_uri -->
  *      <p><a>https://fast.wistia.net/embed/iframe/<id></a></p> (id from wistia_async_<id> /
  *      data-video-id; same form as embed-wistia / hero-video)
- *   2+. one single-cell row per div.mySlides (<!-- field:text -->):
+ *   2+. one row per div.mySlides: item-id cell "carousel-testimonial-slide" + (<!-- field:text -->)
  *      quote paragraph(s) (bare text + inline <strong> collected into <p>; the Font Awesome
  *      quote glyph is dropped, the block draws its own) + <p><em>attribution</em></p>
  * Slider chrome (prev/next, dots), empty h2 / caption are dropped; no empty image cells.
@@ -119,9 +119,9 @@ export default function parse(element, { document }) {
     const frag = document.createDocumentFragment();
     frag.appendChild(document.createComment(' field:text '));
     nodes.forEach((n) => frag.appendChild(n));
-    cells.push([frag]);
+    cells.push(['carousel-testimonial-slide', frag]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'carousel-testimonial', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Carousel (testimonial)', cells });
   element.replaceWith(block);
 }

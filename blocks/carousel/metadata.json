@@ -1,0 +1,138 @@
+{
+  "blockName": "carousel",
+  "title": "Carousel",
+  "purpose": "Slider blocks: full-width slides (default), product image gallery, multi-card product slider, testimonial video + quote slider.",
+  "variantOption": "classes (select): variant; legacy block classes (<legacy>, -wrapper, -container) are added by scripts/variants.js",
+  "variants": [
+    {
+      "option": "",
+      "authoring": "Carousel",
+      "legacyBlock": "carousel",
+      "files": {
+        "js": "variants/default.js",
+        "css": "variants/default.css"
+      },
+      "purpose": "Block Collection default look"
+    },
+    {
+      "option": "gallery",
+      "authoring": "Carousel (gallery)",
+      "legacyBlock": "carousel-gallery",
+      "files": {
+        "js": "variants/gallery.js",
+        "css": "variants/gallery.css"
+      },
+      "variantName": "carousel-gallery",
+      "baseBlock": "carousel",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Product image gallery: one large image at a time, prev/next chevrons, clickable thumbnail strip generated from the slides",
+        "description": "carousel-product (Biomek) is a multi-up slider of linked product cards with titles/descriptions; this is a single-image product gallery with thumbnail navigation: under 80% similar."
+      },
+      "contentPattern": {
+        "summary": "Product image gallery: 9 images, one visible at a time, prev/next chevrons and a thumbnail strip",
+        "structure": "one row per image: (1) image; (2) optional caption"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "carousel-gallery"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+      ],
+      "sectionMetadata": {
+        "style": "split"
+      },
+      "usage": {
+        "pagesUsing": [
+          "/cell-culture-workstation/cydem-vt"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for product image galleries beside the product intro. For multi-card sliders use carousel-product.",
+      "usageDescription": "Product image gallery: one large image at a time, prev/next chevrons, clickable thumbnail strip generated from the slides."
+    },
+    {
+      "option": "product",
+      "authoring": "Carousel (product)",
+      "legacyBlock": "carousel-product",
+      "files": {
+        "js": "variants/product.js",
+        "css": "variants/product.css"
+      },
+      "variantName": "carousel-product",
+      "baseBlock": "carousel",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Multi-card slider of white bordered product cards with prev/next arrows (5/3/2/1 visible); arrows hide when all cards fit",
+        "description": "Content is ~100% the cards-product model (linked contained image + linked title + description/optional list), but it is a slider with prev/next arrows showing 5 of 6 left-aligned cards, so it is a carousel, not the 3-col wrapping grid. Parser logic for the cells can be shared with cards-product. | Identical source component and card anatomy (related-part__img-link, related-part__title, related-part__desc). Only 4 slides here, all visible, so arrows do not show; the block must hide/disable arrows when slides <= visible count."
+      },
+      "contentPattern": {
+        "summary": "Slick carousel with prev/next arrows (5 visible of 6): white bordered product cards: linked image, bold linked h3 title, linked description (one card adds a paragraph + 8-item bullet list) | Slick slider of 4 white bordered product cards: linked image, bold linked title, linked description (+ disclaimer line)",
+        "structure": "one row per card, same cells as cards-product: (1) image (optionally linked); (2) linked title heading + description / list"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "carousel-product"
+      ],
+      "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+      "sourceUrls": [
+        "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+        "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+      ],
+      "sectionMetadata": {
+        "style": "centered"
+      },
+      "usage": {
+        "pagesUsing": [
+          "/liquid-handlers/biomek-i-series-automated-workstations",
+          "/cell-culture-workstation/cydem-vt"
+        ],
+        "reuseCount": 1,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for related / used-together product sliders. For a static grid use cards-product; for one-image galleries use carousel-gallery.",
+      "usageDescription": "Multi-card slider of white bordered product cards with prev/next arrows (5/3/2/1 visible); arrows hide when all cards fit."
+    },
+    {
+      "option": "testimonial",
+      "authoring": "Carousel (testimonial)",
+      "legacyBlock": "carousel-testimonial",
+      "files": {
+        "js": "variants/testimonial.js",
+        "css": "variants/testimonial.css"
+      },
+      "variantName": "carousel-testimonial",
+      "baseBlock": "carousel",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "Wistia testimonial video (5/12) beside a quote slider (7/12): red quote glyph, quote text, centred italic attribution, prev/next chevrons and dots",
+        "description": "carousel-product/-gallery are image/card sliders; this is a text-quote slider with dots paired with a fixed video pane. embed-wistia alone covers only the video."
+      },
+      "contentPattern": {
+        "summary": "Wistia testimonial video (Evotec, 4:47) on the left (5/12) beside a 2-quote slider (red quote glyph, bold phrase, centered italic attribution, prev/next chevrons, dots) on the right (7/12)",
+        "structure": "row 1 (block fields video_*): optional poster image + Wistia URL or id; then one row per quote (item `text`): quote paragraph(s) + italic attribution paragraph"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "carousel-testimonial"
+      ],
+      "sourceUrl": "https://www.beckman.com/liquid-handlers/echo-acoustic",
+      "sourceUrls": [
+        "https://www.beckman.com/liquid-handlers/echo-acoustic"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/liquid-handlers/echo-acoustic"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-11"
+      },
+      "reuseGuidance": "Use for customer quotes next to a testimonial video. For a video alone use embed-wistia; for image/card sliders use carousel-product or carousel-gallery.",
+      "usageDescription": "Wistia testimonial video (5/12) beside a quote slider (7/12): red quote glyph, quote text, centred italic attribution, prev/next chevrons and dots."
+    }
+  ]
+}

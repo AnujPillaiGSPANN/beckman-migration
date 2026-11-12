@@ -9,6 +9,7 @@
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
               "name": "Accordion",
+              "model": "accordion",
               "filter": "accordion"
             }
           }
@@ -31,9 +32,84 @@
           }
         }
       }
+    },
+    {
+      "title": "Question",
+      "id": "accordion-faq-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Question",
+              "model": "accordion-faq-item"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Accordion Icon Grid Item",
+      "id": "accordion-icon-grid-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Accordion Icon Grid Item",
+              "model": "accordion-icon-grid-item"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Rail Item",
+      "id": "accordion-rail-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Rail Item",
+              "model": "accordion-rail-item"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
+    {
+      "id": "accordion",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Variant",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default (stacked details)",
+              "value": ""
+            },
+            {
+              "name": "FAQ (two-column question bars)",
+              "value": "faq"
+            },
+            {
+              "name": "Icons (icon tiles revealing lists)",
+              "value": "icons"
+            },
+            {
+              "name": "Rail (sidebar link tree)",
+              "value": "rail"
+            }
+          ]
+        }
+      ]
+    },
     {
       "id": "accordion-item",
       "fields": [
@@ -52,12 +128,88 @@
           "valueType": "string"
         }
       ]
+    },
+    {
+      "id": "accordion-faq-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "summary",
+          "value": "",
+          "label": "Question"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Answer",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "accordion-icon-grid-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "label_image",
+          "label": "Icon",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "label_imageAlt",
+          "value": "",
+          "label": "Icon Alt"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "label_summary",
+          "value": "",
+          "label": "Title"
+        },
+        {
+          "component": "richtext",
+          "name": "content_text",
+          "value": "",
+          "label": "Content",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "accordion-rail-item",
+      "fields": [
+        {
+          "component": "richtext",
+          "name": "summary",
+          "value": "",
+          "label": "Parent Link",
+          "valueType": "string"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Child Links (bulleted list, may be empty)",
+          "valueType": "string"
+        }
+      ]
     }
   ],
   "filters": [
     {
       "id": "accordion",
-      "components": ["accordion-item"]
+      "components": [
+        "accordion-item",
+        "accordion-faq-item",
+        "accordion-icon-grid-item",
+        "accordion-rail-item"
+      ]
     }
   ]
 }

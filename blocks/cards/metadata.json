@@ -1,0 +1,443 @@
+{
+  "blockName": "cards",
+  "baseBlock": "cards",
+  "family": true,
+  "description": "One Cards block; the variant is a block option (Cards (variant[, option])). Each variant keeps its code and styles in variants/<option>.{js,css}.",
+  "variantOptions": [
+    "(default)",
+    "product",
+    "faq",
+    "icons",
+    "resource",
+    "scroll",
+    "doclist",
+    "downloads",
+    "gradient",
+    "steps",
+    "workflow"
+  ],
+  "extraOptions": {
+    "compact": "icons",
+    "cover": "scroll",
+    "exchange": "steps",
+    "unnumbered": "workflow"
+  },
+  "variants": [
+    {
+      "option": "",
+      "authoring": "Cards",
+      "legacyBlock": "cards",
+      "item": "card",
+      "usageDescription": "Default Block Collection cards: grid of bordered cards, image (4:3, cover) above a text body."
+    },
+    {
+      "option": "product",
+      "authoring": "Cards (product)",
+      "legacyBlock": "cards-product",
+      "item": "cards-product-card",
+      "variantName": "cards-product",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "linked product / service cards in a 3-column grid",
+        "description": "No existing cards variants in blocks/. White bordered cards on grey, 3 per row, centered contained product image (not cropped), centered light-weight title, description + bullet list, whole card clickable."
+      },
+      "contentPattern": {
+        "summary": "7 linked product/service cards in a wrapping 3-column grid",
+        "structure": "two cells: (1) product image (contained, centered, not cropped), (2) title heading wrapping a link to the detail page, a description paragraph and a bulleted feature list; the title link makes the whole card clickable"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "cards-product"
+      ],
+      "sourceUrl": "https://www.beckman.com/air-particle-counters",
+      "structure": {
+        "baseBlock": "cards",
+        "source": "get_block_details /block-collection/cards (Cards)",
+        "rows": [
+          {
+            "row": "header",
+            "cells": [
+              "Cards (product)"
+            ]
+          },
+          {
+            "row": "card (repeat x7)",
+            "cells": [
+              "Image (mandatory)",
+              "Title heading (linked) + description paragraph + bulleted list"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "pagesUsing": [
+          "/air-particle-counters",
+          "/particle-size-analyzers",
+          "/flow-cytometry"
+        ],
+        "reuseCount": 2,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for product series / category listings that link to detail pages. For text-only boxes use cards-faq.",
+      "usageDescription": "Grid of product or service cards, each with an image, a linked title, a short description and a feature list. The whole card links to the title link target."
+    },
+    {
+      "option": "faq",
+      "authoring": "Cards (faq)",
+      "legacyBlock": "cards-faq",
+      "item": "cards-faq-card",
+      "variantName": "cards-faq",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "static, always-open question/answer boxes stacked full width",
+        "description": "Differs from cards-product (under 80% similar): text only, one card per row at full width, grey filled boxes, no images or links on the card. Uses the cards 'no images' one-cell content model."
+      },
+      "contentPattern": {
+        "summary": "6 static question/answer boxes stacked vertically",
+        "structure": "one cell: a question heading (bold) followed by one or more answer paragraphs (inline links allowed); no image"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "cards-faq"
+      ],
+      "sourceUrl": "https://www.beckman.com/air-particle-counters",
+      "structure": {
+        "baseBlock": "cards",
+        "source": "get_block_details /block-collection/cards (Cards (no images))",
+        "rows": [
+          {
+            "row": "header",
+            "cells": [
+              "Cards (faq)"
+            ]
+          },
+          {
+            "row": "card (repeat x6)",
+            "cells": [
+              "Question heading + answer paragraph(s)"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "pagesUsing": [
+          "/air-particle-counters",
+          "/particle-size-analyzers",
+          "/cell-culture-workstation/cydem-vt"
+        ],
+        "reuseCount": 2,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for static FAQ lists where every answer is always visible. For collapsible Q&A use accordion.",
+      "usageDescription": "Stacked full-width grey boxes, each holding one question heading and its answer."
+    },
+    {
+      "option": "icons",
+      "authoring": "Cards (icons)",
+      "legacyBlock": "cards-icon",
+      "item": "cards-icon-card",
+      "variantName": "cards-icon",
+      "baseBlock": "cards",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Static, borderless, centered benefit tiles: red line icon, bold title, short description; 4 across desktop, 2x2 mobile",
+        "description": "cards-product is bordered, linked product cards with contained photos and feature lists (3/row); cards-faq is text-only full-width boxes; cards-scroll is a horizontal scroll strip; accordion-icon-grid tiles expand on click. These are static, borderless, centered icon + title + one-line description tiles, 4/row: under 80% similar to any."
+      },
+      "contentPattern": {
+        "summary": "4 benefit tiles: red line icon (150x150), bold title, short description; 4 across desktop, 2x2 on mobile",
+        "structure": "one row per tile: (1) icon image; (2) bold title paragraph + description"
+      },
+      "options": [
+        {
+          "class": "compact",
+          "label": "Compact (100px icons, small text)"
+        }
+      ],
+      "memberVariantIds": [
+        "cards-icon"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/cell-culture-workstation/cydem-vt"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for benefit/feature icon rows. For tiles that expand use accordion-icon-grid.",
+      "usageDescription": "Static, borderless, centered benefit tiles: red line icon, bold title, short description; 4 across desktop, 2x2 mobile."
+    },
+    {
+      "option": "resource",
+      "authoring": "Cards (resource)",
+      "legacyBlock": "cards-resource",
+      "item": "cards-resource-card",
+      "variantName": "cards-resource",
+      "baseBlock": "cards",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Wrapping 4/2/1 grid of document cards: bold title above a bordered cover thumbnail, red outline \"Read\" button",
+        "description": "Closest is Biomek cards-scroll (document covers linking to assets) but that is a single-row horizontal scroll strip with hover 'Download' overlays and no titles above the image; cards-product is bordered product cards with image first. This is a wrapping 4/row grid, title on top, cover image, visible outline 'Read' button: under 80% similar."
+      },
+      "contentPattern": {
+        "summary": "9 application-note cards in a wrapping 4-column grid: bold title, document cover thumbnail, red outline 'Read' button; each links to its application-note detail page",
+        "structure": "one row per card: (1) cover image (optionally linked); (2) bold title paragraph + \"Read\" link"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "cards-resource"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/cell-culture-workstation/cydem-vt"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for application notes / resource listings. For a horizontal strip use cards-scroll.",
+      "usageDescription": "Wrapping 4/2/1 grid of document cards: bold title above a bordered cover thumbnail, red outline \"Read\" button."
+    },
+    {
+      "option": "scroll",
+      "authoring": "Cards (scroll)",
+      "legacyBlock": "cards-scroll",
+      "item": "cards-scroll-card",
+      "variantName": "cards-scroll",
+      "baseBlock": "cards",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Single-row horizontal scroll strip: brochure covers with a hover \"Download\" overlay link, or application tiles (landscape image, red eyebrow, bold linked title)",
+        "description": "vs cards-product (~45%): single-row horizontal scroll strip, no description/list, portrait covers with hover 'Download' overlay. Shared with the Explore Applications strip (s4-4): same strip layout; text cell optional. | Horizontal-scroll strip of 10 linked tiles: landscape image + red eyebrow label + bold title; whole tile clickable."
+      },
+      "contentPattern": {
+        "summary": "Horizontal-scroll strip of 6 brochure cover images; hover reveals a 'Download' overlay link to the PDF/asset | Horizontal-scroll strip of 10 linked tiles: landscape image, red 'Webpage' label, bold title; the whole tile links to the application page",
+        "structure": "one row per tile: (1) image; (2) a single download link, or eyebrow paragraph + linked title"
+      },
+      "options": [
+        {
+          "class": "cover",
+          "label": "Cover images (fill the image area)"
+        }
+      ],
+      "memberVariantIds": [
+        "cards-scroll"
+      ],
+      "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+      "sourceUrls": [
+        "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+      ],
+      "sectionMetadata": {
+        "style": "centered"
+      },
+      "usage": {
+        "pagesUsing": [
+          "/liquid-handlers/biomek-i-series-automated-workstations"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for brochure/download strips and linked tile strips. For a wrapping grid use cards-product or cards-resource.",
+      "usageDescription": "Single-row horizontal scroll strip: brochure covers with a hover \"Download\" overlay link, or application tiles (landscape image, red eyebrow, bold linked title)."
+    },
+    {
+      "option": "doclist",
+      "authoring": "Cards (doclist)",
+      "legacyBlock": "cards-doclist",
+      "item": "cards-doclist-item",
+      "variantName": "cards-doclist",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "One-column list of documents: type icon (PDF / video), bold blue title link opening in a new tab, optional one-line ellipsis description; Resource Type filter and pagination built from the rows",
+        "description": "Same component and layout (single-column list, leading icon, linked bold title). The extra description line per item is an extra paragraph the block handles. Icon differs (fa-video here vs fa-file-pdf on 6000): the block should pick the icon per item or use one neutral document icon."
+      },
+      "contentPattern": {
+        "summary": "5 resource rows stacked full width: blue video icon, bold blue linked title, one-line grey description (ellipsis-truncated); Resource Type filter and pagination container / Filterable, paginated list of 3 gated-media documents, each a PDF icon + bold blue linked title / Filterable list of 5 documents: type icon (PDF / video), bold linked title, one-line truncated description; 'Filter by: Resource Type' dropdown above, pagination container below",
+        "structure": "one row per document: (1) type cell: \"pdf\" or \"video\" (select field `type`); (2) rich text `text`: title link paragraph + optional description paragraph"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "cards-doclist"
+      ],
+      "sourceUrl": "https://www.beckman.com/air-particle-counters/met-one-3400-plus",
+      "sourceUrls": [
+        "https://www.beckman.com/air-particle-counters/met-one-3400-plus",
+        "https://www.beckman.com/air-particle-counters/met-one-6000",
+        "https://www.beckman.com/air-particle-counters/facility-monitoring-system"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/air-particle-counters/met-one-3400-plus",
+          "/air-particle-counters/met-one-6000",
+          "/air-particle-counters/facility-monitoring-system"
+        ],
+        "reuseCount": 2,
+        "lastUsed": "2026-11-11"
+      },
+      "reuseGuidance": "Use for product-page \"Content and Resources\" document lists. For a cover-image grid use cards-resource; for a two-column bordered download list use cards-downloads.",
+      "usageDescription": "One-column list of documents: type icon (PDF / video), bold blue title link opening in a new tab, optional one-line ellipsis description; Resource Type filter and pagination built from the rows."
+    },
+    {
+      "option": "downloads",
+      "authoring": "Cards (downloads)",
+      "legacyBlock": "cards-downloads",
+      "item": "cards-downloads-item",
+      "variantName": "cards-downloads",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "Two-column grid of white bordered rows: title link on the left, resource type label and \"| PDF\" download link with a red download icon on the right",
+        "description": "cards-resource (Cydem VT) is a 4/row grid with cover thumbnails and a 'Read' button; cards-faq is full-width grey Q&A boxes. This is a text-only 2-column list of compact white bordered rows with title left and type label + PDF icon link right: under 80% similar."
+      },
+      "contentPattern": {
+        "summary": "12 bordered text rows in a 2-column grid: document title link (application-note page or PDF), 'Application Note' type label, '| PDF' red download-icon link",
+        "structure": "one row per document, one rich text cell `text`: title link paragraph + type label paragraph (e.g. \"Application Note\") + optional link-only paragraph \"PDF\" pointing at the PDF"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "cards-downloads"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/cell-counters-and-analyzers/vi-cell-blu"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-11"
+      },
+      "reuseGuidance": "Use for application-note / document download lists without images. For a single-column filterable list use cards-doclist.",
+      "usageDescription": "Two-column grid of white bordered rows: title link on the left, resource type label and \"| PDF\" download link with a red download icon on the right."
+    },
+    {
+      "option": "gradient",
+      "authoring": "Cards (gradient)",
+      "legacyBlock": "cards-gradient",
+      "item": "cards-gradient-item",
+      "variantName": "cards-gradient",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "2x2 grid of grey text cards with a 4px red-to-purple gradient top border, heading, text and a right-aligned red outline button; hover lift",
+        "description": "cards-faq is grey text-only boxes but stacked full width, left grey border, no button; cards-icon is borderless icon tiles 4/row; cards-resource/cards-product carry images. This is 2/row text cards with a gradient top border and a right-aligned outline CTA, hover lift: under 80% similar to all."
+      },
+      "contentPattern": {
+        "summary": "4 grey cards in a 2x2 grid (1/row mobile), 4px red-to-purple gradient top border, title, paragraph, right-aligned red outline button; each links to a detail page",
+        "structure": "one row per card, one rich text cell `text`: heading (h3) + paragraph(s) + em-wrapped link (outline button)"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "cards-gradient"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/cell-counters-and-analyzers/vi-cell-blu"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-11"
+      },
+      "reuseGuidance": "Use for 2-up \"explore more\" link cards without images. For static Q&A boxes use cards-faq.",
+      "usageDescription": "2x2 grid of grey text cards with a 4px red-to-purple gradient top border, heading, text and a right-aligned red outline button; hover lift."
+    },
+    {
+      "option": "steps",
+      "authoring": "Cards (steps)",
+      "legacyBlock": "cards-steps",
+      "item": "cards-steps-item",
+      "variantName": "cards-steps",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws → / ← arrows between two cards",
+        "description": "cards-product has linked titles and lists; cards-icon is borderless icon tiles; cards-resource is title-over-cover with Read button. This is unlinked photo-top cards with a per-position coloured label bar (purple, navy, cyan) under the image: under 80% similar."
+      },
+      "contentPattern": {
+        "summary": "3 centered bordered step cards: cover photo, full-width coloured label bar (purple / navy / cyan, uppercase), short description / 2 step cards ('With Carousel' purple bar, 'With Plate' cyan bar) with a stacked → / ← arrow pair between them",
+        "structure": "one row per card: (1) image (`image`/`imageAlt`); (2) rich text `text`: bold label paragraph (e.g. FIRST STEP) + description paragraph"
+      },
+      "options": [
+        {
+          "class": "exchange",
+          "label": "Exchange arrows"
+        }
+      ],
+      "memberVariantIds": [
+        "cards-steps"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/cell-counters-and-analyzers/vi-cell-blu"
+        ],
+        "reuseCount": 1,
+        "lastUsed": "2026-11-11"
+      },
+      "reuseGuidance": "Use for short illustrated process steps. Add the Exchange option for a two-card swap (bars purple then cyan). For linked numbered product steps use cards-workflow.",
+      "usageDescription": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws → / ← arrows between two cards."
+    },
+    {
+      "option": "workflow",
+      "authoring": "Cards (workflow)",
+      "legacyBlock": "cards-workflow",
+      "item": "cards-workflow-item",
+      "variantName": "cards-workflow",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "One row of numbered workflow steps with grey chevrons between them: coloured number badge + step name, product image, product name; whole tile links to the product with a grey hover; stacks on mobile",
+        "description": "Closest is cards-icon (4 across, image + title + text) but this is an ordered process strip: numbered colored square badges beside the step name, chevron separators between items, whole tile linked with a #f5f5f5 hover, left-aligned header row above a full-width image. Under 80% similar to cards-icon, cards-product (bordered product cards) and cards-scroll (horizontal scroll strip)."
+      },
+      "contentPattern": {
+        "summary": "4 linked workflow steps in one row with grey chevrons between: colored numbered badge + bold step name (Media preparation / Gradient generation / Centrifugation / Band extraction), product image, product name (OptiMATE Gradient Media / OptiMATE Gradient Maker / Optima XPN Ultracentrifuge / OptiXTRACT Sample Recovery Aid); grey hover background; stacks on mobile",
+        "structure": "one row per step: (1) product image (`image`/`imageAlt`); (2) rich text `text`: bold step name paragraph + product name link paragraph. The block numbers the steps"
+      },
+      "options": [
+        {
+          "class": "unnumbered",
+          "label": "Unnumbered (no step badges)"
+        }
+      ],
+      "memberVariantIds": [
+        "cards-workflow"
+      ],
+      "sourceUrl": "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents",
+      "sourceUrls": [
+        "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/reagents/centrifugation/density-gradient-reagents"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-11"
+      },
+      "reuseGuidance": "Use for linked product workflows (step 1..n). For unlinked photo step cards use cards-steps.",
+      "usageDescription": "One row of numbered workflow steps with grey chevrons between them: coloured number badge + step name, product image, product name; whole tile links to the product with a grey hover; stacks on mobile."
+    }
+  ]
+}

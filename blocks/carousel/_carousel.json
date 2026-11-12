@@ -8,7 +8,8 @@
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Carousel",              
+              "name": "Carousel",
+              "model": "carousel",
               "filter": "carousel"
             }
           }
@@ -29,9 +30,105 @@
           }
         }
       }
+    },
+    {
+      "title": "Gallery Image",
+      "id": "carousel-gallery-slide",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Gallery Image",
+              "model": "carousel-gallery-slide"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Product Slide",
+      "id": "carousel-product-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Product Slide",
+              "model": "carousel-product-card"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Quote",
+      "id": "carousel-testimonial-slide",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Quote",
+              "model": "carousel-testimonial-slide"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
+    {
+      "id": "carousel",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Variant",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default (full-width slides)",
+              "value": ""
+            },
+            {
+              "name": "Gallery (one image + thumbnails)",
+              "value": "gallery"
+            },
+            {
+              "name": "Product (multi-card slider)",
+              "value": "product"
+            },
+            {
+              "name": "Testimonial (video + quote slider)",
+              "value": "testimonial"
+            }
+          ]
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "video_image",
+          "label": "Video Poster Image (testimonial, optional)",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "video_imageAlt",
+          "value": "",
+          "label": "Video Poster Alt (testimonial)"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "video_uri",
+          "value": "",
+          "label": "Wistia Video URL or ID (testimonial)"
+        }
+      ]
+    },
     {
       "id": "carousel-item",
       "fields": [
@@ -57,12 +154,79 @@
           "valueType": "string"
         }
       ]
+    },
+    {
+      "id": "carousel-gallery-slide",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Alt"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Caption (optional)",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "carousel-product-card",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Alt"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    },
+    {
+      "id": "carousel-testimonial-slide",
+      "fields": [
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Quote + attribution",
+          "valueType": "string"
+        }
+      ]
     }
   ],
   "filters": [
     {
       "id": "carousel",
-      "components": ["carousel-item"]
+      "components": [
+        "carousel-item",
+        "carousel-gallery-slide",
+        "carousel-product-card",
+        "carousel-testimonial-slide"
+      ]
     }
   ]
 }

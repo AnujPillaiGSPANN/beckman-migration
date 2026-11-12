@@ -1,0 +1,29 @@
+/* default look only: a variant block also carries the class "cards", so these rules skip
+   the variant options (specificity unchanged by :where) */
+.cards:where(:not(.product, .faq, .icons, .resource, .scroll, .doclist, .downloads, .gradient, .steps, .workflow)) > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.cards:where(:not(.product, .faq, .icons, .resource, .scroll, .doclist, .downloads, .gradient, .steps, .workflow)) > ul > li {
+  border: 1px solid #dadada;
+  background-color: var(--background-color);
+}
+
+.cards .cards-card-body {
+  margin: 16px;
+}
+
+.cards .cards-card-image {
+  line-height: 0;
+}
+
+.cards:where(:not(.product, .faq, .icons, .resource, .scroll, .doclist, .downloads, .gradient, .steps, .workflow)) > ul > li img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}

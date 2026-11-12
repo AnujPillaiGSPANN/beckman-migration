@@ -1,35 +1,21 @@
-/*
- * Table Block
- * Recreate a table
- * https://www.hlx.live/developer/block-collection/table
- */
+import decorateVariant from '../../scripts/variants.js';
 
-import { moveInstrumentation } from '../../scripts/scripts.js';
+// variant option -> old block name (its code and styles live in variants/<option>.{js,css})
+const VARIANTS = {
+  comparison: 'table-comparison',
+  specs: 'table-specs',
+};
 
-/**
- *
- * @param {Element} block
- */
+// every item component id of the family (may lead a row in imported content)
+const ITEMS = [
+  'table-row',
+  'table-col-2',
+  'table-col-3',
+  'table-col-4',
+  'table-comparison-row',
+  'table-specs-row',
+];
+
 export default async function decorate(block) {
-  const table = document.createElement('table');
-  const thead = document.createElement('thead');
-  const tbody = document.createElement('tbody');
-  const header = !block.classList.contains('no-header');
-
-  [...block.children].forEach((row, i) => {
-    const tr = document.createElement('tr');
-    moveInstrumentation(row, tr);
-
-    [...row.children].forEach((cell) => {
-      const td = document.createElement(i === 0 && header ? 'th' : 'td');
-
-      if (i === 0) td.setAttribute('scope', 'column');
-      td.innerHTML = cell.innerHTML;
-      tr.append(td);
-    });
-    if (i === 0 && header) thead.append(tr);
-    else tbody.append(tr);
-  });
-  table.append(thead, tbody);
-  block.replaceChildren(table);
+  await decorateVariant(block, 'table', VARIANTS, ITEMS);
 }

@@ -2,10 +2,13 @@
 /* global WebImporter */
 
 /**
- * Parser for hero-video. Base: hero (xwalk simple block, model hero-video).
+ * Parser for hero-video -> block "Hero (motion)" (family hero, variant option "motion").
+ * xwalk block, model hero (shared by the hero variants; rows in model order:
+ * image | media_* | text | mobileImage, the fields of the other variants stay empty).
  * Source: https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations
  * Selector: div.bc-rich-text:has(.eCardContainer)
  * Rows (model field groups):
+ *   0. image (Default / Promo): empty.
  *   1. media group: <!-- field:media_video --> Wistia URL link (background video).
  *      media_image (poster) is not present in the source, so it is skipped via the hint.
  *   2. <!-- field:text --> H1 + CTA paragraphs (p > strong > a).
@@ -28,7 +31,8 @@ function wistiaId(root) {
 }
 
 export default function parse(element, { document }) {
-  const cells = [];
+  // Row 0: image group (Default / Promo variants), empty
+  const cells = [['']];
 
   // Row 1: background video
   const id = wistiaId(element);
@@ -91,6 +95,6 @@ export default function parse(element, { document }) {
     cells.push(['']);
   }
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'hero-video', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Hero (motion)', cells });
   element.replaceWith(block);
 }

@@ -9,44 +9,22 @@
     "id": "section",
     "components": [
       "accordion",
-      "accordion-faq",
-      "accordion-icon-grid",
-      "accordion-rail",
       "button",
       "cards",
-      "cards-doclist",
-      "cards-downloads",
-      "cards-faq",
-      "cards-gradient",
-      "cards-icon",
-      "cards-product",
-      "cards-resource",
-      "cards-scroll",
-      "cards-steps",
-      "cards-workflow",
       "carousel",
-      "carousel-gallery",
-      "carousel-product",
-      "carousel-testimonial",
       "columns",
       "intro-box",
       "intro-video",
       "media-split",
       "feature-modules",
       "embed",
-      "embed-marketo",
-      "embed-wistia",
       "form",
       "fragment",
       "hero",
-      "hero-promo",
-      "hero-video",
       "image",
       "quote",
       "search",
       "table",
-      "table-comparison",
-      "table-specs",
       "tabs",
       "text",
       "title",
@@ -54,117 +32,37 @@
     ]
   },
   {
-    "id": "accordion-faq",
-    "components": [
-      "accordion-faq-item"
-    ]
-  },
-  {
-    "id": "accordion-icon-grid",
-    "components": [
-      "accordion-icon-grid-item"
-    ]
-  },
-  {
-    "id": "accordion-rail",
-    "components": [
-      "accordion-rail-item"
-    ]
-  },
-  {
     "id": "accordion",
     "components": [
-      "accordion-item"
-    ]
-  },
-  {
-    "id": "cards-doclist",
-    "components": [
-      "cards-doclist-item"
-    ]
-  },
-  {
-    "id": "cards-downloads",
-    "components": [
-      "cards-downloads-item"
-    ]
-  },
-  {
-    "id": "cards-faq",
-    "components": [
-      "cards-faq-card"
-    ]
-  },
-  {
-    "id": "cards-gradient",
-    "components": [
-      "cards-gradient-item"
-    ]
-  },
-  {
-    "id": "cards-icon",
-    "components": [
-      "cards-icon-card"
-    ]
-  },
-  {
-    "id": "cards-product",
-    "components": [
-      "cards-product-card"
-    ]
-  },
-  {
-    "id": "cards-resource",
-    "components": [
-      "cards-resource-card"
-    ]
-  },
-  {
-    "id": "cards-scroll",
-    "components": [
-      "cards-scroll-card"
-    ]
-  },
-  {
-    "id": "cards-steps",
-    "components": [
-      "cards-steps-item"
-    ]
-  },
-  {
-    "id": "cards-workflow",
-    "components": [
-      "cards-workflow-item"
+      "accordion-item",
+      "accordion-faq-item",
+      "accordion-icon-grid-item",
+      "accordion-rail-item"
     ]
   },
   {
     "id": "cards",
     "components": [
-      "card"
-    ]
-  },
-  {
-    "id": "carousel-gallery",
-    "components": [
-      "carousel-gallery-slide"
-    ]
-  },
-  {
-    "id": "carousel-product",
-    "components": [
-      "carousel-product-card"
-    ]
-  },
-  {
-    "id": "carousel-testimonial",
-    "components": [
-      "carousel-testimonial-slide"
+      "card",
+      "cards-product-card",
+      "cards-faq-card",
+      "cards-icon-card",
+      "cards-resource-card",
+      "cards-scroll-card",
+      "cards-doclist-item",
+      "cards-downloads-item",
+      "cards-gradient-item",
+      "cards-steps-item",
+      "cards-workflow-item"
     ]
   },
   {
     "id": "carousel",
     "components": [
-      "carousel-item"
+      "carousel-item",
+      "carousel-gallery-slide",
+      "carousel-product-card",
+      "carousel-testimonial-slide"
     ]
   },
   {
@@ -189,7 +87,7 @@
     ]
   },
   {
-    "id": "hero-promo",
+    "id": "hero",
     "components": [
       "hero-promo-feature"
     ]
@@ -213,21 +111,14 @@
     ]
   },
   {
-    "id": "table-comparison",
-    "components": [
-      "table-comparison-row"
-    ]
-  },
-  {
-    "id": "table-specs",
-    "components": [
-      "table-specs-row"
-    ]
-  },
-  {
     "id": "table",
     "components": [
-      "table-row"
+      "table-row",
+      "table-col-2",
+      "table-col-3",
+      "table-col-4",
+      "table-comparison-row",
+      "table-specs-row"
     ]
   },
   {

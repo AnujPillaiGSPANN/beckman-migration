@@ -1,0 +1,107 @@
+{
+  "blockName": "embed",
+  "baseBlock": "embed",
+  "family": true,
+  "description": "One Embed block; the variant is a block option (Embed (variant[, option])). Each variant keeps its code and styles in variants/<option>.{js,css}.",
+  "variantOptions": [
+    "(default)",
+    "marketo",
+    "wistia"
+  ],
+  "extraOptions": {
+    "narrow": "(default), wistia",
+    "left": "(default)"
+  },
+  "variants": [
+    {
+      "option": "",
+      "authoring": "Embed",
+      "legacyBlock": "embed",
+      "extraOptions": [
+        "narrow",
+        "left"
+      ],
+      "usageDescription": "Block Collection embed: YouTube / Vimeo / Twitter player from a URL, lazy-loaded, or click-to-play with a placeholder image. Options: narrow (fixed 1200 x 674 player, scaled down to fit), left (flush left)."
+    },
+    {
+      "option": "marketo",
+      "authoring": "Embed (marketo)",
+      "legacyBlock": "embed-marketo",
+      "variantName": "embed-marketo",
+      "baseBlock": "embed",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Marketo-hosted form (forms2) rendered from the Beckman Marketo instance, red Submit button, single column on mobile",
+        "description": "Marketo-hosted contact form (two-column field layout, Submit button) rendered from Beckman Marketo instance; replaces the generic form block."
+      },
+      "contentPattern": {
+        "summary": "Marketo form 3101: First/Last Name, Email, Phone, Company, Country (select), Postal Code, City, Comments, email/phone consent radios, privacy text, reCAPTCHA, Submit",
+        "structure": "rows: (1) empty (embed_* group of the other variants); (2) form ID (`formId`, e.g. 3101). Base URL https://pages.beckman.com and Munchkin ID 682-XWP-826 are fixed in the block code"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "embed-marketo"
+      ],
+      "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+      "sourceUrls": [
+        "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+      ],
+      "sectionMetadata": {
+        "style": "light-grey, centered"
+      },
+      "usage": {
+        "pagesUsing": [
+          "/liquid-handlers/biomek-i-series-automated-workstations"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for any Marketo contact / lead form. Base URL and Munchkin ID default to the Beckman instance.",
+      "usageDescription": "Marketo-hosted form (forms2) rendered from the Beckman Marketo instance, red Submit button, single column on mobile."
+    },
+    {
+      "option": "wistia",
+      "authoring": "Embed (wistia)",
+      "legacyBlock": "embed-wistia",
+      "extraOptions": [
+        "narrow"
+      ],
+      "variantName": "embed-wistia",
+      "baseBlock": "embed",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Standalone Wistia player, 16:9, ~83% of the content width, centered; lazy-loaded, or click-to-play with a poster",
+        "description": "No standalone video variant exists; Biomek's Wistia video sits inside intro-video and hero-video (layout blocks). Vanilla embed only handles YouTube/Vimeo/Twitter, so a Wistia-aware embed variant is needed. Reuse this for any standalone Wistia video on the product-page family."
+      },
+      "contentPattern": {
+        "summary": "Wistia product video q4o82wtj0e (4:30), ~83% content width (col-10), centered",
+        "structure": "one cell: optional poster image + Wistia URL (fast.wistia.net/embed/iframe/<id>) or media id"
+      },
+      "options": [
+        {
+          "class": "narrow",
+          "label": "Narrow (8 of 12 columns)"
+        }
+      ],
+      "memberVariantIds": [
+        "embed-wistia"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+        "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/cell-culture-workstation/cydem-vt",
+          "/cell-counters-and-analyzers/vi-cell-blu"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for any standalone Wistia video. Wistia inside a layout uses intro-video or hero-video.",
+      "usageDescription": "Standalone Wistia player, 16:9, ~83% of the content width, centered; lazy-loaded, or click-to-play with a poster."
+    }
+  ]
+}

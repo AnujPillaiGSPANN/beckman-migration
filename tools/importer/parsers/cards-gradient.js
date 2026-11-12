@@ -49,6 +49,10 @@ export default function parse(element, { document }) {
     cells.push([cell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'cards-gradient', cells });
+  const block = WebImporter.Blocks.createBlock(document, {
+    name: 'Cards (gradient)',
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-gradient-item', ...row]),
+  });
   element.replaceWith(block);
 }

@@ -10,7 +10,7 @@
  *      -> [<!-- field:image --> cover] [<!-- field:text --> download link]
  *  - div.LatestNews.h-scroll-container : 10 x a.LatestNews__Item (whole tile is the link)
  *      -> [<!-- field:image --> figure img] [<!-- field:text --> eyebrow label + bold linked title]
- *      Tiles whose image is a CSS background (Echo) emit "cards-scroll (cover)".
+ *      Tiles whose image is a CSS background (Echo) emit "Cards (scroll, cover)" (others "Cards (scroll)").
  * Relative hrefs/srcs (e.g. "-/media/....ashx", "www.beckman.com/...") are resolved
  * against https://www.beckman.com/. Root-relative site links are kept as-is.
  */
@@ -124,7 +124,11 @@ export default function parse(element, { document }) {
 
   // tiles drawn from CSS background images (Echo "Explore Applications") fill the image area
   // on the source -> option "cover"; tiles with plain <img>s (Biomek) keep the default
-  const name = backgroundTiles ? 'cards-scroll (cover)' : 'cards-scroll';
-  const block = WebImporter.Blocks.createBlock(document, { name, cells });
+  const name = backgroundTiles ? 'Cards (scroll, cover)' : 'Cards (scroll)';
+  const block = WebImporter.Blocks.createBlock(document, {
+    name,
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-scroll-card', ...row]),
+  });
   element.replaceWith(block);
 }

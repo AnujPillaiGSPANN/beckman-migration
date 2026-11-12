@@ -1,0 +1,92 @@
+/* Embed (default: YouTube, Vimeo, Twitter). The variant blocks also carry the class "embed" and
+   this file stays loaded once a page has a default embed: :where(:not(.marketo, .wistia)) keeps
+   these rules off the variants without changing their specificity. */
+
+/* vertical spacing: source rich-text iframe in a <p> (16px margins; the inline player sits on
+   the line's baseline, leaving the 8.4px descender gap of a 26.4px line below it) */
+.embed:where(:not(.marketo, .wistia)) {
+  width: unset;
+  text-align: center;
+  max-width: 800px;
+  margin: 16px auto calc(16px + 8.4px);
+}
+
+.embed:where(:not(.marketo, .wistia)) > div {
+  display: flex;
+  justify-content: center;
+}
+
+.embed.embed-twitter:where(:not(.marketo, .wistia)) .twitter-tweet-rendered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.embed:where(:not(.marketo, .wistia)) .embed-placeholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+}
+
+.embed:where(:not(.marketo, .wistia)) .embed-placeholder > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+}
+
+.embed:where(:not(.marketo, .wistia)) .embed-placeholder picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.embed:where(:not(.marketo, .wistia)) .embed-placeholder-play button {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(3);
+  width: 22px;
+  height: 22px;
+  border: 2px solid;
+  border-radius: 20px;
+  padding: 0;
+}
+
+.embed:where(:not(.marketo, .wistia)) .embed-placeholder-play button::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 0;
+  height: 10px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 6px solid;
+  top: 4px;
+  left: 7px;
+}
+
+/* option "narrow": the source's fixed-size YouTube player (iframe width="1200" height="674",
+   e.g. Echo 21CFR11 webinar), scaled down when the content column is narrower */
+.embed.narrow:where(:not(.marketo, .wistia)) {
+  position: relative;
+  width: 1200px;
+  max-width: 100%;
+  aspect-ratio: 1200 / 674;
+}
+
+/* the provider markup sizes itself with inline styles (16:9 padding box) */
+.embed.narrow:where(:not(.marketo, .wistia)) > div {
+  position: absolute !important;
+  inset: 0;
+  height: auto !important;
+  padding-bottom: 0 !important;
+}
+
+/* option "left": flush left instead of centred (source iframe inline at the line start) */
+.embed.left:where(:not(.marketo, .wistia)) {
+  margin-left: 0;
+  margin-right: auto;
+  text-align: start;
+}

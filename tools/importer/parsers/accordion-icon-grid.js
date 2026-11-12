@@ -2,11 +2,12 @@
 /* global WebImporter */
 
 /**
- * Parser for accordion-icon-grid. Base: accordion (xwalk container; child model
- * accordion-icon-grid-item: label_image, label_imageAlt, label_summary, content_text).
+ * Parser for accordion-icon-grid -> block "Accordion (icons)" (blocks/accordion, variant icons;
+ * xwalk container; child model accordion-icon-grid-item: label_image, label_imageAlt,
+ * label_summary, content_text).
  * Source: https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations
  * Selector: #Benefits + div   (div.row of 4 x .col-md-3 > .yagi-accordion .accordion-item)
- * One row per .accordion-item, 2 cells:
+ * One row per .accordion-item, item-id cell "accordion-icon-grid-item" + 2 cells:
  *   cell 1 (label group) = <!-- field:label_image --> icon img (p.icon img)
  *                          <!-- field:label_summary --> title text (p.font-bold)
  *   cell 2 (content group) = <!-- field:content_text --> bulleted list from [class*=accordion-content]
@@ -70,7 +71,9 @@ export default function parse(element, { document }) {
       }
     }
 
-    cells.push([hasLabel ? label : '', hasContent ? content : '']);
+    // the converter drops the leading item-id cell only when the row has more cells than the
+    // item model has fields (label image, label summary, content text = 3), so pad one empty cell
+    cells.push(['accordion-icon-grid-item', hasLabel ? label : '', hasContent ? content : '', '']);
   });
 
   // Echo: the element is the div.containercustom that also holds the section heading
@@ -79,7 +82,7 @@ export default function parse(element, { document }) {
     .filter((h) => clean(h.textContent));
   before.forEach((h) => h.removeAttribute('style'));
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'accordion-icon-grid', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Accordion (icons)', cells });
   before.forEach((h) => element.before(h));
   element.replaceWith(block);
 }

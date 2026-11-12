@@ -2,14 +2,14 @@
 /* global WebImporter */
 
 /**
- * Parser for carousel-product. Base: carousel (xwalk container; child model
- * carousel-product-card: image, imageAlt, text).
+ * Parser for carousel-product -> block "Carousel (product)" (blocks/carousel, variant product;
+ * xwalk container; child model carousel-product-card: image, imageAlt, text).
  * Sources:
  *  - product-series (Biomek): #related-parts-wrapper, 6 slides
  *  - product-detail (Cydem VT): #related-parts-wrapper, 4 slides
  * Selector: #related-parts-wrapper
  * Slides: .slick-track > .related-part (excluding .slick-cloned).
- * One row per slide:
+ * One row per slide, led by the item-id cell "carousel-product-card":
  *   cell 1 = <!-- field:image --> .related-part__img img (empty alt -> slide title)
  *   cell 2 = <!-- field:text -->  h3 > a title link + description split out of the h3:
  *            a.related-part__desc is unwrapped; bare text -> <p>, p/ul kept, and a
@@ -150,10 +150,10 @@ export default function parse(element, { document }) {
       textCell.appendChild(document.createComment(' field:text '));
       parts.forEach((p) => textCell.appendChild(p));
     }
-    cells.push([imageCell, textCell]);
+    cells.push(['carousel-product-card', imageCell, textCell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'carousel-product', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Carousel (product)', cells });
   before.forEach((h) => element.before(h));
   element.replaceWith(block);
 }

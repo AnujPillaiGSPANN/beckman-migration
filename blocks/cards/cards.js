@@ -1,24 +1,34 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
-import { moveInstrumentation } from '../../scripts/scripts.js';
+import decorateVariant from '../../scripts/variants.js';
 
-export default function decorate(block) {
-  /* change to ul, li */
-  const ul = document.createElement('ul');
-  [...block.children].forEach((row) => {
-    const li = document.createElement('li');
-    moveInstrumentation(row, li);
-    while (row.firstElementChild) li.append(row.firstElementChild);
-    [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
-      else div.className = 'cards-card-body';
-    });
-    ul.append(li);
-  });
-  ul.querySelectorAll('picture > img').forEach((img) => {
-    const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
-    moveInstrumentation(img, optimizedPic.querySelector('img'));
-    img.closest('picture').replaceWith(optimizedPic);
-  });
-  block.textContent = '';
-  block.append(ul);
+// variant option -> old block name (its code and styles live in variants/<option>.{js,css})
+const VARIANTS = {
+  product: 'cards-product',
+  faq: 'cards-faq',
+  icons: 'cards-icon',
+  resource: 'cards-resource',
+  scroll: 'cards-scroll',
+  doclist: 'cards-doclist',
+  downloads: 'cards-downloads',
+  gradient: 'cards-gradient',
+  steps: 'cards-steps',
+  workflow: 'cards-workflow',
+};
+
+// every item component id of the family (may lead a row in imported content)
+const ITEMS = [
+  'card',
+  'cards-product-card',
+  'cards-faq-card',
+  'cards-icon-card',
+  'cards-resource-card',
+  'cards-scroll-card',
+  'cards-doclist-item',
+  'cards-downloads-item',
+  'cards-gradient-item',
+  'cards-steps-item',
+  'cards-workflow-item',
+];
+
+export default async function decorate(block) {
+  await decorateVariant(block, 'cards', VARIANTS, ITEMS);
 }

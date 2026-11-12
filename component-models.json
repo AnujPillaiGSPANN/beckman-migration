@@ -177,6 +177,55 @@
     ]
   },
   {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default (stacked details)",
+            "value": ""
+          },
+          {
+            "name": "FAQ (two-column question bars)",
+            "value": "faq"
+          },
+          {
+            "name": "Icons (icon tiles revealing lists)",
+            "value": "icons"
+          },
+          {
+            "name": "Rail (sidebar link tree)",
+            "value": "rail"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "summary",
+        "value": "",
+        "label": "Summary"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
     "id": "accordion-faq-item",
     "fields": [
       {
@@ -248,14 +297,215 @@
     ]
   },
   {
-    "id": "accordion-item",
+    "id": "cards",
     "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Product",
+            "value": "product"
+          },
+          {
+            "name": "FAQ",
+            "value": "faq"
+          },
+          {
+            "name": "Icons",
+            "value": "icons"
+          },
+          {
+            "name": "Resource",
+            "value": "resource"
+          },
+          {
+            "name": "Scroll",
+            "value": "scroll"
+          },
+          {
+            "name": "Document list",
+            "value": "doclist"
+          },
+          {
+            "name": "Downloads",
+            "value": "downloads"
+          },
+          {
+            "name": "Gradient",
+            "value": "gradient"
+          },
+          {
+            "name": "Steps",
+            "value": "steps"
+          },
+          {
+            "name": "Workflow",
+            "value": "workflow"
+          }
+        ]
+      },
+      {
+        "component": "multiselect",
+        "name": "classes_options",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Compact (Icons: 100px icons, small text)",
+            "value": "compact"
+          },
+          {
+            "name": "Cover images (Scroll: fill the image area)",
+            "value": "cover"
+          },
+          {
+            "name": "Exchange arrows (Steps)",
+            "value": "exchange"
+          },
+          {
+            "name": "Unnumbered (Workflow: no step badges)",
+            "value": "unnumbered"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
       {
         "component": "text",
         "valueType": "string",
-        "name": "summary",
+        "name": "imageAlt",
+        "label": "Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
         "value": "",
-        "label": "Summary"
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards-product-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards-faq-card",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards-icon-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards-resource-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Text",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards-scroll-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Alt"
       },
       {
         "component": "richtext",
@@ -308,18 +558,6 @@
     ]
   },
   {
-    "id": "cards-faq-card",
-    "fields": [
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
     "id": "cards-gradient-item",
     "fields": [
       {
@@ -328,160 +566,6 @@
         "value": "",
         "label": "Heading, text, button link",
         "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "cards-icon",
-    "fields": [
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "value": "",
-        "label": "Options",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Compact (100px icons, small text)",
-            "value": "compact"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cards-icon-card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "cards-product-card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "cards-resource-card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "cards-scroll",
-    "fields": [
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "value": "",
-        "label": "Options",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Cover images (fill the image area)",
-            "value": "cover"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "cards-scroll-card",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "cards-steps",
-    "fields": [
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "value": "",
-        "label": "Options",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Exchange arrows",
-            "value": "exchange"
-          }
-        ]
       }
     ]
   },
@@ -512,24 +596,6 @@
     ]
   },
   {
-    "id": "cards-workflow",
-    "fields": [
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "value": "",
-        "label": "Options",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Unnumbered (no step badges)",
-            "value": "unnumbered"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "cards-workflow-item",
     "fields": [
       {
@@ -556,24 +622,76 @@
     ]
   },
   {
-    "id": "card",
+    "id": "carousel",
     "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default (full-width slides)",
+            "value": ""
+          },
+          {
+            "name": "Gallery (one image + thumbnails)",
+            "value": "gallery"
+          },
+          {
+            "name": "Product (multi-card slider)",
+            "value": "product"
+          },
+          {
+            "name": "Testimonial (video + quote slider)",
+            "value": "testimonial"
+          }
+        ]
+      },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "image",
-        "label": "Image",
+        "name": "video_image",
+        "label": "Video Poster Image (testimonial, optional)",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt"
+        "name": "video_imageAlt",
+        "value": "",
+        "label": "Video Poster Alt (testimonial)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "video_uri",
+        "value": "",
+        "label": "Wistia Video URL or ID (testimonial)"
+      }
+    ]
+  },
+  {
+    "id": "carousel-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "media_image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "media_imageAlt",
+        "value": "",
+        "label": "Bacgkround Alt"
       },
       {
         "component": "richtext",
-        "name": "text",
+        "name": "content_text",
         "value": "",
         "label": "Text",
         "valueType": "string"
@@ -631,32 +749,6 @@
     ]
   },
   {
-    "id": "carousel-testimonial",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "video_image",
-        "label": "Video Poster Image (optional)",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "video_imageAlt",
-        "value": "",
-        "label": "Video Poster Alt"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "video_uri",
-        "value": "",
-        "label": "Wistia Video URL or ID"
-      }
-    ]
-  },
-  {
     "id": "carousel-testimonial-slide",
     "fields": [
       {
@@ -664,32 +756,6 @@
         "name": "text",
         "value": "",
         "label": "Quote + attribution",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "carousel-item",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "media_image",
-        "label": "Background Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "media_imageAlt",
-        "value": "",
-        "label": "Bacgkround Alt"
-      },
-      {
-        "component": "richtext",
-        "name": "content_text",
-        "value": "",
-        "label": "Text",
         "valueType": "string"
       }
     ]
@@ -714,85 +780,42 @@
     ]
   },
   {
-    "id": "embed-marketo",
+    "id": "embed",
     "fields": [
       {
-        "component": "text",
-        "valueType": "string",
-        "name": "baseUrl",
-        "value": "https://pages.beckman.com",
-        "label": "Marketo Base URL"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "munchkinId",
-        "value": "682-XWP-826",
-        "label": "Munchkin ID"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "formId",
-        "value": "",
-        "label": "Form ID"
-      }
-    ]
-  },
-  {
-    "id": "embed-wistia",
-    "fields": [
-      {
-        "component": "multiselect",
+        "component": "select",
         "name": "classes",
         "value": "",
-        "label": "Options",
+        "label": "Variant",
         "valueType": "string",
         "options": [
           {
-            "name": "Narrow (8 of 12 columns)",
-            "value": "narrow"
+            "name": "Default (YouTube, Vimeo, Twitter)",
+            "value": ""
+          },
+          {
+            "name": "Marketo form",
+            "value": "marketo"
+          },
+          {
+            "name": "Wistia video",
+            "value": "wistia"
           }
         ]
       },
       {
-        "component": "reference",
-        "valueType": "string",
-        "name": "embed_placeholder",
-        "label": "Poster Image (optional)",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "embed_placeholderAlt",
-        "value": "",
-        "label": "Poster Image Alt Text"
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "embed_uri",
-        "label": "Wistia Video URL or ID"
-      }
-    ]
-  },
-  {
-    "id": "embed",
-    "fields": [
-      {
         "component": "multiselect",
-        "name": "classes",
+        "name": "classes_options",
         "value": "",
         "label": "Options",
         "valueType": "string",
         "options": [
           {
-            "name": "Narrow (fixed 1200 x 674 player, scaled down to fit)",
+            "name": "Narrow (Default: fixed 1200 x 674 player, scaled down; Wistia: 8 of 12 columns)",
             "value": "narrow"
           },
           {
-            "name": "Left-aligned",
+            "name": "Left-aligned (Default)",
             "value": "left"
           }
         ]
@@ -801,7 +824,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "embed_placeholder",
-        "label": "Placeholder Image",
+        "label": "Placeholder / Poster Image (optional)",
         "multi": false
       },
       {
@@ -809,13 +832,20 @@
         "valueType": "string",
         "name": "embed_placeholderAlt",
         "value": "",
-        "label": "Placeholder Image Alt Text"
+        "label": "Placeholder / Poster Image Alt Text"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "embed_uri",
-        "label": "URI"
+        "label": "URI (YouTube / Vimeo / Twitter URL, or Wistia video URL or media id)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "formId",
+        "value": "",
+        "label": "Marketo: Form ID"
       }
     ]
   },
@@ -935,42 +965,70 @@
     ]
   },
   {
-    "id": "hero-promo",
+    "id": "hero",
     "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Motion (looping Wistia background video)",
+            "value": "motion"
+          },
+          {
+            "name": "Promo (dark banner with feature strip)",
+            "value": "promo"
+          }
+        ]
+      },
       {
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Background Image",
+        "label": "Image (Default / Promo: background image)",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "imageAlt",
-        "value": "",
-        "label": "Background Image Alt"
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Eyebrow, heading, text, CTA",
-        "valueType": "string"
+        "label": "Image Alt",
+        "value": ""
       },
       {
         "component": "reference",
         "valueType": "string",
-        "name": "mobileImage",
-        "label": "Mobile Image (below the CTA on small screens, optional)",
+        "name": "media_image",
+        "label": "Motion: Poster Image (optional) / Promo: Mobile Image (below the CTA on small screens, optional)",
         "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "mobileImageAlt",
+        "name": "media_imageAlt",
+        "label": "Motion: Poster Alt / Promo: Mobile Image Alt",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "media_video",
+        "label": "Motion: Wistia Video URL",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
         "value": "",
-        "label": "Mobile Image Alt"
+        "label": "Text (Default: heading; Motion: H1 + CTA links; Promo: eyebrow, heading, text, CTA)",
+        "valueType": "string"
       }
     ]
   },
@@ -996,65 +1054,6 @@
         "name": "text",
         "value": "",
         "label": "Feature title + description",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "hero-video",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "media_image",
-        "label": "Poster Image (optional)",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "media_imageAlt",
-        "label": "Poster Alt",
-        "value": ""
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "media_video",
-        "label": "Wistia Video URL",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "hero",
-    "fields": [
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "image",
-        "label": "Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "imageAlt",
-        "label": "Alt",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Text",
         "valueType": "string"
       }
     ]
@@ -1208,240 +1207,51 @@
     ]
   },
   {
-    "id": "table-comparison-row",
-    "fields": [
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column1_text",
-        "value": "",
-        "label": "Label Text"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column1_image",
-        "label": "Label Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column1_imageAlt",
-        "value": "",
-        "label": "Label Image Alt"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column2_text",
-        "value": "",
-        "label": "Model 1 Text"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column2_image",
-        "label": "Model 1 Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column2_imageAlt",
-        "value": "",
-        "label": "Model 1 Image Alt"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column3_text",
-        "value": "",
-        "label": "Model 2 Text"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column3_image",
-        "label": "Model 2 Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column3_imageAlt",
-        "value": "",
-        "label": "Model 2 Image Alt"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column4_text",
-        "value": "",
-        "label": "Model 3 Text"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column4_image",
-        "label": "Model 3 Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column4_imageAlt",
-        "value": "",
-        "label": "Model 3 Image Alt"
-      }
-    ]
-  },
-  {
-    "id": "table-specs",
-    "fields": [
-      {
-        "component": "multiselect",
-        "name": "classes",
-        "value": "",
-        "label": "Options",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Label | value pairs (no header row, two pairs per line)",
-            "value": "pairs"
-          },
-          {
-            "name": "Striped (grey borders, alternating rows)",
-            "value": "striped"
-          },
-          {
-            "name": "Bordered (navy header row, black borders)",
-            "value": "bordered"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "table-specs-row",
-    "fields": [
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column1_text",
-        "value": "",
-        "label": "Specification"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column1_image",
-        "label": "Specification Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column1_imageAlt",
-        "value": "",
-        "label": "Specification Image Alt"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column2_text",
-        "value": "",
-        "label": "Description"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column2_image",
-        "label": "Description Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column2_imageAlt",
-        "value": "",
-        "label": "Description Image Alt"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column3_text",
-        "value": "",
-        "label": "Column 3"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column3_image",
-        "label": "Column 3 Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column3_imageAlt",
-        "value": "",
-        "label": "Column 3 Image Alt"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "column4_text",
-        "value": "",
-        "label": "Column 4"
-      },
-      {
-        "component": "reference",
-        "valueType": "string",
-        "name": "column4_image",
-        "label": "Column 4 Image",
-        "multi": false
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "column4_imageAlt",
-        "value": "",
-        "label": "Column 4 Image Alt"
-      }
-    ]
-  },
-  {
     "id": "table",
     "fields": [
       {
-        "component": "multiselect",
+        "component": "select",
         "name": "classes",
+        "value": "",
+        "label": "Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Comparison (model columns with images and CTAs)",
+            "value": "comparison"
+          },
+          {
+            "name": "Specs (specification sheet)",
+            "value": "specs"
+          }
+        ]
+      },
+      {
+        "component": "multiselect",
+        "name": "classes_options",
         "value": "",
         "label": "Options",
         "valueType": "string",
         "options": [
           {
-            "name": "Border",
-            "children": [
-              {
-                "name": "Striped",
-                "value": "striped"
-              },
-              {
-                "name": "Bordered",
-                "value": "bordered"
-              }
-            ]
+            "name": "Striped (Default: shaded odd rows; Specs: grey borders, alternating rows)",
+            "value": "striped"
           },
           {
-            "name": "Header",
-            "children": [
-              {
-                "name": "No Header",
-                "value": "no-header"
-              }
-            ]
+            "name": "Bordered (Default: cell borders; Specs: navy header row, black borders)",
+            "value": "bordered"
+          },
+          {
+            "name": "No header (Default)",
+            "value": "no-header"
+          },
+          {
+            "name": "Label | value pairs (Specs: no header row, two pairs per line)",
+            "value": "pairs"
           }
         ]
       },
@@ -1553,6 +1363,184 @@
         "valueType": "string",
         "name": "column4text",
         "label": "Column4"
+      }
+    ]
+  },
+  {
+    "id": "table-comparison-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1_text",
+        "value": "",
+        "label": "Label Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column1_image",
+        "label": "Label Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column1_imageAlt",
+        "value": "",
+        "label": "Label Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2_text",
+        "value": "",
+        "label": "Model 1 Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column2_image",
+        "label": "Model 1 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column2_imageAlt",
+        "value": "",
+        "label": "Model 1 Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3_text",
+        "value": "",
+        "label": "Model 2 Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column3_image",
+        "label": "Model 2 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column3_imageAlt",
+        "value": "",
+        "label": "Model 2 Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column4_text",
+        "value": "",
+        "label": "Model 3 Text"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column4_image",
+        "label": "Model 3 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column4_imageAlt",
+        "value": "",
+        "label": "Model 3 Image Alt"
+      }
+    ]
+  },
+  {
+    "id": "table-specs-row",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column1_text",
+        "value": "",
+        "label": "Specification"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column1_image",
+        "label": "Specification Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column1_imageAlt",
+        "value": "",
+        "label": "Specification Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column2_text",
+        "value": "",
+        "label": "Description"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column2_image",
+        "label": "Description Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column2_imageAlt",
+        "value": "",
+        "label": "Description Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column3_text",
+        "value": "",
+        "label": "Column 3"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column3_image",
+        "label": "Column 3 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column3_imageAlt",
+        "value": "",
+        "label": "Column 3 Image Alt"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "column4_text",
+        "value": "",
+        "label": "Column 4"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "column4_image",
+        "label": "Column 4 Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "column4_imageAlt",
+        "value": "",
+        "label": "Column 4 Image Alt"
       }
     ]
   },

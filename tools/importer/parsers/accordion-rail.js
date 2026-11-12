@@ -2,15 +2,16 @@
 /* global WebImporter */
 
 /**
- * Parser for accordion-rail. Base: accordion (xwalk container; child model
- * accordion-rail-item: summary (richtext), text (richtext)).
+ * Parser for accordion-rail -> block "Accordion (rail)" (blocks/accordion, variant rail; xwalk
+ * container; child model accordion-rail-item: summary (richtext), text (richtext)).
  * Source: https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software
  * Selector: div.two-columns-holder__right > div.rail-navigation
  * Accordion convention: block name row, then one row per accordion item with 2 cells
- * (title cell, content cell). Here one row per top-level <li> of the rail list:
+ * (title cell, content cell), led by the item-id cell "accordion-rail-item". Here one row per
+ * top-level <li> of the rail list:
  *   title cell   = <!-- field:summary --> <p><a href>parent label</a></p>
  *   content cell = <!-- field:text -->    <ul><li><a href>child label</a></li>…</ul>; left EMPTY
- *                  when the parent has no children (blocks/accordion-rail/README.md: the block
+ *                  when the parent has no children (blocks/accordion/README.md, Accordion (rail): the block
  *                  then renders a plain link without a chevron)
  * The rail title (h3.rail-navigation__title) is moved before the block as default content.
  * The chevron <i> icons and li classes are dropped; the current page is detected by the block
@@ -64,10 +65,10 @@ export default function parse(element, { document }) {
       });
       contentCell.appendChild(ul);
     }
-    cells.push([titleCell, contentCell]);
+    cells.push(['accordion-rail-item', titleCell, contentCell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'accordion-rail', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Accordion (rail)', cells });
   before.forEach((n) => element.before(n));
   element.replaceWith(block);
 }

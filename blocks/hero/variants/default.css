@@ -1,0 +1,42 @@
+/* Hero (default). The variant blocks also carry the class "hero" (and their wrapper / section
+   hero-wrapper / hero-container) and this file stays loaded once a page has a default hero:
+   :where(:not(.motion, .promo)) keeps these rules off the variants without changing their
+   specificity. */
+
+.hero-container .hero-wrapper:where(:has(> .hero:not(.motion, .promo))) {
+  max-width: unset;
+  padding: 0;
+}
+
+.hero:where(:not(.motion, .promo)) {
+  position: relative;
+  padding: 40px 24px;
+  min-height: 300px;
+}
+
+.hero:where(:not(.motion, .promo)) h1 {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--background-color);
+}
+
+.hero:where(:not(.motion, .promo)) picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.hero:where(:not(.motion, .promo)) img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+@media (width >= 900px) {
+  .hero:where(:not(.motion, .promo)) {
+    padding: 40px 32px;
+  }
+}

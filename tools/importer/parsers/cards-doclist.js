@@ -87,6 +87,10 @@ export default function parse(element, { document }) {
     cells.push([typeCell, textCell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'cards-doclist', cells });
+  const block = WebImporter.Blocks.createBlock(document, {
+    name: 'Cards (doclist)',
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-doclist-item', ...row]),
+  });
   element.replaceWith(block);
 }

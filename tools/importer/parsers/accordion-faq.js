@@ -2,12 +2,13 @@
 /* global WebImporter */
 
 /**
- * Parser for accordion-faq. Base: accordion (xwalk container; child model
- * accordion-faq-item: summary (text), text (richtext)).
+ * Parser for accordion-faq -> block "Accordion (faq)" (blocks/accordion, variant faq; xwalk
+ * container; child model accordion-faq-item: summary (text), text (richtext)).
  * Source: https://www.beckman.com/liquid-handlers/echo-acoustic
  * Selector: div.two-columns-holder holding two columns of .yagi-accordion .accordion-item
  * One row per .accordion-item in document order (left column first, then right; the block
- * puts the first half of the rows in the left column again), 2 cells:
+ * puts the first half of the rows in the left column again), item-id cell "accordion-faq-item"
+ * + 2 cells:
  *   cell 1 = <!-- field:summary --> question text (button.accordion-header p; plus/minus
  *            SVG icons dropped)
  *   cell 2 = <!-- field:text -->    answer paragraphs / lists from .accordion-content
@@ -78,9 +79,9 @@ export default function parse(element, { document }) {
       aCell.appendChild(document.createComment(' field:text '));
       answer.forEach((n) => aCell.appendChild(n));
     }
-    cells.push([qCell, aCell]);
+    cells.push(['accordion-faq-item', qCell, aCell]);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'accordion-faq', cells });
+  const block = WebImporter.Blocks.createBlock(document, { name: 'Accordion (faq)', cells });
   element.replaceWith(block);
 }

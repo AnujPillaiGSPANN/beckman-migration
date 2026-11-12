@@ -2,9 +2,10 @@
 /* global WebImporter */
 
 /**
- * Parser for embed (base Block Collection embed). xwalk simple block, model embed:
- * classes (options "narrow", "left"), embed_placeholder, embed_placeholderAlt, embed_uri
- * (embed_* -> one grouped cell).
+ * Parser for embed (Block Collection embed) -> block "Embed" (family embed, default variant).
+ * xwalk simple block, model embed (shared with the marketo / wistia variants): classes (variant),
+ * classes_options ("narrow", "left"), embed_placeholder, embed_placeholderAlt, embed_uri
+ * (embed_* -> one grouped cell), then the marketo fields (baseUrl, munchkinId, formId: no rows).
  * Source: https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager
  * Selector: div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2) iframe[src*='youtube.com']
  * Embed convention: block name row, then ONE row with a single cell holding the URL of the
@@ -59,7 +60,7 @@ export default function parse(element, { document, params }) {
   }
 
   const options = PAGE_OPTIONS[pathOf(params && params.originalURL)] || [];
-  const name = options.length ? `Embed (${options.join(', ')})` : 'embed';
+  const name = options.length ? `Embed (${options.join(', ')})` : 'Embed';
   const block = WebImporter.Blocks.createBlock(document, { name, cells: [[(poster || url) ? cell : '']] });
 
   // an iframe alone in its paragraph: the block takes the paragraph's place

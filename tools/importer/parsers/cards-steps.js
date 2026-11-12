@@ -6,9 +6,9 @@
  * (option "exchange"); child model cards-steps-item: image, imageAlt, text).
  * Source: https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu
  * Selectors (two instances):
- *  - div.sample-analysis-wf : 3 x div.step                       -> block "cards-steps"
+ *  - div.sample-analysis-wf : 3 x div.step                       -> block "Cards (steps)"
  *  - div.carousel-plate     : 2 x div.step + div.arrows-container -> block
- *      "Cards Steps (exchange)" (the block draws the stacked → / ← arrows between the cards;
+ *      "Cards (steps, exchange)" (the block draws the stacked → / ← arrows between the cards;
  *      the source arrow glyphs are not copied)
  * One row per div.step, 2 cells:
  *   cell 1 = <!-- field:image --> img (inline height style dropped, alt kept / step label)
@@ -65,7 +65,11 @@ export default function parse(element, { document }) {
     cells.push([imageCell, textCell]);
   });
 
-  const name = exchange ? 'Cards Steps (exchange)' : 'cards-steps';
-  const block = WebImporter.Blocks.createBlock(document, { name, cells });
+  const name = exchange ? 'Cards (steps, exchange)' : 'Cards (steps)';
+  const block = WebImporter.Blocks.createBlock(document, {
+    name,
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-steps-item', ...row]),
+  });
   element.replaceWith(block);
 }

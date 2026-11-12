@@ -2,12 +2,13 @@
 /* global WebImporter */
 
 /**
- * Parser for table-specs. Base: table (xwalk container; child model table-specs-row:
- * column1text, column2text [, column3text, column4text, column2image..column4image]).
+ * Parser for table-specs -> block "Table (specs)" (family table, variant option "specs").
+ * xwalk container; child model table-specs-row: field groups columnN_* (N = 1..4):
+ * columnN_text (richtext), columnN_image (reference, alt -> columnN_imageAlt).
  * Source: https://www.beckman.com/cell-culture-workstation/cydem-vt
  * Selector: div.spotlight-content-wrapper > div.bc-rich-text > table:not(.responsive-table):has(tr:nth-child(2))
- * One row per <tr>, 2 cells:
- *   <!-- field:column1text --> specification label | <!-- field:column2text --> values (lists kept)
+ * One row per <tr>: [table-specs-row | cell 1 | cell 2 ...]:
+ *   <!-- field:column1_text --> specification label | <!-- field:column2_text --> values (lists kept)
  * The first row (th: Specifications | Description) is the header row. Empty <p>, stray
  * <br> inside list items and decorative <span> wrappers are removed.
  *
@@ -15,16 +16,24 @@
  * (empty corner cell + Rate Zonal | Isopycnic | Equilibrium Zonal header, <strong> labels,
  * last row = empty cell + 3 images). The row width is the widest source row (2 on Cydem VT,
  * max 4); short rows are padded with empty cells. Images never go into a richtext field:
- * an image in column N is emitted as <!-- field:columnNimage --> (reference field, alt kept,
+ * an image in column N is emitted as <!-- field:columnN_image --> (reference field, alt kept,
  * inline styles dropped). Whitespace at the edges of inline label markup is trimmed.
  *
- * Block options (model table-specs: classes) per page -> block name "Table Specs (<option>)":
+ * Block options (model table: classes_options) per page -> block name "Table (specs, <option>)":
  *  - pairs    : Cytobank Enterprise spec grid (#product-specification-wrapper
  *               div.specification-holder): label | value rows, no header row
  *  - bordered : Echo 21CFR11 (table.tg): navy header row, black cell borders
  *  - striped  : CytExpert (two tables in the main column): grey borders, alternating rows
  * Non-breaking spaces become plain spaces; empty (nested) lists are dropped.
+ *
+ * The table family has several item components (table-row, table-col-N, table-comparison-row,
+ * table-specs-row): every row starts with a cell holding its item id, table-specs-row.
+ * The converter (helix-md2jcr) only drops that id cell when the row has more cells than the
+ * item model has fields (4 groups x text + image = 8), so rows are padded with empty cells to
+ * 8 cells after the id; the block removes the id cell and trims the empty trailing columns.
  */
+const ITEM_ID = 'table-specs-row';
+const ITEM_FIELDS = 8;
 const PAGE_OPTIONS = {
   '/flow-cytometry/software/cytobank-enterprise': 'pairs',
   '/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager': 'bordered',
@@ -143,11 +152,12 @@ export default function parse(element, { document, params }) {
         row.push(frag);
       }
     }
-    cells.push(row);
+    while (row.length < ITEM_FIELDS) row.push('');
+    cells.push([ITEM_ID, ...row]);
   });
 
   const option = PAGE_OPTIONS[pathOf(params && params.originalURL)];
-  const name = option ? `Table Specs (${option})` : 'table-specs';
+  const name = option ? `Table (specs, ${option})` : 'Table (specs)';
   const block = WebImporter.Blocks.createBlock(document, { name, cells });
   element.replaceWith(block);
 }

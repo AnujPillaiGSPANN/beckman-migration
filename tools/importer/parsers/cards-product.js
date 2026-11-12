@@ -120,6 +120,10 @@ export default function parse(element, { document }) {
     cells.push([img ? imageCell : '', parts.length ? textCell : '']);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'cards-product', cells });
+  const block = WebImporter.Blocks.createBlock(document, {
+    name: 'Cards (product)',
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-product-card', ...row]),
+  });
   element.replaceWith(block);
 }

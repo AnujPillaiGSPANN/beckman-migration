@@ -21,18 +21,39 @@
       "id": "embed",
       "fields": [
         {
-          "component": "multiselect",
+          "component": "select",
           "name": "classes",
+          "value": "",
+          "label": "Variant",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Default (YouTube, Vimeo, Twitter)",
+              "value": ""
+            },
+            {
+              "name": "Marketo form",
+              "value": "marketo"
+            },
+            {
+              "name": "Wistia video",
+              "value": "wistia"
+            }
+          ]
+        },
+        {
+          "component": "multiselect",
+          "name": "classes_options",
           "value": "",
           "label": "Options",
           "valueType": "string",
           "options": [
             {
-              "name": "Narrow (fixed 1200 x 674 player, scaled down to fit)",
+              "name": "Narrow (Default: fixed 1200 x 674 player, scaled down; Wistia: 8 of 12 columns)",
               "value": "narrow"
             },
             {
-              "name": "Left-aligned",
+              "name": "Left-aligned (Default)",
               "value": "left"
             }
           ]
@@ -41,7 +62,7 @@
           "component": "reference",
           "valueType": "string",
           "name": "embed_placeholder",
-          "label": "Placeholder Image",
+          "label": "Placeholder / Poster Image (optional)",
           "multi": false
         },
         {
@@ -49,13 +70,20 @@
           "valueType": "string",
           "name": "embed_placeholderAlt",
           "value": "",
-          "label": "Placeholder Image Alt Text"
+          "label": "Placeholder / Poster Image Alt Text"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "embed_uri",
-          "label": "URI"
+          "label": "URI (YouTube / Vimeo / Twitter URL, or Wistia video URL or media id)"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "formId",
+          "value": "",
+          "label": "Marketo: Form ID"
         }
       ]
     }

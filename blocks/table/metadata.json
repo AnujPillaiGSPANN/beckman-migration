@@ -1,0 +1,117 @@
+{
+  "blockName": "table",
+  "baseBlock": "table",
+  "family": true,
+  "description": "One Table block; the variant is a block option (Table (variant[, option])). Each variant keeps its code and styles in variants/<option>.{js,css}.",
+  "variantOptions": [
+    "(default)",
+    "comparison",
+    "specs"
+  ],
+  "extraOptions": {
+    "striped": "(default), specs",
+    "bordered": "(default), specs",
+    "no-header": "(default)",
+    "pairs": "specs"
+  },
+  "variants": [
+    {
+      "option": "",
+      "authoring": "Table",
+      "legacyBlock": "table",
+      "items": [
+        "table-row",
+        "table-col-2",
+        "table-col-3",
+        "table-col-4"
+      ],
+      "extraOptions": [
+        "striped",
+        "bordered",
+        "no-header"
+      ],
+      "usageDescription": "Default Block Collection table: the first row is the header row (unless no-header), optional striped rows or cell borders."
+    },
+    {
+      "option": "comparison",
+      "authoring": "Table (comparison)",
+      "legacyBlock": "table-comparison",
+      "items": [
+        "table-comparison-row"
+      ],
+      "variantName": "table-comparison",
+      "baseBlock": "table",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Comparison grid: label column + shadowed white model columns, product images in the header rows, row dividers, CTA row",
+        "description": "No table variants exist. Product comparison: label column + 3 shadowed white model columns with a linked product image row, divider lines between rows and a CTA row (outline button in the label column, red buttons for models)."
+      },
+      "contentPattern": {
+        "summary": "Comparison grid (CSS grid div1..div32): label column (Throughput, Deck Capacity, Dimensions, Pipetting volume range, Configuration options, 'Talk to an Expert' outline button) + 3 shadowed model columns (Biomek i3/i5/i7: bold name, linked product image, 5 values incl. bullet lists, 'Explore Biomek iN' red button)",
+        "structure": "rows of [label | model 1 | model 2 | ...]: row 1 model names, row 2 product images, attribute rows, last row CTA links; up to 3 models (4 cells per row), empty model columns are dropped"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "table-comparison"
+      ],
+      "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
+      "sourceUrls": [
+        "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations"
+      ],
+      "sectionMetadata": {
+        "style": "centered"
+      },
+      "usage": {
+        "pagesUsing": [
+          "/liquid-handlers/biomek-i-series-automated-workstations"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use to compare product models side by side. For a 2-column spec sheet use table-specs.",
+      "usageDescription": "Comparison grid: label column + shadowed white model columns, product images in the header rows, row dividers, CTA row."
+    },
+    {
+      "option": "specs",
+      "authoring": "Table (specs)",
+      "legacyBlock": "table-specs",
+      "items": [
+        "table-specs-row"
+      ],
+      "extraOptions": [
+        "pairs",
+        "striped",
+        "bordered"
+      ],
+      "variantName": "table-specs",
+      "baseBlock": "table",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Plain two-column specification table: centered, red header underline, grey row rules, vertical column divider",
+        "description": "Biomek table-comparison is a multi-model comparison grid with product images, buttons and shadowed model columns. This is a plain 2-column spec sheet (centered ~70% width, red header underline, grey row rules, vertical column divider): under 80% similar."
+      },
+      "contentPattern": {
+        "summary": "2-column specification table: header Specifications | Description, 4 rows of label | bulleted values",
+        "structure": "rows of [specification | description]; the first row is the header (Specifications | Description); values may be bulleted lists"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "table-specs"
+      ],
+      "sourceUrl": "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+      "sourceUrls": [
+        "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/cell-culture-workstation/cydem-vt"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-10"
+      },
+      "reuseGuidance": "Use for technical parameters. For multi-model comparisons use table-comparison.",
+      "usageDescription": "Plain two-column specification table: centered, red header underline, grey row rules, vertical column divider."
+    }
+  ]
+}

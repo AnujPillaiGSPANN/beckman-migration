@@ -11,7 +11,7 @@
  *   cell 2 = <!-- field:text -->  <p><strong>title</strong></p> + description <p>
  *            (inline markup such as <sub>2</sub> and <br> kept)
  * Tiles whose titles are all plain paragraphs (Density Gradient Reagents "Applications")
- * emit "cards-icon (compact)".
+ * emit "Cards (icons, compact)"; the others "Cards (icons)".
  */
 const clean = (s) => (s || '').replace(/[ ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
@@ -83,6 +83,10 @@ export default function parse(element, { document }) {
   // Density Gradient Reagents layout (plain title paragraphs, 100px icons, 13px descriptions)
   // -> option "compact"; Cydem VT's bold-title tiles keep the default
   const compact = tiles.length > 0 && plainTitles === tiles.length;
-  const block = WebImporter.Blocks.createBlock(document, { name: compact ? 'cards-icon (compact)' : 'cards-icon', cells });
+  const block = WebImporter.Blocks.createBlock(document, {
+    name: compact ? 'Cards (icons, compact)' : 'Cards (icons)',
+    // each row starts with its item component id (the converter picks the row model from it)
+    cells: cells.map((row) => ['cards-icon-card', ...row]),
+  });
   element.replaceWith(block);
 }
