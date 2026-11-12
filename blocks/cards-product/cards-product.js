@@ -78,4 +78,20 @@ export default function decorate(block) {
 
   block.textContent = '';
   block.append(ul);
+
+  // images with no size in their URL or attributes (local copies of the source renditions):
+  // decide from the natural size once loaded, with the same rule as the AEM width/height case
+  ul.querySelectorAll('li:not(.cards-product-card-sized) .cards-product-card-image img:not([width])').forEach((img) => {
+    const li = img.closest('li');
+    const apply = () => {
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      if (!(w > 0 && h > 0) || w >= CARD_IMAGE_WIDTH) return;
+      img.style.width = `${w}px`;
+      img.style.height = `${h}px`;
+      li.classList.add('cards-product-card-sized');
+    };
+    if (img.complete) apply();
+    else img.addEventListener('load', apply, { once: true });
+  });
 }

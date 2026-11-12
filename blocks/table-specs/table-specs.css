@@ -75,7 +75,7 @@
   text-align: center;
 }
 
-.table-specs.table-specs-multi tr > :not(:last-child) {
+.table-specs.table-specs-multi tr > :where(:not(:last-child)) {
   border-right: 1px solid #e3e3e3;
 }
 
@@ -84,4 +84,178 @@
   width: 100%;
   height: auto;
   vertical-align: top;
+}
+
+/* stylelint-disable no-descending-specificity -- the options below are grouped by option, not specificity */
+
+/* option "pairs" – source Cytobank .specification-holder > table.table: label | value pairs as
+   flex rows, two pairs per line from 1024px (48% each, space-between), one per line below;
+   grey bold right-aligned label cell (35%) beside the value cell (58%) */
+.table-specs.pairs {
+  padding: 0;
+  overflow: visible;
+}
+
+.table-specs.pairs table {
+  width: 100%;
+  margin: 0 0 -1px;
+  font-size: var(--body-font-size-s);
+  line-height: 18px;
+  text-align: center;
+}
+
+.table-specs.pairs tbody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.table-specs.pairs tbody tr,
+.table-specs.pairs tbody tr:last-child {
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 1px solid #dedede;
+}
+
+/* the source rules the first two rows on top (one line or two, as the source) */
+.table-specs.pairs tbody tr:nth-child(-n + 2) {
+  border-top: 1px solid #dedede;
+}
+
+.table-specs.pairs tr > :is(th, td) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 14px 17.5px;
+  border: 0;
+  line-height: 20px;
+}
+
+.table-specs.pairs tr > th {
+  align-items: flex-end;
+  width: 35%;
+  border-right: 1px solid #dedede;
+  background-color: #fafafa;
+  font-weight: 700;
+  text-align: right;
+}
+
+.table-specs.pairs tr > td {
+  align-items: flex-start;
+  width: 58%;
+  text-align: left;
+}
+
+/* breakpoint-exception: source spec rows pair up from 1024px */
+@media (width >= 1024px) {
+  .table-specs.pairs table {
+    margin-bottom: 0;
+  }
+
+  .table-specs.pairs tbody tr,
+  .table-specs.pairs tbody tr:last-child {
+    flex: 0 0 48%;
+  }
+}
+
+/* option "striped" – source CytExpert .bc-rich-text table (inline <style>): Arial, 1px #ddd
+   border on every cell, 18px padding, rows alternate white / #ddd counted from the first row,
+   left aligned, full width; the first row looks like any other row */
+.table-specs.striped {
+  margin-bottom: 16px;
+  padding: 0;
+}
+
+.table-specs.striped table {
+  width: 100%;
+  margin: 0;
+  font-family: arial, sans-serif;
+}
+
+.table-specs.striped tr {
+  border: 0;
+}
+
+.table-specs.striped tbody tr:nth-child(odd) {
+  background-color: #ddd;
+}
+
+.table-specs.striped tr > :is(th, td) {
+  width: auto;
+  padding: 18px;
+  border: 1px solid #ddd;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* source column widths: 25% each in the 4-column table, 30% | 70% in the 2-column one */
+.table-specs.striped tr > :first-child:nth-last-child(4),
+.table-specs.striped tr > :first-child:nth-last-child(4) ~ * {
+  width: 25%;
+}
+
+.table-specs.striped tr > :first-child:nth-last-child(2) {
+  width: 30%;
+}
+
+.table-specs.striped tr > :first-child:nth-last-child(2) + * {
+  width: 70%;
+}
+
+/* the 4-column table's header cells carry inline paddings in the source: 10px on the first,
+   padding-left: 10px on the others */
+.table-specs.striped.table-specs-multi thead tr > th {
+  padding-left: 10px;
+}
+
+.table-specs.striped.table-specs-multi thead tr > th:first-child {
+  padding: 10px;
+}
+
+/* option "bordered" – source Echo 21CFR11 table.tg (inline <style>): auto width, left aligned,
+   Arial 14px, 10px 5px padding, navy header row with bold white text and black borders, grey
+   (UA table border colour) borders on the body cells, #333 values on white */
+.table-specs.bordered {
+  padding: 0;
+}
+
+.table-specs.bordered table {
+  width: auto;
+  margin: 0;
+  font-family: arial, sans-serif;
+  font-size: var(--body-font-size-s);
+}
+
+.table-specs.bordered tr {
+  border: 0;
+}
+
+.table-specs.bordered tr > :is(th, td) {
+  width: auto;
+  padding: 10px 5px;
+  border: 1px solid gray;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table-specs.bordered thead tr > th {
+  border-color: #000;
+  background-color: #004666;
+  color: #fff;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.table-specs.bordered tr > td {
+  background-color: #fff;
+  color: #333;
+}
+
+/* multi-paragraph cells keep the paragraph margins (1em) */
+.table-specs.bordered :is(th, td) > p:not(:only-child) {
+  margin: 1em 0;
 }

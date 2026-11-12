@@ -169,3 +169,100 @@
     margin-right: 35px;
   }
 }
+
+/* in a sidebar section (source .two-columns-holder__right > .formassembly-container, without
+   .marketo-two-column, e.g. CytExpert software request): #f0f0f0 panel, one column at every
+   width (label above a full-width field), blue submit button at the right */
+.sidebar .embed-marketo {
+  padding: 20px;
+  border-radius: 3px;
+  background-color: #f0f0f0;
+}
+
+.sidebar .embed-marketo .mktoForm {
+  max-width: none;
+  padding-top: 0;
+  line-height: 1.65;
+}
+
+.sidebar .embed-marketo .mktoForm .mktoFormCol {
+  float: none;
+  width: 100%;
+  margin: 0 0 15px !important;
+}
+
+.sidebar .embed-marketo .mktoForm .mktoLabel,
+.sidebar .embed-marketo .mktoForm .mktoRequiredField label.mktoLabel {
+  display: block;
+  float: left;
+  width: auto !important;
+  margin: 0 0 5px;
+  padding: 2.6px 12.5px 3.9px 0;
+  border-radius: 3.25px;
+  font-size: 13px;
+  line-height: 0.9;
+}
+
+/* forms2.css: the asterisk floats to the label's end */
+.sidebar .embed-marketo .mktoForm .mktoAsterix {
+  float: right;
+  margin: 0 2px 0 0;
+}
+
+.sidebar .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']),
+.sidebar .embed-marketo .mktoForm textarea.mktoField,
+.sidebar .embed-marketo .mktoForm select.mktoField {
+  float: left;
+  width: 100% !important;
+  height: 32px;
+  padding: 5px 10px !important;
+  border-color: #d9d9d1;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.sidebar .embed-marketo .mktoForm select.mktoField {
+  background-color: #efefef;
+}
+
+.sidebar .embed-marketo .mktoForm textarea.mktoField {
+  float: none;
+  height: 70px;
+  border-color: #9fa4aa;
+}
+
+.sidebar .embed-marketo .mktoForm .mktoFormRow .mktoHtmlText {
+  font-size: 13px;
+}
+
+/* consent radios: the group label stays beside the list (source float: left) */
+.sidebar .embed-marketo .mktoForm .mktoRadioList {
+  float: left;
+  margin-left: 5px;
+  padding: 0.3em;
+}
+
+.sidebar .embed-marketo .mktoForm .mktoRadioList > label {
+  margin: 0.1em 0 10px 1.5em;
+  font-size: 12px;
+  line-height: 0.9;
+}
+
+.sidebar .embed-marketo .mktoForm .mktoButtonRow {
+  justify-content: flex-end !important;
+}
+
+.sidebar .embed-marketo .mktoForm span.mktoButtonWrap.mktoInset {
+  margin: 0 0 0 120px !important;
+}
+
+.sidebar .embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton {
+  padding: 13px 20px !important;
+  border-radius: 3px;
+  background: var(--link-color) !important;
+  box-shadow: rgb(0 0 0 / 25%) 1.25px 2.5px 5px 0 !important;
+}
+
+.sidebar .embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton:hover {
+  background: #0065a7 !important;
+}

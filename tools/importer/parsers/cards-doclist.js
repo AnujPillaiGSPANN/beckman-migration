@@ -17,7 +17,29 @@
  *            the one-line ellipsis is CSS)
  * The Coveo filter / pagination UI is not part of the element (removed by the cleanup);
  * hrefs stay as on the source (gated-media {GUID} braces are encoded by the cleanup).
+ * Source data bugs in descriptions (Cytobank Enterprise): double-encoded entities shown as text
+ * ("20&ndash;color") are decoded, escaped markup shown as text ("<span style=…>…</span>") loses
+ * its tags, and a description that only repeats the title is dropped.
  */
+const ENTITIES = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', ndash: '–', mdash: '—',
+  rsquo: '’', lsquo: '‘', rdquo: '”', ldquo: '“', reg: '®', trade: '™', deg: '°',
+};
+function decodeText(s) {
+  let out = s || '';
+  for (let i = 0; i < 2; i += 1) {
+    out = out.replace(/&(#x?[0-9a-f]+|[a-z]+);/gi, (all, e) => {
+      if (e[0] === '#') {
+        const code = e[1].toLowerCase() === 'x' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10);
+        return Number.isFinite(code) ? String.fromCodePoint(code) : all;
+      }
+      const v = ENTITIES[e.toLowerCase()];
+      return v !== undefined ? v : all;
+    });
+  }
+  // markup that arrived as text
+  return out.replace(/<\/?[a-z][^<>]*>/gi, '');
+}
 const clean = (s) => (s || '').replace(/[  ​]/g, ' ').replace(/\s+/g, ' ').trim();
 
 function typeOf(item) {
@@ -39,7 +61,8 @@ export default function parse(element, { document }) {
       || Array.from(item.querySelectorAll('a[href]')).find((a) => clean(a.textContent));
     const descEl = item.querySelector('.content-resource-list-text');
     const title = link ? clean(link.textContent) : '';
-    const desc = descEl ? clean(descEl.textContent) : '';
+    let desc = descEl ? clean(decodeText(descEl.textContent)) : '';
+    if (desc && desc.toLowerCase() === title.toLowerCase()) desc = '';
     if (!title && !desc) return;
 
     const typeCell = document.createDocumentFragment();

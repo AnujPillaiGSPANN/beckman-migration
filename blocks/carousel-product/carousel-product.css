@@ -147,6 +147,11 @@ main .carousel-product-wrapper + .default-content-wrapper > .button-container:on
   overflow: hidden;
 }
 
+/* image-less product: the source keeps the (broken) image box, so titles stay aligned */
+.carousel-product .carousel-product-slide-image:not(:has(picture, img)) {
+  height: 120px;
+}
+
 .carousel-product .carousel-product-slide-image img {
   display: block;
   min-width: 1px;
@@ -300,7 +305,8 @@ main .carousel-product-wrapper + .default-content-wrapper > .button-container:on
 /* breakpoint-exception: source .related-part image height and type sizes switch at 768px */
 @media (width >= 768px) {
   .carousel-product .carousel-product-slide-image p,
-  .carousel-product .carousel-product-slide-image picture {
+  .carousel-product .carousel-product-slide-image picture,
+  .carousel-product .carousel-product-slide-image:not(:has(picture, img)) {
     height: 180px;
   }
 

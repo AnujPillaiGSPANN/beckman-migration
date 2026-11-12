@@ -79,19 +79,21 @@ const loadEmbed = (block, link, autoplay) => {
   ];
   const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => link.includes(match)));
   const url = new URL(link);
+  // add the provider class: assigning classList would drop the authored options (narrow, left)
   if (config) {
     block.innerHTML = config.embed(url, autoplay);
-    block.classList = `block embed embed-${config.match[0]}`;
+    block.classList.add(`embed-${config.match[0]}`);
   } else {
     block.innerHTML = getDefaultEmbed(url);
-    block.classList = 'block embed';
   }
   block.classList.add('embed-is-loaded');
 };
 
 export default function decorate(block) {
   const placeholder = block.querySelector('picture');
-  const link = block.querySelector('a').href;
+  // AEM may deliver the URI field as plain text instead of a link
+  const link = block.querySelector('a')?.href || block.textContent.trim();
+  if (!link) return;
   block.textContent = '';
 
   if (placeholder) {

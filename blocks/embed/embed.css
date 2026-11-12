@@ -1,8 +1,10 @@
+/* vertical spacing: source rich-text iframe in a <p> (16px margins; the inline player sits on
+   the line's baseline, leaving the 8.4px descender gap of a 26.4px line below it) */
 .embed {
   width: unset;
   text-align: center;
   max-width: 800px;
-  margin: 32px auto;
+  margin: 16px auto calc(16px + 8.4px);
 }
 
 .embed > div {
@@ -59,4 +61,28 @@
   border-left: 6px solid;
   top: 4px;
   left: 7px;
+}
+
+/* option "narrow": the source's fixed-size YouTube player (iframe width="1200" height="674",
+   e.g. Echo 21CFR11 webinar), scaled down when the content column is narrower */
+.embed.narrow {
+  position: relative;
+  width: 1200px;
+  max-width: 100%;
+  aspect-ratio: 1200 / 674;
+}
+
+/* the provider markup sizes itself with inline styles (16:9 padding box) */
+.embed.narrow > div {
+  position: absolute !important;
+  inset: 0;
+  height: auto !important;
+  padding-bottom: 0 !important;
+}
+
+/* option "left": flush left instead of centred (source iframe inline at the line start) */
+.embed.left {
+  margin-left: 0;
+  margin-right: auto;
+  text-align: start;
 }

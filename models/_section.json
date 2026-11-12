@@ -33,6 +33,34 @@
             {
               "name": "Highlight",
               "value": "highlight"
+            },
+            {
+              "name": "Light grey background",
+              "value": "light-grey"
+            },
+            {
+              "name": "Centered",
+              "value": "centered"
+            },
+            {
+              "name": "Split (media beside text)",
+              "value": "split"
+            },
+            {
+              "name": "Sidebar (right column beside the previous section)",
+              "value": "sidebar"
+            },
+            {
+              "name": "Jump links: button bar",
+              "value": "anchor-nav"
+            },
+            {
+              "name": "Jump links: tab bar",
+              "value": "anchor-tabs"
+            },
+            {
+              "name": "Tight heading spacing",
+              "value": "heading-tight"
             }
           ]
         }
@@ -46,6 +74,7 @@
         "accordion",
         "accordion-faq",
         "accordion-icon-grid",
+        "accordion-rail",
         "button",
         "cards",
         "cards-doclist",

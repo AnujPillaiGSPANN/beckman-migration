@@ -143,6 +143,34 @@
           {
             "name": "Highlight",
             "value": "highlight"
+          },
+          {
+            "name": "Light grey background",
+            "value": "light-grey"
+          },
+          {
+            "name": "Centered",
+            "value": "centered"
+          },
+          {
+            "name": "Split (media beside text)",
+            "value": "split"
+          },
+          {
+            "name": "Sidebar (right column beside the previous section)",
+            "value": "sidebar"
+          },
+          {
+            "name": "Jump links: button bar",
+            "value": "anchor-nav"
+          },
+          {
+            "name": "Jump links: tab bar",
+            "value": "anchor-tabs"
+          },
+          {
+            "name": "Tight heading spacing",
+            "value": "heading-tight"
           }
         ]
       }
@@ -196,6 +224,25 @@
         "name": "content_text",
         "value": "",
         "label": "Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "accordion-rail-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "summary",
+        "value": "",
+        "label": "Parent Link",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Child Links (bulleted list, may be empty)",
         "valueType": "string"
       }
     ]
@@ -734,6 +781,23 @@
     "id": "embed",
     "fields": [
       {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Narrow (fixed 1200 x 674 player, scaled down to fit)",
+            "value": "narrow"
+          },
+          {
+            "name": "Left-aligned",
+            "value": "left"
+          }
+        ]
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "embed_placeholder",
@@ -1229,6 +1293,32 @@
         "name": "column4_imageAlt",
         "value": "",
         "label": "Model 3 Image Alt"
+      }
+    ]
+  },
+  {
+    "id": "table-specs",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Label | value pairs (no header row, two pairs per line)",
+            "value": "pairs"
+          },
+          {
+            "name": "Striped (grey borders, alternating rows)",
+            "value": "striped"
+          },
+          {
+            "name": "Bordered (navy header row, black borders)",
+            "value": "bordered"
+          }
+        ]
       }
     ]
   },

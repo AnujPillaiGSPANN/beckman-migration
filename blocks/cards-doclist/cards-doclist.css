@@ -1,9 +1,14 @@
 /* Cards (doclist) – source: #product-documentation-wrapper .content-resource-wrapper
    (#multiselect__container filter, .content-resource-list-wrapper, #resource-table-pagination) */
+
+/* the source wrapper keeps the list's 20px bottom margin inside (it does not collapse into the
+   next heading's 75px top margin) */
 .cards-doclist {
   --cards-doclist-accent: #168cdb;
   --cards-doclist-page-color: #007acb;
   --cards-doclist-page-hover: #005b98;
+
+  display: flow-root;
 }
 
 /* filter: "Filter by:" + "Resource Type" multi-select dropdown */

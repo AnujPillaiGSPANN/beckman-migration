@@ -1018,6 +1018,118 @@ main .section.anchor-tabs .default-content-wrapper > p > a:any-link:hover {
 
 /* end section styles: split, anchor-nav, anchor-tabs */
 
+/* section style: sidebar – source .two-columns-holder (generic content pages, e.g. CytExpert
+   Software): the sidebar section sits in the right third (.col-md-4) beside the section before
+   it, the main column (.col-md-8); both top-aligned, 20px gutter (bootstrap .row -10px +
+   10px column padding). Below 992px the sidebar stacks after the main column. The whole page
+   sits in a bootstrap .container (15px gutters, 750 / 970 / 1170px). Layout only depends on the
+   section order and the section style, so it works the same for AEM / Universal Editor markup. */
+main:where(:has(> .section.sidebar)) > .section > div {
+  max-width: none;
+  margin: 0 auto;
+  padding: 0 var(--content-gutter);
+}
+
+/* the columns are block formatting contexts (source floats / clearfix rows): margins of their
+   first and last children stay inside */
+main > .section.sidebar,
+main > .section:has(+ .section.sidebar) {
+  display: flow-root;
+}
+
+/* the main column ends with the source's trailing empty line and empty paragraph
+   (2 x 26.4px lines + 16px margin) */
+main > .section:has(+ .section.sidebar) {
+  padding-bottom: calc(2 * 26.4px + 16px);
+}
+
+/* the source footer keeps its 50px top margin on these pages (footer.css drops it for the
+   product-series template, which the page shares with Biomek) */
+main:has(> .section.sidebar) {
+  padding-bottom: 50px;
+}
+
+/* main column rich text (source .bc-rich-text): 17px list indent; a link alone in its paragraph
+   stays a plain, not underlined text link in its own paragraph */
+main > .section:has(+ .section.sidebar) .default-content-wrapper > ul {
+  padding-left: 17px;
+}
+
+main > .section:has(+ .section.sidebar) .default-content-wrapper > .button-container {
+  display: block;
+}
+
+main > .section:has(+ .section.sidebar) .default-content-wrapper > .button-container > a.button:any-link {
+  text-decoration: none;
+}
+
+/* bold run-in labels in the main column (e.g. "Acquisition Functions"): the source puts an
+   empty paragraph (26.4px line + 2 x 16px margins) in front of each */
+main > .section:has(+ .section.sidebar) .default-content-wrapper > p:has(> strong:only-child):not(:first-child),
+main > .section:has(+ .section.sidebar) > div:not(.default-content-wrapper) + .default-content-wrapper > p:first-child:has(> strong:only-child) {
+  margin-top: calc(16px + 26.4px + 16px);
+}
+
+/* breakpoint-exception: source bootstrap .container is 750px wide from 768px */
+@media (width >= 768px) {
+  main:where(:has(> .section.sidebar)) > .section > div {
+    max-width: calc(750px - 2 * var(--content-gutter));
+  }
+}
+
+/* breakpoint-exception: source .col-md-8 / .col-md-4 float side by side from 992px */
+@media (width >= 992px) {
+  main:has(> .section.sidebar) {
+    display: grid;
+    grid-template-columns:
+      1fr [main-start] minmax(0, calc((970px - 2 * var(--content-gutter) + 20px) * 2 / 3 - 20px))
+      [main-end] 20px [side-start] minmax(0, calc((970px - 2 * var(--content-gutter) + 20px) / 3 - 20px))
+      [side-end] 1fr;
+    align-items: start;
+  }
+
+  main:has(> .section.sidebar) > * {
+    grid-column: 1 / -1;
+  }
+
+  main:has(> .section.sidebar) > .section:has(+ .section.sidebar) {
+    grid-column: main;
+  }
+
+  main:has(> .section.sidebar) > .section.sidebar {
+    grid-column: side;
+  }
+
+  main:where(:has(> .section.sidebar)) > .section > div {
+    max-width: calc(970px - 2 * var(--content-gutter));
+  }
+
+  main:where(:has(> .section.sidebar)) > :is(.section.sidebar, .section:has(+ .section.sidebar)) > div {
+    max-width: none;
+    padding: 0;
+  }
+}
+
+@media (width >= 1200px) {
+  main:has(> .section.sidebar) {
+    grid-template-columns:
+      1fr [main-start] minmax(0, calc((var(--container-width) - 2 * var(--content-gutter) + 20px) * 2 / 3 - 20px))
+      [main-end] 20px [side-start] minmax(0, calc((var(--container-width) - 2 * var(--content-gutter) + 20px) / 3 - 20px))
+      [side-end] 1fr;
+  }
+
+  main:where(:has(> .section.sidebar)) > .section > div {
+    max-width: calc(var(--container-width) - 2 * var(--content-gutter));
+  }
+}
+
+/* a heading directly above a rail navigation is its title (source h3.rail-navigation__title) */
+main .default-content-wrapper:has(+ .accordion-rail-wrapper) > h3:last-child {
+  margin-bottom: 10px;
+}
+
+/* end section style: sidebar */
+
 /* template: product pages (body.product-detail = Cydem VT, body.product-series = Biomek) */
 
 /* product-detail sections sit in the source .container.custome-container.product-spotlight-wrapper
@@ -1060,8 +1172,10 @@ main .section.anchor-tabs .default-content-wrapper > p > a:any-link:hover {
 }
 
 /* sub-headings: source .product-page-sub-heading-wrapper > h3 (the h3 is inline-block there,
-   so the wrapper's line box adds 2.5px under the heading before its 10px padding) */
-body.product-detail main .default-content-wrapper > h3 {
+   so the wrapper's line box adds 2.5px under the heading before its 10px padding). The source
+   wraps the headings the page's jump-link bar points to: pages without a bar (anchor-tabs /
+   anchor-nav section, e.g. Echo 21CFR11) keep plain rich-text h3s, see below. */
+body.product-detail main:where(:has(> .section:is(.anchor-tabs, .anchor-nav))) .default-content-wrapper > h3 {
   display: grid;
   justify-content: start;
   position: relative;
@@ -1076,7 +1190,7 @@ body.product-detail main .default-content-wrapper > h3 {
 
 /* source h3::after: 1px #59baff rule as wide as the heading text, 14px below it (over the grey
    border); the grid column shrinks to the text like the source inline-block */
-body.product-detail main .default-content-wrapper > h3::after {
+body.product-detail main:where(:has(> .section:is(.anchor-tabs, .anchor-nav))) .default-content-wrapper > h3::after {
   content: '';
   position: absolute;
   grid-area: 1 / 1 / 2 / 2;
@@ -1084,6 +1198,36 @@ body.product-detail main .default-content-wrapper > h3::after {
   box-sizing: border-box;
   height: 1px;
   border-bottom: 1px solid var(--product-heading-accent-color);
+}
+
+/* a product page without jump links (no anchor-tabs / anchor-nav section, e.g. Echo 21CFR11):
+   the source still renders the empty tab bar (#intrenal-page-link-wrapper, absolute: 28.4px band,
+   2px #ddd top rule, shadow) at the top of .spotlight-content-wrapper (padding-top: 60px) */
+body.product-detail main:not(:has(> .section:is(.anchor-tabs, .anchor-nav))) > .section.split + .section {
+  position: relative;
+  padding-top: 60px;
+}
+
+body.product-detail main:not(:has(> .section:is(.anchor-tabs, .anchor-nav))) > .section.split + .section::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  box-sizing: border-box;
+  height: 28.4px;
+  border-top: 2px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 8px 6px -6px rgb(0 0 0 / 20%);
+}
+
+/* plain rich-text h3 (source .spotlight-content-wrapper .bc-rich-text h3): 25px / 300 up to
+   1023px, 24px / 400 from 1024px, 1em margins */
+
+/* breakpoint-exception: source rich-text h3 size steps at 1024px */
+@media (width >= 1024px) {
+  body.product-detail main:where(:not(:has(> .section:is(.anchor-tabs, .anchor-nav)))) .default-content-wrapper > h3 {
+    font-size: 24px;
+    font-weight: 400;
+  }
 }
 
 /* the source "Resources" wrapper carries an inline margin-top: 20px */
@@ -1132,9 +1276,22 @@ body.product-detail main > .section > .embed-wistia-wrapper + .default-content-w
   margin-bottom: calc(16px + 52.8px + 75px);
 }
 
-/* lone images in rich text are centred (source p style="text-align: center") */
-body.product-detail main .default-content-wrapper > p:has(> picture:only-child) {
+/* lone images in rich text are centred (source p style="text-align: center"); plain rich text
+   on pages without a jump-link bar keeps them at the start (e.g. Echo 21CFR11) */
+body.product-detail main:where(:has(> .section:is(.anchor-tabs, .anchor-nav))) .default-content-wrapper > p:has(> picture:only-child) {
   text-align: center;
+}
+
+/* source .spotlight-content-wrapper img: vertical-align: top (no descender gap under the image) */
+body.product-detail main .default-content-wrapper > p > picture:only-child > img {
+  vertical-align: top;
+}
+
+/* small-print disclaimer right after a block (source p style="font-size: 75%" > em, e.g.
+   "For Research Use Only" below the Cytobank related products) */
+body.product-detail main div:not(.default-content-wrapper) + .default-content-wrapper > p:first-child:has(> em:only-child):not(:has(a)) {
+  margin: 12px 0;
+  font-size: 12px;
 }
 
 /* disclaimers (h5 > em) after the Technical Documents text: the source puts two <br> lines
@@ -1158,6 +1315,31 @@ body.product-detail main > .section:has(+ .section.cards-faq-container) {
 /* breakpoint-exception: source .feature-holder margin steps at 1024px */
 @media (width >= 1024px) {
   body.product-detail main > .section:has(+ .section.cards-faq-container) {
+    margin-bottom: 57px;
+  }
+}
+
+/* ...and before the footer when the page has no FAQ. The margin collapses with the last
+   element's own margin (as in the source), but not with the footer's 50px top margin: main is
+   a block formatting context on product pages (source: an empty .container sits in between) */
+body.product-detail main {
+  display: flow-root;
+}
+
+body.product-detail main > .section:last-child:not(.cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
+  margin-bottom: 28px;
+}
+
+/* breakpoint-exception: source .feature-holder margin steps at 768px */
+@media (width >= 768px) {
+  body.product-detail main > .section:last-child:not(.cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
+    margin-bottom: 41px;
+  }
+}
+
+/* breakpoint-exception: source .feature-holder margin steps at 1024px */
+@media (width >= 1024px) {
+  body.product-detail main > .section:last-child:not(.cards-faq-container, :has(> .default-content-wrapper > h2:first-child + ul)) {
     margin-bottom: 57px;
   }
 }

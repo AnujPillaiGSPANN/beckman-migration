@@ -16,6 +16,7 @@ import heroPromoParser from './parsers/hero-promo.js';
 import cardsWorkflowParser from './parsers/cards-workflow.js';
 import cardsStepsParser from './parsers/cards-steps.js';
 import cardsDownloadsParser from './parsers/cards-downloads.js';
+import embedParser from './parsers/embed.js';
 import cleanupTransformer from './transformers/beckman-cleanup.js';
 import sectionsTransformer from './transformers/beckman-sections.js';
 
@@ -28,7 +29,9 @@ const PAGE_TEMPLATE = {
     "https://www.beckman.com/air-particle-counters/facility-monitoring-system",
     "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
     "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents",
-    "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic"
+    "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic",
+    "https://www.mybeckman.in/flow-cytometry/software/cytobank-enterprise",
+    "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager"
   ],
   "description": "Product detail (spotlight) page: image gallery + intro, jump-link bar, features modules, Wistia video, icon cards, media columns, resource cards, reagent slider, spec table, views, technical documents, FAQ.",
   "blocks": [
@@ -124,6 +127,12 @@ const PAGE_TEMPLATE = {
       "name": "cards-downloads",
       "instances": [
         "div.resources-container"
+      ]
+    },
+    {
+      "name": "embed",
+      "instances": [
+        "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2) iframe[src*='youtube.com']"
       ]
     }
   ],
@@ -909,6 +918,183 @@ const PAGE_TEMPLATE = {
           ]
         }
       ]
+    },
+    "https://www.mybeckman.in/flow-cytometry/software/cytobank-enterprise": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "feature-modules": [
+          "#features-wrapper > div.bc-columns.row"
+        ],
+        "table-specs": [
+          "#product-specification-wrapper div.specification-holder"
+        ],
+        "cards-doclist": [
+          "#product-documentation-wrapper div.content-resource-list-wrapper"
+        ],
+        "carousel-product": [
+          "#related-parts-wrapper > div.related-parts"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro: product image beside title, copy, check list, CTAs, Resources + Tools links",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "In-page jump navigation bar",
+          "selector": [
+            "#intrenal-page-link-wrapper"
+          ],
+          "style": "anchor-tabs",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Features",
+          "selector": [
+            "#features-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "feature-modules"
+          ],
+          "defaultContent": [
+            "#features-wrapper > div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Specifications",
+          "selector": [
+            "#product-specification-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "table-specs"
+          ],
+          "defaultContent": [
+            "#product-specification-wrapper > div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Content and Resources",
+          "selector": [
+            "#product-documentation-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-doclist"
+          ],
+          "defaultContent": [
+            "#product-documentation-wrapper div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#techdocs-wrapper > div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-7",
+          "name": "Related Cytobank Products slider + RUO disclaimer",
+          "selector": [
+            "#related-parts-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "carousel-product"
+          ],
+          "defaultContent": [
+            "#related-parts-wrapper > div.product-page-sub-heading-wrapper",
+            "#related-parts-wrapper + div.bc-rich-text"
+          ]
+        }
+      ]
+    },
+    "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "embed": [
+          "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2) iframe[src*='youtube.com']"
+        ],
+        "table-specs": [
+          "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(3) > table.tg"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro: product image beside title, subtitle, copy, check list, CTA, Resources + Tools links",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "Software Workflows",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.feature-holder.feature-parent-height > div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(1)"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Webinar video",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.feature-holder.feature-parent-height > div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "embed"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Specifications",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.feature-holder.feature-parent-height > div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(3)"
+          ],
+          "style": null,
+          "blocks": [
+            "table-specs"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   }
 };
@@ -929,6 +1115,7 @@ const parsers = {
   'cards-workflow': cardsWorkflowParser,
   'cards-steps': cardsStepsParser,
   'cards-downloads': cardsDownloadsParser,
+  'embed': embedParser,
 };
 // Late transformers change the DOM (section <hr> markers, shared fragments), so their beforeTransform
 // runs after block discovery.

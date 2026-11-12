@@ -1,0 +1,133 @@
+/* accordion-rail: sidebar link tree (source .rail-navigation, measured at 1440/1024/768/375) */
+.accordion-rail {
+  margin-bottom: 35px;
+  font-family: var(--body-font-family);
+  font-size: calc(var(--body-font-size-m) * 0.9);
+  color: var(--text-color);
+}
+
+.accordion-rail ul {
+  list-style: none;
+}
+
+.accordion-rail .accordion-rail-list {
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.accordion-rail .accordion-rail-item,
+.accordion-rail .accordion-rail-child {
+  margin: 0;
+  line-height: 1.25;
+}
+
+/* parent row: 15px chevron column, 4px gap, link (source inline-block + word space) */
+.accordion-rail .accordion-rail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.accordion-rail .accordion-rail-link {
+  display: inline-block;
+  width: calc(100% - 30px);
+  padding: 5px 0;
+}
+
+.accordion-rail .accordion-rail-row > .accordion-rail-link {
+  flex: 0 0 calc(100% - 30px);
+}
+
+.accordion-rail .accordion-rail-toggle,
+.accordion-rail .accordion-rail-spacer {
+  position: relative;
+  flex: 0 0 15px;
+  width: 15px;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: inherit;
+}
+
+.accordion-rail .accordion-rail-toggle {
+  cursor: pointer;
+}
+
+/* chevron: 8px box with a 2px right/bottom border; right when closed, down when open */
+.accordion-rail .accordion-rail-toggle::before {
+  content: '';
+  position: absolute;
+  top: 9.5px;
+  left: 1.5px;
+  box-sizing: border-box;
+  width: 8px;
+  height: 8px;
+  border: solid currentcolor;
+  border-width: 0 2px 2px 0;
+  opacity: 0.3;
+  transform: rotate(-45deg);
+  transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+}
+
+.accordion-rail .accordion-rail-toggle:hover::before,
+.accordion-rail .accordion-rail-toggle:focus-visible::before {
+  opacity: 1;
+}
+
+.accordion-rail .accordion-rail-toggle:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 0;
+}
+
+.accordion-rail .accordion-rail-open > .accordion-rail-row > .accordion-rail-toggle::before {
+  top: 8.5px;
+  opacity: 1;
+  transform: rotate(45deg);
+}
+
+/* child links: collapsed panel, height animated by the block JS (source slide, 400ms swing) */
+.accordion-rail .accordion-rail-panel {
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: height 0.4s cubic-bezier(0.37, 0, 0.63, 1), visibility 0s linear 0.4s;
+}
+
+.accordion-rail .accordion-rail-open > .accordion-rail-panel {
+  visibility: visible;
+  transition: height 0.4s cubic-bezier(0.37, 0, 0.63, 1), visibility 0s;
+}
+
+.accordion-rail .accordion-rail-children {
+  margin: 0;
+  padding: 0 0 0 1.25em;
+}
+
+/* source child li: empty 15px <i> + word space before the link */
+.accordion-rail .accordion-rail-child {
+  padding-left: 19px;
+}
+
+/* source link width is calc(100% - 30px) of the whole li, spacer included */
+.accordion-rail .accordion-rail-child > .accordion-rail-link {
+  width: calc(100% - 11px);
+}
+
+/* current page */
+.accordion-rail .accordion-rail-current > .accordion-rail-row > a.accordion-rail-link:any-link,
+.accordion-rail .accordion-rail-child.accordion-rail-current > a.accordion-rail-link:any-link {
+  color: var(--card-text-color);
+  font-weight: 700;
+  cursor: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-rail .accordion-rail-panel,
+  .accordion-rail .accordion-rail-open > .accordion-rail-panel,
+  .accordion-rail .accordion-rail-toggle::before {
+    transition: none;
+  }
+}

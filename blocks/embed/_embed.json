@@ -21,6 +21,23 @@
       "id": "embed",
       "fields": [
         {
+          "component": "multiselect",
+          "name": "classes",
+          "value": "",
+          "label": "Options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Narrow (fixed 1200 x 674 player, scaled down to fit)",
+              "value": "narrow"
+            },
+            {
+              "name": "Left-aligned",
+              "value": "left"
+            }
+          ]
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "embed_placeholder",

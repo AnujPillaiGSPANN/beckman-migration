@@ -314,7 +314,7 @@ function markButtons(root, template, doc, url) {
   });
   safeAll(root, 'a.btn').forEach((a) => {
     if (insideBlock(a, blocks) || a.closest('strong, em')) return;
-    const outlined = /btn-(secondary|outline|white)/.test(a.className) && !/btn-red/.test(a.className);
+    const outlined = /btn-(secondary|outline|white|default)/.test(a.className) && !/btn-red/.test(a.className);
     const wrap = doc.createElement(outlined ? 'em' : 'strong');
     a.replaceWith(wrap);
     wrap.append(a);
@@ -380,6 +380,26 @@ function splitLinkedImages(root, doc) {
  * ?…&country=XX and stay external, so give the bare ones the same country parameter.
  * Also: AEM escapes "&" in image alt text twice (screen readers read "&amp;"), so alts use "and".
  */
+/**
+ * Same-site page links → site-relative, as the importer does on live imports (snapshot imports
+ * keep them absolute, which sent visitors to the live site). The import script then adds /in
+ * for India pages. Files, media, gated downloads and the "Explore … Models" jumps into the live
+ * Coveo models table stay absolute (they are not pages of this site).
+ */
+function relativizeSiteLinks(root, payload) {
+  const source = (payload && payload.params && payload.params.originalURL) || '';
+  let origin;
+  try { ({ origin } = new URL(source)); } catch (e) { return; }
+  safeAll(root, `a[href^="${origin}/"], a[href="${origin}"]`).forEach((a) => {
+    const href = a.getAttribute('href');
+    if (/#product-table-wrapper$/.test(href)) return;
+    const u = new URL(href);
+    if (/^\/(-\/media|gated-media|pimassets|sitecore)\b/i.test(u.pathname)) return;
+    if (/\.[a-z0-9]{2,5}$/i.test(u.pathname) && !/\.html?$/i.test(u.pathname)) return;
+    a.setAttribute('href', `${u.pathname}${u.search}${u.hash}` || '/');
+  });
+}
+
 function keepDocumentLinksExternal(root, payload) {
   const source = (payload && payload.params && payload.params.originalURL) || '';
   const country = /mybeckman\.in/.test(source) ? 'IN' : 'US';
@@ -404,6 +424,16 @@ function keepDocumentLinksExternal(root, payload) {
  *   (demoted to h2 when it is a second h1); without one, the visible "Explore … Models" links
  *   point at the live product page's table (<page URL>#product-table-wrapper)
  * - bannerAlt: alt text for the promo banner image (empty on the source)
+ * - introCtas: 'quote' = the intro has only a visible "Request a Quote" next to a hidden
+ *   "Explore … Models" link (Echo 21CFR11): drop the hidden link, keep the button
+ * - jumpBar: 'drop' = every jump link is hidden (the bar renders as an empty band): drop the bar
+ * - galleryAlt: alt text for the gallery images that carry the generic "Product Image - N" alt
+ * - dropImages: image file names that 404 on the source too (broken there): the image is left
+ *   out, so the card is emitted without one
+ * - spacers: drop &nbsp;-only text between elements and empty <div>s outside blocks
+ * - wrapImages: an <img> sitting directly in a container gets its own paragraph
+ * - railCurrent: the rail's current-page link (li.active-nav) points at the site root on the
+ *   source: re-point it at the page itself
  */
 const PAGE_RULES = {
   'https://www.beckman.com/air-particle-counters/met-one-3400-plus': {
@@ -418,6 +448,26 @@ const PAGE_RULES = {
   'https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic': {
     introCtas: 'keep',
     modelsHeading: '#main > div.main-holder > div.bc-rich-text div.csc-default.is-header h1',
+  },
+  // hidden "Licenses" / "Request a Quote" pair dropped (default introCtas); the visible
+  // "Explore Licenses" button and "Licenses" jump link point at the live Coveo licenses table
+  'https://www.mybeckman.in/flow-cytometry/software/cytobank-enterprise': {
+    resourceTools: 'list',
+    galleryAlt: 'Cytobank Enterprise',
+    dropImages: ['cytobank-enhanced-compute-analysis-c47410-2023-03.png'],
+    spacers: true,
+  },
+  'https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager': {
+    introCtas: 'quote',
+    jumpBar: 'drop',
+    resourceTools: 'list',
+    galleryAlt: 'Echo 21CFR11 Compliance Manager',
+    spacers: true,
+  },
+  'https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software': {
+    spacers: true,
+    wrapImages: true,
+    railCurrent: true,
   },
 };
 
@@ -625,9 +675,61 @@ function legacyM2pBlock(root, doc, ctx) {
     }));
 }
 
+const NBSP_ONLY = /^[\s\u00a0\u200b]*$/;
+
+/** Page rules added for the batch-4 India pages (see PAGE_RULES); beforeTransform. */
+function pageCleanupRules(root, doc, rules, ctx, url) {
+  if (rules.galleryAlt) {
+    safeAll(root, '.product-gallery-carousel img').forEach((img) => {
+      const alt = (img.getAttribute('alt') || '').trim();
+      if (!alt || /^Product Image - \d+$/i.test(alt)) img.setAttribute('alt', rules.galleryAlt);
+    });
+  }
+  (rules.dropImages || []).forEach((file) => {
+    safeAll(root, 'img[src]').forEach((img) => {
+      // the PIM copy is already renamed <image id>-<file> (useZoomImageUrls) at this point
+      const name = img.getAttribute('src').split('?')[0].split('/').pop();
+      if (name === file || name.endsWith(`-${file}`)) drop(img, ctx);
+    });
+  });
+  if (rules.railCurrent) {
+    safeAll(root, '.rail-navigation li.active-nav > a[href]').forEach((a) => {
+      let path = '';
+      try { path = new URL(a.getAttribute('href'), url).pathname; } catch (e) { return; }
+      if (path === '/' || path === '') a.setAttribute('href', pageKey(url));
+    });
+  }
+  if (rules.jumpBar === 'drop') removeAll(root, ['#intrenal-page-link-wrapper'], ctx);
+  if (rules.introCtas === 'quote') removeAll(root, ['div.rt-holder a.product-table-link-btn'], ctx);
+  if (rules.wrapImages) {
+    safeAll(root, 'img').forEach((img) => {
+      const parent = img.parentElement;
+      if (!parent || !CONTAINERS.test(parent.tagName) || insideBlock(img, ctx.blocks)) return;
+      const p = doc.createElement('p');
+      img.replaceWith(p);
+      p.append(img);
+    });
+  }
+  if (rules.spacers) {
+    // &nbsp;-only text directly in a container (e.g. after the CytExpert screenshot / tables)
+    safeAll(root, 'div, section, article').forEach((el) => {
+      if (insideBlock(el, ctx.blocks)) return;
+      Array.from(el.childNodes).forEach((n) => {
+        if (n.nodeType === 3 && /\u00a0/.test(n.textContent) && NBSP_ONLY.test(n.textContent)) n.remove();
+      });
+    });
+    // empty divs (e.g. the "&nbsp;&nbsp;" spacer between the Cytobank intro buttons,
+    // div.row.js-component, the empty container after the content wrapper)
+    safeAll(root, 'div').reverse().forEach((el) => {
+      if (el.isConnected && !insideBlock(el, ctx.blocks) && isEmpty(el)) drop(el, ctx);
+    });
+  }
+}
+
 /** Rules for pages with their own mapping (template.pages[url]); beforeTransform. */
 function perPageRules(root, doc, ctx, url) {
   const rules = PAGE_RULES[pageKey(url)] || {};
+  pageCleanupRules(root, doc, rules, ctx, url);
   // gallery slides: drop the href="#" zoom wrapper around the image (the parser does the same)
   safeAll(root, '.product-gallery-carousel a[href="#"]').forEach((a) => {
     if (a.querySelector('img')) a.replaceWith(...Array.from(a.childNodes));
@@ -645,10 +747,14 @@ function perPageRules(root, doc, ctx, url) {
     });
   }
   // intro CTAs: hidden duplicates, or visible with a dead "Explore … Models" jump
-  if (rules.introCtas !== 'keep') {
+  if (rules.introCtas !== 'keep' && rules.introCtas !== 'quote') {
     removeAll(root, ['div.rt-holder > div:has(> a.product-table-link-btn)'], ctx);
   }
   safeAll(root, '.product-table-link-btn i, .product-table-link-btn .fa').forEach((i) => i.remove());
+  safeAll(root, `a.btn[${COVEO_LINK}]`).forEach((a) => {
+    safeAll(a, 'i, .fa').forEach((i) => i.remove());
+    a.textContent = a.textContent.replace(/\s+/g, ' ').trim();
+  });
   splitJumpLinks(root, doc, ctx); // marks the hidden jump links first
   handleCoveoLinks(root, doc, rules, ctx, url);
   resourceTools(root, doc, rules, ctx, url);
@@ -773,6 +879,7 @@ export default function transform(hookName, element, payload) {
     splitLinkedImages(element, doc);
     keepDocumentLinksExternal(element, payload);
     fixLinks(element); // hrefs written by parsers
+    relativizeSiteLinks(element, payload);
     if (own) {
       pointModelsLinks(element);
       removeEmptyLeftovers(element);

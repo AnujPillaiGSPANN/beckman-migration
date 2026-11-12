@@ -12,8 +12,10 @@ function buildSlide(row) {
   li.className = 'carousel-product-slide';
   moveInstrumentation(row, li);
   while (row.firstElementChild) li.append(row.firstElementChild);
+  // a cell without text is the image cell, also when the image is missing (empty cell: the
+  // source keeps the image box of a product whose image does not load)
   [...li.children].forEach((div) => {
-    div.className = div.querySelector('picture') && !div.textContent.trim()
+    div.className = !div.textContent.trim()
       ? 'carousel-product-slide-image'
       : 'carousel-product-slide-body';
   });

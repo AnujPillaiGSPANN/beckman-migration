@@ -1,0 +1,31 @@
+{
+  "variantName": "accordion-rail",
+  "baseBlock": "accordion",
+  "canonicalModel": "collection",
+  "visualCharacteristics": {
+    "purpose": "Sidebar link tree: blue parent links with a grey chevron toggle on the left that expands/collapses their child links (collapsed by default, animated height); the current page's link is bold dark grey",
+    "description": "Compact, unboxed rail navigation (source .rail-navigation: 14.4px Gotham, 18px line height, 5px link padding, 18px child indent). accordion-faq (grey question bars, plus icon, two columns) and accordion-icon-grid (icon tiles, shared toggle) do not fit."
+  },
+  "contentPattern": {
+    "summary": "3 parent links (15, 1 and 0 child links); the rail title is a default-content heading before the block",
+    "structure": "one row per parent item: (1) parent link (`summary`, richtext holding a single link); (2) child links (`text`, richtext bulleted list of links; empty for a plain link without a chevron). The current page is detected at runtime by href"
+  },
+  "options": [],
+  "memberVariantIds": [
+    "accordion-rail"
+  ],
+  "sourceUrl": "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software",
+  "sourceUrls": [
+    "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software"
+  ],
+  "sectionMetadata": null,
+  "usage": {
+    "pagesUsing": [
+      "/flow-cytometry/research-flow-cytometers/cytoflex/software"
+    ],
+    "reuseCount": 0,
+    "lastUsed": "2026-11-12"
+  },
+  "reuseGuidance": "Use for sidebar (rail) link trees with collapsible child links. For collapsible FAQ content use accordion-faq.",
+  "usageDescription": "Sidebar link tree with chevron toggles that expand/collapse child links; highlights the current page."
+}

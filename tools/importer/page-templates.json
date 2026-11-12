@@ -107,7 +107,8 @@
       "name": "product-series",
       "urls": [
         "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
-        "https://www.beckman.com/liquid-handlers/echo-acoustic"
+        "https://www.beckman.com/liquid-handlers/echo-acoustic",
+        "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software"
       ],
       "description": "Product series page: video hero, intro with video, benefits icon accordion, model comparison, custom automation media columns, brochure and application scroll strips, related products slider, Marketo contact form.",
       "blocks": [
@@ -170,6 +171,19 @@
           "name": "carousel-testimonial",
           "instances": [
             "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(7)"
+          ]
+        },
+        {
+          "name": "table-specs",
+          "instances": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(1)",
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(2)"
+          ]
+        },
+        {
+          "name": "accordion-rail",
+          "instances": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.rail-navigation"
           ]
         }
       ],
@@ -376,6 +390,58 @@
               "defaultContent": []
             }
           ]
+        },
+        "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software": {
+          "blocks": {
+            "table-specs": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(1)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(2)"
+            ],
+            "accordion-rail": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.rail-navigation"
+            ],
+            "embed-marketo": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.formassembly-container"
+            ]
+          },
+          "sections": [
+            {
+              "id": "section-1",
+              "name": "Page title",
+              "selector": [
+                "#content-holder"
+              ],
+              "style": null,
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2",
+              "name": "Main column: intro, acquisition functions, analysis features, computer requirements",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left"
+              ],
+              "style": null,
+              "blocks": [
+                "table-specs",
+                "table-specs"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-3",
+              "name": "Right sidebar: platform rail navigation and CytExpert software request form",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right"
+              ],
+              "style": "sidebar",
+              "blocks": [
+                "accordion-rail",
+                "embed-marketo"
+              ],
+              "defaultContent": []
+            }
+          ]
         }
       }
     },
@@ -388,7 +454,9 @@
         "https://www.beckman.com/air-particle-counters/facility-monitoring-system",
         "https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu",
         "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents",
-        "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic"
+        "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic",
+        "https://www.mybeckman.in/flow-cytometry/software/cytobank-enterprise",
+        "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager"
       ],
       "description": "Product detail (spotlight) page: image gallery + intro, jump-link bar, features modules, Wistia video, icon cards, media columns, resource cards, reagent slider, spec table, views, technical documents, FAQ.",
       "blocks": [
@@ -484,6 +552,12 @@
           "name": "cards-downloads",
           "instances": [
             "div.resources-container"
+          ]
+        },
+        {
+          "name": "embed",
+          "instances": [
+            "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2) iframe[src*='youtube.com']"
           ]
         }
       ],
@@ -1267,6 +1341,183 @@
                 "p.product-detail-teaser",
                 "div.product-detail-content > div.download-box-icon"
               ]
+            }
+          ]
+        },
+        "https://www.mybeckman.in/flow-cytometry/software/cytobank-enterprise": {
+          "blocks": {
+            "carousel-gallery": [
+              "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+            ],
+            "feature-modules": [
+              "#features-wrapper > div.bc-columns.row"
+            ],
+            "table-specs": [
+              "#product-specification-wrapper div.specification-holder"
+            ],
+            "cards-doclist": [
+              "#product-documentation-wrapper div.content-resource-list-wrapper"
+            ],
+            "carousel-product": [
+              "#related-parts-wrapper > div.related-parts"
+            ]
+          },
+          "sections": [
+            {
+              "id": "section-1",
+              "name": "Product intro: product image beside title, copy, check list, CTAs, Resources + Tools links",
+              "selector": [
+                "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+              ],
+              "style": "split",
+              "blocks": [
+                "carousel-gallery"
+              ],
+              "defaultContent": [
+                "div.product-intro-wrapper div.rt-holder"
+              ]
+            },
+            {
+              "id": "section-2",
+              "name": "In-page jump navigation bar",
+              "selector": [
+                "#intrenal-page-link-wrapper"
+              ],
+              "style": "anchor-tabs",
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-3",
+              "name": "Features",
+              "selector": [
+                "#features-wrapper"
+              ],
+              "style": null,
+              "blocks": [
+                "feature-modules"
+              ],
+              "defaultContent": [
+                "#features-wrapper > div.product-page-sub-heading-wrapper"
+              ]
+            },
+            {
+              "id": "section-4",
+              "name": "Specifications",
+              "selector": [
+                "#product-specification-wrapper"
+              ],
+              "style": null,
+              "blocks": [
+                "table-specs"
+              ],
+              "defaultContent": [
+                "#product-specification-wrapper > div.product-page-sub-heading-wrapper"
+              ]
+            },
+            {
+              "id": "section-5",
+              "name": "Content and Resources",
+              "selector": [
+                "#product-documentation-wrapper"
+              ],
+              "style": null,
+              "blocks": [
+                "cards-doclist"
+              ],
+              "defaultContent": [
+                "#product-documentation-wrapper div.product-page-sub-heading-wrapper"
+              ]
+            },
+            {
+              "id": "section-6",
+              "name": "Technical Documents",
+              "selector": [
+                "#techdocs-wrapper"
+              ],
+              "style": null,
+              "blocks": [],
+              "defaultContent": [
+                "#techdocs-wrapper > div.product-page-sub-heading-wrapper"
+              ]
+            },
+            {
+              "id": "section-7",
+              "name": "Related Cytobank Products slider + RUO disclaimer",
+              "selector": [
+                "#related-parts-wrapper"
+              ],
+              "style": null,
+              "blocks": [
+                "carousel-product"
+              ],
+              "defaultContent": [
+                "#related-parts-wrapper > div.product-page-sub-heading-wrapper",
+                "#related-parts-wrapper + div.bc-rich-text"
+              ]
+            }
+          ]
+        },
+        "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager": {
+          "blocks": {
+            "carousel-gallery": [
+              "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+            ],
+            "embed": [
+              "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2) iframe[src*='youtube.com']"
+            ],
+            "table-specs": [
+              "div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(3) > table.tg"
+            ]
+          },
+          "sections": [
+            {
+              "id": "section-1",
+              "name": "Product intro: product image beside title, subtitle, copy, check list, CTA, Resources + Tools links",
+              "selector": [
+                "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+              ],
+              "style": "split",
+              "blocks": [
+                "carousel-gallery"
+              ],
+              "defaultContent": [
+                "div.product-intro-wrapper div.rt-holder"
+              ]
+            },
+            {
+              "id": "section-2",
+              "name": "Software Workflows",
+              "selector": [
+                "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.feature-holder.feature-parent-height > div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(1)"
+              ],
+              "style": null,
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-3",
+              "name": "Webinar video",
+              "selector": [
+                "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.feature-holder.feature-parent-height > div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(2)"
+              ],
+              "style": null,
+              "blocks": [
+                "embed"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-4",
+              "name": "Specifications",
+              "selector": [
+                "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.feature-holder.feature-parent-height > div.spotlight-content-wrapper > div.bc-rich-text:nth-of-type(3)"
+              ],
+              "style": null,
+              "blocks": [
+                "table-specs"
+              ],
+              "defaultContent": []
             }
           ]
         }

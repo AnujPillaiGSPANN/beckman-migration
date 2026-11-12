@@ -17,12 +17,34 @@
  * max 4); short rows are padded with empty cells. Images never go into a richtext field:
  * an image in column N is emitted as <!-- field:columnNimage --> (reference field, alt kept,
  * inline styles dropped). Whitespace at the edges of inline label markup is trimmed.
+ *
+ * Block options (model table-specs: classes) per page -> block name "Table Specs (<option>)":
+ *  - pairs    : Cytobank Enterprise spec grid (#product-specification-wrapper
+ *               div.specification-holder): label | value rows, no header row
+ *  - bordered : Echo 21CFR11 (table.tg): navy header row, black cell borders
+ *  - striped  : CytExpert (two tables in the main column): grey borders, alternating rows
+ * Non-breaking spaces become plain spaces; empty (nested) lists are dropped.
  */
+const PAGE_OPTIONS = {
+  '/flow-cytometry/software/cytobank-enterprise': 'pairs',
+  '/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager': 'bordered',
+  '/flow-cytometry/research-flow-cytometers/cytoflex/software': 'striped',
+};
+function pathOf(u) {
+  try { return new URL(u).pathname.replace(/\/$/, ''); } catch (e) { return ''; }
+}
 const clean = (s) => (s || '').replace(/[  ​]/g, ' ').replace(/\s+/g, ' ').trim();
 const COLS = 2;
 const MAX_COLS = 4;
 
 function cellNodes(document, td) {
+  // non-breaking spaces -> spaces (text nodes)
+  const walker = document.createTreeWalker(td, 4);
+  const texts = [];
+  while (walker.nextNode()) texts.push(walker.currentNode);
+  texts.forEach((t) => { if (/\u00a0/.test(t.textContent)) t.textContent = t.textContent.replace(/\u00a0/g, ' '); });
+  // empty lists (e.g. the <ul></ul> nested in the Cytobank "Statistics" list)
+  Array.from(td.querySelectorAll('ul, ol')).reverse().forEach((l) => { if (!clean(l.textContent) && !l.querySelector('img')) l.remove(); });
   td.querySelectorAll('p').forEach((p) => { if (!clean(p.textContent) && !p.querySelector('img')) p.remove(); });
   td.querySelectorAll('span').forEach((s) => s.replaceWith(...Array.from(s.childNodes)));
   td.querySelectorAll('li br').forEach((br) => br.replaceWith(document.createTextNode(' ')));
@@ -75,7 +97,7 @@ function trimInline(node) {
   });
 }
 
-export default function parse(element, { document }) {
+export default function parse(element, { document, params }) {
   const table = element.tagName === 'TABLE' ? element : element.querySelector('table');
   const rows = table ? Array.from(table.querySelectorAll(':scope > tbody > tr, :scope > thead > tr, :scope > tr')) : [];
   const cellsOf = (tr) => Array.from(tr.children).filter((c) => c.tagName === 'TD' || c.tagName === 'TH');
@@ -124,6 +146,8 @@ export default function parse(element, { document }) {
     cells.push(row);
   });
 
-  const block = WebImporter.Blocks.createBlock(document, { name: 'table-specs', cells });
+  const option = PAGE_OPTIONS[pathOf(params && params.originalURL)];
+  const name = option ? `Table Specs (${option})` : 'table-specs';
+  const block = WebImporter.Blocks.createBlock(document, { name, cells });
   element.replaceWith(block);
 }

@@ -11,6 +11,8 @@ import carouselProductParser from './parsers/carousel-product.js';
 import embedMarketoParser from './parsers/embed-marketo.js';
 import accordionFaqParser from './parsers/accordion-faq.js';
 import carouselTestimonialParser from './parsers/carousel-testimonial.js';
+import tableSpecsParser from './parsers/table-specs.js';
+import accordionRailParser from './parsers/accordion-rail.js';
 import cleanupTransformer from './transformers/beckman-cleanup.js';
 import sectionsTransformer from './transformers/beckman-sections.js';
 
@@ -18,7 +20,8 @@ const PAGE_TEMPLATE = {
   "name": "product-series",
   "urls": [
     "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
-    "https://www.beckman.com/liquid-handlers/echo-acoustic"
+    "https://www.beckman.com/liquid-handlers/echo-acoustic",
+    "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software"
   ],
   "description": "Product series page: video hero, intro with video, benefits icon accordion, model comparison, custom automation media columns, brochure and application scroll strips, related products slider, Marketo contact form.",
   "blocks": [
@@ -81,6 +84,19 @@ const PAGE_TEMPLATE = {
       "name": "carousel-testimonial",
       "instances": [
         "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder:nth-of-type(7)"
+      ]
+    },
+    {
+      "name": "table-specs",
+      "instances": [
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(1)",
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(2)"
+      ]
+    },
+    {
+      "name": "accordion-rail",
+      "instances": [
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.rail-navigation"
       ]
     }
   ],
@@ -287,6 +303,58 @@ const PAGE_TEMPLATE = {
           "defaultContent": []
         }
       ]
+    },
+    "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software": {
+      "blocks": {
+        "table-specs": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(1)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > table:nth-of-type(2)"
+        ],
+        "accordion-rail": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.rail-navigation"
+        ],
+        "embed-marketo": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.formassembly-container"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Page title",
+          "selector": [
+            "#content-holder"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Main column: intro, acquisition functions, analysis features, computer requirements",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left"
+          ],
+          "style": null,
+          "blocks": [
+            "table-specs",
+            "table-specs"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Right sidebar: platform rail navigation and CytExpert software request form",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right"
+          ],
+          "style": "sidebar",
+          "blocks": [
+            "accordion-rail",
+            "embed-marketo"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   }
 };
@@ -302,6 +370,8 @@ const parsers = {
   'embed-marketo': embedMarketoParser,
   'accordion-faq': accordionFaqParser,
   'carousel-testimonial': carouselTestimonialParser,
+  'table-specs': tableSpecsParser,
+  'accordion-rail': accordionRailParser,
 };
 // Late transformers change the DOM (section <hr> markers, shared fragments), so their beforeTransform
 // runs after block discovery.
