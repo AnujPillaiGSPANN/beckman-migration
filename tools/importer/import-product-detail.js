@@ -31,7 +31,8 @@ const PAGE_TEMPLATE = {
     "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents",
     "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic",
     "https://www.mybeckman.in/flow-cytometry/software/cytobank-enterprise",
-    "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager"
+    "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager",
+    "https://www.mybeckman.in/liquid-particle-counters/hiac-9703-plus"
   ],
   "description": "Product detail (spotlight) page: image gallery + intro, jump-link bar, features modules, Wistia video, icon cards, media columns, resource cards, reagent slider, spec table, views, technical documents, FAQ.",
   "blocks": [
@@ -1091,6 +1092,100 @@ const PAGE_TEMPLATE = {
           "style": null,
           "blocks": [
             "table-specs"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    "https://www.mybeckman.in/liquid-particle-counters/hiac-9703-plus": {
+      "blocks": {
+        "carousel-gallery": [
+          "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+        ],
+        "embed-wistia": [
+          "div.spotlight-content-wrapper > div.embeded-video"
+        ],
+        "cards-doclist": [
+          "#product-documentation-wrapper div.content-resource-list-wrapper"
+        ],
+        "cards-faq": [
+          "div.bcls-aeo-faqs"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Product intro: gallery beside title, copy, lists, CTAs, Resources + Tools",
+          "selector": [
+            "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+          ],
+          "style": "split",
+          "blocks": [
+            "carousel-gallery"
+          ],
+          "defaultContent": [
+            "div.product-intro-wrapper div.rt-holder"
+          ]
+        },
+        {
+          "id": "section-2",
+          "name": "In-page jump bar",
+          "selector": [
+            "#intrenal-page-link-wrapper"
+          ],
+          "style": "anchor-tabs",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Running a Sample video",
+          "selector": [
+            "div.spotlight-content-wrapper > div.embeded-video"
+          ],
+          "style": null,
+          "blocks": [
+            "embed-wistia"
+          ],
+          "defaultContent": [
+            "div.embeded-video > h2"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Content and Resources",
+          "selector": [
+            "#product-documentation-wrapper"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-doclist"
+          ],
+          "defaultContent": [
+            "#product-documentation-wrapper div.product-page-sub-heading-wrapper > h3"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Technical Documents",
+          "selector": [
+            "#techdocs-wrapper"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "#techdocs-wrapper > div.product-page-sub-heading-wrapper"
+          ]
+        },
+        {
+          "id": "section-6",
+          "name": "FAQ",
+          "selector": [
+            "div.spotlight-content-wrapper div.bcls-aeo-faqs.container"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-faq"
           ],
           "defaultContent": []
         }

@@ -104,18 +104,19 @@
   line-height: 1.5 !important;
 }
 
-/* submit: red pill centred below the fields (page-level .block .mktoForm overrides) */
+/* submit: red pill centred below the fields (page-level .block .mktoForm overrides; the site
+   stylesheet styles the button the same in the Inset and Simple Marketo themes) */
 .embed-marketo .mktoForm .mktoButtonRow {
   display: flex !important;
   float: none !important;
   justify-content: center !important;
 }
 
-.embed-marketo .mktoForm span.mktoButtonWrap.mktoInset {
+.embed-marketo .mktoForm span.mktoButtonWrap:is(.mktoInset, .mktoSimple) {
   margin: 20px auto !important;
 }
 
-.embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton {
+.embed-marketo .mktoForm .mktoButtonWrap:is(.mktoInset, .mktoSimple) .mktoButton {
   display: inline-block;
   padding: 12px 20px !important;
   border: none !important;
@@ -131,11 +132,11 @@
   transition: all 0.3s;
 }
 
-.embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton:hover {
+.embed-marketo .mktoForm .mktoButtonWrap:is(.mktoInset, .mktoSimple) .mktoButton:hover {
   background: #cf1322 !important;
 }
 
-.embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton:focus {
+.embed-marketo .mktoForm .mktoButtonWrap:is(.mktoInset, .mktoSimple) .mktoButton:focus {
   outline: 2px solid #000 !important;
   outline-offset: -2px;
 }
@@ -181,8 +182,16 @@
 
 .sidebar .embed-marketo .mktoForm {
   max-width: none;
-  padding-top: 0;
   line-height: 1.65;
+}
+
+/* no two-column top padding here; below 480px forms2.css keeps its 10px form padding */
+
+/* breakpoint-exception: the two-column form padding above starts at 1120px */
+@media (width >= 1120px) {
+  .sidebar .embed-marketo .mktoForm {
+    padding-top: 0;
+  }
 }
 
 .sidebar .embed-marketo .mktoForm .mktoFormCol {
@@ -252,17 +261,113 @@
   justify-content: flex-end !important;
 }
 
-.sidebar .embed-marketo .mktoForm span.mktoButtonWrap.mktoInset {
+.sidebar .embed-marketo .mktoForm span.mktoButtonWrap:is(.mktoInset, .mktoSimple) {
   margin: 0 0 0 120px !important;
 }
 
-.sidebar .embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton {
+.sidebar .embed-marketo .mktoForm .mktoButtonWrap:is(.mktoInset, .mktoSimple) .mktoButton {
   padding: 13px 20px !important;
   border-radius: 3px;
   background: var(--link-color) !important;
   box-shadow: rgb(0 0 0 / 25%) 1.25px 2.5px 5px 0 !important;
 }
 
-.sidebar .embed-marketo .mktoForm .mktoButtonWrap.mktoInset .mktoButton:hover {
+.sidebar .embed-marketo .mktoForm .mktoButtonWrap:is(.mktoInset, .mktoSimple) .mktoButton:hover {
   background: #0065a7 !important;
+}
+
+/* technology page (the page with a "Contents:" bar, section style anchor-contents, e.g.
+   Analytical Ultracentrifugation): the page's own .marketo-two-column CSS. Form 90% wide;
+   label | field pairs: up to 1124px one pair per row (600px form, 110px 10px labels, 450px x 30px
+   fields), from 1153px two per row (900px form, 120px 14px labels, 295px x 35px fields, 745px
+   comments); below 481px Marketo stacks the label above a 300px field. Square submit button. */
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm {
+  width: 90% !important;
+  max-width: 600px;
+  padding: 10px;
+}
+
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoLabel,
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoRequiredField label.mktoLabel {
+  width: 110px !important;
+  margin-bottom: 5px;
+  padding: 0.2em 0 0.3em;
+  font-size: 10px;
+}
+
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']),
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm select.mktoField,
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm textarea.mktoField {
+  width: 95% !important;
+  max-width: 300px;
+  height: 30px;
+  padding: 5px 10px !important;
+  font-size: 14px;
+}
+
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm textarea.mktoField {
+  height: 35px;
+  min-height: 35px;
+  font-size: 12px;
+}
+
+main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoButtonWrap:is(.mktoInset, .mktoSimple) .mktoButton {
+  border-radius: 2px;
+  padding: 13px 20px !important;
+}
+
+/* breakpoint-exception: Marketo forms2 stacks label and field up to 480px */
+@media (width >= 481px) {
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm {
+    padding: 0;
+  }
+
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoLabel,
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoRequiredField label.mktoLabel {
+    float: left;
+    margin-bottom: 0;
+  }
+
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']),
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm select.mktoField,
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm textarea.mktoField {
+    width: 450px !important;
+    max-width: none;
+  }
+}
+
+/* breakpoint-exception: source two-column form from 1153px */
+@media (width >= 1153px) {
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm {
+    max-width: 900px;
+    padding-top: 20px;
+  }
+
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoFormCol {
+    float: left;
+    width: auto;
+    margin-right: 35px;
+  }
+
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoLabel,
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoRequiredField label.mktoLabel {
+    width: 120px !important;
+    font-size: 14px;
+  }
+
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']),
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm select.mktoField {
+    width: 295px !important;
+    height: 35px;
+    padding: 5px 10px !important;
+  }
+
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']) {
+    font-size: 20px;
+  }
+
+  main:has(> .section.anchor-contents) .embed-marketo .mktoForm textarea.mktoField {
+    width: 745px !important;
+    padding: 5px 10px !important;
+  }
 }

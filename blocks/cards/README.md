@@ -19,6 +19,7 @@ One **Cards** block with variants. The variant is the first block option (UE: *V
 | `Cards (gradient)` | variants/gradient.js | cards-gradient | `cards-gradient-item` | – |
 | `Cards (steps)` | variants/steps.js | cards-steps | `cards-steps-item` | `exchange` |
 | `Cards (workflow)` | variants/workflow.js | cards-workflow | `cards-workflow-item` | `unnumbered` |
+| `Cards (tiles)` | variants/tiles.js | cards-tiles | `cards-tiles-card` | `panels` |
 
 ## Cards (default)
 
@@ -143,3 +144,21 @@ Options:
 - `unnumbered` (Vi-CELL BLU integrations): no number badges and no chevrons; bordered 33% tiles, centred blue name above a contained image, no hover. The name may itself be the link: `<p><strong><a href>name</a></strong></p>`. Author as `Cards (workflow, unnumbered)`.
 
 Use for linked product workflows (step 1..n). For unlinked photo step cards use Cards (steps).
+
+## Cards (tiles)
+
+Authoring: `Cards (tiles)` or `Cards (tiles, panels)`. Item component: `cards-tiles-card`.
+
+Purpose: Bordered tiles, each linking to a detail page: image on top, centred title below; the whole tile is clickable through its title link. Tiles share one row (equal widths, 16px gap) from 768px and stack at 80% width below. A tile whose text starts with an eyebrow paragraph shows it as a grey badge over a red gradient image area with a contained thumbnail (resource tiles: Whitepaper, Application Note...).
+
+Rows: one row per tile (item cards-tiles-card): (1) image (`image`/`imageAlt`); (2) rich text `text`: optional eyebrow paragraph (badge) + title paragraph holding the link.
+
+### Supported variations
+
+- `panels`: Related Content grid: four tiles across from 768px (wrapping, 1% / 30px gaps, 1020px max), one per row below; grayscale photos cropped to the row height, bold 14px black titles, square #c2c4c4 borders.
+
+### Universal Editor fields
+
+- Items `cards-tiles-card`: `image`, `imageAlt`, `text`.
+
+Use for rows of linked application / resource tiles. For a horizontal scroll strip use Cards (scroll); for document cards with a Read button use Cards (resource).

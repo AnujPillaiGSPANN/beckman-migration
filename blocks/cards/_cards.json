@@ -180,6 +180,21 @@
           }
         }
       }
+    },
+    {
+      "title": "Tile",
+      "id": "cards-tiles-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Tile",
+              "model": "cards-tiles-card"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -236,6 +251,10 @@
             {
               "name": "Workflow",
               "value": "workflow"
+            },
+            {
+              "name": "Tiles",
+              "value": "tiles"
             }
           ]
         },
@@ -261,6 +280,10 @@
             {
               "name": "Unnumbered (Workflow: no step badges)",
               "value": "unnumbered"
+            },
+            {
+              "name": "Panels (Tiles: 4-column wrapping grid, grayscale photos, bold titles)",
+              "value": "panels"
             }
           ]
         }
@@ -507,6 +530,32 @@
           "valueType": "string"
         }
       ]
+    },
+    {
+      "id": "cards-tiles-card",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "value": "",
+          "label": "Image Alt"
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Optional badge paragraph + linked title",
+          "valueType": "string"
+        }
+      ]
     }
   ],
   "filters": [
@@ -523,7 +572,8 @@
         "cards-downloads-item",
         "cards-gradient-item",
         "cards-steps-item",
-        "cards-workflow-item"
+        "cards-workflow-item",
+        "cards-tiles-card"
       ]
     }
   ]

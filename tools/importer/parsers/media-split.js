@@ -10,6 +10,11 @@
  *  - product-detail (Cydem VT): div.spotlight-content-wrapper div.Section > div.responsive-table
  *      .table-row > .table-cell = 6 separate <ul> (span.plain, <br>) -> merged into one list
  *      siblings = .container-overlay-full-width img (+ div.overlay zoom link, dropped) + caption <p>
+ *  - product-series (MET ONE 3400+ IT guide whitepaper): .bc-rich-text > h2 | p holding an
+ *      <img style="float: left|right"> -> "Media Split (wrap)" / "Media Split (wrap, left)";
+ *      the block's text is the container (image lifted out) + its following siblings up to the
+ *      next <h2> or the next element holding a floated image (removed from the page flow).
+ *      The float side is an option, not the cell order: xwalk maps cells to fields by position.
  * Layout: 1 row, 2 cells:
  *   cell 1 (field:column1)      = rich text (intro, list, CTA)
  *   cell 2 (group column2_*)    = field:column2_image (picture, alt -> column2_imageAlt)
@@ -123,7 +128,59 @@ function flatten(document, container) {
   return out;
 }
 
+/** Float side of a floated source image ('left' | 'right'), '' when not floated. */
+function floatSide(img) {
+  const m = /float\s*:\s*(left|right)/i.exec((img && img.getAttribute('style')) || '');
+  return m ? m[1].toLowerCase() : '';
+}
+const holdsFloat = (el) => (el.tagName === 'IMG' ? !!floatSide(el)
+  : Array.from(el.querySelectorAll('img')).some((i) => floatSide(i)));
+
+/** Long-form text wrapping around a floated screenshot (IT guide whitepaper). */
+function parseWrap(element, document, img) {
+  const side = floatSide(img);
+  const picture = img.closest('picture');
+  (picture && element.contains(picture) ? picture : img).remove();
+  ['style', 'width', 'height', 'class'].forEach((a) => img.removeAttribute(a));
+
+  // the block takes the container's place
+  const marker = document.createElement('div');
+  element.before(marker);
+  let next = element.nextElementSibling;
+  const text = [];
+  if (clean(element.textContent)) {
+    element.removeAttribute('style');
+    text.push(element);
+  } else element.remove();
+  while (next && next.tagName !== 'H2' && !holdsFloat(next) && !next.hasAttribute('data-excat-block')) {
+    const after = next.nextElementSibling;
+    if (clean(next.textContent) || next.querySelector('img, picture')) text.push(next);
+    else next.remove();
+    next = after;
+  }
+
+  const textCell = document.createDocumentFragment();
+  textCell.appendChild(document.createComment(' field:column1 '));
+  text.forEach((n) => textCell.appendChild(n));
+  const mediaCell = document.createDocumentFragment();
+  mediaCell.appendChild(document.createComment(' field:column2_image '));
+  const pic = document.createElement('picture');
+  pic.appendChild(img);
+  mediaCell.appendChild(pic);
+
+  const name = side === 'left' ? 'Media Split (wrap, left)' : 'Media Split (wrap)';
+  const block = WebImporter.Blocks.createBlock(document, { name, cells: [[textCell, mediaCell]] });
+  marker.replaceWith(block);
+  return block;
+}
+
 export default function parse(element, { document }) {
+  // a heading / paragraph holding a floated screenshot
+  const floated = Array.from(element.querySelectorAll('img')).find((i) => floatSide(i));
+  if (floated && /^(H[1-6]|P)$/.test(element.tagName)) {
+    parseWrap(element, document, floated);
+    return;
+  }
   const row = element.querySelector(':scope > .table-row') || element.querySelector('.table-row') || element;
   let parts = Array.from(row.children).filter((c) => !['STYLE', 'SCRIPT'].includes(c.tagName));
 

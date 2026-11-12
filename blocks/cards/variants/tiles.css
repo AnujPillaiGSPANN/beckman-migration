@@ -1,0 +1,212 @@
+/* Cards (tiles) – source: .cards-row > a.card (bordered, image over a centred h4; badge tiles:
+   .badge-resources over a red gradient .card-image with a contained thumbnail) and, with the
+   "panels" option, the Related Content .panel-wrapper > .panel grid (grayscale photo, bold h4). */
+
+/* source .copy: max-width 1200px with 5vw side padding */
+.cards-tiles {
+  max-width: calc(1200px - 10vw);
+  margin: 0 auto 18px;
+}
+
+.cards-tiles .cards-tiles-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-tiles .cards-tiles-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 80%;
+  border: 1px solid #cdcdcd;
+  border-radius: 4px;
+  background: #fff;
+
+  /* clip (not hidden): keeps the flex items' min-content minimum width */
+  overflow: clip;
+}
+
+/* image: source .card-image.<photo> background (cover, centred, 154px) */
+.cards-tiles .cards-tiles-card-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  box-sizing: border-box;
+  height: 154px;
+}
+
+.cards-tiles .cards-tiles-card-image picture {
+  display: contents;
+}
+
+.cards-tiles .cards-tiles-card-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* badge tiles: gradient image area with a contained thumbnail */
+.cards-tiles .cards-tiles-card-badged .cards-tiles-card-image {
+  height: 114px;
+  padding: 16px 0;
+  background: linear-gradient(45deg, #762858 0%, #d52331 34.62%, #d52331 82.86%, #ee4956 100%);
+}
+
+.cards-tiles .cards-tiles-card-badged .cards-tiles-card-image img {
+  width: 88px;
+  height: auto;
+  max-height: 94px;
+  border-radius: 4px;
+  object-fit: contain;
+  object-position: top;
+}
+
+.cards-tiles .cards-tiles-card-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  margin: 0;
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: #545454;
+  color: #fff;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: left;
+}
+
+/* source .text-container + h4 */
+.cards-tiles .cards-tiles-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 16px;
+}
+
+.cards-tiles .cards-tiles-card-body > * {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.cards-tiles .cards-tiles-card-title {
+  flex-grow: 1;
+  align-content: center;
+  color: #545454;
+  font-weight: 500;
+}
+
+.cards-tiles .cards-tiles-card-title a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* whole tile clickable: the title link covers the tile */
+.cards-tiles .cards-tiles-card-linked .cards-tiles-card-title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.cards-tiles .cards-tiles-card-title a:focus-visible {
+  outline: none;
+}
+
+.cards-tiles .cards-tiles-card-linked:focus-within {
+  outline: 2px solid #ea1c2c;
+  outline-offset: 2px;
+}
+
+/* panels (source .panel-wrapper: 85% of the bootstrap .row – the viewport + 15px gutters, 10px
+   from 992px – and 1020px from 1200px; .panel: 4 across) */
+.cards-tiles.panels {
+  max-width: min(1020px, 0.85 * (100vw + 30px));
+  margin: 20px auto 10px;
+}
+
+/* breakpoint-exception: source bootstrap .row gutters are 10px from 992px */
+@media (width >= 992px) {
+  .cards-tiles.panels {
+    max-width: min(1020px, 0.85 * (100vw + 20px));
+  }
+}
+
+.cards-tiles.panels .cards-tiles-list {
+  align-items: stretch;
+}
+
+.cards-tiles.panels .cards-tiles-card {
+  justify-content: space-between;
+  width: 100%;
+  border-color: #c2c4c4;
+  border-radius: 0;
+  background: transparent;
+}
+
+/* source .panel > a { height: 100% } + .panel-content { height: 90px }: the row is as tall as
+   the tallest photo (natural height at the panel width) + 90px, then photo and text box shrink
+   together in the stretched panel (photo cropped to fill). Stacked panels keep both sizes. */
+.cards-tiles.panels .cards-tiles-card-image {
+  flex: 0 1 100%;
+  min-height: 0;
+  height: auto;
+}
+
+.cards-tiles.panels .cards-tiles-card-image img {
+  filter: grayscale(100%);
+}
+
+/* source .panel-content: 90px, padding .75em 1em */
+.cards-tiles.panels .cards-tiles-card-body {
+  flex: 0 1 auto;
+  min-height: 0;
+  height: 90px;
+  padding: 12px 16px;
+  overflow-wrap: break-word;
+}
+
+.cards-tiles.panels .cards-tiles-card-title {
+  flex-grow: 0;
+  color: #000;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+@media (width >= 768px) {
+  .cards-tiles .cards-tiles-list {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  /* source .card { flex: 1 }: equal shares, but never narrower than the longest word */
+  .cards-tiles .cards-tiles-card {
+    flex: 1 1 0;
+    width: auto;
+  }
+
+  .cards-tiles.panels .cards-tiles-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 30px 1%;
+  }
+}

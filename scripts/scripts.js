@@ -201,12 +201,37 @@ export function joinLinkedImages(root) {
 }
 
 /**
+ * Images side by side in default content. AEM text components cannot hold images, so a
+ * paragraph of inline images (e.g. two screenshots separated by a space) is stored as one image
+ * component per image and rendered as consecutive image-only paragraphs. Join such a run back
+ * into one paragraph, the images separated by a space (they still wrap when they do not fit).
+ * @param {Element} root container whose children are sections (main or a fragment)
+ */
+export function joinImageRuns(root) {
+  const imageOnly = (el) => el?.tagName === 'P' && el.children.length === 1
+    && el.firstElementChild.matches('picture, img') && !el.textContent.trim();
+  root.querySelectorAll(':scope > div > p').forEach((p) => {
+    if (!p.isConnected || !imageOnly(p)) return;
+    let next = p.nextElementSibling;
+    while (imageOnly(next)) {
+      const media = next.firstElementChild;
+      const after = next.nextElementSibling;
+      moveInstrumentation(next, media);
+      p.append(' ', media);
+      next.remove();
+      next = after;
+    }
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
   joinLinkedImages(main);
+  joinImageRuns(main);
   wrapInlineCells(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);

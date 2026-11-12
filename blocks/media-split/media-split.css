@@ -1,15 +1,16 @@
-/* Columns (media) – two source layouts:
+/* Columns (media) – three source layouts:
    - copy | image (Biomek): .containercustom > .row > .col-md-6 x2, check-icon list (.cusautolist)
-   - list | image + caption (Cydem VT): .responsive-table > .table-row > .table-cell (auto table layout) */
+   - list | image + caption (Cydem VT): .responsive-table > .table-row > .table-cell (auto table layout)
+   - option wrap (IT guide whitepaper): long-form text wrapping around a floated screenshot */
 
 /* source bootstrap container: 15px gutters (the block sets the 720/940/1140px inner width) */
-main > .section > .media-split-wrapper:not(:has(.media-split-caption)) {
+main > .section > .media-split-wrapper:not(:has(.media-split-caption, .wrap)) {
   max-width: none;
   padding: 0 var(--content-gutter);
 }
 
 /* section heading directly above the block (source .containercustom h2 above the .row) */
-main .section .default-content-wrapper:has(+ .media-split-wrapper) > :is(h2:last-child, h2:has(+ p:last-child)) {
+main .section .default-content-wrapper:has(+ .media-split-wrapper > :not(.wrap)) > :is(h2:last-child, h2:has(+ p:last-child)) {
   margin: 75px 0 20px;
 }
 
@@ -38,20 +39,20 @@ main .section .default-content-wrapper:has(+ .media-split-wrapper) > :is(h2:last
 /* list after the intro copy, or a list-only cell beside an image (Echo):
    source ul.cusautolist (Font Awesome 5 regular check-circle, #ea1c2c) */
 .media-split .media-split-text p + ul,
-.media-split .media-split-row:not(:has(.media-split-caption)) .media-split-text > ul:first-child {
+.media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) .media-split-text > ul:first-child {
   margin: 0;
   list-style: none;
 }
 
 .media-split .media-split-text p + ul > li,
-.media-split .media-split-row:not(:has(.media-split-caption)) .media-split-text > ul:first-child > li {
+.media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) .media-split-text > ul:first-child > li {
   position: relative;
   margin-bottom: 10px;
   padding-left: 24px;
 }
 
 .media-split .media-split-text p + ul > li::before,
-.media-split .media-split-row:not(:has(.media-split-caption)) .media-split-text > ul:first-child > li::before {
+.media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) .media-split-text > ul:first-child > li::before {
   content: '';
   position: absolute;
   top: calc(0.5lh - 0.5em);
@@ -89,13 +90,13 @@ main .media-split .media-split-text a.button:any-link:hover {
 }
 
 /* CTA paragraph below the block (Echo): source div (text-align: center) > a > button.btn-red pill */
-main .section .media-split-wrapper:not(:has(.media-split-caption)) + .default-content-wrapper > .button-container:first-child {
+main .section .media-split-wrapper:not(:has(.media-split-caption, .wrap)) + .default-content-wrapper > .button-container:first-child {
   display: block;
   margin: 0;
   text-align: center;
 }
 
-main .section .media-split-wrapper:not(:has(.media-split-caption)) + .default-content-wrapper > .button-container:first-child a.button:any-link {
+main .section .media-split-wrapper:not(:has(.media-split-caption, .wrap)) + .default-content-wrapper > .button-container:first-child a.button:any-link {
   border-radius: 9999px;
   padding: 12px 20px;
 }
@@ -165,25 +166,25 @@ main .section .media-split-wrapper:not(:has(.media-split-caption)) + .default-co
 
 /* breakpoint-exception: source container is 750px wide from exactly 768px */
 @media (width >= 768px) {
-  .media-split:not(:has(.media-split-caption)) {
+  .media-split:not(.wrap, :has(.media-split-caption)) {
     max-width: 720px;
   }
 }
 
 /* breakpoint-exception: source container is 970px and .col-md-6 floats from exactly 992px */
 @media (width >= 992px) {
-  .media-split:not(:has(.media-split-caption)) {
+  .media-split:not(.wrap, :has(.media-split-caption)) {
     max-width: 940px;
   }
 
-  .media-split .media-split-row:not(:has(.media-split-caption)) {
+  .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) {
     display: flex;
     align-items: flex-start;
     margin: 0 -10px;
   }
 
   /* source .row gutters are 10px from here */
-  .media-split .media-split-row:not(:has(.media-split-caption)) > div {
+  .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > div {
     box-sizing: border-box;
     flex: 0 0 50%;
     width: 50%;
@@ -192,7 +193,7 @@ main .section .media-split-wrapper:not(:has(.media-split-caption)) + .default-co
 }
 
 @media (width >= 1200px) {
-  .media-split:not(:has(.media-split-caption)) {
+  .media-split:not(.wrap, :has(.media-split-caption)) {
     max-width: 1140px;
   }
 }
@@ -200,4 +201,181 @@ main .section .media-split-wrapper:not(:has(.media-split-caption)) + .default-co
 /* intro paragraph between the heading and the block (Echo): source p, left-aligned */
 main .section .default-content-wrapper:has(+ .media-split-wrapper) > h2 + p:last-child {
   text-align: start;
+}
+
+/* --- option wrap: long-form text wrapping around a screenshot (IT guide whitepaper
+   .bc-rich-text: h2 / p > img style="float: right | left; width: 400px; margin: 10px 0 10px 10px",
+   2px #efefef border). Like the source float, the image is not cleared: text after the block keeps
+   wrapping beside it (main column sections are flow-root); the JS puts the image cell first. --- */
+.media-split.wrap {
+  display: block;
+  margin: 0;
+}
+
+.media-split.wrap .media-split-image {
+  float: right;
+  box-sizing: border-box;
+  width: 400px;
+  max-width: 100%;
+  margin: 10px 0 10px 10px;
+}
+
+.media-split.wrap.left .media-split-image {
+  float: left;
+  margin: 10px 10px 10px 0;
+}
+
+.media-split.wrap .media-split-image > p,
+.media-split.wrap .media-split-image > picture {
+  margin: 0;
+}
+
+.media-split.wrap .media-split-image img {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  border: 2px solid #efefef;
+}
+
+/* lists keep the long-form look (no check-circle markers) */
+.media-split.wrap .media-split-text :is(ul, ol) {
+  margin: 0 0 10px;
+  padding-left: 17px;
+  list-style: revert;
+}
+
+.media-split.wrap .media-split-text li {
+  margin: 0;
+  padding-left: 0;
+}
+
+.media-split.wrap .media-split-text li::before {
+  content: none;
+}
+
+/* other blocks after a wrap block start below the screenshot */
+main .section .media-split-wrapper:has(> .wrap) ~ div:not(.default-content-wrapper, .media-split-wrapper) {
+  clear: both;
+}
+
+/* --- technology page (the page with a "Contents:" bar, section style anchor-contents, e.g.
+   Analytical Ultracentrifugation): source section > .copy.row, max 1200px, padding 5vh 0, two
+   40% columns spread evenly (the bootstrap .row clearfix pseudo-elements are flex items too),
+   the image column (.copy-img) 16px off its left neighbour and vertically centred. Methods: the
+   text column is a .copy-img too (16px margin, centred). Red 32px headings, 16px / 24px text,
+   source <br>s after the heading and the list (one 26.4px line each), inline a.primary-btn. --- */
+main:has(> .section.anchor-contents) > .section > .media-split-wrapper:not(:has(.media-split-caption, .wrap)) {
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5vh 0;
+}
+
+/* Benefits: below the rule drawn after the intro video (hr.new margin + .copy padding) and
+   above the <br> before Applications */
+main:has(> .section.anchor-contents) > .section > .media-split-wrapper:only-child:not(:has(.media-split-caption, .wrap)) {
+  padding: calc(20px + 7vh) 0 calc(5vh + 26.4px);
+}
+
+main:has(> .section.anchor-contents) .media-split:not(.wrap, :has(.media-split-caption)) {
+  max-width: none;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-evenly;
+  margin: 0;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > div {
+  box-sizing: border-box;
+  flex: 0 0 40%;
+  width: 40%;
+  padding: 0;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+main:has(> .section.anchor-contents) > .section > .media-split-wrapper:not(:only-child) .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-text {
+  align-self: center;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text h2 {
+  margin: 0;
+  color: #ea1c2c;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text p:not(.button-container) {
+  line-height: 1.5;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text p + p:not(.button-container) {
+  margin-top: 24px;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text h2 + ul {
+  margin-top: 26.4px;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text ul {
+  margin-bottom: 0;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text li::marker {
+  color: #ea1c2c;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text ul + .button-container {
+  margin-top: 36.4px;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text .button-container {
+  text-align: start;
+}
+
+/* Methods: the CTA sits in a <div> that the source's ".copy.row div { width: 40% }" also hits
+   (the label wraps in narrow columns) */
+main:has(> .section.anchor-contents) > .section > .media-split-wrapper:not(:only-child) .media-split-text .button-container {
+  width: 40%;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text a.button:any-link {
+  display: inline;
+  vertical-align: baseline;
+  white-space: normal;
+  border-radius: 3px;
+  padding: 7px 15px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-text a.button:any-link:hover {
+  background-color: #ea1c2c;
+}
+
+main:has(> .section.anchor-contents) .media-split .media-split-image > p,
+main:has(> .section.anchor-contents) .media-split .media-split-image > picture {
+  margin: 0;
+}
+
+/* breakpoint-exception: source .copy padding is 2vh below 768px, 5vh from 768px */
+@media (width >= 768px) {
+  main:has(> .section.anchor-contents) > .section > .media-split-wrapper:only-child:not(:has(.media-split-caption, .wrap)) {
+    padding-top: calc(20px + 10vh);
+  }
+
+  /* source .copy-img { margin-left: 16px } (0 below 768px) */
+  main:has(> .section.anchor-contents) .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-image,
+  main:has(> .section.anchor-contents) > .section > .media-split-wrapper:not(:only-child) .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-text {
+    margin-left: 16px;
+  }
 }

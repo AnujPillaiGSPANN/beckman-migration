@@ -10,14 +10,18 @@
     "summary": "Two 50/50 columns: left intro paragraph + 4-item list with red check-circle icons and bold lead-ins + 'Learn more' red button (#form); right large product image (Biomek i7 integrated system) | Two columns: left 6-item bulleted list; right chart image (click-to-zoom) with a caption paragraph",
     "structure": "one row, two cells: (1) rich text (intro, list, optional button); (2) image + optional caption paragraph"
   },
-  "options": [],
+  "options": [
+    "wrap",
+    "left"
+  ],
   "memberVariantIds": [
     "media-split"
   ],
   "sourceUrl": "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
   "sourceUrls": [
     "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
-    "https://www.beckman.com/cell-culture-workstation/cydem-vt"
+    "https://www.beckman.com/cell-culture-workstation/cydem-vt",
+    "https://www.mybeckman.in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide"
   ],
   "sectionMetadata": {
     "style": "centered"
@@ -25,10 +29,12 @@
   "usage": {
     "pagesUsing": [
       "/liquid-handlers/biomek-i-series-automated-workstations",
-      "/cell-culture-workstation/cydem-vt"
+      "/cell-culture-workstation/cydem-vt",
+      "/in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide",
+      "/in/resources/technologies/analytical-ultracentrifugation"
     ],
-    "reuseCount": 1,
-    "lastUsed": "2026-11-10"
+    "reuseCount": 2,
+    "lastUsed": "2026-11-12"
   },
   "reuseGuidance": "Use for copy next to a large product image or chart. For video use intro-video.",
   "usageDescription": "Copy (intro, red check-circle list, CTA) beside a large image with an optional caption, ~50/50."

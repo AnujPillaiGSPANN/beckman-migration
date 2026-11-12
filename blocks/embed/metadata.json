@@ -51,10 +51,13 @@
       },
       "usage": {
         "pagesUsing": [
-          "/liquid-handlers/biomek-i-series-automated-workstations"
+          "/liquid-handlers/biomek-i-series-automated-workstations",
+          "/resources/reading-material/whitepapers/gmp-cleanrooms-classification-and-routine-environmental-monitoring",
+          "/in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide",
+          "/in/resources/technologies/analytical-ultracentrifugation"
         ],
-        "reuseCount": 0,
-        "lastUsed": "2026-11-10"
+        "reuseCount": 2,
+        "lastUsed": "2026-11-12"
       },
       "reuseGuidance": "Use for any Marketo contact / lead form. Base URL and Munchkin ID default to the Beckman instance.",
       "usageDescription": "Marketo-hosted form (forms2) rendered from the Beckman Marketo instance, red Submit button, single column on mobile."
@@ -95,10 +98,12 @@
       "usage": {
         "pagesUsing": [
           "/cell-culture-workstation/cydem-vt",
-          "/cell-counters-and-analyzers/vi-cell-blu"
+          "/cell-counters-and-analyzers/vi-cell-blu",
+          "/in/resources/technologies/analytical-ultracentrifugation",
+          "/in/liquid-particle-counters/hiac-9703-plus"
         ],
-        "reuseCount": 0,
-        "lastUsed": "2026-11-10"
+        "reuseCount": 1,
+        "lastUsed": "2026-11-12"
       },
       "reuseGuidance": "Use for any standalone Wistia video. Wistia inside a layout uses intro-video or hero-video.",
       "usageDescription": "Standalone Wistia player, 16:9, ~83% of the content width, centered; lazy-loaded, or click-to-play with a poster."

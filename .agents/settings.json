@@ -1,6 +1,7 @@
 {
   "enabledPlugins": {
     "modern-web-guidance@excat-extended": true,
-    "edge-delivery-services@excat-marketplace": true
+    "edge-delivery-services@excat-marketplace": true,
+    "project-management@excat-extended": true
   }
 }

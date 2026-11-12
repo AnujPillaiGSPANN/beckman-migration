@@ -54,6 +54,10 @@
             {
               "name": "Promo (dark banner with feature strip)",
               "value": "promo"
+            },
+            {
+              "name": "Banner (dark full-width banner: photo + centred title)",
+              "value": "banner"
             }
           ]
         },
@@ -61,7 +65,7 @@
           "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Image (Default / Promo: background image)",
+          "label": "Image (Default / Promo / Banner: background image)",
           "multi": false
         },
         {
@@ -96,7 +100,7 @@
           "component": "richtext",
           "name": "text",
           "value": "",
-          "label": "Text (Default: heading; Motion: H1 + CTA links; Promo: eyebrow, heading, text, CTA)",
+          "label": "Text (Default: heading; Motion: H1 + CTA links; Promo: eyebrow, heading, text, CTA; Banner: H1 + subtitle)",
           "valueType": "string"
         }
       ]

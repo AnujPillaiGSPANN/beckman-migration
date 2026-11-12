@@ -434,6 +434,40 @@ function keepDocumentLinksExternal(root, payload) {
  * - wrapImages: an <img> sitting directly in a container gets its own paragraph
  * - railCurrent: the rail's current-page link (li.active-nav) points at the site root on the
  *   source: re-point it at the page itself
+ * - nestLists: a sub-list placed directly in a list (invalid <ul><li/><ul/></ul>) moves into the
+ *   list item before it
+ * - headings: text of styled paragraphs that act as headings (e.g. a <p> with a 2.5rem <span>):
+ *   each becomes an <h3>
+ * - linkGroups: a paragraph of "<strong>label<br></strong><small>link<br>link</small>" groups
+ *   becomes one label paragraph (<p><strong>) + one paragraph of <br>-separated links per group
+ *   (the <small> size comes from the sidebar CSS)
+ * - imageAlts: { '<image file name>': 'alt' } for images whose alt is empty on the source
+ *   (e.g. the IT guide screenshots); applied before the parsers, so block images get them too
+ * - jumpButtons: selector of in-page jump <button>s without a link (the source scrolls with JS):
+ *   each becomes a paragraph with a link to the element whose id is the lower-case label
+ *   (preprocess, so rewriteAnchors then points it at that section's heading id)
+ * - titleHeadings: { '<selector>': 'h2' }: styled paragraphs that act as a section title become
+ *   that heading (preprocess, so in-page links to their wrapper find the heading)
+ * - primaryLinks / secondaryLinks: selector of links styled as red / outlined buttons: each gets
+ *   its own paragraph, <strong>- / <em>-wrapped (icons and inline styles dropped); applied
+ *   inside blocks too (the parsers keep the wrapper)
+ * - splitBreaks: a paragraph broken by "<br><br>" runs becomes one paragraph per run
+ * - sitecoreLinks: { '<link.aspx _id>': 'URL' }: unresolved Sitecore links (~/link.aspx?_id=…)
+ * - cssBackgrounds: background images set by class rules in the page's inline <style> (not
+ *   inline styles) are copied to the elements as data-excat-bg (preprocess, while the <style>s
+ *   are there) for the parsers (hero-banner, cards-tiles)
+ * - modelsJump: 'drop' = the jump-bar link to the Coveo models table is dropped (the intro
+ *   button still points at the live page's table)
+ * - emptyLinks: 'text' = a "Resources + Tools" link with an empty href becomes plain text;
+ *   'drop' = it is dropped (default: it links to the page itself, as the empty href does on the
+ *   source)
+ * - wrapText: selector of containers whose loose text / inline runs (not in any element, e.g.
+ *   "Learn more …, <a>HERE</a>" after a list) are wrapped in a paragraph
+ * - links: { '<href>': '<href>' } link targets to replace (e.g. a US-site link on an India page)
+ * - techDocs: 'more' = Technical Documents keeps the visible "Didn't find … click here." line
+ *   (#coveo-techdocs-more-results) instead of the hidden Coveo error sentence
+ * - wistiaPoster: the rendered Wistia player's thumbnail (as .jpg) becomes the Embed (wistia)
+ *   poster image, alt = the video title
  */
 const PAGE_RULES = {
   'https://www.beckman.com/air-particle-counters/met-one-3400-plus': {
@@ -469,6 +503,71 @@ const PAGE_RULES = {
     wrapImages: true,
     railCurrent: true,
   },
+  // whitepaper: bare figure images, sub-lists directly in the outer list, sidebar link groups
+  'https://www.mybeckman.in/resources/reading-material/whitepapers/gmp-cleanrooms-classification-and-routine-environmental-monitoring': {
+    spacers: true,
+    wrapImages: true,
+    nestLists: true,
+    headings: ['Helpful Links'],
+    linkGroups: true,
+  },
+  // whitepaper: <ol> directly in the "Local Users" <ul>; floated screenshots are media-split
+  // (wrap) blocks (the parser lifts them out of their <h2>); screenshots have no alt on the source
+  'https://www.mybeckman.in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide': {
+    spacers: true,
+    nestLists: true,
+    imageAlts: {
+      '3400-it-implementation-guidepic1.jpg': 'MET ONE 3400+ Network Settings screen, wired status',
+      '3400-it-implementation-guidepic2.jpg': 'MET ONE 3400+ Network Settings screen, wired configuration',
+      '3400-it-implementation-guidepic3.jpg': 'MET ONE 3400+ Network Settings screen, Wi-Fi network list',
+      '3400-it-implementation-guidepic4.jpg': 'MET ONE 3400+ Users screen',
+      '3400-it-implementation-guidepic6.jpg': 'MET ONE 3400+ LDAP Settings screen',
+      '3400-it-implementation-guidepic7.jpg': 'MET ONE 3400+ Machine Group screen, Create a Group',
+      '3400-it-implementation-guidepic8.jpg': 'MET ONE 3400+ Enter Sample Details dialog with a batch ID field',
+      '3400-it-implementation-guidepic9.jpg': 'MET ONE 3400+ SOP dashboard waiting for a location barcode scan',
+      '3400-it-implementation-guidepic10.jpg': 'MET ONE 3400+ SOP Edit Location screen with the External ID field',
+      '3400-it-implementation-guidepic11.jpg': 'MET ONE 3400+ dashboard in a desktop web browser',
+      '3400-it-implementation-guidepic12.jpg': 'MET ONE 3400+ Network Drives screen with a mounted share',
+      '3400-it-implementation-guidepic13.jpg': 'MET ONE 3400+ Printing settings screen',
+      '3400-it-implementation-guidepic14.jpg': 'MET ONE 3400+ Add a Printer screen',
+      '3400-it-implementation-guidepic15.jpg': 'MET ONE 3400+ firmware Upgrade screen',
+      '3400-it-implementation-guidepic16.jpg': 'MET ONE 3400+ Event Log report screen',
+      '3400-it-implementation-guidepic17.jpg': 'MET ONE 3400+ Audit Trail report screen',
+      '3400-it-implementation-guidepic18.jpg': 'MET ONE 3400+ Diagnostics screen',
+      'metone3400itimplementationguidecover.jpg': 'MET ONE 3400+ IT Implementation Guide cover',
+    },
+  },
+  // intro "Explore … Models" button kept (live models table, as on MET ONE 6000), its jump-bar
+  // link dropped; loose "Learn more about our Software, HERE" line (US link) wrapped and
+  // re-pointed at the India software page; dead empty-href "Brochure" dropped; Chinese gallery
+  // alt replaced; visible "click here" tech-docs line; Wistia thumbnail as the video poster
+  'https://www.mybeckman.in/liquid-particle-counters/hiac-9703-plus': {
+    introCtas: 'keep',
+    modelsJump: 'drop',
+    resourceTools: 'list',
+    emptyLinks: 'drop',
+    galleryAlt: 'HIAC 9703+ Pharmaceutical Particle Counter',
+    wrapText: 'div.product-intro-wrapper div.rt-holder',
+    links: {
+      'https://www.beckman.com/liquid-particle-counters/hiac-9703-plus/software': 'https://www.mybeckman.in/liquid-particle-counters/hiac-9703-plus/software',
+    },
+    techDocs: 'more',
+    wistiaPoster: true,
+  },
+  // technology page: "Contents:" jump buttons, form title as the "Talk to an expert" (#anchor)
+  // target, red / outlined link buttons, <br><br> paragraphs, CSS background hero + tiles
+  'https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation': {
+    spacers: true,
+    jumpButtons: '#quick-nav button',
+    titleHeadings: { '#anchor > p.formtitle': 'h2' },
+    primaryLinks: 'a.primary-btn',
+    secondaryLinks: 'a.resources-no-img',
+    splitBreaks: true,
+    sitecoreLinks: {
+      '927D3A6DC72B47CAA2666F96F6DE1872': 'https://www.mybeckman.in/centrifuges/analytical-ultracentrifuges/optima-auc',
+    },
+    cssBackgrounds: true,
+  },
 };
 
 /**
@@ -501,6 +600,19 @@ const MEDIA_EXTENSIONS = {
   // echo-acoustic "Explore Applications" tile 7: www.beckman.com/liquid-handlers/-/media//<id>.ashx
   // (bot-protected host) is served by media.beckman.com as /-/media/<id>.jpg [jpeg]
   '/-/media/2ec0cf3fc1234c05b2ea2035704e8343': 'jpg',
+  // analytical-ultracentrifugation: hero banner + 5 application tiles in the inline CSS [png],
+  // benefits / methods photos [png / jpg], resource tile thumbnails [jpg, jpg, png]
+  '/-/media/resources/technologies/auc-pages/blackandwhite_auc-homepage-banner-2560x600-v1-sw': 'png',
+  '/-/media/resources/technologies/auc-pages/viral-vector': 'png',
+  '/-/media/resources/technologies/auc-pages/mabs': 'png',
+  '/-/media/resources/technologies/auc-pages/lnp': 'png',
+  '/-/media/resources/technologies/auc-pages/evs': 'png',
+  '/-/media/resources/technologies/auc-pages/interaction-studies': 'png',
+  '/-/media/centrifugation/products/instruments/analytical-ultracentrifuge/optima-auc/centrifuge-rotor-analytical-optima-auc-chamber-lid-2017-11': 'png',
+  '/-/media/centrifugation/products/instruments/analytical-ultracentrifuge/optima-auc/centrifuge-analytical-ultracentrifuge-auc-general-lab': 'jpg',
+  '/-/media/resources/technologies/auc-pages/thumbnails/sample-concentration': 'jpg',
+  '/-/media/resources/technologies/auc-pages/thumbnails/multiwavelenght': 'jpg',
+  '/-/media/centrifugation/products/instruments/analytical-ultracentrifuge/optima-auc/centrifuge-analytical-ultracentrifuge-optima-auc-full-view-2017-05': 'png',
 };
 
 /** Working URL for an extension-less / .ashx media URL listed above, else null. */
@@ -523,6 +635,10 @@ function fixMediaExtensions(root) {
     return fixed ? `url(${q}${fixed}${q})` : all;
   });
   safeAll(root, '[style*="url("]').forEach((el) => el.setAttribute('style', fixCss(el.getAttribute('style'))));
+  safeAll(root, `[${BG}]`).forEach((el) => {
+    const fixed = mediaUrlWithExtension(el.getAttribute(BG));
+    if (fixed) el.setAttribute(BG, fixed);
+  });
   safeAll(root, 'style').forEach((s) => {
     if (/url\(/.test(s.textContent)) s.textContent = fixCss(s.textContent);
   });
@@ -630,11 +746,17 @@ function resourceTools(root, doc, rules, ctx, url) {
     const ul = doc.createElement('ul');
     safeAll(box, '.resource-tool-table-links-wrapper a').forEach((a) => {
       const li = doc.createElement('li');
-      const link = doc.createElement('a');
-      // an empty href reloads the page itself on the source
-      link.setAttribute('href', (a.getAttribute('href') || '').trim() || url);
-      link.textContent = a.textContent.trim();
-      li.append(link);
+      const href = (a.getAttribute('href') || '').trim();
+      if (!href && rules.emptyLinks === 'drop') return;
+      if (!href && rules.emptyLinks === 'text') {
+        li.textContent = a.textContent.trim();
+      } else {
+        const link = doc.createElement('a');
+        // an empty href reloads the page itself on the source
+        link.setAttribute('href', href || url);
+        link.textContent = a.textContent.trim();
+        li.append(link);
+      }
       ul.append(li);
     });
     box.replaceWith(...(p.textContent ? [p] : []), ul);
@@ -682,7 +804,11 @@ function pageCleanupRules(root, doc, rules, ctx, url) {
   if (rules.galleryAlt) {
     safeAll(root, '.product-gallery-carousel img').forEach((img) => {
       const alt = (img.getAttribute('alt') || '').trim();
-      if (!alt || /^Product Image - \d+$/i.test(alt)) img.setAttribute('alt', rules.galleryAlt);
+      // generic "Product Image - N" alts, and alts in another language (CJK: e.g. the Chinese
+      // HIAC 9703+ alt on the India page)
+      if (!alt || /^Product Image - \d+$/i.test(alt) || /[぀-ヿ㐀-鿿가-힯]/.test(alt)) {
+        img.setAttribute('alt', rules.galleryAlt);
+      }
     });
   }
   (rules.dropImages || []).forEach((file) => {
@@ -690,6 +816,12 @@ function pageCleanupRules(root, doc, rules, ctx, url) {
       // the PIM copy is already renamed <image id>-<file> (useZoomImageUrls) at this point
       const name = img.getAttribute('src').split('?')[0].split('/').pop();
       if (name === file || name.endsWith(`-${file}`)) drop(img, ctx);
+    });
+  });
+  Object.entries(rules.imageAlts || {}).forEach(([file, alt]) => {
+    safeAll(root, 'img[src]').forEach((img) => {
+      const name = img.getAttribute('src').split('?')[0].split('/').pop();
+      if (name === file && !(img.getAttribute('alt') || '').trim()) img.setAttribute('alt', alt);
     });
   });
   if (rules.railCurrent) {
@@ -710,6 +842,61 @@ function pageCleanupRules(root, doc, rules, ctx, url) {
       p.append(img);
     });
   }
+  if (rules.nestLists) {
+    safeAll(root, 'ul > ul, ul > ol, ol > ul, ol > ol').forEach((sub) => {
+      if (insideBlock(sub, ctx.blocks)) return;
+      const li = sub.previousElementSibling;
+      if (li && li.tagName === 'LI') li.append(sub);
+      else {
+        const item = doc.createElement('li');
+        sub.replaceWith(item);
+        item.append(sub);
+      }
+    });
+  }
+  (rules.headings || []).forEach((label) => {
+    safeAll(root, 'p').forEach((p) => {
+      if (insideBlock(p, ctx.blocks) || p.textContent.replace(/\s+/g, ' ').trim() !== label) return;
+      const h = doc.createElement('h3');
+      h.textContent = label;
+      p.replaceWith(h);
+    });
+  });
+  if (rules.linkGroups) {
+    safeAll(root, 'p:has(> strong):has(> small)').forEach((p) => {
+      if (insideBlock(p, ctx.blocks)) return;
+      const out = [];
+      let run = null;
+      const flush = () => {
+        if (!run) return;
+        while (run.firstChild && (isBlank(run.firstChild) || run.firstChild.nodeName === 'BR')) run.firstChild.remove();
+        while (run.lastChild && (isBlank(run.lastChild) || run.lastChild.nodeName === 'BR')) run.lastChild.remove();
+        if (run.childNodes.length) out.push(run);
+        run = null;
+      };
+      const nodes = [];
+      Array.from(p.childNodes).forEach((n) => {
+        if (n.nodeName === 'SMALL') nodes.push(...Array.from(n.childNodes));
+        else nodes.push(n);
+      });
+      nodes.forEach((n) => {
+        if (n.nodeName === 'A' && !n.textContent.trim() && !n.querySelector(MEDIA)) return; // empty <a></a>
+        if (n.nodeName === 'STRONG') {
+          flush();
+          const label = doc.createElement('p');
+          const strong = doc.createElement('strong');
+          strong.textContent = n.textContent.replace(/\s+/g, ' ').trim();
+          label.append(strong);
+          out.push(label);
+          return;
+        }
+        if (!run) run = doc.createElement('p');
+        run.append(n);
+      });
+      flush();
+      if (out.length) p.replaceWith(...out);
+    });
+  }
   if (rules.spacers) {
     // &nbsp;-only text directly in a container (e.g. after the CytExpert screenshot / tables)
     safeAll(root, 'div, section, article').forEach((el) => {
@@ -726,10 +913,191 @@ function pageCleanupRules(root, doc, rules, ctx, url) {
   }
 }
 
+const BG = 'data-excat-bg'; // CSS background image URL of an element (rules.cssBackgrounds)
+
+/** Background image URLs set by single-class rules in the page's <style>s: { class: url }. */
+function cssClassBackgrounds(root) {
+  const map = {};
+  safeAll(root.ownerDocument || root, 'style').forEach((s) => {
+    const css = (s.textContent || '').replace(/\/\*[\s\S]*?\*\//g, '');
+    const rule = /([^{}]+)\{([^{}]*)\}/g;
+    let m;
+    // eslint-disable-next-line no-cond-assign
+    while ((m = rule.exec(css))) {
+      const url = /background(?:-image)?\s*:[^;]*?url\(\s*(['"]?)([^'")]+)\1\s*\)/i.exec(m[2]);
+      if (url && !/^data:/i.test(url[2])) {
+        m[1].split(',').map((sel) => sel.trim()).forEach((sel) => {
+          const cls = /^\.([\w-]+)$/.exec(sel);
+          if (cls) map[cls[1]] = url[2].trim();
+        });
+      }
+    }
+  });
+  return map;
+}
+
+/** Page rules that must run on the original page (preprocess), before rewriteAnchors. */
+function prePageRules(root, doc, rules) {
+  if (rules.jumpButtons) {
+    safeAll(root, rules.jumpButtons).forEach((btn) => {
+      const label = btn.textContent.replace(/\s+/g, ' ').trim();
+      const id = label.toLowerCase().replace(/\s+/g, '-');
+      if (!label || !doc.getElementById(id)) return;
+      const p = doc.createElement('p');
+      const a = doc.createElement('a');
+      a.setAttribute('href', `#${id}`);
+      a.textContent = label;
+      p.append(a);
+      btn.replaceWith(p);
+    });
+  }
+  Object.entries(rules.titleHeadings || {}).forEach(([sel, tag]) => {
+    safeAll(root, sel).forEach((el) => {
+      if (!text(el)) return;
+      const h = doc.createElement(tag);
+      h.textContent = el.textContent.replace(/\s+/g, ' ').trim();
+      el.replaceWith(h);
+    });
+  });
+  if (rules.cssBackgrounds) {
+    const map = cssClassBackgrounds(root);
+    Object.entries(map).forEach(([cls, url]) => {
+      safeAll(root, `.${cls}`).forEach((el) => {
+        if (!el.hasAttribute(BG) && !/url\(/.test(el.getAttribute('style') || '')) el.setAttribute(BG, url);
+      });
+    });
+  }
+}
+
+/** "<br><br>" runs split a paragraph into one paragraph per run. */
+function splitParagraphBreaks(root, doc) {
+  safeAll(root, 'p').forEach((p) => {
+    if (!p.querySelector(':scope > br')) return;
+    const groups = [[]];
+    let run = [];
+    let brs = 0;
+    const flushRun = (split) => {
+      if (split) groups.push([]);
+      else groups[groups.length - 1].push(...run);
+      run = [];
+      brs = 0;
+    };
+    Array.from(p.childNodes).forEach((n) => {
+      if (n.nodeName === 'BR') { run.push(n); brs += 1; return; }
+      if (isBlank(n) && run.length) { run.push(n); return; }
+      if (run.length) flushRun(brs >= 2);
+      groups[groups.length - 1].push(n);
+    });
+    if (run.length) flushRun(false);
+    if (groups.length < 2) return;
+    const paragraphs = groups.map((nodes) => {
+      const np = doc.createElement('p');
+      nodes.forEach((n) => np.append(n));
+      return np;
+    }).filter((np) => !isEmpty(np));
+    p.replaceWith(...paragraphs);
+  });
+}
+
+/** Links styled as buttons: own paragraph, <strong> (primary) / <em> (secondary) wrapper. */
+function wrapButtonLinks(root, doc, sel, tag) {
+  safeAll(root, sel).forEach((a) => {
+    safeAll(a, 'i, .fa, [class*="fa-"]').forEach((i) => { if (!i.textContent.trim()) i.remove(); });
+    a.textContent = a.textContent.replace(/\s+/g, ' ').trim();
+    a.removeAttribute('style');
+    a.removeAttribute('class');
+    if (a.closest('strong, em')) return;
+    const wrap = doc.createElement(tag);
+    a.replaceWith(wrap);
+    wrap.append(a);
+    if (wrap.closest('p, li, h1, h2, h3, h4, h5, h6')) return;
+    const p = doc.createElement('p');
+    wrap.replaceWith(p);
+    p.append(wrap);
+  });
+}
+
+/** Rules added for the batch-5 technology page (see PAGE_RULES); beforeTransform. */
+function technologyPageRules(root, doc, rules) {
+  Object.entries(rules.sitecoreLinks || {}).forEach(([id, href]) => {
+    safeAll(root, 'a[href*="link.aspx"]').forEach((a) => {
+      if (new RegExp(`[?&]_id=${id}(&|$)`, 'i').test(a.getAttribute('href'))) a.setAttribute('href', href);
+    });
+  });
+  if (rules.splitBreaks) splitParagraphBreaks(root, doc);
+  if (rules.primaryLinks) wrapButtonLinks(root, doc, rules.primaryLinks, 'strong');
+  if (rules.secondaryLinks) wrapButtonLinks(root, doc, rules.secondaryLinks, 'em');
+}
+
+/** Loose text / inline runs directly in a container → one paragraph per run. */
+function wrapLooseText(container, doc) {
+  let run = [];
+  const flush = () => {
+    while (run.length && isBlank(run[run.length - 1])) run.pop();
+    if (run.some((n) => !isBlank(n))) {
+      const p = doc.createElement('p');
+      run[0].before(p);
+      run.forEach((n) => p.append(n));
+      if (p.firstChild && p.firstChild.nodeType === 3) p.firstChild.textContent = p.firstChild.textContent.replace(/^\s+/, '');
+      if (p.lastChild && p.lastChild.nodeType === 3) p.lastChild.textContent = p.lastChild.textContent.replace(/\s+$/, '');
+    }
+    run = [];
+  };
+  Array.from(container.childNodes).forEach((n) => {
+    const inline = (n.nodeType === 3 && n.textContent.trim()) || (n.nodeType === 1 && (INLINE.test(n.nodeName) || n.nodeName === 'A'));
+    if (inline) run.push(n);
+    else if (isBlank(n) && run.length) run.push(n);
+    else flush();
+  });
+  flush();
+}
+
+/** Rules added for the batch-5 product-detail page (HIAC 9703+, see PAGE_RULES); beforeTransform. */
+function productPageRules(root, doc, rules, ctx) {
+  if (rules.modelsJump === 'drop') safeAll(root, `#intrenal-page-link-wrapper a[${COVEO_LINK}]`).forEach((a) => drop(a, ctx));
+  if (rules.wrapText) safeAll(root, rules.wrapText).forEach((c) => wrapLooseText(c, doc));
+  Object.entries(rules.links || {}).forEach(([from, to]) => {
+    safeAll(root, 'a[href]').forEach((a) => {
+      if (a.getAttribute('href').trim() === from) a.setAttribute('href', to);
+    });
+  });
+  if (rules.techDocs === 'more') {
+    safeAll(root, '#techdocs-wrapper #coveo-techdocs-more-results').forEach((more) => {
+      const p = doc.createElement('p');
+      Array.from(more.childNodes).forEach((n) => {
+        if (n.nodeType === 3) n.textContent = n.textContent.replace(/\s+/g, ' ');
+        if (n.nodeType !== 8) p.append(n);
+      });
+      if (p.firstChild && p.firstChild.nodeType === 3) p.firstChild.textContent = p.firstChild.textContent.replace(/^\s+/, '');
+      if (p.lastChild && p.lastChild.nodeType === 3) p.lastChild.textContent = p.lastChild.textContent.replace(/\s+$/, '');
+      safeAll(p, 'a[href]').forEach((a) => a.setAttribute('href', a.getAttribute('href').replace(/ /g, '%20')));
+      more.replaceWith(p);
+    });
+    // the hidden error sentence would otherwise replace the Coveo table (simplifyTechDocs)
+    safeAll(root, '#techdocs-wrapper #coveo-techdocs-error').forEach((e) => e.remove());
+  }
+  if (rules.wistiaPoster) {
+    safeAll(root, 'div.embeded-video').forEach((video) => {
+      const thumb = video.querySelector('.w-chrome img[src*="wistia.com/deliveries/"]');
+      if (!thumb) return;
+      const wrap = video.querySelector('[data-video-id]');
+      const img = doc.createElement('img');
+      // Wistia serves each delivery in any format: .jpg instead of the player's .webp
+      img.setAttribute('src', thumb.getAttribute('src').replace(/\.webp(?=\?|$)/i, '.jpg'));
+      img.setAttribute('alt', ((wrap && wrap.getAttribute('data-title')) || 'Video').trim());
+      const p = doc.createElement('p');
+      p.append(img);
+      video.append(p);
+    });
+  }
+}
+
 /** Rules for pages with their own mapping (template.pages[url]); beforeTransform. */
 function perPageRules(root, doc, ctx, url) {
   const rules = PAGE_RULES[pageKey(url)] || {};
   pageCleanupRules(root, doc, rules, ctx, url);
+  technologyPageRules(root, doc, rules);
+  productPageRules(root, doc, rules, ctx);
   // gallery slides: drop the href="#" zoom wrapper around the image (the parser does the same)
   safeAll(root, '.product-gallery-carousel a[href="#"]').forEach((a) => {
     if (a.querySelector('img')) a.replaceWith(...Array.from(a.childNodes));
@@ -781,6 +1149,7 @@ export default function transform(hookName, element, payload) {
       const icon = item.querySelector('.content-resource-list-icon [class*="fa-"]');
       if (icon) item.setAttribute(ICON_CLASS, icon.getAttribute('class'));
     });
+    if (own) prePageRules(element, doc, PAGE_RULES[pageKey(url)] || {});
     rewriteAnchors(element);
     return;
   }
@@ -883,6 +1252,7 @@ export default function transform(hookName, element, payload) {
     if (own) {
       pointModelsLinks(element);
       removeEmptyLeftovers(element);
+      safeAll(element, `[${BG}]`).forEach((el) => el.removeAttribute(BG));
     }
 
     // Strip tracking / analytics attributes

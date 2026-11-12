@@ -778,6 +778,21 @@ main .section.split .default-content-wrapper > p:has(> strong:first-child > a) +
   text-decoration: underline;
 }
 
+/* an item without a link (source: empty href, e.g. HIAC 9703+ "Brochure") keeps the cell box */
+main .section.split .default-content-wrapper > p:has(> strong:first-child > a) + p + ul:last-child > li:not(:has(> a)) {
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* a text line between the lists and the "Explore … Models" button (source: "<br><br>" + loose
+   text directly in .rt-holder, 14px / 22px lines; e.g. HIAC 9703+ "Learn more … HERE") */
+main .section.split .default-content-wrapper > ul + p:not(:has(> strong:first-child > a, > em:only-child)):has(+ p > em:only-child > a[href*="#"]) {
+  margin: 54px 0 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+
 /* breakpoint-exception: source .product-intro-holder floats its columns from 768px */
 @media (width >= 768px) {
   /* bootstrap .container (750px) + .product-intro-holder 13px left margin;
@@ -1018,6 +1033,333 @@ main .section.anchor-tabs .default-content-wrapper > p > a:any-link:hover {
 
 /* end section styles: split, anchor-nav, anchor-tabs */
 
+/* anchor-contents: "Contents:" jump bar of the technology pages (source #quick-nav, e.g.
+   Analytical Ultracentrifugation): a red heading above a row of equal-width grey buttons with 8px
+   gaps, in the source .copy box (max 1200px, padding 5vh 5vw; 3vh 5vw below 768px). Below 600px
+   the buttons go two per row (the source row overflows the viewport there). */
+main > .section.anchor-contents > .default-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 8px;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3vh 5vw;
+}
+
+main .section.anchor-contents .default-content-wrapper > :is(h1, h2, h3, h4, h5, h6) {
+  flex: 1 0 100%;
+  margin: 0;
+  color: var(--cta-color);
+  font-size: 19.2px;
+  font-weight: 500;
+  line-height: 36px;
+  text-align: start;
+}
+
+main .section.anchor-contents .default-content-wrapper > p {
+  display: block;
+  flex: 1 1 calc(50% - 4px);
+  margin: 0;
+}
+
+main .section.anchor-contents .default-content-wrapper > p > a:any-link {
+  display: block;
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 32px;
+  margin: 0;
+  border: 0;
+  border-radius: 2.5px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.65;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  transition: background-color 0.5s;
+}
+
+main .section.anchor-contents .default-content-wrapper > p > a:any-link:hover {
+  background-color: #dde0e3;
+  color: var(--text-color);
+}
+
+@media (width >= 600px) {
+  main .section.anchor-contents .default-content-wrapper > p {
+    flex: 1 1 0;
+  }
+}
+
+/* breakpoint-exception: source .quick-nav padding changes at 768px */
+@media (width >= 768px) {
+  main > .section.anchor-contents > .default-content-wrapper {
+    padding: 5vh 5vw;
+  }
+}
+
+/* technology page (source /resources/technologies/…, e.g. Analytical Ultracentrifugation): the
+   page's own stylesheet, marked by its "Contents:" bar (anchor-contents). Source .copy boxes:
+   max 1200px wide, padding 5vh 5vw (2vh 5vw below 768px); red 32px headings, 16px / 24px text,
+   flex gaps of 16px (+ 16px paragraph margins). Paragraphs split at the source's <br><br> are
+   one blank line (24px) apart. Block rules: media-split.css, embed/variants/wistia.css, marketo.css. */
+main:has(> .section.anchor-contents) > .section:not(.anchor-contents) > .default-content-wrapper,
+main:has(> .section.anchor-contents) > .section > .cards-wrapper {
+  box-sizing: border-box;
+  max-width: 1200px;
+  padding: 0 5vw;
+}
+
+/* Related Content panels: the source .row (gutters) + .panel-wrapper sizes them (tiles.css) */
+main:has(> .section.anchor-contents) > .section > .cards-wrapper:has(> .panels) {
+  max-width: none;
+  padding: 0;
+}
+
+main:has(> .section.anchor-contents) > .section:not(.anchor-contents) > .default-content-wrapper > h2 {
+  margin: 0;
+  color: var(--cta-color);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 36px;
+}
+
+main:has(> .section.anchor-contents) > .section:not(.anchor-contents) > .default-content-wrapper > p {
+  line-height: 1.5;
+}
+
+main:has(> .section.anchor-contents) > .section:not(.anchor-contents) > .default-content-wrapper > p.button-container {
+  line-height: 1.65;
+}
+
+main:has(> .section.anchor-contents) > .section:not(.anchor-contents) > .default-content-wrapper > h2 + p {
+  margin-top: 32px;
+}
+
+main:has(> .section.anchor-contents) > .section:not(.anchor-contents) > .default-content-wrapper > p + p:not(.button-container) {
+  margin-top: 24px;
+}
+
+main:has(> .section.anchor-contents) > .section:not(.anchor-contents) > .default-content-wrapper > p + p.button-container {
+  margin-top: 32px;
+}
+
+main:has(> .section.anchor-contents) .default-content-wrapper li::marker {
+  color: var(--cta-color);
+}
+
+/* source a.primary-btn (1.5rem = 15px, weight 300, 0.3rem radius, no hover change); centred in
+   the .copy flex column */
+main:has(> .section.anchor-contents) > .section > .default-content-wrapper > .button-container:has(> strong > a.button.primary) {
+  text-align: center;
+}
+
+main:has(> .section.anchor-contents) a.button.primary:any-link {
+  border-radius: 3px;
+  padding: 7px 15px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+main:has(> .section.anchor-contents) a.button.primary:any-link:hover {
+  background-color: var(--cta-color);
+}
+
+/* source a.resources-no-img: white bordered link buttons (235px), side by side and centred
+   (stacked below 768px) */
+main:has(> .section.anchor-contents) > .section > .cards-wrapper + .default-content-wrapper:has(> .button-container > em > a.button) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+main:has(> .section.anchor-contents) > .section > .default-content-wrapper > .button-container:has(> em > a.button.secondary) {
+  margin: 0;
+}
+
+main:has(> .section.anchor-contents) a.button.secondary:any-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 235px;
+  min-height: 50px;
+  border: 1px solid #cdcdcd;
+  border-radius: 3px;
+  padding: 16px;
+  background-color: #fff;
+  color: #262626;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 13.125px;
+}
+
+main:has(> .section.anchor-contents) a.button.secondary:any-link:hover {
+  background-color: #fff;
+  color: #262626;
+}
+
+/* source .copy.row / .cards-row spacing: tiles 32px below the text, the next row 18px + 16px below */
+main:has(> .section.anchor-contents) > .section > .default-content-wrapper + .cards-wrapper > .cards-tiles:not(.panels) {
+  margin-top: 32px;
+}
+
+main:has(> .section.anchor-contents) > .section > .cards-wrapper + .default-content-wrapper {
+  margin-top: 34px;
+}
+
+main:has(> .section.anchor-contents) > .section > div:last-child > :last-child {
+  margin-bottom: 0;
+}
+
+/* Introduction + video (source #introduction .copy, hr.new, .embeded-video--col-6, then the
+   hr.new at the top of #benefits): the rules are drawn around the video */
+main:has(> .section.anchor-contents) > .section:has(> .default-content-wrapper + .embed-wrapper:last-child > .wistia) > .default-content-wrapper {
+  padding-top: 2vh;
+}
+
+main:has(> .section.anchor-contents) > .section > .default-content-wrapper + .embed-wrapper:last-child:has(> .wistia) {
+  max-width: none;
+  padding: 0;
+}
+
+main:has(> .section.anchor-contents) > .section > .default-content-wrapper + .embed-wrapper:last-child:has(> .wistia)::before,
+main:has(> .section.anchor-contents) > .section > .default-content-wrapper + .embed-wrapper:last-child:has(> .wistia)::after {
+  content: '';
+  display: block;
+  width: calc(min(100%, 1200px) - 10vw);
+  height: 0;
+  margin: 36px auto calc(20px + 7vh);
+  border: 1px solid #ddd;
+}
+
+main:has(> .section.anchor-contents) > .section > .default-content-wrapper + .embed-wrapper:last-child:has(> .wistia)::after {
+  margin: calc(47px + 7vh) auto 0;
+}
+
+/* Applications (source #applications: full-bleed #f5f5f5 band around a .copy box) */
+main:has(> .section.anchor-contents) > .section.light-grey:not(.centered) {
+  margin: 0;
+  padding: 2vh 0;
+  background-color: #f5f5f5;
+}
+
+/* Methods: copy | image row, then a .copy box without top padding (inline style: padding
+   0 5vw 5vh at every width) */
+main:has(> .section.anchor-contents) > .section:has(> .media-split-wrapper:first-child + .default-content-wrapper) {
+  padding-bottom: 5vh;
+}
+
+/* Testimonial video + Related Content (source .embeded-video--col-6 h2 / caption, then the
+   .col-md-12 h3 above the .panel-wrapper rows) */
+main:has(> .section.anchor-contents) > .section.centered:not(.light-grey) > .default-content-wrapper,
+main:has(> .section.anchor-contents) > .section.centered:not(.light-grey) > .embed-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+main:has(> .section.anchor-contents) > .section.centered:not(.light-grey) > .default-content-wrapper > h2 {
+  margin: 5vh 0 2vh;
+  text-align: center;
+}
+
+main:has(> .section.anchor-contents) > .section.centered:not(.light-grey) > .embed-wrapper + .default-content-wrapper > p {
+  max-width: 50%;
+  margin: 16px auto 0;
+}
+
+main:has(> .section.anchor-contents) > .section.centered:not(.light-grey) > .default-content-wrapper > h3 {
+  margin: 5vh 0 48px;
+  color: var(--text-color);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+/* Talk to an Expert (source #anchor p.formtitle / p.formtext + &nbsp; spacers on #f0f0f0) */
+main:has(> .section.anchor-contents) > .section.light-grey.centered {
+  margin: 30px 0 0;
+  padding: 0 0 50px;
+}
+
+main:has(> .section.anchor-contents) > .section.light-grey.centered > .default-content-wrapper,
+main:has(> .section.anchor-contents) > .section.light-grey.centered > .embed-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+main:has(> .section.anchor-contents) > .section.light-grey.centered > .default-content-wrapper:first-child > h2:first-child {
+  margin: 0;
+  padding-top: 51.2px;
+  color: var(--text-color);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+main:has(> .section.anchor-contents) > .section.light-grey.centered > .default-content-wrapper:first-child > h2:first-child + p {
+  margin: 10px 0 0;
+  padding-bottom: 36.4px;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+/* breakpoint-exception: source .copy padding (2vh below 768px) and .embeded-video margins */
+@media (width >= 768px) {
+  main:has(> .section.anchor-contents) > .section:has(> .default-content-wrapper + .embed-wrapper:last-child > .wistia) > .default-content-wrapper {
+    padding-top: 5vh;
+  }
+
+  main:has(> .section.anchor-contents) > .section > .default-content-wrapper + .embed-wrapper:last-child:has(> .wistia)::before {
+    margin-bottom: calc(20px + 10vh);
+  }
+
+  main:has(> .section.anchor-contents) > .section > .default-content-wrapper + .embed-wrapper:last-child:has(> .wistia)::after {
+    margin-top: calc(47px + 10vh);
+  }
+
+  main:has(> .section.anchor-contents) > .section.light-grey:not(.centered) {
+    padding: 5vh 0;
+  }
+
+  main:has(> .section.anchor-contents) > .section > .cards-wrapper + .default-content-wrapper:has(> .button-container > em > a.button) {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* breakpoint-exception: source .col-md-12 floats from 992px (its h3 margins stop collapsing) */
+@media (width >= 992px) {
+  main:has(> .section.anchor-contents) > .section.centered:not(.light-grey) > .embed-wrapper + .default-content-wrapper > p {
+    max-width: calc(50% - 20px);
+  }
+
+  main:has(> .section.anchor-contents) > .section.centered:not(.light-grey) > .default-content-wrapper > h3 {
+    margin: calc(5vh + 28px) 0 28px;
+  }
+}
+
+/* breakpoint-exception: source .formtitle grows at 1600px / 1920px */
+@media (width >= 1600px) {
+  main:has(> .section.anchor-contents) > .section.light-grey.centered > .default-content-wrapper:first-child > h2:first-child {
+    font-size: 34px;
+  }
+}
+
+/* breakpoint-exception: source .formtitle grows at 1600px / 1920px */
+@media (width >= 1920px) {
+  main:has(> .section.anchor-contents) > .section.light-grey.centered > .default-content-wrapper:first-child > h2:first-child {
+    font-size: 46px;
+  }
+}
+
 /* section style: sidebar – source .two-columns-holder (generic content pages, e.g. CytExpert
    Software): the sidebar section sits in the right third (.col-md-4) beside the section before
    it, the main column (.col-md-8); both top-aligned, 20px gutter (bootstrap .row -10px +
@@ -1038,8 +1380,8 @@ main > .section:has(+ .section.sidebar) {
 }
 
 /* the main column ends with the source's trailing empty line and empty paragraph
-   (2 x 26.4px lines + 16px margin) */
-main > .section:has(+ .section.sidebar) {
+   (2 x 26.4px lines + 16px margin); not on the quarter-layout (whitepaper) pages */
+main > .section:has(+ .section.sidebar:not(.quarter)) {
   padding-bottom: calc(2 * 26.4px + 16px);
 }
 
@@ -1063,11 +1405,126 @@ main > .section:has(+ .section.sidebar) .default-content-wrapper > .button-conta
   text-decoration: none;
 }
 
+/* a list item label that is only a bold link (<li><p><strong><a>21 CFR Part 11</a></strong></p>
+   <ul>…): a bold text link like the source, not a CTA button */
+main > .section:has(+ .section.sidebar) .default-content-wrapper li > .button-container > strong > a.button.primary:any-link {
+  display: inline;
+  border-radius: 0;
+  padding: 0;
+  background: none;
+  color: var(--link-color);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  white-space: normal;
+  vertical-align: baseline;
+  transition: none;
+}
+
+main > .section:has(+ .section.sidebar) .default-content-wrapper li > .button-container > strong > a.button.primary:any-link:hover {
+  background: none;
+  color: var(--link-hover-color);
+}
+
 /* bold run-in labels in the main column (e.g. "Acquisition Functions"): the source puts an
    empty paragraph (26.4px line + 2 x 16px margins) in front of each */
 main > .section:has(+ .section.sidebar) .default-content-wrapper > p:has(> strong:only-child):not(:first-child),
 main > .section:has(+ .section.sidebar) > div:not(.default-content-wrapper) + .default-content-wrapper > p:first-child:has(> strong:only-child) {
   margin-top: calc(16px + 26.4px + 16px);
+}
+
+/* ... except a bold figure caption right below an image paragraph (whitepapers: "Fig. 1 …") */
+main > .section:has(+ .section.sidebar.quarter) .default-content-wrapper > p:has(> picture) + p:has(> strong:only-child):not(:first-child) {
+  margin-top: 16px;
+}
+
+/* whitepaper figures (quarter layout; source .bc-rich-text img directly in the text: no margin of
+   its own above, vertical-align top, no descender gap below the image) */
+main > .section:has(+ .section.sidebar.quarter) .default-content-wrapper > p:has(> picture:only-child) {
+  margin-top: 0;
+}
+
+main > .section:has(+ .section.sidebar.quarter) .default-content-wrapper > p > picture > img {
+  vertical-align: top;
+}
+
+/* nested lists (source: same 17px indent, no extra margins; a list item's label paragraph,
+   e.g. "<li><p><strong>Electronic SOP Maps</strong></p><ul>…", keeps the line box only) */
+main > .section:has(+ .section.sidebar) .default-content-wrapper li > :is(ul, ol) {
+  margin-bottom: 0;
+  padding-left: 17px;
+}
+
+/* an ordered sub-list keeps the browser's 40px indent (source .bc-rich-text styles only <ul>) */
+main > .section:has(+ .section.sidebar) .default-content-wrapper li > ol {
+  padding-left: 40px;
+}
+
+main > .section:has(+ .section.sidebar) .default-content-wrapper li > p {
+  margin: 0;
+}
+
+/* sidebar default content (source .two-columns-holder__right .bc-rich-text) */
+
+/* a heading right below the form (IT guide "White Paper PDF Version"): the source puts an empty
+   paragraph (26.4px line + 16px margin) above it */
+main > .section.sidebar > .embed-wrapper + .default-content-wrapper > h3:first-child {
+  margin-top: calc(16px + 26.4px + 25px);
+}
+
+/* ... a link-group title right below the form: the source title is a paragraph with a 2.5rem
+   (25px) regular-weight span ("Helpful Links"), 16px paragraph margins */
+main > .section.sidebar > .embed-wrapper + .default-content-wrapper > h3:first-child:has(+ p > strong:only-child) {
+  margin: 16px 0;
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+/* link groups ("Helpful Links"): bold label paragraph + paragraph of <br>-separated links in
+   <small> (13.6px) on the 16px / 26.4px lines of one source paragraph */
+main > .section.sidebar .default-content-wrapper > p:has(> a + br) > a {
+  font-size: 0.85em;
+}
+
+main > .section.sidebar .default-content-wrapper > p:has(> strong:only-child):has(+ p > a + br),
+main > .section.sidebar .default-content-wrapper > p:has(> a + br):has(+ p > strong:only-child) {
+  margin-bottom: 0;
+}
+
+main > .section.sidebar .default-content-wrapper > p:has(> strong:only-child) + p:has(> a + br),
+main > .section.sidebar .default-content-wrapper > p:has(> a + br) + p:has(> strong:only-child) {
+  margin-top: 0;
+}
+
+/* a heading after a link group: the source puts an empty paragraph (26.4px + 16px) in front */
+main > .section.sidebar .default-content-wrapper > p:has(> a + br) + h3 {
+  margin-top: calc(16px + 26.4px + 25px);
+}
+
+/* linked cover image (source: 1px #a7a7a7 border inside its box, vertical-align middle) */
+main > .section.sidebar .default-content-wrapper > p > a > picture > img {
+  outline: 1px solid #a7a7a7;
+  outline-offset: -1px;
+  vertical-align: middle;
+}
+
+/* cover image, not linked (IT guide: 1px solid border in the text colour inside its box,
+   vertical-align top) */
+main > .section.sidebar .default-content-wrapper > p > picture > img {
+  outline: 1px solid currentcolor;
+  outline-offset: -1px;
+  vertical-align: top;
+}
+
+/* CTA (source a.btn.btn-primary): blue, darker on hover */
+main > .section.sidebar .default-content-wrapper a.button.primary:any-link {
+  background-color: var(--link-color);
+}
+
+main > .section.sidebar .default-content-wrapper a.button.primary:any-link:hover,
+main > .section.sidebar .default-content-wrapper a.button.primary:any-link:focus-visible {
+  background-color: #0065a7;
 }
 
 /* breakpoint-exception: source bootstrap .container is 750px wide from 768px */
@@ -1120,6 +1577,37 @@ main > .section:has(+ .section.sidebar) > div:not(.default-content-wrapper) + .d
 
   main:where(:has(> .section.sidebar)) > .section > div {
     max-width: calc(var(--container-width) - 2 * var(--content-gutter));
+  }
+}
+
+/* section style: quarter (with sidebar) – source .col-md-9 / .col-md-3 (e.g. whitepapers):
+   main column 3/4, sidebar 1/4 of the same container. Stacked (below 992px), the main column's
+   last bottom margin (e.g. a list's 10px) collapses into the sidebar heading's top margin. */
+
+/* breakpoint-exception: source .col-md-9 / .col-md-3 stack below 992px */
+@media (width < 992px) {
+  main > .section:has(+ .section.sidebar.quarter) > div:last-child > :last-child,
+  main > .section:has(+ .section.sidebar.quarter) > .media-split-wrapper:last-child > .wrap > div > .media-split-text > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* breakpoint-exception: source .col-md-9 / .col-md-3 float side by side from 992px */
+@media (width >= 992px) {
+  main:has(> .section.sidebar.quarter) {
+    grid-template-columns:
+      1fr [main-start] minmax(0, calc((970px - 2 * var(--content-gutter) + 20px) * 3 / 4 - 20px))
+      [main-end] 20px [side-start] minmax(0, calc((970px - 2 * var(--content-gutter) + 20px) / 4 - 20px))
+      [side-end] 1fr;
+  }
+}
+
+@media (width >= 1200px) {
+  main:has(> .section.sidebar.quarter) {
+    grid-template-columns:
+      1fr [main-start] minmax(0, calc((var(--container-width) - 2 * var(--content-gutter) + 20px) * 3 / 4 - 20px))
+      [main-end] 20px [side-start] minmax(0, calc((var(--container-width) - 2 * var(--content-gutter) + 20px) / 4 - 20px))
+      [side-end] 1fr;
   }
 }
 

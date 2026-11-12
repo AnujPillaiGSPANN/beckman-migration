@@ -51,12 +51,20 @@
               "value": "sidebar"
             },
             {
+              "name": "Sidebar: quarter width (main column 3/4, sidebar 1/4; with Sidebar)",
+              "value": "quarter"
+            },
+            {
               "name": "Jump links: button bar",
               "value": "anchor-nav"
             },
             {
               "name": "Jump links: tab bar",
               "value": "anchor-tabs"
+            },
+            {
+              "name": "Jump links: Contents bar (heading + grey buttons; technology page look)",
+              "value": "anchor-contents"
             },
             {
               "name": "Tight heading spacing",

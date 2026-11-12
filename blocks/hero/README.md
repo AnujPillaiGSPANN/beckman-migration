@@ -11,10 +11,11 @@ One **Hero** block with variants. The variant is the first block option (UE: *Va
 | `Hero` | variants/default.js | hero | – | – |
 | `Hero (motion)` | variants/motion.js | hero-video | – | – |
 | `Hero (promo)` | variants/promo.js | hero-promo | `hero-promo-feature` | – |
+| `Hero (banner)` | variants/banner.js | hero-banner | – | – |
 
 ## Universal Editor fields
 
-Block model `hero` (rows in this order; a variant leaves the other variants' fields empty): `classes` (select: Default / `motion` / `promo`), `image` + `imageAlt` (Default, Promo: background image), `media_image` + `media_imageAlt` + `media_video` (one cell; Motion: poster + Wistia URL, Promo: mobile image in `media_image`/`media_imageAlt`), `text` (all variants). Four cells at most (xwalk/max-cells). Item model `hero-promo-feature`: `image`, `imageAlt`, `text`. Filter `hero`: `hero-promo-feature`.
+Block model `hero` (rows in this order; a variant leaves the other variants' fields empty): `classes` (select: Default / `motion` / `promo` / `banner`), `image` + `imageAlt` (Default, Promo, Banner: background image), `media_image` + `media_imageAlt` + `media_video` (one cell; Motion: poster + Wistia URL, Promo: mobile image in `media_image`/`media_imageAlt`), `text` (all variants). Four cells at most (xwalk/max-cells). Item model `hero-promo-feature`: `image`, `imageAlt`, `text`. Filter `hero`: `hero-promo-feature`.
 
 ## Hero (default)
 
@@ -59,3 +60,21 @@ No variations.
 - `image`, `imageAlt`, `media_image`, `media_imageAlt` (mobile image), `text`; items `hero-promo-feature` (`image`, `imageAlt`, `text`).
 
 Use for in-page product/software promos on a dark background. For a page-top video hero use Hero (motion).
+
+## Hero (banner)
+
+Authoring: `Hero (banner)`. No items.
+
+Purpose: Page-top full-width dark banner: a background photo (cover, anchored at 15% 0) under a 70% black overlay, a centred 60px H1 and an 18px light subtitle, 500px tall at every width. The photo never sizes the banner.
+
+Rows: block fields: (1) background image (`image`/`imageAlt`, decorative: alt may be empty); (2) rich text `text`: H1 + subtitle paragraph(s) (bold runs stay bold). The `media_*` row stays empty.
+
+### Supported variations
+
+No variations.
+
+### Universal Editor fields
+
+- `image`, `imageAlt`, `text`.
+
+Use for technology / landing page title banners on a photo. For a video background use Hero (motion); for a mid-page promo with a feature strip use Hero (promo).

@@ -14,13 +14,15 @@
     "downloads",
     "gradient",
     "steps",
-    "workflow"
+    "workflow",
+    "tiles"
   ],
   "extraOptions": {
     "compact": "icons",
     "cover": "scroll",
     "exchange": "steps",
-    "unnumbered": "workflow"
+    "unnumbered": "workflow",
+    "panels": "tiles"
   },
   "variants": [
     {
@@ -125,10 +127,11 @@
         "pagesUsing": [
           "/air-particle-counters",
           "/particle-size-analyzers",
-          "/cell-culture-workstation/cydem-vt"
+          "/cell-culture-workstation/cydem-vt",
+          "/in/liquid-particle-counters/hiac-9703-plus"
         ],
-        "reuseCount": 2,
-        "lastUsed": "2026-11-10"
+        "reuseCount": 3,
+        "lastUsed": "2026-11-12"
       },
       "reuseGuidance": "Use for static FAQ lists where every answer is always visible. For collapsible Q&A use accordion.",
       "usageDescription": "Stacked full-width grey boxes, each holding one question heading and its answer."
@@ -281,10 +284,11 @@
         "pagesUsing": [
           "/air-particle-counters/met-one-3400-plus",
           "/air-particle-counters/met-one-6000",
-          "/air-particle-counters/facility-monitoring-system"
+          "/air-particle-counters/facility-monitoring-system",
+          "/in/liquid-particle-counters/hiac-9703-plus"
         ],
-        "reuseCount": 2,
-        "lastUsed": "2026-11-11"
+        "reuseCount": 3,
+        "lastUsed": "2026-11-12"
       },
       "reuseGuidance": "Use for product-page \"Content and Resources\" document lists. For a cover-image grid use cards-resource; for a two-column bordered download list use cards-downloads.",
       "usageDescription": "One-column list of documents: type icon (PDF / video), bold blue title link opening in a new tab, optional one-line ellipsis description; Resource Type filter and pagination built from the rows."
@@ -438,6 +442,48 @@
       },
       "reuseGuidance": "Use for linked product workflows (step 1..n). For unlinked photo step cards use cards-steps.",
       "usageDescription": "One row of numbered workflow steps with grey chevrons between them: coloured number badge + step name, product image, product name; whole tile links to the product with a grey hover; stacks on mobile."
+    },
+    {
+      "option": "tiles",
+      "authoring": "Cards (tiles)",
+      "legacyBlock": "cards-tiles",
+      "items": [
+        "cards-tiles-card"
+      ],
+      "variantName": "cards-tiles",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "Bordered linked tiles: image on top, centred title below, whole tile clickable",
+        "description": "Equal-width tiles in one row (16px gap) from 768px, stacked at 80% below. Optional eyebrow badge (#545454, 12px) over a red gradient image area with a contained 88px thumbnail. Option panels: 4-column wrapping grid, grayscale photos, bold 14px titles."
+      },
+      "contentPattern": {
+        "summary": "Application tiles (cover photo + title), resource tiles (badge + thumbnail + title), Related Content panels",
+        "structure": "one row per tile: (1) image; (2) optional eyebrow paragraph + linked title paragraph"
+      },
+      "options": [
+        {
+          "class": "panels",
+          "label": "Panels"
+        }
+      ],
+      "memberVariantIds": [
+        "cards-tiles"
+      ],
+      "sourceUrl": "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation",
+      "sourceUrls": [
+        "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/resources/technologies/analytical-ultracentrifugation"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-12"
+      },
+      "reuseGuidance": "Use for rows of linked tiles with an image and a short title. Add panels for a wrapping Related Content grid.",
+      "usageDescription": "Bordered linked tiles: image on top, centred title below; optional eyebrow badge; panels option for a 4-column Related Content grid."
     }
   ]
 }

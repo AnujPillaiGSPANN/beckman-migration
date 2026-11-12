@@ -12,6 +12,7 @@ const VARIANTS = {
   gradient: 'cards-gradient',
   steps: 'cards-steps',
   workflow: 'cards-workflow',
+  tiles: 'cards-tiles',
 };
 
 // every item component id of the family (may lead a row in imported content)
@@ -27,6 +28,7 @@ const ITEMS = [
   'cards-gradient-item',
   'cards-steps-item',
   'cards-workflow-item',
+  'cards-tiles-card',
 ];
 
 export default async function decorate(block) {

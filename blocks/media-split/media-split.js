@@ -2,6 +2,7 @@
  * Columns (media): copy (intro, check-icon list, CTA) beside a large image
  * with an optional caption.
  * Row cells: [rich text] [image + optional caption paragraph].
+ * Option "wrap": long-form text wraps around the image floated right ("left": floated left).
  * @param {Element} block
  */
 export default function decorate(block) {
@@ -23,5 +24,8 @@ export default function decorate(block) {
         col.classList.add('media-split-text');
       }
     });
+    // wrap: the image floats beside the text, so it must come first in the flow
+    const image = row.querySelector(':scope > .media-split-image');
+    if (block.classList.contains('wrap') && image) row.prepend(image);
   });
 }

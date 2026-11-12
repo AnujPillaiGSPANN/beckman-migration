@@ -108,7 +108,10 @@
       "urls": [
         "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
         "https://www.beckman.com/liquid-handlers/echo-acoustic",
-        "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software"
+        "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software",
+        "https://www.mybeckman.in/resources/reading-material/whitepapers/gmp-cleanrooms-classification-and-routine-environmental-monitoring",
+        "https://www.mybeckman.in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide",
+        "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation"
       ],
       "description": "Product series page: video hero, intro with video, benefits icon accordion, model comparison, custom automation media columns, brochure and application scroll strips, related products slider, Marketo contact form.",
       "blocks": [
@@ -184,6 +187,27 @@
           "name": "accordion-rail",
           "instances": [
             "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.rail-navigation"
+          ]
+        },
+        {
+          "name": "hero-banner",
+          "instances": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(2) > div.outimg > div.top-banner"
+          ]
+        },
+        {
+          "name": "embed-wistia",
+          "instances": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(4)",
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(7) > div.embeded-video__wrapper"
+          ]
+        },
+        {
+          "name": "cards-tiles",
+          "instances": [
+            "#applications > div.copy > div.cards-row",
+            "#methods > div.copy:nth-of-type(2) > div.cards-row:nth-of-type(1)",
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.row:nth-of-type(9)"
           ]
         }
       ],
@@ -442,6 +466,238 @@
               "defaultContent": []
             }
           ]
+        },
+        "https://www.mybeckman.in/resources/reading-material/whitepapers/gmp-cleanrooms-classification-and-routine-environmental-monitoring": {
+          "blocks": {
+            "embed-marketo": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.formassembly-container"
+            ]
+          },
+          "sections": [
+            {
+              "id": "section-1",
+              "name": "Page title",
+              "selector": [
+                "#content-holder"
+              ],
+              "style": null,
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2",
+              "name": "Main column: whitepaper article",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left"
+              ],
+              "style": null,
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-3",
+              "name": "Right sidebar: gated-content form, helpful links, brochure",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right"
+              ],
+              "style": "sidebar, quarter, centered",
+              "blocks": [
+                "embed-marketo"
+              ],
+              "defaultContent": []
+            }
+          ]
+        },
+        "https://www.mybeckman.in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide": {
+          "blocks": {
+            "media-split": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(3)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(9)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(11)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(13)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(14)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > p:nth-of-type(31)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > p:nth-of-type(33)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(15)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(16)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(18)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(19)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(20)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(21)"
+            ],
+            "embed-marketo": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.formassembly-container"
+            ]
+          },
+          "sections": [
+            {
+              "id": "section-1",
+              "name": "Page title",
+              "selector": [
+                "#content-holder"
+              ],
+              "style": null,
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2",
+              "name": "Main column: whitepaper body (wired/wireless connectivity, users, LDAP, name services, machine groups, barcode, web browser, network shares/printing, firmware, logs, audit trail, database)",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left"
+              ],
+              "style": null,
+              "blocks": [
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split",
+                "media-split"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-3",
+              "name": "Right sidebar: request-info form and whitepaper PDF download",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right"
+              ],
+              "style": "sidebar, quarter, centered",
+              "blocks": [
+                "embed-marketo"
+              ],
+              "defaultContent": []
+            }
+          ]
+        },
+        "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation": {
+          "blocks": {
+            "hero-banner": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(2) > div.outimg > div.top-banner"
+            ],
+            "embed-wistia": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(4)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(7) > div.embeded-video__wrapper"
+            ],
+            "media-split": [
+              "#benefits > div.copy.row",
+              "#methods > div.copy.row"
+            ],
+            "cards-tiles": [
+              "#applications > div.copy > div.cards-row",
+              "#methods > div.copy:nth-of-type(2) > div.cards-row:nth-of-type(1)",
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.row:nth-of-type(9)"
+            ],
+            "embed-marketo": [
+              "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.formassembly-container.marketo-two-column"
+            ]
+          },
+          "sections": [
+            {
+              "id": "section-1",
+              "name": "Hero banner",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(2)"
+              ],
+              "style": null,
+              "blocks": [
+                "hero-banner"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-2",
+              "name": "Contents jump bar",
+              "selector": [
+                "#quick-nav"
+              ],
+              "style": "anchor-contents",
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-3",
+              "name": "Introduction and AUC video",
+              "selector": [
+                "#introduction"
+              ],
+              "style": null,
+              "blocks": [
+                "embed-wistia"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-4",
+              "name": "Key benefits",
+              "selector": [
+                "#benefits"
+              ],
+              "style": null,
+              "blocks": [
+                "media-split"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-5",
+              "name": "Applications",
+              "selector": [
+                "#applications"
+              ],
+              "style": "light-grey",
+              "blocks": [
+                "cards-tiles"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-6",
+              "name": "Methods",
+              "selector": [
+                "#methods"
+              ],
+              "style": null,
+              "blocks": [
+                "media-split",
+                "cards-tiles"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-7",
+              "name": "Testimonial video and related content",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(7)"
+              ],
+              "style": "centered",
+              "blocks": [
+                "embed-wistia",
+                "cards-tiles"
+              ],
+              "defaultContent": []
+            },
+            {
+              "id": "section-8",
+              "name": "Talk to an Expert form",
+              "selector": [
+                "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(11)"
+              ],
+              "style": "light-grey, centered",
+              "blocks": [
+                "embed-marketo"
+              ],
+              "defaultContent": []
+            }
+          ]
         }
       }
     },
@@ -456,7 +712,8 @@
         "https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents",
         "https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic",
         "https://www.mybeckman.in/flow-cytometry/software/cytobank-enterprise",
-        "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager"
+        "https://www.mybeckman.in/liquid-handlers/software/echo/21-cfr-part-11-compliance-manager",
+        "https://www.mybeckman.in/liquid-particle-counters/hiac-9703-plus"
       ],
       "description": "Product detail (spotlight) page: image gallery + intro, jump-link bar, features modules, Wistia video, icon cards, media columns, resource cards, reagent slider, spec table, views, technical documents, FAQ.",
       "blocks": [
@@ -1516,6 +1773,100 @@
               "style": null,
               "blocks": [
                 "table-specs"
+              ],
+              "defaultContent": []
+            }
+          ]
+        },
+        "https://www.mybeckman.in/liquid-particle-counters/hiac-9703-plus": {
+          "blocks": {
+            "carousel-gallery": [
+              "div.product-intro-wrapper div.lt-holder div.product-gallery-carousel"
+            ],
+            "embed-wistia": [
+              "div.spotlight-content-wrapper > div.embeded-video"
+            ],
+            "cards-doclist": [
+              "#product-documentation-wrapper div.content-resource-list-wrapper"
+            ],
+            "cards-faq": [
+              "div.bcls-aeo-faqs"
+            ]
+          },
+          "sections": [
+            {
+              "id": "section-1",
+              "name": "Product intro: gallery beside title, copy, lists, CTAs, Resources + Tools",
+              "selector": [
+                "#main > div.main-holder > div.container.custome-container.product-spotlight-wrapper > div.product-intro-wrapper"
+              ],
+              "style": "split",
+              "blocks": [
+                "carousel-gallery"
+              ],
+              "defaultContent": [
+                "div.product-intro-wrapper div.rt-holder"
+              ]
+            },
+            {
+              "id": "section-2",
+              "name": "In-page jump bar",
+              "selector": [
+                "#intrenal-page-link-wrapper"
+              ],
+              "style": "anchor-tabs",
+              "blocks": [],
+              "defaultContent": []
+            },
+            {
+              "id": "section-3",
+              "name": "Running a Sample video",
+              "selector": [
+                "div.spotlight-content-wrapper > div.embeded-video"
+              ],
+              "style": null,
+              "blocks": [
+                "embed-wistia"
+              ],
+              "defaultContent": [
+                "div.embeded-video > h2"
+              ]
+            },
+            {
+              "id": "section-4",
+              "name": "Content and Resources",
+              "selector": [
+                "#product-documentation-wrapper"
+              ],
+              "style": null,
+              "blocks": [
+                "cards-doclist"
+              ],
+              "defaultContent": [
+                "#product-documentation-wrapper div.product-page-sub-heading-wrapper > h3"
+              ]
+            },
+            {
+              "id": "section-5",
+              "name": "Technical Documents",
+              "selector": [
+                "#techdocs-wrapper"
+              ],
+              "style": null,
+              "blocks": [],
+              "defaultContent": [
+                "#techdocs-wrapper > div.product-page-sub-heading-wrapper"
+              ]
+            },
+            {
+              "id": "section-6",
+              "name": "FAQ",
+              "selector": [
+                "div.spotlight-content-wrapper div.bcls-aeo-faqs.container"
+              ],
+              "style": null,
+              "blocks": [
+                "cards-faq"
               ],
               "defaultContent": []
             }

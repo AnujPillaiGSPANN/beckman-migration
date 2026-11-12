@@ -1,0 +1,71 @@
+/* Hero (banner) – source: .outimg (100vw) > .top-banner (500px, background photo cover at 15% 0)
+   > .innertext1 (60% wide, 90% below 768px; 60px H1 + 18px light subtitle) + .dark-overlay (70%) */
+
+/* full-bleed: the source banner spans the viewport */
+main > .section > .hero-banner-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.hero-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 500px;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+  isolation: isolate;
+}
+
+.hero-banner .hero-banner-media {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+
+.hero-banner .hero-banner-media picture,
+.hero-banner .hero-banner-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 15% 0;
+}
+
+.hero-banner .hero-banner-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: rgb(0 0 0 / 70%);
+}
+
+.hero-banner .hero-banner-content {
+  width: 90%;
+}
+
+.hero-banner .hero-banner-content :is(h1, h2) {
+  margin: 0 0 16px;
+  color: #fff;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.hero-banner .hero-banner-content p {
+  margin: 18px 0;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 1.2;
+  text-align: center;
+}
+
+@media (width >= 768px) {
+  .hero-banner .hero-banner-content {
+    width: 60%;
+  }
+}

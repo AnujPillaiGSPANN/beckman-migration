@@ -13,6 +13,9 @@ import accordionFaqParser from './parsers/accordion-faq.js';
 import carouselTestimonialParser from './parsers/carousel-testimonial.js';
 import tableSpecsParser from './parsers/table-specs.js';
 import accordionRailParser from './parsers/accordion-rail.js';
+import heroBannerParser from './parsers/hero-banner.js';
+import embedWistiaParser from './parsers/embed-wistia.js';
+import cardsTilesParser from './parsers/cards-tiles.js';
 import cleanupTransformer from './transformers/beckman-cleanup.js';
 import sectionsTransformer from './transformers/beckman-sections.js';
 
@@ -21,7 +24,10 @@ const PAGE_TEMPLATE = {
   "urls": [
     "https://www.beckman.com/liquid-handlers/biomek-i-series-automated-workstations",
     "https://www.beckman.com/liquid-handlers/echo-acoustic",
-    "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software"
+    "https://www.mybeckman.in/flow-cytometry/research-flow-cytometers/cytoflex/software",
+    "https://www.mybeckman.in/resources/reading-material/whitepapers/gmp-cleanrooms-classification-and-routine-environmental-monitoring",
+    "https://www.mybeckman.in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide",
+    "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation"
   ],
   "description": "Product series page: video hero, intro with video, benefits icon accordion, model comparison, custom automation media columns, brochure and application scroll strips, related products slider, Marketo contact form.",
   "blocks": [
@@ -97,6 +103,27 @@ const PAGE_TEMPLATE = {
       "name": "accordion-rail",
       "instances": [
         "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.rail-navigation"
+      ]
+    },
+    {
+      "name": "hero-banner",
+      "instances": [
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(2) > div.outimg > div.top-banner"
+      ]
+    },
+    {
+      "name": "embed-wistia",
+      "instances": [
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(4)",
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(7) > div.embeded-video__wrapper"
+      ]
+    },
+    {
+      "name": "cards-tiles",
+      "instances": [
+        "#applications > div.copy > div.cards-row",
+        "#methods > div.copy:nth-of-type(2) > div.cards-row:nth-of-type(1)",
+        "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.row:nth-of-type(9)"
       ]
     }
   ],
@@ -355,6 +382,238 @@ const PAGE_TEMPLATE = {
           "defaultContent": []
         }
       ]
+    },
+    "https://www.mybeckman.in/resources/reading-material/whitepapers/gmp-cleanrooms-classification-and-routine-environmental-monitoring": {
+      "blocks": {
+        "embed-marketo": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.formassembly-container"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Page title",
+          "selector": [
+            "#content-holder"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Main column: whitepaper article",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Right sidebar: gated-content form, helpful links, brochure",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right"
+          ],
+          "style": "sidebar, quarter, centered",
+          "blocks": [
+            "embed-marketo"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    "https://www.mybeckman.in/resources/reading-material/whitepapers/met-one-3400-plus-it-implementation-guide": {
+      "blocks": {
+        "media-split": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(3)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(9)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(11)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(13)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(14)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > p:nth-of-type(31)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > p:nth-of-type(33)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(15)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(16)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(18)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(19)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(20)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left > div.block > div.bc-rich-text > h2:nth-of-type(21)"
+        ],
+        "embed-marketo": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right > div.formassembly-container"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Page title",
+          "selector": [
+            "#content-holder"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Main column: whitepaper body (wired/wireless connectivity, users, LDAP, name services, machine groups, barcode, web browser, network shares/printing, firmware, logs, audit trail, database)",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__left"
+          ],
+          "style": null,
+          "blocks": [
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split",
+            "media-split"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Right sidebar: request-info form and whitepaper PDF download",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.two-columns-holder > div.row > div.two-columns-holder__right"
+          ],
+          "style": "sidebar, quarter, centered",
+          "blocks": [
+            "embed-marketo"
+          ],
+          "defaultContent": []
+        }
+      ]
+    },
+    "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation": {
+      "blocks": {
+        "hero-banner": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(2) > div.outimg > div.top-banner"
+        ],
+        "embed-wistia": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(4)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(7) > div.embeded-video__wrapper"
+        ],
+        "media-split": [
+          "#benefits > div.copy.row",
+          "#methods > div.copy.row"
+        ],
+        "cards-tiles": [
+          "#applications > div.copy > div.cards-row",
+          "#methods > div.copy:nth-of-type(2) > div.cards-row:nth-of-type(1)",
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.row:nth-of-type(9)"
+        ],
+        "embed-marketo": [
+          "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.formassembly-container.marketo-two-column"
+        ]
+      },
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero banner",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(2)"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-banner"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Contents jump bar",
+          "selector": [
+            "#quick-nav"
+          ],
+          "style": "anchor-contents",
+          "blocks": [],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "Introduction and AUC video",
+          "selector": [
+            "#introduction"
+          ],
+          "style": null,
+          "blocks": [
+            "embed-wistia"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Key benefits",
+          "selector": [
+            "#benefits"
+          ],
+          "style": null,
+          "blocks": [
+            "media-split"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-5",
+          "name": "Applications",
+          "selector": [
+            "#applications"
+          ],
+          "style": "light-grey",
+          "blocks": [
+            "cards-tiles"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Methods",
+          "selector": [
+            "#methods"
+          ],
+          "style": null,
+          "blocks": [
+            "media-split",
+            "cards-tiles"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-7",
+          "name": "Testimonial video and related content",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.embeded-video.embeded-video--center.embeded-video--col-6:nth-of-type(7)"
+          ],
+          "style": "centered",
+          "blocks": [
+            "embed-wistia",
+            "cards-tiles"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "Talk to an Expert form",
+          "selector": [
+            "#main > div.main-holder > div.container:nth-of-type(2) > div.bc-test-layout > div.block > div.bc-rich-text:nth-of-type(11)"
+          ],
+          "style": "light-grey, centered",
+          "blocks": [
+            "embed-marketo"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   }
 };
@@ -372,6 +631,9 @@ const parsers = {
   'carousel-testimonial': carouselTestimonialParser,
   'table-specs': tableSpecsParser,
   'accordion-rail': accordionRailParser,
+  'hero-banner': heroBannerParser,
+  'embed-wistia': embedWistiaParser,
+  'cards-tiles': cardsTilesParser,
 };
 // Late transformers change the DOM (section <hr> markers, shared fragments), so their beforeTransform
 // runs after block discovery.

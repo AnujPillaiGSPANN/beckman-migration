@@ -4,6 +4,7 @@ import decorateVariant from '../../scripts/variants.js';
 const VARIANTS = {
   motion: 'hero-video',
   promo: 'hero-promo',
+  banner: 'hero-banner',
 };
 
 // every item component id of the family (may lead a row in imported content)

@@ -18,6 +18,7 @@
 }
 
 .embed-wistia .embed-wistia-placeholder {
+  container-type: inline-size;
   margin: 0;
   padding: 0;
   border-radius: 0;
@@ -33,26 +34,44 @@
   object-fit: cover;
 }
 
-/* play button in the source player colour */
+/* poster play button: Wistia's big play button (vulcan v2 player) in the media's player colour
+   (--embed-wistia-color, set by wistia.js; default = Wistia's default #54bbff): a "darken"
+   colour layer under a 70% colour layer (darker on hover) with a white triangle. 125 x 80 at
+   ~830px player width, 19.5% of the player below that, growing slowly above it (142.8 x 91.4
+   at 1097px); centred 18px above the middle (Wistia keeps room for its control bar).
+   No transform: it would isolate the "darken" layer from the poster (sizes in cqw of the
+   placeholder, which holds the poster). */
 .embed-wistia .embed-wistia-play {
+  --embed-wistia-play-color: var(--embed-wistia-color, #54bbff);
+  --embed-wistia-play-width: min(19.5cqw, max(125px, calc(125px + (100cqw - 829px) * 0.066)));
+
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 125px;
-  height: 80px;
-  background-color: #ea1c2c;
-  transform: translate(-50%, -50%);
+  top: calc(50% - 18px - var(--embed-wistia-play-width) * 0.32);
+  left: calc(50% - var(--embed-wistia-play-width) / 2);
+  width: var(--embed-wistia-play-width);
+  aspect-ratio: 125 / 80;
 }
 
+.embed-wistia .embed-wistia-play::before,
 .embed-wistia .embed-wistia-play::after {
   content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  border-top: 16px solid transparent;
-  border-bottom: 16px solid transparent;
-  border-left: 26px solid #fff;
-  transform: translate(-40%, -50%);
+  inset: 0;
+}
+
+.embed-wistia .embed-wistia-play::before {
+  background-color: var(--embed-wistia-play-color);
+  mix-blend-mode: darken;
+}
+
+.embed-wistia .embed-wistia-play::after {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 125 80'%3E%3Cpath fill='%23fff' transform='translate(44 22)' d='M12.138 2.173C10.812 1.254 9 2.203 9 3.817v28.366c0 1.613 1.812 2.563 3.138 1.644l20.487-14.183a2 2 0 0 0 0-3.288L12.138 2.173Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  background-color: rgb(from var(--embed-wistia-play-color) r g b / 70%);
+  transition: background-color 150ms;
+}
+
+.embed-wistia .embed-wistia-placeholder:hover .embed-wistia-play::after {
+  background-color: rgb(from var(--embed-wistia-play-color) calc(r - 89) calc(g - 89) calc(b - 89) / 70%);
 }
 
 .embed-wistia .embed-wistia-placeholder:focus-visible {
@@ -65,6 +84,18 @@
   width: 66.6667%;
 }
 
+/* the source heading inside .embeded-video (kept by the importer as the only default content
+   right before the block, e.g. HIAC 9703+ "Running a Sample"; the source writes it as an h2 —
+   an h3 there is a section heading, e.g. Vi-CELL BLU "Product Overview"): left-aligned with the player */
+main .section > .default-content-wrapper:has(> h2:only-child):has(+ .embed-wrapper > .embed-wistia) > h2 {
+  width: 83.33%;
+  margin-inline: auto;
+}
+
+main .section > .default-content-wrapper:has(> h2:only-child):has(+ .embed-wrapper > .embed-wistia.narrow) > h2 {
+  width: 66.6667%;
+}
+
 /* breakpoint-exception: source bootstrap column gutter (padding: 0 10px) applies from 1024px */
 @media (width >= 1024px) {
   .embed-wistia {
@@ -73,5 +104,27 @@
 
   .embed-wistia.narrow {
     width: calc(66.6667% - 20px);
+  }
+
+  main .section > .default-content-wrapper:has(> h2:only-child):has(+ .embed-wrapper > .embed-wistia) > h2 {
+    width: calc(83.33% - 20px);
+  }
+
+  main .section > .default-content-wrapper:has(> h2:only-child):has(+ .embed-wrapper > .embed-wistia.narrow) > h2 {
+    width: calc(66.6667% - 20px);
+  }
+}
+
+/* technology page (the page with a "Contents:" bar, section style anchor-contents): source
+   .embeded-video--col-6, half the viewport wide (10px column gutters from 992px), 5vh margins */
+main:has(> .section.anchor-contents) .embed-wistia {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/* breakpoint-exception: source bootstrap column gutter (padding: 0 10px) applies from 992px */
+@media (width >= 992px) {
+  main:has(> .section.anchor-contents) .embed-wistia {
+    width: calc(50% - 20px);
   }
 }

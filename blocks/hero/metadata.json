@@ -6,7 +6,8 @@
   "variantOptions": [
     "(default)",
     "motion",
-    "promo"
+    "promo",
+    "banner"
   ],
   "extraOptions": {},
   "variants": [
@@ -86,6 +87,40 @@
       },
       "reuseGuidance": "Use for in-page product/software promos on a dark background. For a page-top video hero use hero-video.",
       "usageDescription": "Mid-page content-width dark promo banner: background photo behind a pink eyebrow, very large H2 and text, a 4-up bordered icon feature strip and a centred red CTA."
+    },
+    {
+      "option": "banner",
+      "authoring": "Hero (banner)",
+      "legacyBlock": "hero-banner",
+      "variantName": "hero-banner",
+      "baseBlock": "hero",
+      "canonicalModel": "standalone",
+      "visualCharacteristics": {
+        "purpose": "Page-top full-width dark banner with a background photo and the page title",
+        "description": "500px tall, photo cover at 15% 0 under a 70% black overlay, centred 60px/500 white H1 + 18px/200 subtitle, text 60% wide (90% below 768px)."
+      },
+      "contentPattern": {
+        "summary": "H1 'Analytical Ultracentrifugation (AUC)' + subtitle over a black-and-white photo",
+        "structure": "rows: (1) background image; (2) H1 + subtitle paragraph"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "hero-banner"
+      ],
+      "sourceUrl": "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation",
+      "sourceUrls": [
+        "https://www.mybeckman.in/resources/technologies/analytical-ultracentrifugation"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/resources/technologies/analytical-ultracentrifugation"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-12"
+      },
+      "reuseGuidance": "Use for page-top title banners on a photo. For a video background use Hero (motion).",
+      "usageDescription": "Full-width dark banner: background photo under a 70% overlay, centred H1 and subtitle."
     }
   ]
 }

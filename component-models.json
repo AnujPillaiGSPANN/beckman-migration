@@ -161,12 +161,20 @@
             "value": "sidebar"
           },
           {
+            "name": "Sidebar: quarter width (main column 3/4, sidebar 1/4; with Sidebar)",
+            "value": "quarter"
+          },
+          {
             "name": "Jump links: button bar",
             "value": "anchor-nav"
           },
           {
             "name": "Jump links: tab bar",
             "value": "anchor-tabs"
+          },
+          {
+            "name": "Jump links: Contents bar (heading + grey buttons; technology page look)",
+            "value": "anchor-contents"
           },
           {
             "name": "Tight heading spacing",
@@ -349,6 +357,10 @@
           {
             "name": "Workflow",
             "value": "workflow"
+          },
+          {
+            "name": "Tiles",
+            "value": "tiles"
           }
         ]
       },
@@ -374,6 +386,10 @@
           {
             "name": "Unnumbered (Workflow: no step badges)",
             "value": "unnumbered"
+          },
+          {
+            "name": "Panels (Tiles: 4-column wrapping grid, grayscale photos, bold titles)",
+            "value": "panels"
           }
         ]
       }
@@ -617,6 +633,32 @@
         "name": "text",
         "value": "",
         "label": "Step name + product link",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "cards-tiles-card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "value": "",
+        "label": "Image Alt"
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Optional badge paragraph + linked title",
         "valueType": "string"
       }
     ]
@@ -985,6 +1027,10 @@
           {
             "name": "Promo (dark banner with feature strip)",
             "value": "promo"
+          },
+          {
+            "name": "Banner (dark full-width banner: photo + centred title)",
+            "value": "banner"
           }
         ]
       },
@@ -992,7 +1038,7 @@
         "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image (Default / Promo: background image)",
+        "label": "Image (Default / Promo / Banner: background image)",
         "multi": false
       },
       {
@@ -1027,7 +1073,7 @@
         "component": "richtext",
         "name": "text",
         "value": "",
-        "label": "Text (Default: heading; Motion: H1 + CTA links; Promo: eyebrow, heading, text, CTA)",
+        "label": "Text (Default: heading; Motion: H1 + CTA links; Promo: eyebrow, heading, text, CTA; Banner: H1 + subtitle)",
         "valueType": "string"
       }
     ]
@@ -1107,6 +1153,28 @@
         "name": "column2_imageAlt",
         "value": "",
         "label": "Video link / media Image Alt"
+      }
+    ]
+  },
+  {
+    "id": "media-split",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Wrap (long-form text wraps around a 400px screenshot floated right)",
+            "value": "wrap"
+          },
+          {
+            "name": "Image on the left (with Wrap)",
+            "value": "left"
+          }
+        ]
       }
     ]
   },

@@ -13,6 +13,26 @@ function loadPlayer(block, id, autoPlay) {
 }
 
 /**
+ * Poster play button in the media's own player colour (Wistia media settings, playerColor),
+ * read once the block comes near the viewport; the CSS default is Wistia's default colour.
+ */
+function usePlayerColor(block, id) {
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting)) return;
+    observer.disconnect();
+    fetch(`https://fast.wistia.com/embed/medias/${id}.json`)
+      .then((resp) => (resp.ok ? resp.json() : null))
+      .then((json) => {
+        const color = json && json.media && json.media.embedOptions
+          && json.media.embedOptions.playerColor;
+        if (/^[0-9a-f]{6}$/i.test(color || '')) block.style.setProperty('--embed-wistia-color', `#${color}`);
+      })
+      .catch(() => {});
+  }, { rootMargin: '400px' });
+  observer.observe(block);
+}
+
+/**
  * Embed (wistia): Wistia video player from a media id or Wistia URL.
  * Cells: optional poster image + Wistia link (fast.wistia.net/embed/iframe/<id>,
  * *.wistia.com/medias/<id>) or a bare media id.
@@ -37,6 +57,7 @@ export default function decorate(block) {
     button.append(icon);
     button.addEventListener('click', () => loadPlayer(block, wistia.id, true));
     block.append(button);
+    usePlayerColor(block, wistia.id);
     return;
   }
 
