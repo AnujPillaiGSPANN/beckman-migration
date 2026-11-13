@@ -225,6 +225,24 @@ export function joinImageRuns(root) {
 }
 
 /**
+ * AEM turns web addresses written as plain text into links (e.g. the URLs in a reference list),
+ * which the source and document content keep as text. Turn such a link, whose text is its own
+ * address and which sits inside other text, back into text. A link that is alone in its
+ * paragraph (linked images, video and form addresses) is authored and stays.
+ * @param {Element} main The main element
+ */
+export function unlinkTextUrls(main) {
+  const norm = (u) => u.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  main.querySelectorAll('a[href]').forEach((a) => {
+    const text = a.textContent.trim();
+    if (!text || a.children.length || norm(text) !== norm(a.getAttribute('href'))) return;
+    const parent = a.parentElement;
+    if (!parent || parent.textContent.replace(a.textContent, '').trim() === '') return;
+    a.replaceWith(document.createTextNode(a.textContent));
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -232,6 +250,7 @@ export function joinImageRuns(root) {
 export function decorateMain(main) {
   joinLinkedImages(main);
   joinImageRuns(main);
+  unlinkTextUrls(main);
   wrapInlineCells(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
