@@ -240,6 +240,15 @@ function tidyLineBreaks(root) {
     const inline = (n) => n && (n.nodeType === 3 || INLINE.test(n.nodeName) || /^(A|IMG|PICTURE)$/.test(n.nodeName));
     if (!inline(lineNeighbour(br, 'previousSibling')) || !inline(lineNeighbour(br, 'nextSibling'))) br.remove();
   });
+  // AEM stores a heading as plain text and drops its <br>s, joining the words on either side
+  // ("Learn More About<br>Cleanroom…" became "AboutCleanroom"): a heading's line break becomes a
+  // space, so the heading wraps by itself in both places
+  brs.forEach((br) => {
+    if (!br.parentElement?.closest('h1, h2, h3, h4, h5, h6')) return;
+    const before = br.previousSibling?.nodeType === 3 && /\s$/.test(br.previousSibling.textContent);
+    const after = br.nextSibling?.nodeType === 3 && /^\s/.test(br.nextSibling.textContent);
+    br.replaceWith(before || after ? '' : ' ');
+  });
 }
 
 /**
