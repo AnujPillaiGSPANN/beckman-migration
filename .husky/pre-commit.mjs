@@ -18,3 +18,13 @@ if (modifiedPartials.length > 0) {
   console.log(output);
   await run('git add component-models.json component-definition.json component-filters.json');
 }
+
+// blocks are families with variants, no page-specific blocks (AGENTS.md)
+if (modifiedFiles.some((file) => file.startsWith('blocks/'))) {
+  try {
+    console.log(await run('node tools/check-block-families.mjs'));
+  } catch (e) {
+    console.error(e.stderr || e.message);
+    process.exit(1);
+  }
+}
