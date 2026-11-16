@@ -1,0 +1,578 @@
+/* Cards (finder): live product filter (source .product-table Coveo interface, India product
+   pages "Explore … Models"). Values measured on the live page at 1440 / 1024 / 768 / 375. */
+
+/* hidden like the source when there is no product or the search cannot be reached */
+main .section[hidden],
+main .cards-finder [hidden] {
+  display: none;
+}
+
+.cards-finder {
+  --finder-text: rgb(0 23 38);
+  --finder-border: #ddd;
+  --finder-box-border: rgb(188 195 202);
+  --finder-blue: rgb(0 122 203);
+  --finder-pager-font: lato, 'Helvetica Neue', helvetica, arial, sans-serif;
+
+  font-family: var(--body-font-family);
+  color: rgb(49 58 69);
+  font-size: 16px;
+  line-height: 26.4px;
+}
+
+.cards-finder .cards-finder-summary {
+  /* padding, not margin: a top margin would collapse into the section heading's */
+  margin: 0 0 14px;
+  padding-top: 8px;
+  font-size: 14px;
+  line-height: 23.1px;
+  color: var(--finder-text);
+  text-align: left;
+}
+
+.cards-finder .cards-finder-summary strong {
+  font-weight: 700;
+}
+
+.cards-finder .cards-finder-main {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* facet column */
+.cards-finder .cards-finder-facets {
+  flex: 0 0 285px;
+  width: 285px;
+  border-bottom: 1px solid var(--finder-border);
+  box-shadow: 0 2px 5px rgb(0 0 0 / 10%);
+  font-family: var(--finder-pager-font);
+}
+
+.cards-finder .cards-finder-facet {
+  display: flow-root;
+  position: relative;
+  padding: 15px 15px 0;
+  border: 1px solid var(--finder-border);
+  border-bottom: 0;
+  border-radius: 2px;
+}
+
+.cards-finder .cards-finder-facet-header {
+  /* the source keeps 57px for its (hidden) facet settings buttons: titles wrap at 196px */
+  padding-right: 50px;
+}
+
+.cards-finder .cards-finder-facet-title {
+  margin: 0 0 10px;
+  font-family: var(--body-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--finder-text);
+}
+
+/* collapse / expand: a blue minus (plus when collapsed), 21px from the facet's right edge */
+.cards-finder .cards-finder-facet-toggle {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 13px;
+  height: 27px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  color: var(--finder-blue);
+  cursor: pointer;
+}
+
+.cards-finder .cards-finder-facet-toggle::before,
+.cards-finder .cards-finder-facet-toggle::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 13px;
+  height: 3px;
+  background: currentcolor;
+}
+
+.cards-finder .cards-finder-facet-toggle::after {
+  display: none;
+  top: 7px;
+  left: 5px;
+  width: 3px;
+  height: 13px;
+}
+
+.cards-finder .cards-finder-facet-collapsed .cards-finder-facet-toggle::after {
+  display: block;
+}
+
+.cards-finder .cards-finder-facet-collapsed .cards-finder-facet-body {
+  display: none;
+}
+
+.cards-finder .cards-finder-facet-collapsed .cards-finder-facet-header {
+  padding-bottom: 5px;
+}
+
+.cards-finder .cards-finder-facet-clear {
+  position: absolute;
+  top: 15px;
+  right: 41px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgb(29 79 118);
+  cursor: pointer;
+}
+
+.cards-finder .cards-finder-facet-clear::before {
+  content: '×';
+  font: 400 20px/18px var(--finder-pager-font);
+}
+
+.cards-finder .cards-finder-facet-values {
+  display: flow-root;
+  margin: 0 0 15px;
+  padding: 5px 0 0;
+  list-style: none;
+}
+
+.cards-finder .cards-finder-facet-values:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.cards-finder .cards-finder-facet-value {
+  margin: 0;
+  padding: 0;
+}
+
+.cards-finder .cards-finder-facet-value label {
+  display: flex;
+  align-items: flex-start;
+  margin: 0 0 5px;
+  padding: 5px 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+.cards-finder .cards-finder-facet-value input {
+  appearance: none;
+  flex: none;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  margin: 2px 15px 0 0;
+  border: 1px solid var(--finder-box-border);
+  border-radius: 2px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.cards-finder .cards-finder-facet-value input:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--finder-blue);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.cards-finder .cards-finder-facet-value input:focus-visible {
+  outline: 2px solid var(--finder-blue);
+  outline-offset: 1px;
+}
+
+.cards-finder .cards-finder-facet-caption {
+  flex: 1;
+  min-width: 0;
+  padding-top: 2px;
+  overflow: hidden;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--finder-text);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cards-finder .cards-finder-facet-count {
+  flex: none;
+  margin: 0 5px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: var(--finder-text);
+}
+
+.cards-finder .cards-finder-facet-search {
+  margin-bottom: 5px;
+  padding: 5px 0;
+  line-height: 22px;
+}
+
+.cards-finder .cards-finder-facet-search-open {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 18px;
+  color: var(--finder-text);
+  cursor: pointer;
+}
+
+.cards-finder .cards-finder-facet-search-open::before {
+  content: '+';
+  box-sizing: border-box;
+  width: 18px;
+  height: 18px;
+  margin-right: 15px;
+  border: 1px dotted var(--finder-box-border);
+  font: 400 16px/15px var(--finder-pager-font);
+  color: var(--finder-box-border);
+  text-align: center;
+}
+
+.cards-finder .cards-finder-facet-search input[type='search'] {
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+  margin: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--finder-box-border);
+  border-radius: 2px;
+  font-family: var(--finder-pager-font);
+  font-size: 13px;
+  color: rgb(103 118 139);
+}
+
+.cards-finder .cards-finder-facet-more {
+  display: block;
+  width: 100%;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0 0 2px 2px;
+  background: rgb(247 248 249);
+  cursor: pointer;
+}
+
+.cards-finder .cards-finder-facet-more::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  margin: 2px auto 0;
+  border: solid rgb(49 58 69);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.cards-finder .cards-finder-facet-more.cards-finder-facet-less::before {
+  margin-top: 6px;
+  transform: rotate(-135deg);
+}
+
+/* results */
+.cards-finder .cards-finder-results {
+  flex: 1;
+  min-width: 0;
+  margin-left: 30px;
+}
+
+.cards-finder.cards-finder-loading .cards-finder-results {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.cards-finder .cards-finder-facets[hidden] + .cards-finder-results {
+  margin-left: 0;
+}
+
+.cards-finder .cards-finder-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-finder .cards-finder-result {
+  box-sizing: border-box;
+  width: 25%;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--finder-border);
+}
+
+.cards-finder .cards-finder-card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 10px;
+}
+
+.cards-finder .cards-finder-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 180px;
+  margin: 0 0 10px;
+}
+
+.cards-finder .cards-finder-image a {
+  display: contents;
+}
+
+.cards-finder .cards-finder-image img {
+  display: block;
+  width: 180px;
+  max-width: 100%;
+  height: auto;
+  max-height: 180px;
+}
+
+.cards-finder .cards-finder-content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 18px;
+}
+
+.cards-finder .cards-finder-title {
+  margin: 0 0 10px;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--finder-blue);
+}
+
+.cards-finder .cards-finder-title a:any-link {
+  font-weight: 600;
+  color: rgb(0 23 40);
+  text-decoration: none;
+}
+
+.cards-finder .cards-finder-title a:hover {
+  text-decoration: underline;
+}
+
+.cards-finder .cards-finder-number {
+  margin: 0 0 15px;
+  font-size: 10px;
+  line-height: 16.5px;
+  color: rgb(140 140 140);
+}
+
+.cards-finder .cards-finder-footer {
+  margin-top: auto;
+  padding-bottom: 24px;
+  text-align: center;
+}
+
+.cards-finder .cards-finder-quote:any-link {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  padding: 9px 12px;
+  border: 1px solid var(--finder-blue);
+  border-radius: 2px;
+  background: transparent;
+  font-size: 10.5px;
+  font-weight: 300;
+  line-height: 17.325px;
+  color: var(--finder-blue);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.cards-finder .cards-finder-quote:hover,
+.cards-finder .cards-finder-quote:focus-visible {
+  background: var(--finder-blue);
+  color: #fff;
+}
+
+/* pager: right-aligned grey boxes, the current page in light blue */
+.cards-finder .cards-finder-pager ul {
+  display: flex;
+  justify-content: flex-end;
+  margin: 25px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-finder .cards-finder-pager li {
+  margin: 0 0 0 5px;
+  padding: 0;
+}
+
+.cards-finder .cards-finder-pager li:first-child {
+  margin-left: 0;
+}
+
+.cards-finder .cards-finder-pager button {
+  display: block;
+  box-sizing: border-box;
+  height: 35px;
+  margin: 0;
+  padding: 5px 10px;
+  border: 1px solid rgb(0 0 0 / 15%);
+  border-radius: 0;
+  background: rgb(239 239 239);
+  font-family: var(--finder-pager-font);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 23.1px;
+  color: rgb(0 73 144);
+  cursor: pointer;
+}
+
+.cards-finder .cards-finder-pager .cards-finder-pager-active button {
+  border-color: transparent;
+  background: none;
+  color: rgb(205 222 233);
+  cursor: default;
+}
+
+.cards-finder .cards-finder-pager :is(.cards-finder-pager-next, .cards-finder-pager-prev) button {
+  position: relative;
+  width: 29px;
+  min-width: 0;
+}
+
+.cards-finder .cards-finder-pager :is(.cards-finder-pager-next, .cards-finder-pager-prev) button::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 8px;
+  width: 7px;
+  height: 7px;
+  border: solid rgb(0 23 38);
+  border-width: 0 2px 2px 0;
+  transform: rotate(-45deg);
+}
+
+.cards-finder .cards-finder-pager .cards-finder-pager-prev button::before {
+  left: 11px;
+  transform: rotate(135deg);
+}
+
+/* Universal Editor: the settings, since the products cannot load there */
+.cards-finder .cards-finder-authoring {
+  padding: 15px;
+  border: 1px dashed var(--finder-border);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cards-finder .cards-finder-authoring dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  margin: 10px 0 0;
+}
+
+.cards-finder .cards-finder-authoring dt {
+  font-weight: 500;
+}
+
+.cards-finder .cards-finder-authoring dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+/* breakpoint-exception: Coveo hides the facet column below 800px; three products per row */
+@media (width < 800px) {
+  .cards-finder .cards-finder-facets {
+    display: none;
+  }
+
+  .cards-finder .cards-finder-results {
+    margin-left: 0;
+  }
+
+  .cards-finder .cards-finder-result {
+    width: 33.3333%;
+  }
+}
+
+/* phone: one product per row, small image beside a blue title, no quote button */
+@media (width < 768px) {
+  .cards-finder .cards-finder-list {
+    display: block;
+  }
+
+  .cards-finder .cards-finder-result {
+    width: auto;
+  }
+
+  .cards-finder .cards-finder-card {
+    display: block;
+    overflow: hidden;
+  }
+
+  .cards-finder .cards-finder-image {
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin: 15px 20px 0 0;
+  }
+
+  .cards-finder .cards-finder-image img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cards-finder .cards-finder-content {
+    display: inline-block;
+    width: calc(100% - 81px);
+    margin: 10px 0 0;
+    font-size: 16px;
+    line-height: 26.4px;
+  }
+
+  .cards-finder .cards-finder-title {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 16px;
+    color: rgb(51 51 51);
+  }
+
+  .cards-finder .cards-finder-title a:any-link {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--finder-blue);
+  }
+
+  .cards-finder .cards-finder-number {
+    display: inline;
+    font-size: 11px;
+    line-height: 18.15px;
+  }
+
+  .cards-finder .cards-finder-footer {
+    display: none;
+  }
+}

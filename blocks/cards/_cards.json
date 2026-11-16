@@ -195,6 +195,21 @@
           }
         }
       }
+    },
+    {
+      "title": "Product Finder Setting",
+      "id": "cards-finder-setting",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Setting",
+              "model": "cards-finder-setting"
+            }
+          }
+        }
+      }
     }
   ],
   "models": [
@@ -255,6 +270,10 @@
             {
               "name": "Tiles",
               "value": "tiles"
+            },
+            {
+              "name": "Product finder (live Coveo search)",
+              "value": "finder"
             }
           ]
         },
@@ -556,6 +575,27 @@
           "valueType": "string"
         }
       ]
+    },
+    {
+      "id": "cards-finder-setting",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "name",
+          "value": "",
+          "label": "Setting",
+          "description": "endpoint, query, scope, pipeline, hub, results, locale, facet, product link, quote link, quote label, token"
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "value",
+          "value": "",
+          "label": "Value",
+          "description": "facet: Title | @field. Links: use a link or the URL text; {id} = product number"
+        }
+      ]
     }
   ],
   "filters": [
@@ -573,7 +613,8 @@
         "cards-gradient-item",
         "cards-steps-item",
         "cards-workflow-item",
-        "cards-tiles-card"
+        "cards-tiles-card",
+        "cards-finder-setting"
       ]
     }
   ]

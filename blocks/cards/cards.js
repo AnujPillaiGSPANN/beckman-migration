@@ -13,6 +13,7 @@ const VARIANTS = {
   steps: 'cards-steps',
   workflow: 'cards-workflow',
   tiles: 'cards-tiles',
+  finder: 'cards-finder',
 };
 
 // every item component id of the family (may lead a row in imported content)
@@ -29,6 +30,7 @@ const ITEMS = [
   'cards-steps-item',
   'cards-workflow-item',
   'cards-tiles-card',
+  'cards-finder-setting',
 ];
 
 export default async function decorate(block) {

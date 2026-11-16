@@ -15,7 +15,8 @@
     "gradient",
     "steps",
     "workflow",
-    "tiles"
+    "tiles",
+    "finder"
   ],
   "extraOptions": {
     "compact": "icons",
@@ -372,11 +373,11 @@
       "baseBlock": "cards",
       "canonicalModel": "collection",
       "visualCharacteristics": {
-        "purpose": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws → / ← arrows between two cards",
+        "purpose": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws \u2192 / \u2190 arrows between two cards",
         "description": "cards-product has linked titles and lists; cards-icon is borderless icon tiles; cards-resource is title-over-cover with Read button. This is unlinked photo-top cards with a per-position coloured label bar (purple, navy, cyan) under the image: under 80% similar."
       },
       "contentPattern": {
-        "summary": "3 centered bordered step cards: cover photo, full-width coloured label bar (purple / navy / cyan, uppercase), short description / 2 step cards ('With Carousel' purple bar, 'With Plate' cyan bar) with a stacked → / ← arrow pair between them",
+        "summary": "3 centered bordered step cards: cover photo, full-width coloured label bar (purple / navy / cyan, uppercase), short description / 2 step cards ('With Carousel' purple bar, 'With Plate' cyan bar) with a stacked \u2192 / \u2190 arrow pair between them",
         "structure": "one row per card: (1) image (`image`/`imageAlt`); (2) rich text `text`: bold label paragraph (e.g. FIRST STEP) + description paragraph"
       },
       "options": [
@@ -401,7 +402,7 @@
         "lastUsed": "2026-11-11"
       },
       "reuseGuidance": "Use for short illustrated process steps. Add the Exchange option for a two-card swap (bars purple then cyan). For linked numbered product steps use cards-workflow.",
-      "usageDescription": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws → / ← arrows between two cards."
+      "usageDescription": "Centred bordered step cards: photo on top, full-width coloured label bar (purple, navy, cyan by position), short description; \"exchange\" option draws \u2192 / \u2190 arrows between two cards."
     },
     {
       "option": "workflow",
@@ -484,6 +485,42 @@
       },
       "reuseGuidance": "Use for rows of linked tiles with an image and a short title. Add panels for a wrapping Related Content grid.",
       "usageDescription": "Bordered linked tiles: image on top, centred title below; optional eyebrow badge; panels option for a 4-column Related Content grid."
+    },
+    {
+      "option": "finder",
+      "authoring": "Cards (finder)",
+      "legacyBlock": "cards-finder",
+      "items": [
+        "cards-finder-setting"
+      ],
+      "variantName": "cards-finder",
+      "baseBlock": "cards",
+      "canonicalModel": "collection",
+      "visualCharacteristics": {
+        "purpose": "Live product filter (Explore ... Models): result count, facet column, product card grid, pager",
+        "description": "285px facet column (bordered facets, checkboxes with counts, collapse toggles, Search / more) beside a 4-column grid of bordered product cards (180px placeholder image, 14px title, 10px product number, outlined Add to Quote button) and a right-aligned pager; facets hidden and 3 columns below 800px; a list of small-image rows with blue titles below 768px."
+      },
+      "contentPattern": {
+        "summary": "Settings rows for a Coveo for Sitecore search (endpoint, query, scope, pipeline, facets, links); the products load live",
+        "structure": "one row per setting (item cards-finder-setting): (1) setting name; (2) value"
+      },
+      "options": [],
+      "memberVariantIds": [
+        "cards-finder"
+      ],
+      "sourceUrl": "https://www.mybeckman.in/air-particle-counters/facility-monitoring-system",
+      "sourceUrls": [
+        "https://www.mybeckman.in/air-particle-counters/facility-monitoring-system"
+      ],
+      "sectionMetadata": null,
+      "usage": {
+        "pagesUsing": [
+          "/in/air-particle-counters/facility-monitoring-system"
+        ],
+        "reuseCount": 0,
+        "lastUsed": "2026-11-16"
+      },
+      "reuseGuidance": "Use for a live, filterable product list fed by the Beckman Coveo search (source .product-table). The data is not authored: the section stays hidden when the search cannot be reached (any non-Beckman domain) or returns no product."
     }
   ]
 }

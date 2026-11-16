@@ -162,3 +162,32 @@ Rows: one row per tile (item cards-tiles-card): (1) image (`image`/`imageAlt`); 
 - Items `cards-tiles-card`: `image`, `imageAlt`, `text`.
 
 Use for rows of linked application / resource tiles. For a horizontal scroll strip use Cards (scroll); for document cards with a Read button use Cards (resource).
+
+## Cards (finder)
+
+Authoring: `Cards (finder)`. Item component: `cards-finder-setting`.
+
+Purpose: Live product filter, the source's "Explore … Models" Coveo table: "Results 1-8 of 25", a 285px column of filters (facets with checkboxes and counts, collapse toggle, Search and show-more for long facets), a 4-column grid of bordered product cards (placeholder image, title link, product number, outlined Add to Quote button) and a right-aligned pager. Below 800px the facets are hidden and the grid has 3 columns; below 768px each product is a row with a 50px image and a blue title.
+
+The products are not authored: they load live from the site's Coveo for Sitecore search endpoint. That endpoint only answers pages on the Beckman domain (it sends no cross-site permission, and the search token is issued to Beckman pages only), so on AEM preview / author and locally the request fails and, like the source when it has no product, the section is hidden together with the page's jump links to it. In the Universal Editor the block shows its settings instead.
+
+Rows: one row per setting (item cards-finder-setting): (1) setting name; (2) value.
+
+| Setting | Value |
+|---|---|
+| `endpoint` | Search URL: `<site>/coveo/rest/search/v2?sitecoreItemUri=<encoded item URI with lang=en>&siteName=website` |
+| `token` | Optional token URL (default: the endpoint's origin + `/coveo/rest/token`) |
+| `query` | Advanced query (`aq`): the source page's product table filter (templates, status, product taxonomy, region) |
+| `scope` | Constant query (`cq`): language, latest version, index source |
+| `pipeline`, `hub`, `locale` | Coveo query pipeline, search hub, locale (source: `Product Table`) |
+| `results` | Products per page (source: 8) |
+| `facet` | Repeatable: `Title \| @field` with the source field name (e.g. `Power Requirements \| @Power Requirements`); facets without values are not shown |
+| `product link` | Card link; `{id}` = product number (e.g. `https://store.beckman.com/p/{id}?countryCode=IN`) |
+| `quote link`, `quote label` | Card button target (`{id}` allowed) and label (default "Add to Quote"); no button without a link |
+| `image` | Placeholder image (default `/icons/image-not-available.svg`; the index has no product images) |
+
+### Universal Editor fields
+
+- Items `cards-finder-setting`: `name`, `value`.
+
+Use only for live Coveo product lists. For authored product cards use Cards (product).

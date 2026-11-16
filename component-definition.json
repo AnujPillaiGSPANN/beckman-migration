@@ -357,6 +357,21 @@
           }
         },
         {
+          "title": "Product Finder Setting",
+          "id": "cards-finder-setting",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Setting",
+                  "model": "cards-finder-setting"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Carousel",
           "id": "carousel",
           "plugins": {

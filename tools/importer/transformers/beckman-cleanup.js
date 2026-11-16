@@ -475,6 +475,9 @@ function keepDocumentLinksExternal(root, payload) {
  * - links: { '<href>': '<href>' } link targets to replace (e.g. a US-site link on an India page)
  * - techDocs: 'more' = Technical Documents keeps the visible "Didn't find … click here." line
  *   (#coveo-techdocs-more-results) instead of the hidden Coveo error sentence
+ * - modelsTable: 'keep' = the Coveo models table (#product-table-wrapper) stays for the
+ *   cards-finder parser (Cards (finder) loads the products live); use with modelsHeading = its
+ *   heading so the "Explore … Models" links point at it
  * - wistiaPoster: the rendered Wistia player's thumbnail (as .jpg) becomes the Embed (wistia)
  *   poster image, alt = the video title
  */
@@ -486,6 +489,14 @@ const PAGE_RULES = {
   },
   'https://www.beckman.com/air-particle-counters/met-one-6000': { introCtas: 'keep', resourceTools: 'list' },
   'https://www.beckman.com/air-particle-counters/facility-monitoring-system': { introCtas: 'keep', resourceTools: 'list' },
+  // India FMS: the 25 models are live Coveo results (Cards (finder)); the jump link and the intro
+  // "Explore … Models" button point at the kept table's heading
+  'https://www.mybeckman.in/air-particle-counters/facility-monitoring-system': {
+    introCtas: 'keep',
+    resourceTools: 'list',
+    modelsTable: 'keep',
+    modelsHeading: '#product-table-wrapper .product-table__header h3',
+  },
   'https://www.beckman.com/cell-counters-and-analyzers/vi-cell-blu': { resourceTools: 'drop' },
   'https://www.mybeckman.in/reagents/centrifugation/density-gradient-reagents': { resourceTools: 'list' },
   'https://www.mybeckman.in/supplies/microbioreactor-supplies/plate-covers/sealing-foil-basic': {
@@ -1221,7 +1232,8 @@ export default function transform(hookName, element, payload) {
     // per-page-mapped pages decide on the intro CTAs in perPageRules
     removeAll(element, own ? chrome.filter((sel) => !sel.startsWith('div.rt-holder')) : chrome, ctx);
 
-    stripCoveoProductTable(element, doc);
+    // the Coveo models table goes, unless the page keeps it for the Cards (finder) parser
+    if ((PAGE_RULES[pageKey(url)] || {}).modelsTable !== 'keep') stripCoveoProductTable(element, doc);
     simplifyTechDocs(element, doc);
 
     // stray inputs outside forms (forms belong to embed blocks)
