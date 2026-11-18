@@ -54,6 +54,19 @@ Never copy a family into a new folder (e.g. `blocks/cards-whitepaper/`), and nev
 block for one page: a page-specific look is a variant (or a section style in
 `models/_section.json` + `styles/styles.css` when it is about the section, not the block).
 
+## Scoping: kick-off rules and decision log
+
+- Before scoping a site, go through `docs/migration-kickoff-checklist.md` with the owner and pass
+  its answers as the scope's rules (saved to `catalog/review-instructions.md`).
+- **Reviewing scoping results:** do the clear fixes, then write every open question to
+  `migration-work/scope/decision-log.md` instead of asking them one by one in the chat. For each,
+  give: the question, links to its pictures in the Plan, the recommendation, the impact of changing
+  it later, the owner (client / architect / tech lead) and the status (Open / Provisional /
+  Confirmed). Ask questions in the chat only when the owner explicitly asks for a step-by-step review.
+- When the owner hands the log back, apply every answered item to the catalog, save it as a rule in
+  `catalog/review-instructions.md`, and keep Open items as they are. Keep the log up to date as
+  decisions are confirmed during the migration.
+
 ## Other rules learned on this project
 
 - Content changes are local unless the owner explicitly asks to upload, preview or publish.
