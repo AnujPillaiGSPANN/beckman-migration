@@ -10,15 +10,16 @@
  * All copy, links and images come from the fragment; this file only builds layout + behaviour.
  */
 
+import { getMetadata } from '../../scripts/aem.js';
 import { joinLinkedImages } from '../../scripts/scripts.js';
 
-async function fetchFooter() {
+async function fetchFooter(name = 'footer') {
   // locale area of the page ('/in' for the India pages)
   const match = window.location.pathname.match(/^\/(?:content\/)?(in)(?:\/|$)/);
   const prefix = match ? `/${match[1]}` : '';
   // metadata-independent: /content first (local preview), then root (DA/EDS)
-  let resp = await fetch(`/content${prefix}/footer.plain.html`);
-  if (!resp.ok) resp = await fetch(`${prefix}/footer.plain.html`);
+  let resp = await fetch(`/content${prefix}/${name}.plain.html`);
+  if (!resp.ok) resp = await fetch(`${prefix}/${name}.plain.html`);
   if (!resp.ok) return null;
   const html = await resp.text();
   const tpl = document.createElement('div');
@@ -111,13 +112,51 @@ function buildLegal(section) {
 }
 
 /**
+ * Campaign footer (page metadata "footer: ppc", from footer-ppc.plain.html in the page's area).
+ * Sections: 1. logo, address, legal links  2. copyright, social icon links  3. regulatory notes.
+ */
+async function buildCampaign(block, fragment) {
+  const [brand, copyright, regulatory] = [...fragment.children];
+  const parts = [];
+  if (brand) {
+    const [logo, ...rest] = [...brand.children];
+    logo?.classList.add('footer-ppc-logo');
+    rest.find((n) => n.tagName === 'P')?.classList.add('footer-ppc-address');
+    brand.querySelector(':scope > ul')?.classList.add('footer-ppc-legal');
+    parts.push(el('div', 'footer-ppc-brand', ...brand.childNodes));
+  }
+  if (copyright) {
+    copyright.querySelector(':scope > ul')?.classList.add('footer-social', 'footer-ppc-social');
+    parts.push(el('div', 'footer-ppc-copyright', ...copyright.childNodes));
+  }
+  const inner = el('div', 'footer-ppc-inner', ...parts);
+  const sections = [inner];
+  if (regulatory) sections.push(el('div', 'footer-ppc-regulatory', ...regulatory.childNodes));
+  await Promise.all([...inner.querySelectorAll('.footer-social img')]
+    .map((img) => inlineSvg(img, 'footer-social-icon')));
+  sections.forEach((part) => part.querySelectorAll('a[href^="http"]').forEach((a) => {
+    if (new URL(a.href).origin !== window.location.origin) {
+      a.target = '_blank';
+      a.rel = 'noopener';
+    }
+  }));
+  block.closest('footer')?.classList.add('footer-ppc');
+  block.append(...sections);
+}
+
+/**
  * loads and decorates the footer
  * @param {Element} block The footer block element
  */
 export default async function decorate(block) {
-  const fragment = await fetchFooter();
+  const campaign = getMetadata('footer').toLowerCase() === 'ppc';
+  const fragment = await fetchFooter(campaign ? 'footer-ppc' : 'footer');
   block.textContent = '';
   if (!fragment) return;
+  if (campaign) {
+    await buildCampaign(block, fragment);
+    return;
+  }
   const [intro, primary, secondary, backTop, legal, logos] = [...fragment.children];
 
   const inner = el('div', 'footer-inner');

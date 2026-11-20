@@ -1,8 +1,8 @@
 /* Hero (banner) – source: .outimg (100vw) > .top-banner (500px, background photo cover at 15% 0)
    > .innertext1 (60% wide, 90% below 768px; 60px H1 + 18px light subtitle) + .dark-overlay (70%) */
 
-/* full-bleed: the source banner spans the viewport */
-main > .section > .hero-banner-wrapper {
+/* full-bleed: the source banner spans the viewport (not on landing pages, see below) */
+body:not(.landing-form-rail) main > .section > .hero-banner-wrapper {
   max-width: none;
   padding: 0;
 }
@@ -69,3 +69,299 @@ main > .section > .hero-banner-wrapper {
     width: 60%;
   }
 }
+
+/* Landing pages (template landing-form-rail, e.g. centrifuge/straight-up) – source
+   #content-holder (text #4d4d4d) > .box (container width) > .top-banner: background image
+   (cover, right) and black text, no overlay. Below 800px the text sits in a 60% pink-grey box
+   under a 250px band of the image; from 800px it is centred in a 400px banner, left-aligned.
+   The holder ends with a <br> line (26.4px) below the banner, kept as an empty line after the
+   text (the image stops above it). */
+body.landing-form-rail .hero-banner {
+  display: flow-root;
+  height: auto;
+  color: inherit;
+  text-align: start;
+}
+
+body.landing-form-rail .hero-banner::after {
+  content: "";
+  display: block;
+  height: 26.4px;
+}
+
+body.landing-form-rail .hero-banner .hero-banner-media {
+  inset: 0 0 26.4px;
+}
+
+body.landing-form-rail .hero-banner .hero-banner-media :is(picture, img) {
+  object-position: 100% 50%;
+}
+
+body.landing-form-rail .hero-banner .hero-banner-overlay {
+  display: none;
+}
+
+body.landing-form-rail .hero-banner .hero-banner-content {
+  box-sizing: border-box;
+  width: auto;
+  padding: 30px 37px 40px;
+  margin-top: 250px;
+  background: rgb(187 167 171 / 60%);
+  color: #000;
+}
+
+body.landing-form-rail .hero-banner .hero-banner-content h1 {
+  margin: 0.67em 0;
+  color: inherit;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: start;
+}
+
+/* subtitle (source h2) */
+body.landing-form-rail .hero-banner .hero-banner-content :is(h2, p) {
+  margin: 20.75px 0;
+  color: inherit;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-align: start;
+}
+
+/* breakpoint-exception: source .top-banner switches to the 400px flex banner at 50em (800px) */
+@media (width >= 800px) {
+  body.landing-form-rail .hero-banner {
+    display: grid;
+    grid-template: 400px auto / minmax(0, 1fr);
+    place-items: center start;
+  }
+
+  body.landing-form-rail .hero-banner::after {
+    grid-row: 2;
+  }
+
+  body.landing-form-rail .hero-banner .hero-banner-content {
+    grid-row: 1;
+    max-width: 40%;
+    margin-top: 0;
+    padding: 0 37px;
+    background: transparent;
+  }
+
+  body.landing-form-rail .hero-banner .hero-banner-content h1 {
+    margin-bottom: 10px;
+    font-size: 28pt;
+  }
+}
+
+/* breakpoint-exception: source .top-banner--text widens at 75em (1200px) */
+@media (width >= 1200px) {
+  body.landing-form-rail .hero-banner .hero-banner-content {
+    max-width: calc(600 / 1188 * 100%);
+    padding-right: 50px;
+    padding-left: 100px;
+  }
+}
+
+/* stylelint-disable no-descending-specificity -- the option rules below are scoped by the option class
+   and never compete with the variant rules above */
+
+/* Option curved (homepage) – source (Tailwind): div.relative.justify-end.sm:flex > photo
+   (absolute, left 7/12, 2/3 from 1024px; on top below 640px) + div.hero__body (red gradient
+   panel cut by a circle: its left edge curves from 640px, its top edge below; 6/12 then 5/12
+   wide) holding an Inter 200 H1 on a faint red band and a light intro paragraph. The banner is
+   as tall as the panel's text (no fixed height). Tailwind breakpoints 425/640/768/1024/1280/1536/1800. */
+.hero-banner.curved {
+  display: block;
+  height: auto;
+  overflow: visible;
+  color: #fff;
+  font-family: Inter, system-ui, sans-serif;
+  text-align: center;
+}
+
+.hero-banner.curved .hero-banner-overlay {
+  display: none;
+}
+
+.hero-banner.curved .hero-banner-media {
+  position: static;
+  z-index: auto;
+  background-color: #f4f4f4;
+}
+
+.hero-banner.curved .hero-banner-media :is(picture, img) {
+  height: auto;
+  object-position: center;
+}
+
+.hero-banner.curved .hero-banner-content {
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: -15%;
+  padding: 48px 0;
+  background: linear-gradient(45deg, #762858, #d52331 34.62%, #d52331 82.86%, #ee4956);
+  clip-path: circle(600px at 50% 600px);
+}
+
+/* H1 on the source span.hero__text-bg band (block, 7px bottom padding, side padding) */
+.hero-banner.curved .hero-banner-content h1 {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 24px;
+  padding: 0 48px 7px;
+  background: linear-gradient(90deg, #ec334100, #ec334133 20%, #ec334166 80%, #ec334100);
+  color: #fff;
+  font-family: inherit;
+  font-size: 39.056px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-align: center;
+}
+
+.hero-banner.curved .hero-banner-content p {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0 24px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* breakpoint-exception: source xs (425px) widens the band's side padding */
+@media (width >= 425px) {
+  .hero-banner.curved .hero-banner-content h1 {
+    padding: 0 67.2px 7px;
+  }
+}
+
+/* breakpoint-exception: source sm (640px) puts the panel beside the photo */
+@media (width >= 640px) {
+  .hero-banner.curved {
+    display: flex;
+    position: relative;
+    justify-content: flex-end;
+    text-align: left;
+  }
+
+  .hero-banner.curved .hero-banner-media {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 58.3333%;
+  }
+
+  .hero-banner.curved .hero-banner-media :is(picture, img) {
+    height: 100%;
+  }
+
+  .hero-banner.curved .hero-banner-content {
+    width: 50%;
+    margin-top: 0;
+    padding: 64px 0 64px 40px;
+    overflow: hidden;
+    clip-path: circle(800px at 800px 50%);
+  }
+
+  .hero-banner.curved .hero-banner-content h1 {
+    margin: 0 0 16px;
+    padding: 0 22.4px 7px;
+    transform: translateX(-22.4px);
+    text-align: left;
+  }
+
+  .hero-banner.curved .hero-banner-content p {
+    width: 58.3333%;
+    padding: 0;
+    color: #fde8ea;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
+  }
+}
+
+@media (width >= 768px) {
+  .hero-banner.curved .hero-banner-content {
+    padding-left: 64px;
+  }
+
+  .hero-banner.curved .hero-banner-content p {
+    width: 75%;
+  }
+}
+
+@media (width >= 1024px) {
+  .hero-banner.curved .hero-banner-media {
+    width: 66.6667%;
+  }
+
+  .hero-banner.curved .hero-banner-content {
+    width: 41.6667%;
+    padding-top: 112px;
+    padding-bottom: 112px;
+  }
+
+  .hero-banner.curved .hero-banner-content h1 {
+    padding: 0 24px 7px;
+    transform: translateX(-24px);
+    font-size: 48.832px;
+  }
+
+  .hero-banner.curved .hero-banner-content p {
+    width: 83.3333%;
+    line-height: 1.625;
+  }
+}
+
+/* breakpoint-exception: source xl (1280px) */
+@media (width >= 1280px) {
+  .hero-banner.curved .hero-banner-content {
+    padding-left: 96px;
+  }
+
+  .hero-banner.curved .hero-banner-content h1 {
+    margin-bottom: 24px;
+    padding: 0 25.6px 7px;
+    transform: translateX(-25.6px);
+    font-size: 61.04px;
+  }
+
+  .hero-banner.curved .hero-banner-content p {
+    width: 75%;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}
+
+/* breakpoint-exception: source 2xl (1536px) */
+@media (width >= 1536px) {
+  .hero-banner.curved .hero-banner-content {
+    padding-right: 88px;
+    padding-left: 88px;
+  }
+
+  .hero-banner.curved .hero-banner-content h1 {
+    padding: 0 72px 7px;
+    transform: translateX(-72px);
+  }
+
+  .hero-banner.curved .hero-banner-content p {
+    width: 91.6667%;
+    font-size: 20px;
+  }
+}
+
+/* breakpoint-exception: source 3xl (1800px) */
+@media (width >= 1800px) {
+  .hero-banner.curved .hero-banner-content h1 {
+    padding: 0 96px 7px;
+    transform: translateX(-96px);
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

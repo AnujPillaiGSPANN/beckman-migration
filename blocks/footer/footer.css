@@ -315,3 +315,155 @@ footer .footer-logos img {
     padding-right: 192px;
   }
 }
+
+/* Campaign footer (page metadata "footer: ppc") – values from mybeckman.in footer.ppc-template */
+footer.footer-ppc .footer {
+  margin-top: 50px;
+  padding: 30px 0;
+  background: rgb(0 23 38);
+  box-shadow: none;
+  color: rgb(154 164 171);
+  font-size: 12px;
+  line-height: 22.5px;
+}
+
+footer.footer-ppc .footer p {
+  margin: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+footer.footer-ppc .footer-ppc-brand {
+  box-sizing: border-box;
+  width: 212px;
+  margin: 70px auto 0;
+}
+
+footer.footer-ppc .footer p.footer-ppc-logo {
+  padding-bottom: 4px;
+}
+
+footer.footer-ppc .footer-ppc-logo img {
+  display: block;
+  width: 168px;
+  height: 41px;
+}
+
+footer.footer-ppc .footer p.footer-ppc-address {
+  margin: 25px 0;
+  line-height: 19.8px;
+}
+
+footer.footer-ppc .footer-ppc-legal a:any-link {
+  color: rgb(22 140 219);
+  text-decoration: none;
+}
+
+footer.footer-ppc .footer-ppc-legal a:hover {
+  text-decoration: underline;
+}
+
+footer.footer-ppc .footer-ppc-copyright {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 30px 0;
+  padding: 0 20px;
+}
+
+footer.footer-ppc .footer .footer-ppc-copyright p {
+  width: 70%;
+}
+
+footer.footer-ppc .footer .footer-ppc-social {
+  display: flex;
+  justify-content: space-between;
+  order: -1;
+  width: 120px;
+  margin: 0;
+  padding: 0;
+}
+
+footer.footer-ppc .footer-ppc-social li {
+  margin: 0;
+}
+
+footer.footer-ppc .footer-ppc-social a:any-link {
+  display: block;
+  color: rgb(22 140 219);
+}
+
+footer.footer-ppc .footer-ppc-social a:hover {
+  color: #fff;
+}
+
+footer.footer-ppc .footer-ppc-social .footer-social-icon,
+footer.footer-ppc .footer-ppc-social img {
+  display: block;
+  width: 16px;
+  height: 18px;
+}
+
+footer.footer-ppc .footer-ppc-regulatory {
+  padding: 30px 15px 0;
+  border-top: 1px solid rgb(0 38 64);
+  color: rgb(113 126 136);
+  font-size: 9px;
+  line-height: 13px;
+}
+
+footer.footer-ppc .footer .footer-ppc-regulatory p {
+  margin: 0 0 15px;
+}
+
+footer.footer-ppc .footer .footer-ppc-regulatory p:last-child {
+  margin: 0;
+}
+
+footer.footer-ppc .footer-ppc-regulatory img {
+  display: inline;
+  width: 55px;
+  height: 72px;
+  margin-top: 10px;
+}
+
+@media (width >= 992px) {
+  footer.footer-ppc .footer {
+    padding: 60px 0 30px;
+  }
+
+  footer.footer-ppc .footer-ppc-inner {
+    padding: 0 35px;
+  }
+
+  footer.footer-ppc .footer-ppc-brand {
+    width: auto;
+    margin: 0;
+  }
+
+  footer.footer-ppc .footer-ppc-copyright {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0;
+    margin: 50px 0;
+    padding: 0;
+    line-height: 20px;
+  }
+
+  footer.footer-ppc .footer .footer-ppc-copyright p {
+    width: 959px;
+    max-width: calc(100% - 160px);
+  }
+
+  footer.footer-ppc .footer .footer-ppc-social {
+    order: 0;
+    margin-top: 19px;
+  }
+
+  footer.footer-ppc .footer-ppc-regulatory {
+    padding: 30px 35px 0;
+  }
+}

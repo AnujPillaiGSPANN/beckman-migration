@@ -31,3 +31,96 @@
     order: unset;
   }
 }
+
+/* news articles (body.news-article; source .text-grid > .row > .col-md-*): stacked in DOM order
+   below 992px, side by side and top-aligned from 992px with 10px gutters. Text cells sit on the
+   row edges (the block takes the paragraph margin; source bare text in the column) unless a
+   cell holds several paragraphs (source <p>s, their margins stay inside the floated column);
+   image cells keep their paragraph margin. A
+   contact row ("Contact:" label or an empty first cell) is .col-md-2 + .col-md-10 (or 7 + 3);
+   consecutive rows follow each other without a gap. */
+body.news-article .columns {
+  margin: 1em 0;
+}
+
+body.news-article .columns-wrapper:has(+ .columns-wrapper) > .columns {
+  margin-bottom: 0;
+}
+
+body.news-article .columns-wrapper + .columns-wrapper > .columns {
+  margin-top: 0;
+}
+
+body.news-article .columns > div > div,
+body.news-article .columns > div > .columns-img-col {
+  order: 0;
+}
+
+body.news-article .columns > div:not(:has(> div > p + p)) > div:not(.columns-img-col) > :first-child {
+  margin-top: 0;
+}
+
+body.news-article .columns > div:not(:has(> div > p + p)) > div:not(.columns-img-col) > :last-child {
+  margin-bottom: 0;
+}
+
+/* a link alone in a cell (e.g. the contact e-mail) stays a plain text link */
+body.news-article main .columns .button-container > a.button:any-link {
+  text-decoration: none;
+}
+
+body.news-article .columns > div > div:not(.columns-img-col):empty::before {
+  content: '\00a0';
+}
+
+/* breakpoint-exception: source .col-md-* float side by side from exactly 992px */
+@media (width >= 900px) and (width < 992px) {
+  body.news-article .columns > div {
+    flex-direction: column;
+  }
+}
+
+@media (width >= 992px) {
+  body.news-article .columns > div {
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  body.news-article .columns > div > div:first-child:is(:empty, :has(> :only-child > strong:only-child)) {
+    flex: 0 0 calc((100% + 20px) * 2 / 12 - 20px);
+  }
+
+  body.news-article .columns > div > div:first-child:is(:empty, :has(> :only-child > strong:only-child)) + div:nth-last-child(2) {
+    flex: 0 0 calc((100% + 20px) * 7 / 12 - 20px);
+  }
+}
+
+/* landing pages (body.landing-form-rail; source .two-columns-holder / .row > .col-md-*): a row
+   whose image column comes last (e.g. Benefits of Preventive Maintenance) stacks in DOM order
+   (text first) on mobile; side by side, that row and rows of heading-led text columns (a heading
+   or a bold lead-in first, e.g. HIAC 9703+ "21 CFR Part 11" | "Secure database", TOC analyzer
+   "Low cost of ownership") are top-aligned like the source floats.
+   Other rows (e.g. the layout-table image rows of Straight Up, Nanoscale) stay centred. */
+body.landing-form-rail .columns > div > .columns-img-col:last-child {
+  order: 1;
+}
+
+/* a list item's label paragraph (AEM stores "<li>label<ul>…" as "<li><p>label</p><ul>…", e.g.
+   HIAC 9703+ "Licensed software modules…") keeps the line box only, like the main column */
+body.landing-form-rail .columns li > p {
+  margin: 0;
+}
+
+body.landing-form-rail .columns li > :is(ul, ol) {
+  margin-bottom: 0;
+}
+
+@media (width >= 900px) {
+  body.landing-form-rail .columns > div:has(> .columns-img-col:last-child) {
+    align-items: flex-start;
+  }
+
+  body.landing-form-rail .columns > div:not(:has(> div:not(:has(> :is(h2, h3, h4):first-child, > p:first-child > strong:first-child)))) {
+    align-items: flex-start;
+  }
+}

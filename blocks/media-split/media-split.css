@@ -379,3 +379,190 @@ main:has(> .section.anchor-contents) .media-split .media-split-image > picture {
     margin-left: 16px;
   }
 }
+
+/* --- landing pages (body.landing-form-rail, e.g. Vi-CELL BLU vs Cedex HiRes): source
+   .container-fluid (15px gutters, 10px from 1200px) > .row > .col-md-4 copy + .col-md-8 image,
+   floated side by side from 992px. Copy: 16px / 26.4px paragraphs, CTA a.redbtn (outline pill)
+   in a centred .btn-container (24px margins). Image: .container-overlay-full-width (90%, centred)
+   > img (90%, centred, top-aligned), no paragraph margins. --- */
+body.landing-form-rail .media-split:not(.wrap, :has(.media-split-caption)) {
+  box-sizing: border-box;
+  max-width: none;
+  padding: 0 15px;
+}
+
+body.landing-form-rail .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) {
+  margin: 0 -15px;
+}
+
+body.landing-form-rail .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > div {
+  box-sizing: border-box;
+  padding: 0 15px;
+}
+
+body.landing-form-rail .media-split .media-split-text .button-container {
+  margin: 24px 0;
+}
+
+body.landing-form-rail main .media-split .media-split-text a.button:any-link {
+  display: inline;
+  padding: 12px 20px;
+  border: 1px solid #ea1c2c;
+  background-color: transparent;
+  color: #ea1c2c;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.65;
+  white-space: normal;
+}
+
+body.landing-form-rail main .media-split .media-split-text a.button:any-link:hover {
+  background-color: #ea1c2c;
+  color: #fff;
+}
+
+body.landing-form-rail .media-split .media-split-image > p,
+body.landing-form-rail .media-split .media-split-image > picture {
+  width: 90%;
+  margin: 0 auto;
+}
+
+body.landing-form-rail .media-split .media-split-image img {
+  display: inline;
+  width: 90%;
+  height: auto;
+  object-fit: cover;
+  vertical-align: top;
+}
+
+/* breakpoint-exception: source .col-md-* float side by side from exactly 992px */
+@media (width >= 992px) {
+  body.landing-form-rail .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-text {
+    flex: 0 0 33.3333%;
+    width: 33.3333%;
+  }
+
+  body.landing-form-rail .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-image {
+    flex: 0 0 66.6667%;
+    width: 66.6667%;
+  }
+}
+
+/* source container and row gutters are 10px from 1200px */
+@media (width >= 1200px) {
+  body.landing-form-rail .media-split:not(.wrap, :has(.media-split-caption)) {
+    padding: 0 10px;
+  }
+
+  body.landing-form-rail .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) {
+    margin: 0 -10px;
+  }
+
+  body.landing-form-rail .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > div {
+    padding: 0 10px;
+  }
+}
+
+/* landing pages, option wrap (HIAC 9703+, TOC analyzers: source .bc-rich-text h3 | p > img
+   style="float: right | left; width: 300-400px", no border or margin; a left image has 15px on
+   its right). The authored image has no size (the media server may ignore the w / h parameters):
+   the float takes the image's own width, at most the option's 400px */
+body.landing-form-rail .media-split.wrap .media-split-image {
+  width: auto;
+  max-width: min(400px, 100%);
+  margin: 0;
+}
+
+body.landing-form-rail .media-split.wrap.left .media-split-image {
+  margin: 0 15px 0 0;
+}
+
+body.landing-form-rail .media-split.wrap .media-split-image > p,
+body.landing-form-rail .media-split.wrap .media-split-image > picture {
+  width: auto;
+}
+
+body.landing-form-rail .media-split.wrap .media-split-image img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  border: 0;
+}
+
+/* --- FAQ answers (body.faq-article, Media Split (left)): source #content-holder > .row >
+   .col-md-4 image + .col-md-8 answer, stacked below 992px (image first), side by side from 992px
+   (10px gutters; the page sets the column width). The image is a bare img at its natural size
+   (600 x 450, max 100%), top-left, no paragraph margins. Answer tables: no borders or cell
+   padding, bold left-aligned th, the body line height. --- */
+body.faq-article .media-split:not(.wrap, :has(.media-split-caption)) {
+  max-width: none;
+}
+
+body.faq-article .media-split .media-split-image > p,
+body.faq-article .media-split .media-split-image > picture {
+  margin: 0;
+  text-align: start;
+}
+
+body.faq-article .media-split .media-split-image img {
+  width: auto;
+  margin: 0;
+}
+
+body.faq-article .media-split .media-split-text table {
+  border-collapse: collapse;
+  line-height: inherit;
+}
+
+body.faq-article .media-split .media-split-text :is(th, td) {
+  padding: 0;
+  text-align: start;
+}
+
+/* breakpoint-exception: source .col-md-4 / .col-md-8 float side by side from exactly 992px */
+@media (width >= 992px) {
+  body.faq-article .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-image {
+    flex: 0 0 33.3333%;
+    width: 33.3333%;
+  }
+
+  body.faq-article .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-text {
+    flex: 0 0 66.6667%;
+    width: 66.6667%;
+  }
+}
+
+/* --- news articles (body.news-article, Media Split and Media Split (left) in the article text):
+   source .text-grid > .row > .col-md-8 text + .col-md-4 image (either order), stacked below
+   992px in DOM order (Media Split (left): image first), side by side from 992px with 10px
+   gutters. Text paragraphs keep the article's 1em margins inside the row; the image is a bare
+   img at its natural size (max 100%), centred when stacked, top-aligned, no margins. --- */
+body.news-article .media-split:not(.wrap, :has(.media-split-caption)) {
+  max-width: none;
+}
+
+body.news-article .media-split .media-split-text p {
+  margin: 1em 0;
+}
+
+body.news-article .media-split .media-split-image > p,
+body.news-article .media-split .media-split-image > picture {
+  margin: 0;
+}
+
+body.news-article .media-split .media-split-image img {
+  width: auto;
+}
+
+/* breakpoint-exception: source .col-md-8 / .col-md-4 float side by side from exactly 992px */
+@media (width >= 992px) {
+  body.news-article .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-text {
+    flex: 0 0 66.6667%;
+    width: 66.6667%;
+  }
+
+  body.news-article .media-split .media-split-row:not(:has(.media-split-caption), .wrap > *) > .media-split-image {
+    flex: 0 0 33.3333%;
+    width: 33.3333%;
+  }
+}

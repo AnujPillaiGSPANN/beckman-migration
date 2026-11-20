@@ -189,3 +189,221 @@
     padding-top: 53px;
   }
 }
+
+/* Landing pages (body.landing-form-rail), download tiles: every card is an image + a heading
+   link only (source .downloadsArea: 255px bordered tiles in a centred wrapping row, the
+   link drawn as a white outlined button). Approved pages and the landing product-series
+   cards (cards with a description) keep the look above. */
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) {
+  padding-bottom: 0;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) .cards-product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 255px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #f0f0f0;
+  background-color: transparent;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) .cards-product-card::before {
+  content: none;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) .cards-product-card-image {
+  display: block;
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) .cards-product-card-body {
+  padding: 0;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) .cards-product-card-body > :is(h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) .cards-product-card-link:any-link {
+  display: block;
+  padding: 13px 20px;
+  border: 1px solid var(--link-color);
+  border-radius: 2px;
+  background-color: #fff;
+  color: var(--link-color);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.29px;
+  text-align: center;
+  white-space: nowrap;
+  transition: background-color 0.2s ease-out, color 0.2s ease-out;
+}
+
+body.landing-form-rail .cards-product:not(:has(.cards-product-card-body > :not(h2, h3, h4, h5, h6))) .cards-product-card:hover .cards-product-card-link:any-link {
+  background-color: var(--link-color);
+  color: #fff;
+}
+
+/* Landing pages (body.landing-form-rail), rotor spec cards: unlinked title, two spec lists
+   (labels | values) and a "Get More Info" link paragraph (source .productCards: 200px shadowed
+   cards in a wrapping row, the two lists side by side with a grey divider, a green button).
+   Only these cards have two adjacent lists in the card body. */
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) {
+  padding-bottom: 0;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 200px;
+  margin: 0 10px 20px 0;
+  padding: 24px;
+  border: 0;
+  background-color: transparent;
+  color: var(--text-color);
+  box-shadow: 0 4px 8px 4px rgb(0 0 0 / 20%);
+  transition: 0.3s;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card:hover {
+  box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card::before {
+  content: none;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-linked:focus-within {
+  outline: none;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-image {
+  display: block;
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-image img {
+  box-sizing: border-box;
+  width: 100%;
+  height: 240px;
+  padding: 20px 0;
+}
+
+/* title row, then the two spec lists side by side (label column at its narrowest, like the
+   source's shrunk flex column), then the button row */
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body {
+  display: grid;
+  grid-template-columns: min-content minmax(0, 1fr);
+  padding: 0;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body > * {
+  grid-column: 1 / -1;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body > :is(h2, h3, h4, h5, h6) {
+  margin: 20px 0;
+  color: var(--text-color);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: left;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body > ul {
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body > ul:has(+ ul) {
+  grid-column: 1;
+  padding-right: 10px;
+  border-right: 1px solid lightgrey;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body > ul + ul {
+  grid-column: 2;
+  padding-left: 20px;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body li {
+  margin: 14px 0;
+  color: var(--text-color);
+  font-size: 14px;
+  line-height: 1.65;
+  hyphens: manual;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-body > .button-container {
+  display: block;
+  margin: 20px 0;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) a.button.cards-product-card-link:any-link {
+  box-sizing: border-box;
+  display: block;
+  margin: 0;
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 2px;
+  background-color: rgb(116 183 11);
+  color: #fff;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 500;
+  line-height: var(--body-line-height);
+  text-align: center;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) a.button.cards-product-card-link:focus-visible {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) a.button.cards-product-card-link:any-link:hover {
+  background-color: rgb(86 135 8);
+  color: #fff;
+}
+
+/* the button is the card's only link: no whole-card overlay (the source card is not a link) */
+body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) .cards-product-card-link::after {
+  content: none;
+}
+
+@media (width >= 992px) {
+  body.landing-form-rail .cards-product:has(.cards-product-card-body > ul + ul) > ul {
+    justify-content: space-between;
+  }
+}

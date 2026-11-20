@@ -1,5 +1,7 @@
 /* eslint-disable */
 /* global WebImporter */
+import embedParser from './embed.js';
+import embedWistiaParser from './embed-wistia.js';
 
 /**
  * Parser for media-split. Base: columns (xwalk block/v1/block + item model media-split-row).
@@ -83,8 +85,32 @@ function mergeLists(root) {
 function flatten(document, container) {
   const out = [];
   let pending = null;
-  const flush = () => { if (pending && clean(pending.textContent)) out.push(pending); pending = null; };
+  const flush = () => {
+    // a line break at the start / end of the paragraph only adds a blank line
+    while (pending && pending.firstChild && (pending.firstChild.nodeName === 'BR' || (pending.firstChild.nodeType === 3 && !clean(pending.firstChild.textContent)))) pending.firstChild.remove();
+    while (pending && pending.lastChild && (pending.lastChild.nodeName === 'BR' || (pending.lastChild.nodeType === 3 && !clean(pending.lastChild.textContent)))) pending.lastChild.remove();
+    if (pending && clean(pending.textContent)) out.push(pending);
+    pending = null;
+  };
+  // bare text broken by <br>s (FAQ answers: "text<br> <br> text<br> <br> Reference:<br> 1. …"):
+  // a run of two or more <br>s ends the paragraph, a single <br> stays a line break in it
+  const nextLine = (n) => {
+    let x = n.nextSibling;
+    while (x && x.nodeType !== 1 && !clean(x.textContent)) x = x.nextSibling;
+    return x;
+  };
+  let brRun = 0;
   Array.from(container.childNodes).forEach((n) => {
+    if (n.nodeType === 1 && n.tagName === 'BR') {
+      brRun += 1;
+      const next = nextLine(n);
+      if (next && next.nodeType === 1 && next.tagName === 'BR') return;
+      if (brRun >= 2) flush();
+      else if (pending) pending.appendChild(n);
+      brRun = 0;
+      return;
+    }
+    if (n.nodeType === 1 || clean(n.textContent)) brRun = 0;
     if (n.nodeType === 3) {
       if (!clean(n.textContent)) return;
       if (!pending) pending = document.createElement('p');
@@ -174,21 +200,62 @@ function parseWrap(element, document, img) {
   return block;
 }
 
-export default function parse(element, { document }) {
+export default function parse(element, { document, params }) {
   // a heading / paragraph holding a floated screenshot
   const floated = Array.from(element.querySelectorAll('img')).find((i) => floatSide(i));
   if (floated && /^(H[1-6]|P)$/.test(element.tagName)) {
     parseWrap(element, document, floated);
     return;
   }
-  const row = element.querySelector(':scope > .table-row') || element.querySelector('.table-row') || element;
+  let row = element.querySelector(':scope > .table-row') || element.querySelector('.table-row') || element;
   let parts = Array.from(row.children).filter((c) => !['STYLE', 'SCRIPT'].includes(c.tagName));
+  const isCol = (c) => /(^|\s)col-/.test(c.getAttribute('class') || '');
+
+  // landing-form-rail (Vi-CELL BLU vs Cedex): div.container-fluid.min-vh-100 wraps a single
+  // div.row holding the .col-* columns: read the columns from that row
+  if (row === element && parts.length === 1 && parts[0].classList.contains('row')
+    && Array.from(parts[0].children).filter(isCol).length >= 2) {
+    [row] = parts;
+    parts = Array.from(row.children).filter((c) => !['STYLE', 'SCRIPT'].includes(c.tagName));
+  }
 
   // Bootstrap layout: two .col-* children; table layout: first .table-cell = text, rest = media
-  const cols = parts.filter((c) => /(^|\s)col-/.test(c.getAttribute('class') || ''));
+  const cols = parts.filter(isCol);
   let textParts;
   let mediaParts;
-  if (cols.length >= 2) {
+  let imageFirst = false;
+  const lifted = [];
+  if (cols.length === 2 && cols[0].querySelector('img') && clean(cols[1].textContent)
+    && (!cols[1].querySelector('img') || !clean(cols[0].textContent))) {
+    // image column first, text column second: landing-form-rail (Biomek i7 app notes) and
+    // faq-article answers. The text still goes to column1 (xwalk maps cells by position); the
+    // image column's CTA links (e.g. "Download") move to the end of the text as a button.
+    const [mediaCol, textCol] = cols;
+    // FAQ answers can hold a video or a diagram, which rich text can't: they follow the block
+    // (videos as Embed blocks, images as their own paragraphs), in source order
+    const videos = Array.from(textCol.querySelectorAll('.embeded-video, .wistia_responsive_padding, iframe'))
+      .filter((v, i, all) => !all.some((o) => o !== v && o.contains(v)));
+    videos.forEach((v) => { lifted.push({ video: v }); v.remove(); });
+    Array.from(textCol.querySelectorAll('img')).forEach((img) => {
+      const p = document.createElement('p');
+      const holder = img.closest('picture') || img;
+      const wrap = holder.parentElement;
+      p.appendChild(holder);
+      lifted.push({ image: p });
+      if (wrap && wrap !== textCol && !clean(wrap.textContent) && !wrap.querySelector('img')) wrap.remove();
+    });
+    const ctas = Array.from(mediaCol.querySelectorAll('a[href]'))
+      .filter((a) => !a.querySelector('img') && clean(a.textContent));
+    if (ctas.length) {
+      const holder = document.createElement('div');
+      ctas.forEach((a) => holder.appendChild(a));
+      textCol.appendChild(holder);
+    }
+    textParts = [textCol];
+    mediaParts = [mediaCol];
+    // the image stays on the left, like the source ("Media Split (left)")
+    imageFirst = true;
+  } else if (cols.length >= 2) {
     textParts = [cols[0]];
     mediaParts = cols.slice(1);
   } else {
@@ -264,6 +331,27 @@ export default function parse(element, { document }) {
   }
 
   const cells = [[merged.length ? textCell : '', (img || caption.length) ? mediaCell : '']];
-  const block = WebImporter.Blocks.createBlock(document, { name: 'media-split', cells });
+  const name = imageFirst ? 'Media Split (left)' : 'media-split';
+  const block = WebImporter.Blocks.createBlock(document, { name, cells });
   element.replaceWith(block);
+
+  // lifted answer media, after the block in source order
+  let anchor = block;
+  lifted.forEach(({ video, image }) => {
+    const node = video || image;
+    anchor.after(node);
+    anchor = node;
+    if (video) {
+      const holder = document.createElement('div');
+      node.replaceWith(holder);
+      holder.appendChild(node);
+      // the player iframe: embed.js finds its Wistia wrapper from it (Embed (wistia))
+      // an async Wistia embed (span.wistia_async_<id>, no iframe) goes to embed-wistia.js directly
+      const frame = node.matches('iframe') ? node : node.querySelector('iframe');
+      if (frame) embedParser(frame, { document, params });
+      else if (node.querySelector('[class*="wistia_async_"]')) embedWistiaParser(node, { document, params });
+      else embedParser(node, { document, params });
+      anchor = holder;
+    }
+  });
 }

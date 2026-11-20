@@ -30,6 +30,17 @@ export default async function decorate(block) {
     if (i === 0 && header) thead.append(tr);
     else tbody.append(tr);
   });
+
+  // AEM cannot author colspan: in a body row with 3+ cells whose only empty cell is the
+  // last one, the cell before it spans it (source: "21 CFR Part 11" spans both products)
+  const isEmpty = (cell) => !cell.textContent.trim() && !cell.querySelector('img, picture');
+  [...tbody.rows].forEach((tr) => {
+    const cells = [...tr.cells];
+    if (cells.length < 3 || !isEmpty(cells.at(-1))) return;
+    if (cells.slice(0, -1).some(isEmpty)) return;
+    cells.at(-2).colSpan = 2;
+    cells.at(-1).remove();
+  });
   table.append(thead, tbody);
   block.replaceChildren(table);
 }

@@ -3,6 +3,7 @@
  * with an optional caption.
  * Row cells: [rich text] [image + optional caption paragraph].
  * Option "wrap": long-form text wraps around the image floated right ("left": floated left).
+ * Option "left" alone: the image column comes before the text column (e.g. FAQ answers).
  * @param {Element} block
  */
 export default function decorate(block) {
@@ -24,8 +25,10 @@ export default function decorate(block) {
         col.classList.add('media-split-text');
       }
     });
-    // wrap: the image floats beside the text, so it must come first in the flow
+    // wrap: the image floats beside the text, so it must come first in the flow;
+    // left (without wrap): the image column sits before the text column
     const image = row.querySelector(':scope > .media-split-image');
-    if (block.classList.contains('wrap') && image) row.prepend(image);
+    const first = block.classList.contains('wrap') || block.classList.contains('left');
+    if (first && image) row.prepend(image);
   });
 }

@@ -9,7 +9,10 @@
     "promo",
     "banner"
   ],
-  "extraOptions": {},
+  "extraOptions": {
+    "curved": "banner",
+    "boxed": "promo"
+  },
   "variants": [
     {
       "option": "",
@@ -69,7 +72,12 @@
         "summary": "Content-width dark banner: background photo, pink eyebrow 'SOFTWARE UPGRADE', huge white H2 'Vi-CELL BLU 2.0', paragraph, 4-up bordered feature strip (icon + title + description), centered red button 'Explore the upgrade'; extra software screenshot shown on mobile only",
         "structure": "block fields: (1) background image (`image`/`imageAlt`); (2) optional mobile image (`media_image`/`media_imageAlt`, empty row if none); (3) rich text `text`: eyebrow paragraph + H2 + paragraph + CTA link (strong-wrapped); then one row per feature (item hero-promo-feature): icon image (`image`/`imageAlt`) + rich text `text` (bold title paragraph + description)"
       },
-      "options": [],
+      "options": [
+        {
+          "class": "boxed",
+          "label": "Boxed (white text box with a red edge on a grey photo)"
+        }
+      ],
       "memberVariantIds": [
         "hero-promo"
       ],
@@ -86,7 +94,7 @@
         "lastUsed": "2026-11-11"
       },
       "reuseGuidance": "Use for in-page product/software promos on a dark background. For a page-top video hero use hero-video.",
-      "usageDescription": "Mid-page content-width dark promo banner: background photo behind a pink eyebrow, very large H2 and text, a 4-up bordered icon feature strip and a centred red CTA."
+      "usageDescription": "Mid-page content-width dark promo banner: background photo behind a pink eyebrow, very large H2 and text, a 4-up bordered icon feature strip and a centred red CTA. Option boxed (homepage \"Our company\"): full-width grayscale photo behind a centred white box with a red left edge: red eyebrow, Inter 300 H2, grey text and a red pill CTA (with arrow) inside the box; no feature rows. Author as `Hero (promo, boxed)`."
     },
     {
       "option": "banner",
@@ -103,7 +111,12 @@
         "summary": "H1 'Analytical Ultracentrifugation (AUC)' + subtitle over a black-and-white photo",
         "structure": "rows: (1) background image; (2) H1 + subtitle paragraph"
       },
-      "options": [],
+      "options": [
+        {
+          "class": "curved",
+          "label": "Curved panel (photo left, title + text in a red curved panel)"
+        }
+      ],
       "memberVariantIds": [
         "hero-banner"
       ],
@@ -120,7 +133,7 @@
         "lastUsed": "2026-11-12"
       },
       "reuseGuidance": "Use for page-top title banners on a photo. For a video background use Hero (motion).",
-      "usageDescription": "Full-width dark banner: background photo under a 70% overlay, centred H1 and subtitle."
+      "usageDescription": "Full-width dark banner: background photo under a 70% overlay, centred H1 and subtitle. Option curved (homepage): photo on the left (7/12, 2/3 from 1024px; on top below 640px), Inter 200 H1 + light intro in a red gradient panel with a curved edge; as tall as its text. Author as `Hero (banner, curved)`."
     }
   ]
 }

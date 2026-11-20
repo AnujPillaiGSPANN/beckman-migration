@@ -23,7 +23,9 @@
     "cover": "scroll",
     "exchange": "steps",
     "unnumbered": "workflow",
-    "panels": "tiles"
+    "panels": "tiles",
+    "insights": "resource",
+    "side": "tiles, icons"
   },
   "variants": [
     {
@@ -157,6 +159,10 @@
         {
           "class": "compact",
           "label": "Compact (100px icons, small text)"
+        },
+        {
+          "class": "side",
+          "label": "Side intro (section intro left of linked service cards)"
         }
       ],
       "memberVariantIds": [
@@ -175,7 +181,7 @@
         "lastUsed": "2026-11-10"
       },
       "reuseGuidance": "Use for benefit/feature icon rows. For tiles that expand use accordion-icon-grid.",
-      "usageDescription": "Static, borderless, centered benefit tiles: red line icon, bold title, short description; 4 across desktop, 2x2 mobile."
+      "usageDescription": "Static, borderless, centered benefit tiles: red line icon, bold title, short description; 4 across desktop, 2x2 mobile. Option side (homepage \"Service & technical support\"): the section's intro (eyebrow, heading, text, link) left of a 2-column grid of linked white cards (icon from the text's :icon: notation, title, text, \"->\"). Author as `Cards (icons, side)`."
     },
     {
       "option": "resource",
@@ -193,7 +199,12 @@
         "summary": "9 application-note cards in a wrapping 4-column grid: bold title, document cover thumbnail, red outline 'Read' button; each links to its application-note detail page",
         "structure": "one row per card: (1) cover image (optionally linked); (2) bold title paragraph + \"Read\" link"
       },
-      "options": [],
+      "options": [
+        {
+          "class": "insights",
+          "label": "Insights (image on top, red category, linked text)"
+        }
+      ],
       "memberVariantIds": [
         "cards-resource"
       ],
@@ -210,7 +221,7 @@
         "lastUsed": "2026-11-10"
       },
       "reuseGuidance": "Use for application notes / resource listings. For a horizontal strip use cards-scroll.",
-      "usageDescription": "Wrapping 4/2/1 grid of document cards: bold title above a bordered cover thumbnail, red outline \"Read\" button."
+      "usageDescription": "Wrapping 4/2/1 grid of document cards: bold title above a bordered cover thumbnail, red outline \"Read\" button. Option insights (homepage \"Fresh insights\"): 3:2 grayscale image (colour on hover), red category, linked text, whole card clickable; 1/2/4 columns (640px, 1024px). Author as `Cards (resource, insights)`."
     },
     {
       "option": "scroll",
@@ -466,6 +477,10 @@
         {
           "class": "panels",
           "label": "Panels"
+        },
+        {
+          "class": "side",
+          "label": "Side intro (section heading + text left of the tiles)"
         }
       ],
       "memberVariantIds": [
@@ -484,7 +499,7 @@
         "lastUsed": "2026-11-12"
       },
       "reuseGuidance": "Use for rows of linked tiles with an image and a short title. Add panels for a wrapping Related Content grid.",
-      "usageDescription": "Bordered linked tiles: image on top, centred title below; optional eyebrow badge; panels option for a 4-column Related Content grid."
+      "usageDescription": "Bordered linked tiles: image on top, centred title below; optional eyebrow badge; panels option for a 4-column Related Content grid. Option side (homepage \"Popular topics\"): the section's heading + subline sit left of white shadowed topic tiles with a \"->\" (3 per row from 768px, intro on the left from 1024px). Author as `Cards (tiles, side)`."
     },
     {
       "option": "finder",

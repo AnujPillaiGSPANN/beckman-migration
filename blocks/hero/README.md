@@ -10,12 +10,12 @@ One **Hero** block with variants. The variant is the first block option (UE: *Va
 | --- | --- | --- | --- | --- |
 | `Hero` | variants/default.js | hero | – | – |
 | `Hero (motion)` | variants/motion.js | hero-video | – | – |
-| `Hero (promo)` | variants/promo.js | hero-promo | `hero-promo-feature` | – |
-| `Hero (banner)` | variants/banner.js | hero-banner | – | – |
+| `Hero (promo)` | variants/promo.js | hero-promo | `hero-promo-feature` | `boxed` |
+| `Hero (banner)` | variants/banner.js | hero-banner | – | `curved` |
 
 ## Universal Editor fields
 
-Block model `hero` (rows in this order; a variant leaves the other variants' fields empty): `classes` (select: Default / `motion` / `promo` / `banner`), `image` + `imageAlt` (Default, Promo, Banner: background image), `media_image` + `media_imageAlt` + `media_video` (one cell; Motion: poster + Wistia URL, Promo: mobile image in `media_image`/`media_imageAlt`), `text` (all variants). Four cells at most (xwalk/max-cells). Item model `hero-promo-feature`: `image`, `imageAlt`, `text`. Filter `hero`: `hero-promo-feature`.
+Block model `hero` (rows in this order; a variant leaves the other variants' fields empty): `classes` (select: Default / `motion` / `promo` / `banner`), `classes_options` (multiselect: `curved` (Banner), `boxed` (Promo)), `image` + `imageAlt` (Default, Promo, Banner: background image), `media_image` + `media_imageAlt` + `media_video` (one cell; Motion: poster + Wistia URL, Promo: mobile image in `media_image`/`media_imageAlt`), `text` (all variants). Four cells at most (xwalk/max-cells). Item model `hero-promo-feature`: `image`, `imageAlt`, `text`. Filter `hero`: `hero-promo-feature`.
 
 ## Hero (default)
 
@@ -53,7 +53,7 @@ Rows: block fields: (1) background image (`image`/`imageAlt`); (2) optional mobi
 
 ### Supported variations
 
-No variations.
+- `boxed` (homepage "Our company"): full-width grayscale photo (cover) behind a centred white box (95% opaque, 12px radius, red left edge; 11/12 wide, 3/4 from 768px, 7/12 of max 1280px from 1280px): red eyebrow, Inter 300 H2, grey text and the CTA as a red pill with an arrow, inside the box. Rows as above without feature rows. Author as `Hero (promo, boxed)`.
 
 ### Universal Editor fields
 
@@ -71,7 +71,7 @@ Rows: block fields: (1) background image (`image`/`imageAlt`, decorative: alt ma
 
 ### Supported variations
 
-No variations.
+- `curved` (homepage top): photo on the left (7/12 from 640px, 2/3 from 1024px; full width on top below 640px), the H1 (Inter 200, on a faint red band) and intro paragraph in a red gradient panel cut by a circle (curved left edge from 640px, curved top below); the banner is as tall as the panel's text. Rows as above. Author as `Hero (banner, curved)`.
 
 ### Universal Editor fields
 

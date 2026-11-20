@@ -11,6 +11,7 @@
  * All copy, links and images come from the fragment; this file only builds behaviour.
  */
 
+import { getMetadata } from '../../scripts/aem.js';
 import { joinLinkedImages } from '../../scripts/scripts.js';
 
 // source switches from the drawer menu to the horizontal bar at 1120px
@@ -423,11 +424,37 @@ function toggleDrawer(nav, force) {
  * loads and decorates the header
  * @param {Element} block The header block element
  */
+/**
+ * Logo-only header (page metadata "header: minimal"): the source's campaign / landing pages show
+ * only the logo, not linked, in a 65px white bar; no search, tools or menu.
+ */
+function buildMinimal(block, brandSec) {
+  const nav = document.createElement('nav');
+  nav.id = 'nav';
+  nav.className = 'nav-minimal';
+  nav.setAttribute('aria-label', 'Main');
+  const img = brandSec?.querySelector('img');
+  if (img) {
+    const brand = document.createElement('div');
+    brand.className = 'nav-brand';
+    brand.append(img.closest('picture') || img);
+    nav.append(brand);
+  }
+  const wrapper = document.createElement('div');
+  wrapper.className = 'nav-wrapper nav-wrapper-minimal';
+  wrapper.append(nav);
+  block.append(wrapper);
+}
+
 export default async function decorate(block) {
   const fragment = await fetchNav();
   block.textContent = '';
   if (!fragment) return;
   const [brandSec, searchSec, toolsSec, menuSec, utilSec] = [...fragment.children];
+  if (getMetadata('header').toLowerCase() === 'minimal') {
+    buildMinimal(block, brandSec);
+    return;
+  }
   // AEM rich text wraps list-item text in <p> (<li><p>Label</p><ul>…): unwrap it in the lists
   [toolsSec, menuSec].forEach((sec) => sec?.querySelectorAll('li > p').forEach((p) => p.replaceWith(...p.childNodes)));
 

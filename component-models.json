@@ -165,6 +165,10 @@
             "value": "quarter"
           },
           {
+            "name": "Sidebar: on the left (beside the section after it; with Sidebar)",
+            "value": "left"
+          },
+          {
             "name": "Jump links: button bar",
             "value": "anchor-nav"
           },
@@ -394,6 +398,14 @@
           {
             "name": "Panels (Tiles: 4-column wrapping grid, grayscale photos, bold titles)",
             "value": "panels"
+          },
+          {
+            "name": "Insights (Resource: image on top, red category, linked text; whole card clickable)",
+            "value": "insights"
+          },
+          {
+            "name": "Side intro (Tiles / Icons: the section's heading and text sit left of the cards)",
+            "value": "side"
           }
         ]
       }
@@ -884,6 +896,14 @@
           {
             "name": "Left-aligned (Default)",
             "value": "left"
+          },
+          {
+            "name": "Boxed (Marketo: grey box, the heading and text just before the form join it)",
+            "value": "boxed"
+          },
+          {
+            "name": "Titled (Marketo in a sidebar: the heading just before the form is drawn in its grey panel)",
+            "value": "titled"
           }
         ]
       },
@@ -1060,6 +1080,23 @@
         ]
       },
       {
+        "component": "multiselect",
+        "name": "classes_options",
+        "value": "",
+        "label": "Options",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Curved panel (Banner: photo on the left, title + text in a red curved panel on the right)",
+            "value": "curved"
+          },
+          {
+            "name": "Boxed (Promo: full-width grey photo, text and CTA in a white box with a red edge)",
+            "value": "boxed"
+          }
+        ]
+      },
+      {
         "component": "reference",
         "valueType": "string",
         "name": "image",
@@ -1196,7 +1233,7 @@
             "value": "wrap"
           },
           {
-            "name": "Image on the left (with Wrap)",
+            "name": "Image on the left (floated left with Wrap, else the first column)",
             "value": "left"
           }
         ]

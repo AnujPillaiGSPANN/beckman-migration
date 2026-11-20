@@ -218,6 +218,38 @@
   margin: 0 2px 0 0;
 }
 
+/* landing form rail (source .two-columns-holder__right label): the asterisk is placed at the
+   label's end at every width (position absolute; forms2.css floats it to the start below 480px) */
+body.landing-form-rail .sidebar .embed-marketo .mktoForm .mktoLabel {
+  position: relative;
+}
+
+body.landing-form-rail .sidebar .embed-marketo .mktoForm .mktoAsterix {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  float: none;
+}
+
+/* landing form rail, option titled: the form's title (source h3.formassembly-title, authored
+   as the heading just before the form) sits at the top of the form's grey panel; without the
+   option the rail heading (source .bc-rich-text h3) stays above the panel */
+body.landing-form-rail .sidebar .default-content-wrapper:has(+ .embed-marketo-wrapper > .embed-marketo.titled) > h3:last-child {
+  margin: 0;
+  padding: 25px 20px 20px;
+  border-radius: 3px 3px 0 0;
+  background-color: #f0f0f0;
+  color: rgb(77 77 77);
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 27.5px;
+}
+
+body.landing-form-rail .sidebar .default-content-wrapper:has(> h3:last-child) + .embed-marketo-wrapper .embed-marketo.titled {
+  padding-top: 0;
+  border-radius: 0 0 3px 3px;
+}
+
 .sidebar .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']),
 .sidebar .embed-marketo .mktoForm textarea.mktoField,
 .sidebar .embed-marketo .mktoForm select.mktoField {
@@ -370,4 +402,76 @@ main:has(> .section.anchor-contents) .embed-marketo .mktoForm .mktoButtonWrap:is
     width: 745px !important;
     padding: 5px 10px !important;
   }
+}
+
+/* news articles (body.news-article, rail form below the "Email Signup" opener; source
+   aside#news-detail-sidebar .signup-slide .formassembly-container): white, no panel padding
+   (the rail sets the slide padding), 11px labels with the asterisk in front, #9fa4aa field
+   borders, 14px notes, 13px radio labels, blue submit with the Marketo inset border and shadow */
+/* stylelint-disable-next-line no-descending-specificity -- grouped by page type, like the landing rules above */
+body.news-article .sidebar .embed-marketo {
+  padding: 0;
+  border-radius: 0;
+  background-color: #fff;
+}
+
+body.news-article .sidebar .embed-marketo .mktoForm .mktoLabel,
+body.news-article .sidebar .embed-marketo .mktoForm .mktoRequiredField label.mktoLabel {
+  padding: 2.2px 0 3.3px;
+  border-radius: 2.75px;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+body.news-article .sidebar .embed-marketo .mktoForm .mktoAsterix {
+  float: left;
+  margin: 0 2px 0 0;
+}
+
+body.news-article .sidebar .embed-marketo .mktoForm input:is([type='text'], [type='url'], [type='email'], [type='tel'], [type='number'], [type='date']),
+body.news-article .sidebar .embed-marketo .mktoForm select.mktoField {
+  border-color: #9fa4aa;
+}
+
+body.news-article .sidebar .embed-marketo .mktoForm .mktoFormRow .mktoHtmlText {
+  font-size: 14px;
+}
+
+body.news-article .sidebar .embed-marketo .mktoForm .mktoRadioList > label {
+  margin: 0.1em 0 0.3em 1.5em;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+body.news-article .sidebar .embed-marketo .mktoForm .mktoButtonWrap:is(.mktoInset, .mktoSimple) .mktoButton {
+  border: 1px solid #aeb0b6 !important;
+  border-radius: 2px;
+  box-shadow: 1px 1px 6px 1px #ccc !important;
+}
+
+/* Option boxed (WKSC discount pages) – source .bc-test-layout: a #f0f0f0 rich-text box
+   (padding 15px: centred 25px H2 + 16px line) directly above the #f0f0f0
+   .formassembly-container.marketo-two-column. The heading (the last H2 of the default content
+   just before the form) and the text after it join the form's grey box. */
+.embed-marketo.boxed {
+  background-color: #f0f0f0;
+}
+
+.default-content-wrapper:has(+ .embed-wrapper > .embed.marketo.boxed) > h2:last-of-type,
+.default-content-wrapper:has(+ .embed-wrapper > .embed.marketo.boxed) > h2:last-of-type ~ * {
+  margin: 0;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.default-content-wrapper:has(+ .embed-wrapper > .embed.marketo.boxed) > h2:last-of-type {
+  padding: 35.75px 15px 10px;
+}
+
+.default-content-wrapper:has(+ .embed-wrapper > .embed.marketo.boxed) > h2:last-of-type ~ * {
+  padding: 0 15px;
+}
+
+.default-content-wrapper:has(+ .embed-wrapper > .embed.marketo.boxed) > h2:last-of-type ~ :last-child {
+  padding-bottom: 31px;
 }

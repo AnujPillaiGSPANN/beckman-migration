@@ -8,12 +8,12 @@ Blocks are organised as **families with variants**. A new look of an existing ki
 
 | Family | Variants (block option) | Extra options |
 |---|---|---|
-| `cards` | default, product, faq, icons, resource, scroll, doclist, downloads, gradient, steps, workflow, tiles | compact, cover, exchange, unnumbered, panels |
+| `cards` | default, product, faq, icons, resource, scroll, doclist, downloads, gradient, steps, workflow, tiles, finder | compact, cover, exchange, unnumbered, panels, insights, side |
 | `carousel` | default, gallery, product, testimonial | |
 | `accordion` | default, faq, icons, rail | |
 | `table` | default, comparison, specs | striped, bordered, no-header, pairs |
-| `hero` | default, motion, promo, banner | |
-| `embed` | default, marketo, wistia | narrow, left |
+| `hero` | default, motion, promo, banner | curved, boxed |
+| `embed` | default, marketo, wistia | narrow, left, boxed |
 
 Authors pick the variant in the block's "Variant" select; documents/imports write it as
 `Cards (faq)`, `Table (specs, pairs)`, `Embed (wistia, narrow)`. The default look keeps the

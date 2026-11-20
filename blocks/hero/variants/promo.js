@@ -165,6 +165,9 @@ export default function decorate(block) {
     else img.addEventListener('load', () => cap(img), { once: true });
   }
 
+  // option boxed: the CTA stays in the text box
+  if (block.classList.contains('boxed')) content.append(...ctas.children);
+
   const top = document.createElement('div');
   top.className = 'hero-promo-top';
   if (bgImg) top.append(background);

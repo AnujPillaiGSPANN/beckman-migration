@@ -113,6 +113,67 @@ function ownSectionTargets(root, own) {
     .find(Boolean)).filter(Boolean);
 }
 
+/**
+ * Catalog templates only (payload.template.pageCleanup, e.g. landing-form-rail): the site
+ * catalog's cleanup (migration-work/catalog-template.json cleanup.rules[]). `listed` = the pages
+ * whose pageCleanup entry already holds this rule's elements (the rule is skipped there):
+ * 'all' = every page of the template's pageCleanup (listed on all 27 catalog pages).
+ */
+const CATALOG_RULES = [
+  { selector: '[id*="truste"]', listed: 'all' },
+  { selector: '[class*="truste"]', listed: 'all' },
+  { selector: 'body [class*="modal"]:not(nav *)', listed: 'all' },
+  {
+    selector: '[id*="country-selector"]',
+    listed: [
+      'https://www.mybeckman.in/landing/centrifuge/intellifuge',
+      'https://www.mybeckman.in/landing/centrifuge/straight-up',
+      'https://www.mybeckman.in/landing/genomics/biomek-i7-automated-cosmcprep-plasmid-preparation',
+      'https://www.mybeckman.in/landing/japan/straight-up',
+      'https://www.mybeckman.in/landing/liquidhandling/biomek-i7-pacbio-smrtbell-libary-prep',
+      'https://www.mybeckman.in/landing/ppc/part/hiac-9703',
+      'https://www.mybeckman.in/landing/ppc/part/total-organic-carbon-analyzers',
+      'https://www.mybeckman.in/landing/service/benefits-of-preventive-maintenance',
+      'https://www.mybeckman.in/landing/service/pharmspec-upgrade',
+      'https://www.mybeckman.in/landing/service/service-plan-benefits',
+      'https://www.mybeckman.in/landing/service/warranty',
+      'https://www.mybeckman.in/landing/viralvectors/adeno-associated-virus',
+      'https://www.mybeckman.in/landing/viralvectors/density-gradients-made-simple',
+      'https://www.mybeckman.in/landing/viralvectors/obtaining-high-purity-virus-with-ultracentrifugation',
+      'https://www.mybeckman.in/resources/product-applications/cell-based-therapeutics/automated-cellular-analysis/automation-assistant',
+      'https://www.mybeckman.in/resources/reading-material/application-notes/preparation-of-mouse-plasma-microsamples-for-lc-ms-ms-analysis',
+      'https://www.mybeckman.in/resources/reading-material/application-notes/qbd1200-usp-system-suitability',
+    ],
+  },
+];
+
+/**
+ * Catalog templates, start of beforeTransform (the catalog selectors were captured with the
+ * header / footer still in place): replay this page's pageCleanup selectors in order, removing
+ * an element only when the selector matches exactly one; then the catalog rules outside <main>,
+ * each only on pages not listed for it. Elements holding <main> or a block instance are kept.
+ */
+function catalogCleanup(root, template, url) {
+  const key = pageKey(url);
+  const entries = Object.entries(template.pageCleanup || {});
+  const entry = entries.find(([u]) => pageKey(u) === key);
+  (entry ? entry[1] : []).forEach((sel) => {
+    const found = safeAll(root, sel);
+    if (found.length === 1) found[0].remove();
+  });
+  const pages = entries.map(([u]) => pageKey(u));
+  const blocks = blockInstances(root, template, url);
+  CATALOG_RULES.forEach(({ selector, listed }) => {
+    const keys = listed === 'all' ? pages : listed.map(pageKey);
+    if (keys.includes(key)) return;
+    safeAll(root, selector).forEach((el) => {
+      if (!el.isConnected || el.closest('main') || el.querySelector('main')) return;
+      if (blocks.some((b) => el === b || el.contains(b))) return;
+      el.remove();
+    });
+  });
+}
+
 function text(el) {
   return (el.textContent || '').replace(/[ ​\s]+/g, '');
 }
@@ -309,6 +370,41 @@ function rewriteAnchors(root) {
       heading = label && headings.find((h) => h.textContent.trim().toLowerCase().includes(label));
     }
     if (heading) a.setAttribute('href', `#${slug(heading.textContent)}`);
+  });
+}
+
+/**
+ * Template homepage (www.mybeckman.in home, Tailwind markup):
+ * - jump links: the sticky nav.sticky > #scrollTo pill bar (a.scroll-to-nav-link: arrow icon +
+ *   label, href #<section id>) becomes div.jump-links of <p><a href="#<heading id>">label</a></p>
+ *   (section "home-jump", style anchor-tabs; the id of the section's first heading, as the
+ *   pipeline writes it); links whose target is not on the page (#events) are left out. The mobile
+ *   duplicate (div.sticky > select#scrollToMobile) goes.
+ * - the Beckman Coulter bean logo (img …/bcls-logo-bean.*.svg) inside a link becomes the project
+ *   icon notation ":bcls-bean:" (/icons/bcls-bean.svg; AEM rich text cannot hold an image, the
+ *   pipeline renders the notation as <span class="icon icon-bcls-bean">).
+ */
+function homepageChrome(root, doc, ctx) {
+  safeAll(root, 'nav.sticky:has(#scrollTo)').forEach((nav) => {
+    const out = doc.createElement('div');
+    out.className = 'jump-links';
+    safeAll(nav, '#scrollTo a[href*="#"]').forEach((a) => {
+      const target = doc.getElementById(decodeURIComponent(a.getAttribute('href').split('#')[1] || ''));
+      const heading = target ? firstHeadingNear(target) : null;
+      const label = a.textContent.replace(/\s+/g, ' ').trim();
+      if (!label || !heading) return;
+      const p = doc.createElement('p');
+      const link = doc.createElement('a');
+      link.setAttribute('href', `#${slug(heading.textContent)}`);
+      link.textContent = label;
+      p.append(link);
+      out.append(p);
+    });
+    nav.replaceWith(out);
+  });
+  safeAll(root, 'div.sticky:has(> select#scrollToMobile)').forEach((el) => drop(el, ctx));
+  safeAll(root, 'a img[src*="bcls-logo-bean"]').forEach((img) => {
+    img.replaceWith(doc.createTextNode(':bcls-bean: '));
   });
 }
 
@@ -557,6 +653,9 @@ const PAGE_RULES = {
       'metone3400itimplementationguidecover.jpg': 'MET ONE 3400+ IT Implementation Guide cover',
     },
   },
+  // TOC analyzer landing page: the "Root cause analysis support" / "21 CFR Part 11" sub-lists sit
+  // directly in the "Improved Compliance" list
+  'https://www.mybeckman.in/landing/ppc/part/total-organic-carbon-analyzers': { nestLists: true },
   // intro "Explore … Models" button kept (live models table, as on MET ONE 6000), its jump-bar
   // link dropped; loose "Learn more about our Software, HERE" line (US link) wrapped and
   // re-pointed at the India software page; dead empty-href "Brochure" dropped; Chinese gallery
@@ -862,18 +961,7 @@ function pageCleanupRules(root, doc, rules, ctx, url) {
       p.append(img);
     });
   }
-  if (rules.nestLists) {
-    safeAll(root, 'ul > ul, ul > ol, ol > ul, ol > ol').forEach((sub) => {
-      if (insideBlock(sub, ctx.blocks)) return;
-      const li = sub.previousElementSibling;
-      if (li && li.tagName === 'LI') li.append(sub);
-      else {
-        const item = doc.createElement('li');
-        sub.replaceWith(item);
-        item.append(sub);
-      }
-    });
-  }
+  if (rules.nestLists) nestSubLists(root, doc, ctx);
   (rules.headings || []).forEach((label) => {
     safeAll(root, 'p').forEach((p) => {
       if (insideBlock(p, ctx.blocks) || p.textContent.replace(/\s+/g, ' ').trim() !== label) return;
@@ -1112,6 +1200,20 @@ function productPageRules(root, doc, rules, ctx) {
   }
 }
 
+/** PAGE_RULES nestLists: a sub-list directly in a list joins the list item before it. */
+function nestSubLists(root, doc, ctx) {
+  safeAll(root, 'ul > ul, ul > ol, ol > ul, ol > ol').forEach((sub) => {
+    if (ctx && insideBlock(sub, ctx.blocks)) return;
+    const li = sub.previousElementSibling;
+    if (li && li.tagName === 'LI') li.append(sub);
+    else {
+      const item = doc.createElement('li');
+      sub.replaceWith(item);
+      item.append(sub);
+    }
+  });
+}
+
 /** Rules for pages with their own mapping (template.pages[url]); beforeTransform. */
 function perPageRules(root, doc, ctx, url) {
   const rules = PAGE_RULES[pageKey(url)] || {};
@@ -1175,17 +1277,30 @@ export default function transform(hookName, element, payload) {
   }
 
   if (hookName === H.before) {
-    // per-page-mapped pages: removals outside the page's blocks wait for afterTransform
-    const ctx = own ? {
-      defer: true,
-      blocks: ownBlockTargets(element, own),
-      keep: [...ownBlockTargets(element, own), ...ownSectionTargets(element, own)],
-    } : null;
+    // catalog templates only: the catalog's page / rule cleanup, before anything else
+    if (template && template.pageCleanup) catalogCleanup(element, template, url);
+    // per-page-mapped pages: removals outside the page's blocks wait for afterTransform.
+    // Catalog templates too: their block / section selectors were captured on the full page
+    // (positional :nth-child chains), so nothing but the catalog's own removals may change the
+    // page before the targets are found; the other removals are marked and done in afterTransform.
+    let ctx = null;
+    if (own) {
+      ctx = {
+        defer: true,
+        blocks: ownBlockTargets(element, own),
+        keep: [...ownBlockTargets(element, own), ...ownSectionTargets(element, own)],
+      };
+    } else if (template && template.pageCleanup) {
+      ctx = { defer: true, blocks: [], keep: [] };
+    }
+    homepageChrome(element, doc, ctx);
     fixMediaExtensions(element);
     fixLinks(element);
     markButtons(element, template, doc, url);
     useZoomImageUrls(element);
     if (own) perPageRules(element, doc, ctx, url);
+    // catalog-template pages (no page mapping) only take the nestLists page rule
+    else if ((PAGE_RULES[pageKey(url)] || {}).nestLists) nestSubLists(element, doc, null);
 
     // Chrome that could interfere with block matching
     const chrome = [
@@ -1264,6 +1379,17 @@ export default function transform(hookName, element, payload) {
     // Coveo placeholder kept only for section matching
     safeAll(element, '#product-table-wrapper').forEach((el) => {
       if (isEmpty(el)) el.remove();
+    });
+
+    // quotes (testimonials on landing pages): AEM's converter does not support <blockquote>, so a
+    // quote becomes its paragraphs (an empty one is dropped); the migrated pages have none
+    safeAll(element, 'blockquote').forEach((q) => {
+      if (!text(q) && !q.querySelector('img, picture')) { q.remove(); return; }
+      const hasBlocks = Array.from(q.children).some((c) => /^(P|UL|OL|H[1-6]|DIV|TABLE)$/.test(c.tagName));
+      if (hasBlocks) { q.replaceWith(...Array.from(q.childNodes)); return; }
+      const p = doc.createElement('p');
+      p.append(...Array.from(q.childNodes));
+      q.replaceWith(p);
     });
 
     splitLinkedImages(element, doc);

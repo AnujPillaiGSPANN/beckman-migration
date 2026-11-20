@@ -69,3 +69,141 @@
 .table.block.bordered:where(:not(.comparison, .specs)) table td {
   border: 1px solid;
 }
+
+/* stylelint-disable no-descending-specificity -- landing overrides are grouped by look, after the base rules they override */
+
+/* Landing product comparison (body.landing-form-rail, product shots in the header row; source:
+   bc-rich-text <table> on /landing/cell-health/vi-cell-blu-or-cedex-hires). Other default tables
+   keep the look above. */
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table {
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: 26.4px;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table thead tr,
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr {
+  border: 0;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr:not(:last-child) {
+  border-bottom: 1px dotted var(--cta-color);
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table th,
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table td {
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* product shot row: source th (no padding, img width 60%) and td (padding 5px, img width 50%,
+   followed by an empty line: <br><br>) */
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table thead th {
+  width: 7%;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table thead th:nth-child(2) {
+  padding: 0;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table thead th:nth-child(3) {
+  padding: 5px 5px 31px;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table thead img {
+  display: block;
+  width: 60%;
+  height: auto;
+  margin: 0 auto;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table thead th:nth-child(3) img {
+  width: 50%;
+}
+
+/* product names row (source: first name cell has no padding and a dotted red divider) */
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr:first-child td {
+  width: 7%;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr:first-child td:nth-child(2) {
+  padding: 0;
+  border-right: 1px dotted var(--cta-color);
+}
+
+/* attribute rows: bold label left, first product column shaded */
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr + tr td:first-child {
+  border-right: 1px solid #e3e3e3;
+  text-align: left;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr + tr td:nth-child(2) {
+  background-color: #e3e3e3;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr + tr td:nth-child(2):not(:last-child) {
+  border-right: 1px solid #e3e3e3;
+}
+
+body.landing-form-rail .table.block:where(:not(.comparison, .specs)):has(thead img) table tbody tr + tr:last-child td:first-child {
+  border-right-style: dotted;
+}
+
+/* News articles (body.news-article; source .text-grid table.mir, e.g. Microsoft RDP security
+   update): dark blue header row (white bold), black 1px cell borders, every second body row
+   light grey, 14px Arial text centred in the cells (10px 5px padding) on the article's line
+   height (1.65, 30px from 1024px). Tables with images in the first row (event photos, source table
+   with centred images and no borders) only keep the centred, unpadded cells. */
+body.news-article .table.block:where(:not(.comparison, .specs)) {
+  margin: 1em 0;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)) table {
+  font-size: 14px;
+  line-height: inherit;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)):not(:has(thead img)) table {
+  font-family: arial, sans-serif;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)) table thead tr,
+body.news-article .table.block:where(:not(.comparison, .specs)) table tbody tr {
+  border: 0;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)) table th,
+body.news-article .table.block:where(:not(.comparison, .specs)) table td {
+  padding: 10px 5px;
+  border: 1px solid #000;
+  text-align: center;
+  vertical-align: middle;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)) table thead th {
+  background-color: #004666;
+  color: #fff;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)) table tbody tr:nth-child(even) {
+  background-color: #d3d3d3;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)) table td p + p {
+  margin-top: 0;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)):has(thead img) table th,
+body.news-article .table.block:where(:not(.comparison, .specs)):has(thead img) table td {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-weight: inherit;
+}
+
+body.news-article .table.block:where(:not(.comparison, .specs)):has(thead img) img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}

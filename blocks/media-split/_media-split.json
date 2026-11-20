@@ -48,7 +48,7 @@
               "value": "wrap"
             },
             {
-              "name": "Image on the left (with Wrap)",
+              "name": "Image on the left (floated left with Wrap, else the first column)",
               "value": "left"
             }
           ]

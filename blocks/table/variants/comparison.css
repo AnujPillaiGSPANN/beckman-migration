@@ -1,7 +1,7 @@
 /* Table (comparison) – source: .model-comparison.brochure-scroll (4 x 1fr grid, shadowed model columns) */
 
 /* source bootstrap container: 15px gutters (the block sets the 720/940/1140px inner width) */
-main > .section > .table-comparison-wrapper {
+:where(body:not(.landing-form-rail)) main > .section > .table-comparison-wrapper {
   max-width: none;
   padding: 0 var(--content-gutter);
 }
@@ -237,5 +237,86 @@ main .section .table-comparison-wrapper:has(.table-comparison-2-models) + .defau
   .table-comparison-2-models .table-comparison-grid {
     width: 80%;
     margin: 0 auto;
+  }
+}
+
+/* stylelint-disable no-descending-specificity -- landing overrides are grouped by look, after the base rules they override */
+
+/* --- Landing plan tiers (body.landing-form-rail; source /landing/service/service-plan-benefits):
+   one 260px rich-text table per plan (banner image, then text between 15px spacer cells),
+   no label column, no card shadows; stacked below 900px. Other comparison tables keep the
+   look above. The wrapper keeps the section's standard content width. --- */
+body.landing-form-rail .table-comparison {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  color: var(--text-color);
+  font-size: var(--body-font-size-m);
+  line-height: 26.4px;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-grid {
+  display: flow-root;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-labels:not(:has(> .table-comparison-cell:not(:empty))) {
+  display: none;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-model {
+  display: flow-root;
+  width: 260px;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-name {
+  text-align: start;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-name p {
+  margin: 0;
+}
+
+/* source img style: 142 x 260px */
+body.landing-form-rail .table-comparison .table-comparison-name img {
+  display: block;
+  width: 260px;
+  height: 142px;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-value {
+  padding: 0 15px;
+  border-bottom: 0;
+  font-size: inherit;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-value p {
+  margin: 16px 0;
+}
+
+body.landing-form-rail .table-comparison .table-comparison-value ul {
+  margin: 0 0 10px;
+  padding-left: 17px;
+}
+
+/* source plan tables sit 254px apart (260px wide, overlapping by 6px) */
+@media (width >= 900px) {
+  body.landing-form-rail .table-comparison .table-comparison-grid {
+    display: flex;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  body.landing-form-rail .table-comparison .table-comparison-model {
+    flex: none;
+  }
+
+  body.landing-form-rail .table-comparison .table-comparison-model + .table-comparison-model {
+    margin-left: -6px;
   }
 }

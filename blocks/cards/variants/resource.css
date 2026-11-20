@@ -203,3 +203,152 @@
     flex-basis: 24%;
   }
 }
+
+/* stylelint-disable no-descending-specificity -- the option rules below are scoped by the option class
+   and never compete with the variant rules above */
+
+/* Option insights (homepage "Fresh insights") – source (Tailwind) #latest > div.grid > a.group:
+   3:2 grayscale image (8px radius; colour and 2% zoom on hover), red 14px category, 16px text
+   (red with an underline drawn in on hover). One column with 40px gaps, two from 640px, four
+   from 1024px (24px gaps). The whole card is the text's link. */
+.cards-resource.insights .cards-resource-insights {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.cards-resource.insights .cards-resource-insight {
+  position: relative;
+}
+
+.cards-resource.insights .cards-resource-insight-image {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+}
+
+.cards-resource.insights .cards-resource-insight-image :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cards-resource.insights .cards-resource-insight-image img {
+  object-fit: cover;
+  filter: saturate(0);
+  transform: translateZ(0);
+  transition: transform 0.5s ease-out, filter 0.5s ease-out;
+}
+
+.cards-resource.insights .cards-resource-insight-body p {
+  margin: 0;
+  padding-top: 8px;
+  color: #4d4d4d;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.cards-resource.insights .cards-resource-insight-body p.cards-resource-insight-category {
+  padding-top: 12px;
+  color: #d52331;
+  font-size: 14px;
+}
+
+.cards-resource.insights .cards-resource-insight-link:any-link {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(to right, currentcolor, currentcolor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.5s;
+}
+
+/* the text's link covers the whole card */
+.cards-resource.insights .cards-resource-insight-link:any-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.cards-resource.insights .cards-resource-insight:hover .cards-resource-insight-image img {
+  filter: saturate(1);
+  transform: scale(1.02);
+}
+
+.cards-resource.insights .cards-resource-insight:hover .cards-resource-insight-body p:not(.cards-resource-insight-category) {
+  color: #d52331;
+}
+
+.cards-resource.insights .cards-resource-insight:hover .cards-resource-insight-link:any-link {
+  background-size: 100% 1px;
+}
+
+/* breakpoint-exception: source sm (640px) */
+@media (width >= 640px) {
+  .cards-resource.insights .cards-resource-insights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (width >= 1024px) {
+  .cards-resource.insights .cards-resource-insights {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* insights section (source #latest: 1536px max, 16px / 32px from 1280px side padding, 40px
+   top and bottom; Inter 300 heading above the grid) */
+main > .section:has(> .cards-wrapper > .cards.resource.insights) {
+  box-sizing: border-box;
+  max-width: 1536px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+main > .section:has(> .cards-wrapper > .cards.resource.insights) > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+main > .section:has(> .cards-wrapper > .cards.resource.insights) > .default-content-wrapper > :is(h2, h3) {
+  margin: 0 0 32px;
+  color: #4d4d4d;
+  font-family: inherit;
+  font-size: 25.008px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+@media (width >= 768px) {
+  main > .section:has(> .cards-wrapper > .cards.resource.insights) > .default-content-wrapper > :is(h2, h3) {
+    font-size: 31.248px;
+    line-height: 1.3333;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section:has(> .cards-wrapper > .cards.resource.insights) > .default-content-wrapper > :is(h2, h3) {
+    margin-bottom: 56px;
+    font-size: 39.056px;
+  }
+}
+
+/* breakpoint-exception: source xl (1280px) */
+@media (width >= 1280px) {
+  main > .section:has(> .cards-wrapper > .cards.resource.insights) {
+    padding-right: 32px;
+    padding-left: 32px;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

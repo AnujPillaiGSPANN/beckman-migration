@@ -84,3 +84,258 @@
     padding: 0 10px;
   }
 }
+
+/* stylelint-disable no-descending-specificity -- the option rules below are scoped by the option class
+   and never compete with the variant rules above */
+
+/* Option side (homepage "Service & technical support") – source (Tailwind) #service: the
+   section's intro (default content: red eyebrow, Inter 300 H2, grey lead text, red "Service ->"
+   link) beside a 2-column grid of white bordered service cards (red 24px icon, title, grey
+   text, light "->"; lift and shadow on hover). Below 768px the cards show icon + centred title
+   only; below 1024px the intro sits above the cards. Tailwind breakpoints 768/1024/1280. */
+main > .section:has(> .cards-wrapper > .cards.icons.side) {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
+  padding: 64px max(16px, calc((100% - 1536px) / 2 + 16px));
+  font-family: Inter, system-ui, sans-serif;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > div {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > * {
+  margin: 0;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > p:has(+ :is(h2, h3)) {
+  margin-bottom: 16px;
+  color: #d52331;
+  font-size: 12.8px;
+  line-height: 1.333;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > :is(h2, h3) {
+  margin-bottom: 16px;
+  color: #3e3e3e;
+  font-family: inherit;
+  font-size: 25.008px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > :is(h2, h3) ~ p:not(.button-container) {
+  padding-bottom: 16px;
+  color: #807f7f;
+  font-size: 16px;
+  line-height: 1.625;
+}
+
+/* source: an inline link in the intro's 24px line */
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > p.button-container {
+  display: block;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper a:any-link {
+  color: #d52331;
+  font-size: inherit;
+  text-decoration: none;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > p.button-container a:any-link::after {
+  content: "->";
+  display: inline-block;
+  margin-left: 0.28em;
+  transition: transform 0.3s ease-out;
+}
+
+main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > p.button-container a:any-link:hover::after {
+  transform: translateX(4px);
+}
+
+.cards-icon.side .cards-icon-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding-top: 16px;
+}
+
+.cards-icon.side .cards-icon-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  float: none;
+  width: auto;
+  margin: 0;
+  border: 1px solid rgb(224 224 224 / 50%);
+  border-radius: 8px;
+  padding: 24px;
+  background-color: #fff;
+  color: #4d4d4d;
+  text-align: left;
+  transition: all 0.3s ease-out;
+  will-change: transform;
+}
+
+.cards-icon.side .cards-icon-card:hover {
+  box-shadow: 0 4px 8px 0 rgb(2 0 0 / 8%);
+  transform: translateY(-2px);
+}
+
+.cards-icon.side .cards-icon-card-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.cards-icon.side .cards-icon-card-image :is(.icon, picture, img) {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.cards-icon.side .cards-icon-card-body p {
+  margin: 0;
+  color: #7a7979;
+  font-size: 14px;
+  line-height: 1.625;
+}
+
+.cards-icon.side .cards-icon-card-body p:not(.cards-icon-card-title) {
+  display: none;
+}
+
+.cards-icon.side .cards-icon-card-body .cards-icon-card-title {
+  margin: 0;
+  color: #4d4d4d;
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.cards-icon.side .cards-icon-card-title :is(strong, b) {
+  font-weight: 400;
+}
+
+.cards-icon.side .cards-icon-card-title a:any-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* the title link covers the card */
+.cards-icon.side .cards-icon-card-linked .cards-icon-card-title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* source arrow div (md:block): light "->", red and moved right on hover */
+.cards-icon.side .cards-icon-card::after {
+  content: "->";
+  display: none;
+  margin-top: auto;
+  padding-top: 16px;
+  color: #e0e0e0;
+  font-size: 25.008px;
+  font-weight: 300;
+  line-height: 1.2;
+  text-align: right;
+  transition: all 0.3s ease-out;
+}
+
+.cards-icon.side .cards-icon-card:hover::after {
+  color: #d52331;
+  transform: translateX(8px);
+}
+
+@media (width >= 768px) {
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > p:has(+ :is(h2, h3)) {
+    font-size: 12.8px;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > :is(h2, h3) {
+    font-size: 31.248px;
+    line-height: 1.3333;
+  }
+
+  .cards-icon.side .cards-icon-card-image {
+    justify-content: flex-start;
+  }
+
+  .cards-icon.side .cards-icon-card-body .cards-icon-card-title {
+    margin-bottom: 8px;
+    font-size: 20px;
+    text-align: left;
+  }
+
+  .cards-icon.side .cards-icon-card-body p:not(.cards-icon-card-title) {
+    display: block;
+  }
+
+  .cards-icon.side .cards-icon-card::after {
+    display: block;
+  }
+}
+
+@media (width >= 1024px) {
+  main > .section:has(> .cards-wrapper > .cards.icons.side) {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 64px;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper {
+    flex: 0 1 41.6667%;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .cards-wrapper {
+    flex: 0 1 58.3333%;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > p:has(+ :is(h2, h3)) {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > :is(h2, h3) {
+    margin-bottom: 48px;
+    font-size: 39.056px;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > :is(h2, h3) ~ p:not(.button-container) {
+    padding-bottom: 24px;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > p.button-container {
+    font-size: 16px;
+  }
+
+  .cards-icon.side .cards-icon-list {
+    gap: 24px;
+    padding-top: 0;
+  }
+}
+
+/* breakpoint-exception: source xl (1280px) */
+@media (width >= 1280px) {
+  main > .section:has(> .cards-wrapper > .cards.icons.side) {
+    gap: 96px;
+    padding-top: 128px;
+    padding-bottom: 128px;
+  }
+
+  main > .section:has(> .cards-wrapper > .cards.icons.side) > .default-content-wrapper > :is(h2, h3) ~ p:not(.button-container) {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */

@@ -179,3 +179,131 @@
     display: none;
   }
 }
+
+/* Option boxed (homepage "Our company") – source (Tailwind) #about: full-width grayscale photo
+   (absolute, cover) behind a centred white box (95% opaque, 12px radius, red left edge; 11/12
+   wide, 3/4 from 768px, 7/12 of max 1280px from 1280px) holding a red eyebrow, an Inter 300 H2,
+   grey text and a red pill CTA with an arrow. Tailwind breakpoints 768/1024/1280. */
+main > .section > .hero-promo-wrapper:has(> .hero-promo.boxed) {
+  max-width: none;
+  padding: 0;
+}
+
+.hero-promo.boxed {
+  display: block;
+  margin: 0;
+  background: linear-gradient(to left bottom, #cbcbcb, #f4f4f4);
+  color: #4d4d4d;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+.hero-promo.boxed .hero-promo-top {
+  position: static;
+  padding: 64px 0;
+}
+
+.hero-promo.boxed .hero-promo-background img {
+  object-position: center;
+  filter: saturate(0);
+}
+
+.hero-promo.boxed .hero-promo-content {
+  z-index: 1;
+  box-sizing: border-box;
+  width: 91.6667%;
+  max-width: 1280px;
+  margin: 0 auto;
+  border-left: 4px solid #d52331;
+  border-radius: 12px;
+  padding: 24px;
+  background-color: rgb(255 255 255 / 95%);
+}
+
+.hero-promo.boxed .hero-promo-content .hero-promo-eyebrow {
+  margin: 0 0 24px;
+  color: #d52331;
+  font-size: 12.8px;
+  line-height: 1.333;
+}
+
+.hero-promo.boxed .hero-promo-content :is(h1, h2, h3) {
+  margin: 0 0 16px;
+  color: #3e3e3e;
+  font-family: inherit;
+  font-size: 31.248px;
+  font-weight: 300;
+  line-height: 1.3333;
+}
+
+.hero-promo.boxed .hero-promo-content p {
+  margin: 0 0 32px;
+  color: #7a7979;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.hero-promo.boxed .hero-promo-content p.button-container {
+  margin: 0;
+}
+
+.hero-promo.boxed .hero-promo-content a.button:any-link {
+  display: inline-block;
+  max-width: 100%;
+  border: 0;
+  border-radius: 9999px;
+  padding: 12px 20px;
+  background-color: #d52331;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: left;
+  white-space: normal;
+  transition: background-color 0.3s ease-out;
+}
+
+.hero-promo.boxed .hero-promo-content a.button:any-link::after {
+  content: "->";
+  display: inline-block;
+  margin-left: 0.25em;
+  transition: transform 0.3s ease-out;
+}
+
+.hero-promo.boxed .hero-promo-content a.button:any-link:hover,
+.hero-promo.boxed .hero-promo-content a.button:any-link:focus-visible {
+  background-color: #bb1623;
+  color: #fff;
+}
+
+.hero-promo.boxed .hero-promo-content a.button:any-link:hover::after {
+  transform: translateX(4px);
+}
+
+@media (width >= 768px) {
+  .hero-promo.boxed .hero-promo-content {
+    width: 75%;
+  }
+
+  .hero-promo.boxed .hero-promo-content :is(h1, h2, h3) {
+    font-size: 39.056px;
+  }
+}
+
+@media (width >= 1024px) {
+  .hero-promo.boxed .hero-promo-top {
+    padding: 128px 0;
+  }
+
+  .hero-promo.boxed .hero-promo-content {
+    border-left-width: 8px;
+    padding: 64px;
+  }
+}
+
+/* breakpoint-exception: source xl (1280px): 7/12 of the 1280px screen-xl column */
+@media (width >= 1280px) {
+  .hero-promo.boxed .hero-promo-content {
+    width: calc(min(100vw, 1280px) * 7 / 12);
+  }
+}

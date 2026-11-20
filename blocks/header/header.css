@@ -1014,3 +1014,28 @@ header .nav-utility > li.nav-util-language-and-location .nav-drop-body a.button 
     right: 6px;
   }
 }
+
+/* logo-only header (page metadata "header: minimal", the source's campaign / landing pages):
+   65px white bar, 12px 50px padding (10px below 640px), 1px #ddd bottom line, 164 x 40 logo */
+html:has(meta[name='header'][content='minimal' i]) body {
+  --header-height: 65px;
+}
+
+header .nav-wrapper-minimal nav {
+  box-sizing: border-box;
+  height: 65px;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--nav-border);
+}
+
+header .nav-wrapper-minimal .nav-brand img {
+  display: block;
+  width: 164px;
+  height: 40px;
+}
+
+@media (width >= 640px) {
+  header .nav-wrapper-minimal nav {
+    padding: 12px 50px;
+  }
+}

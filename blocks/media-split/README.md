@@ -20,7 +20,13 @@ Options (block `classes`, single words, combinable):
   400px screenshot floated right (max 100% of the column), 10px gutter, 2px #efefef image border,
   no bootstrap container, no check-circle list markers. Like the source float, text after the block
   keeps wrapping beside the image. Source: MET ONE 3400+ IT Implementation Guide whitepaper.
+  Landing pages (body.landing-form-rail: HIAC 9703+, TOC analyzers, AQUIOS CL; source
+  `.bc-rich-text` h3 / p holding an `<img style="float: …">`): the image keeps its own width (at
+  most 400px), no border or margin (a left image has 15px on its right).
 - `left` (with `wrap`) – "Media Split (wrap, left)": the screenshot floats left.
+- `left` (without `wrap`) – "Media Split (left)": the image column is shown before the text
+  column (source rows whose image column comes first: FAQ answers, Biomek i7 app-note landing
+  pages). The text stays in the first cell; only the display order changes.
 
 The image side is an option, not the cell order: xwalk maps cells to model fields by position,
 so the text cell always comes first.

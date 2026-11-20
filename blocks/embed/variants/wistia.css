@@ -128,3 +128,21 @@ main:has(> .section.anchor-contents) .embed-wistia {
     width: calc(50% - 20px);
   }
 }
+
+/* FAQ answers (body.faq-article): the source video sits in the answer column
+   (.wistia_responsive_padding: full column width, 56.25% top padding); side by side (from 992px)
+   it lines up with the answer text, right of the 1/3 image column */
+/* stylelint-disable-next-line no-descending-specificity -- template rule, grouped with its page */
+body.faq-article .embed-wistia {
+  width: auto;
+  margin: 0;
+  aspect-ratio: 16 / 9;
+}
+
+/* breakpoint-exception: source .col-md-4 / .col-md-8 float side by side from exactly 992px */
+@media (width >= 992px) {
+  body.faq-article main .media-split-wrapper ~ .embed-wrapper > .embed-wistia {
+    width: auto;
+    margin-left: calc((100% + 20px) / 3);
+  }
+}

@@ -9,12 +9,12 @@ One **Embed** block with variants. The variant is the first block option (UE: *V
 | Authoring | Variant file | Old block | Item component | Extra options |
 | --- | --- | --- | --- | --- |
 | `Embed` | variants/default.js | embed | – | `narrow`, `left` |
-| `Embed (marketo)` | variants/marketo.js | embed-marketo | – | – |
+| `Embed (marketo)` | variants/marketo.js | embed-marketo | – | `boxed`, `titled` |
 | `Embed (wistia)` | variants/wistia.js | embed-wistia | – | `narrow` |
 
 ## Universal Editor fields
 
-Block model `embed` (rows in this order; a variant leaves the other variants' fields empty): `classes` (select: Default / `marketo` / `wistia`), `classes_options` (multiselect: `narrow`, `left`), `embed_placeholder` + `embed_placeholderAlt` + `embed_uri` (Default, Wistia; one cell), `formId` (Marketo). The Marketo base URL and Munchkin ID are not authored: always the Beckman instance (https://pages.beckman.com, 682-XWP-826), set in variants/marketo.js. Four cells at most (xwalk/max-cells).
+Block model `embed` (rows in this order; a variant leaves the other variants' fields empty): `classes` (select: Default / `marketo` / `wistia`), `classes_options` (multiselect: `narrow`, `left`, `boxed`, `titled` (Marketo)), `embed_placeholder` + `embed_placeholderAlt` + `embed_uri` (Default, Wistia; one cell), `formId` (Marketo). The Marketo base URL and Munchkin ID are not authored: always the Beckman instance (https://pages.beckman.com, 682-XWP-826), set in variants/marketo.js. Four cells at most (xwalk/max-cells).
 
 ## Embed (default)
 
@@ -34,7 +34,8 @@ Rows: block field `formId` (e.g. 3101), after the (empty) `embed_*` row. The blo
 
 ### Supported variations
 
-No variations.
+- `boxed` (WKSC discount landing pages): the form sits in a #f0f0f0 box; the last H2 of the default content right before the block and the paragraphs after it (e.g. "Claim Your Discount Today" + "Fill out this secret form…") join the box, centred, as its heading. Author as `Embed (marketo, boxed)` after the heading and text.
+- `titled` (landing pages, form in a sidebar section): the source titles the form inside its grey panel (h3.formassembly-title, e.g. Straight Up); the H3 right before the block is drawn as the top of that panel. Without the option a rail heading (source .bc-rich-text above .formassembly-container, e.g. HIAC 9703+) stays above the panel. Author as `Embed (marketo, titled)` after the heading.
 
 ### Universal Editor fields
 

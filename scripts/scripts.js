@@ -243,6 +243,36 @@ export function unlinkTextUrls(main) {
 }
 
 /**
+ * Icon notation in text (":user-plus:", e.g. a rich text field): the delivery pipeline renders it
+ * as <span class="icon icon-user-plus">; content served without the pipeline (local preview of
+ * imported pages) still holds the text. Same rule as the pipeline: a :name: token that is not part
+ * of a URL. decorateIcons then loads /icons/<name>.svg.
+ * @param {Element} main The main element
+ */
+export function decorateTextIcons(main) {
+  const token = /(?<!(?:https?|urn)[^\s]*):(#?[a-z_-]+[a-z\d]*):/gi;
+  const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) {
+    token.lastIndex = 0;
+    if (token.test(walker.currentNode.nodeValue)) nodes.push(walker.currentNode);
+  }
+  nodes.forEach((node) => {
+    const parts = node.nodeValue.split(token);
+    const frag = document.createDocumentFragment();
+    // split() with one capture group: text, icon name, text, icon name, ..., text
+    parts.forEach((part, i) => {
+      if (i % 2) {
+        const span = document.createElement('span');
+        span.className = `icon icon-${part.toLowerCase()}`;
+        frag.append(span);
+      } else if (part) frag.append(document.createTextNode(part));
+    });
+    node.replaceWith(frag);
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -254,6 +284,7 @@ export function decorateMain(main) {
   wrapInlineCells(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
+  decorateTextIcons(main);
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);

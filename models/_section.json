@@ -55,6 +55,10 @@
               "value": "quarter"
             },
             {
+              "name": "Sidebar: on the left (beside the section after it; with Sidebar)",
+              "value": "left"
+            },
+            {
               "name": "Jump links: button bar",
               "value": "anchor-nav"
             },

@@ -11,15 +11,15 @@ One **Cards** block with variants. The variant is the first block option (UE: *V
 | `Cards` | variants/default.js | cards | `card` | – |
 | `Cards (product)` | variants/product.js | cards-product | `cards-product-card` | – |
 | `Cards (faq)` | variants/faq.js | cards-faq | `cards-faq-card` | – |
-| `Cards (icons)` | variants/icons.js | cards-icon | `cards-icon-card` | `compact` |
-| `Cards (resource)` | variants/resource.js | cards-resource | `cards-resource-card` | – |
+| `Cards (icons)` | variants/icons.js | cards-icon | `cards-icon-card` | `compact`, `side` |
+| `Cards (resource)` | variants/resource.js | cards-resource | `cards-resource-card` | `insights` |
 | `Cards (scroll)` | variants/scroll.js | cards-scroll | `cards-scroll-card` | `cover` |
 | `Cards (doclist)` | variants/doclist.js | cards-doclist | `cards-doclist-item` | – |
 | `Cards (downloads)` | variants/downloads.js | cards-downloads | `cards-downloads-item` | – |
 | `Cards (gradient)` | variants/gradient.js | cards-gradient | `cards-gradient-item` | – |
 | `Cards (steps)` | variants/steps.js | cards-steps | `cards-steps-item` | `exchange` |
 | `Cards (workflow)` | variants/workflow.js | cards-workflow | `cards-workflow-item` | `unnumbered` |
-| `Cards (tiles)` | variants/tiles.js | cards-tiles | `cards-tiles-card` | `panels` |
+| `Cards (tiles)` | variants/tiles.js | cards-tiles | `cards-tiles-card` | `panels`, `side` |
 
 ## Cards (default)
 
@@ -60,6 +60,7 @@ Rows: one row per tile: (1) icon image; (2) bold title paragraph + description.
 Options:
 
 - `compact` (Density Gradient Media "Applications"): 100px icons at their own aspect ratio, title weight 500, 13px / 1.1 descriptions. Author as `Cards (icons, compact)`.
+- `side` (homepage "Service & technical support"): the section's default content (red eyebrow paragraph, H2, lead text, a link shown as "Service ->") sits left of the cards (5/12 : 7/12 from 1024px, above them below). Linked white service cards, two per row: red 24px icon, title, grey text, light "->"; lift on hover; below 768px icon + centred title only. Rows: (1) image cell (optional, empty on the homepage); (2) rich text: an icon paragraph in icon notation (`:user-plus:`, `:wrench-screwdriver:`, `:rocket-launch:`, `:cursor-arrow-ripple:` -> `/icons/<name>.svg`), the title as a bold link (the link covers the card), the description. Author as `Cards (icons, side)`.
 
 Use for benefit/feature icon rows. For tiles that expand use accordion-icon-grid.
 
@@ -70,6 +71,10 @@ Authoring: `Cards (resource)` (formerly block `cards-resource`). Item component:
 Purpose: Wrapping 4/2/1 grid of document cards: bold title above a bordered cover thumbnail, red outline "Read" button.
 
 Rows: one row per card: (1) cover image (optionally linked); (2) bold title paragraph + "Read" link.
+
+Options:
+
+- `insights` (homepage "Fresh insights"): image on top (3:2, 8px radius, grayscale; colour and 2% zoom on hover), a red 14px category paragraph and the card text, which holds the card's link (it covers the card; line breaks kept). 1 / 2 / 4 columns (640px, 1024px), 40px / 24px gaps; the section (1536px max) sets its heading in Inter 300. Rows: (1) image; (2) category paragraph + linked text paragraph. Author as `Cards (resource, insights)`.
 
 Use for application notes / resource listings. For a horizontal strip use Cards (scroll).
 
@@ -156,6 +161,7 @@ Rows: one row per tile (item cards-tiles-card): (1) image (`image`/`imageAlt`); 
 ### Supported variations
 
 - `panels`: Related Content grid: four tiles across from 768px (wrapping, 1% / 30px gaps, 1020px max), one per row below; grayscale photos cropped to the row height, bold 14px black titles, square #c2c4c4 borders.
+- `side` (homepage "Popular topics"): the section's default content (H2 + red subline) sits left of the tiles (3/12 : 9/12 from 1024px, above them below). White shadowed tiles without images: title (the link) and a light "->" (side by side below 768px, three per row from 768px with the arrow below); red gradient and white text on hover. Rows: (1) image cell (empty); (2) `<p><a>title</a></p>`. Author as `Cards (tiles, side)`.
 
 ### Universal Editor fields
 

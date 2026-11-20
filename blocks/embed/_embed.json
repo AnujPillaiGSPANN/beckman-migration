@@ -55,6 +55,14 @@
             {
               "name": "Left-aligned (Default)",
               "value": "left"
+            },
+            {
+              "name": "Boxed (Marketo: grey box, the heading and text just before the form join it)",
+              "value": "boxed"
+            },
+            {
+              "name": "Titled (Marketo in a sidebar: the heading just before the form is drawn in its grey panel)",
+              "value": "titled"
             }
           ]
         },

@@ -10,7 +10,9 @@
   ],
   "extraOptions": {
     "narrow": "(default), wistia",
-    "left": "(default)"
+    "left": "(default)",
+    "boxed": "marketo",
+    "titled": "marketo"
   },
   "variants": [
     {
@@ -38,7 +40,16 @@
         "summary": "Marketo form 3101: First/Last Name, Email, Phone, Company, Country (select), Postal Code, City, Comments, email/phone consent radios, privacy text, reCAPTCHA, Submit",
         "structure": "rows: (1) empty (embed_* group of the other variants); (2) form ID (`formId`, e.g. 3101). Base URL https://pages.beckman.com and Munchkin ID 682-XWP-826 are fixed in the block code"
       },
-      "options": [],
+      "options": [
+        {
+          "class": "boxed",
+          "label": "Boxed (grey box joined by the heading and text before the form)"
+        },
+        {
+          "class": "titled",
+          "label": "Titled (sidebar form: the heading before the form sits in its grey panel)"
+        }
+      ],
       "memberVariantIds": [
         "embed-marketo"
       ],
@@ -60,7 +71,7 @@
         "lastUsed": "2026-11-12"
       },
       "reuseGuidance": "Use for any Marketo contact / lead form. Base URL and Munchkin ID default to the Beckman instance.",
-      "usageDescription": "Marketo-hosted form (forms2) rendered from the Beckman Marketo instance, red Submit button, single column on mobile."
+      "usageDescription": "Marketo-hosted form (forms2) rendered from the Beckman Marketo instance, red Submit button, single column on mobile. Option boxed (WKSC discount pages): the form in a #f0f0f0 box; the last H2 of the default content just before the block and the text after it join the box (centred). Author as `Embed (marketo, boxed)`. Option titled (landing-page rail forms whose source title is inside the form panel, h3.formassembly-title): the H3 right before the block is drawn as the top of the grey panel; without it the rail heading stays above the panel. Author as `Embed (marketo, titled)`."
     },
     {
       "option": "wistia",

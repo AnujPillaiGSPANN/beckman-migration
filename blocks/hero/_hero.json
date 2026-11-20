@@ -62,6 +62,23 @@
           ]
         },
         {
+          "component": "multiselect",
+          "name": "classes_options",
+          "value": "",
+          "label": "Options",
+          "valueType": "string",
+          "options": [
+            {
+              "name": "Curved panel (Banner: photo on the left, title + text in a red curved panel on the right)",
+              "value": "curved"
+            },
+            {
+              "name": "Boxed (Promo: full-width grey photo, text and CTA in a white box with a red edge)",
+              "value": "boxed"
+            }
+          ]
+        },
+        {
           "component": "reference",
           "valueType": "string",
           "name": "image",

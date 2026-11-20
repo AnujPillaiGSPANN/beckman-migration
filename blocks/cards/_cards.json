@@ -303,6 +303,14 @@
             {
               "name": "Panels (Tiles: 4-column wrapping grid, grayscale photos, bold titles)",
               "value": "panels"
+            },
+            {
+              "name": "Insights (Resource: image on top, red category, linked text; whole card clickable)",
+              "value": "insights"
+            },
+            {
+              "name": "Side intro (Tiles / Icons: the section's heading and text sit left of the cards)",
+              "value": "side"
             }
           ]
         }
